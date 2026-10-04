@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Landing Pages | Negocios de El Viejo y Chinandega</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0B1120;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --c-rs: #784F33;
+      --c-rs-glow: rgba(120, 79, 51, 0.45);
+      --c-chungo: #597241;
+      --c-chungo-glow: rgba(89, 114, 65, 0.45);
+      --c-vet: #0EA5E9;
+      --c-vet-glow: rgba(14, 165, 233, 0.45);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 10% 20%, rgba(120, 79, 51, 0.18) 0px, transparent 50%),
+        radial-gradient(at 90% 20%, rgba(89, 114, 65, 0.18) 0px, transparent 50%),
+        radial-gradient(at 50% 85%, rgba(14, 165, 233, 0.18) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: #F8FAFC;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Animated Orbs */
+    .bg-ambient-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.25;
+      animation: floatOrb 14s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 350px; height: 350px; background: #784F33; top: 5%; left: 5%; animation-duration: 18s; }
+    .orb-2 { width: 300px; height: 300px; background: #597241; top: 15%; right: 5%; animation-duration: 15s; }
+    .orb-3 { width: 380px; height: 380px; background: #0EA5E9; bottom: 5%; left: 35%; animation-duration: 20s; }
+
+    @keyframes floatOrb {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-40px) scale(1.1); }
+    }
+
+    .container-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Entrada escalonada con animación */
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .stagger-1 { animation-delay: 0.1s; }
+    .stagger-2 { animation-delay: 0.25s; }
+    .stagger-3 { animation-delay: 0.4s; }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Pulsación en vivo */
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #10B981;
+      display: inline-block;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulseGreen 1.8s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Tarjetas con Glassmorphism y Elevación 3D */
+    .portal-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portal-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+      transition: left 0.7s ease;
+    }
+
+    .portal-card:hover::before {
+      left: 100%;
+    }
+
+    .card-const:hover {
+      transform: translateY(-8px);
+      border-color: var(--c-rs);
+      box-shadow: 0 18px 36px var(--c-rs-glow);
+    }
+
+    .card-taller:hover {
+      transform: translateY(-8px);
+      border-color: #8BA870;
+      box-shadow: 0 18px 36px var(--c-chungo-glow);
+    }
+
+    .card-vet:hover {
+      transform: translateY(-8px);
+      border-color: #38BDF8;
+      box-shadow: 0 18px 36px var(--c-vet-glow);
+    }
+
+    /* Contenedor de Logo con flotación suave */
+    .logo-container-card {
+      border-radius: 14px;
+      transition: transform 0.35s ease;
+    }
+
+    .portal-card:hover .logo-container-card img {
+      transform: scale(1.05);
+    }
+
+    .logo-container-card img {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .color-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    /* Botones Interactivos */
+    .btn-portal {
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 0.65rem 1rem;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-portal:hover i {
+      transform: translateX(4px);
+    }
+
+    .btn-portal i {
+      transition: transform 0.25s ease;
+    }
+
+    .btn-const { background-color: #784F33; color: #FFFFFF; border: none; }
+    .btn-const:hover { background-color: #925F3C; color: #FFFFFF; }
+
+    .btn-tal { background-color: #597241; color: #FFFFFF; border: none; }
+    .btn-tal:hover { background-color: #6C8B4F; color: #FFFFFF; }
+
+    .btn-v { background-color: #0EA5E9; color: #FFFFFF; border: none; }
+    .btn-v:hover { background-color: #38BDF8; color: #FFFFFF; }
+  </style>
+</head>
+<body class="py-5">
+
+  <div class="bg-ambient-orb orb-1"></div>
+  <div class="bg-ambient-orb orb-2"></div>
+  <div class="bg-ambient-orb orb-3"></div>
+
+  <div class="container my-auto container-content">
+    <div class="text-center mb-5 animate-fade-in-up">
+      <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-dark border border-secondary mb-3 small fw-bold text-white shadow-sm">
+        <span class="live-dot me-1"></span>
+        <i class="bi bi-geo-alt-fill text-warning"></i> EL VIEJO Y CHINANDEGA, NICARAGUA
+      </div>
+      <h1 class="display-5 fw-bold mb-2">Portal de Negocios Locales</h1>
+      <p class="text-secondary max-w-700 mx-auto lead fs-6">
+        Landing pages profesionales para negocios de El Viejo y Chinandega con <strong>Bootstrap 5</strong>: mapas interactivos de ubicación, <strong>carruseles de panfletos y jornadas</strong>, envío directo de citas a WhatsApp y diseño responsive.
+      </p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      <!-- 1. Construcciones R&S -->
+      <div class="col-lg-4 col-md-6 animate-fade-in-up stagger-1">
+        <div class="card h-100 p-4 portal-card card-const">
+          <div class="p-2 mb-3 bg-white logo-container-card d-flex align-items-center justify-content-center border" style="height: 120px;">
+            <img src="CONSTRUCTORA RS/logo.jpg" onerror="this.src='CONSTRUCTORA RS/logo.svg'" alt="Logo Oficial Construcciones R&amp;S" style="max-height: 100px; max-width: 100%; object-fit: contain;">
+          </div>
+          <h4 class="fw-bold text-white mb-1">Construcciones R&amp;S</h4>
+          <small class="text-secondary d-block mb-3"><i class="bi bi-person text-warning"></i> Pastor Roberto Serrano &bull; El Viejo</small>
+          <p class="small text-secondary mb-3">
+            Construcción de casas sencillas hasta residencias complejas de 2 pisos, soldadura, electricidad, fontanería y remodelación de interiores. Incluye Misión, Visión y Valores.
+          </p>
+
+          <div class="p-3 rounded-3 bg-dark border border-secondary mb-4 small">
+            <span class="d-block text-secondary text-uppercase fw-bold mb-2">Paleta: Azul Marino y Oro Construcción</span>
+            <div class="d-flex align-items-center gap-2">
+              <span class="color-dot" style="background:#10356E;"></span>
+              <span class="color-dot" style="background:#E68A00;"></span>
+              <span class="color-dot" style="background:#FAF7F2;"></span>
+              <span class="text-white-50 ms-1">Azul Marino + Oro + Arena</span>
+            </div>
+          </div>
+
+          <a href="CONSTRUCTORA%20RS/index.html" class="btn btn-portal btn-const w-100 mt-auto">
+            <span>Visitar Construcciones R&amp;S</span>
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. Taller Don Chungo -->
+      <div class="col-lg-4 col-md-6 animate-fade-in-up stagger-2">
+        <div class="card h-100 p-4 portal-card card-taller">
+          <div class="p-2 mb-3 rounded-3 logo-container-card d-flex align-items-center justify-content-center border border-secondary" style="height: 120px; background-color: #14171A;">
+            <img src="TALLER%20DON%20CHUNGO/logo.jpg" onerror="this.src='TALLER%20DON%20CHUNGO/logo.svg'" alt="Logo Oficial Taller Don Chungo" style="max-height: 100px; max-width: 100%; object-fit: contain;">
+          </div>
+          <h4 class="fw-bold text-white mb-1">Taller Don Chungo</h4>
+          <small class="text-secondary d-block mb-3"><i class="bi bi-person text-success"></i> Edwin Oviedo &bull; Taller de Motocicletas</small>
+          <p class="small text-secondary mb-3">
+            Taller especializado en motocicletas con más de 20 años de trayectoria. Afinación, overhaul de motor, frenos y mantenimiento integral en El Viejo.
+          </p>
+
+          <div class="p-3 rounded-3 bg-dark border border-secondary mb-4 small">
+            <span class="d-block text-secondary text-uppercase fw-bold mb-2">Paleta: Verde Olivo mate, Gris y Blanco</span>
+            <div class="d-flex align-items-center gap-2">
+              <span class="color-dot" style="background:#597241;"></span>
+              <span class="color-dot" style="background:#22262A;"></span>
+              <span class="color-dot" style="background:#FFFFFF;"></span>
+              <span class="text-white-50 ms-1">Verde Olivo + Gris + Blanco</span>
+            </div>
+          </div>
+
+          <a href="TALLER%20DON%20CHUNGO/index.html" class="btn btn-portal btn-tal w-100 mt-auto">
+            <span>Visitar Taller Don Chungo</span>
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3. Veterinaria La Virgen -->
+      <div class="col-lg-4 col-md-6 animate-fade-in-up stagger-3">
+        <div class="card h-100 p-4 portal-card card-vet">
+          <div class="p-2 mb-3 bg-white logo-container-card d-flex align-items-center justify-content-center border" style="height: 120px;">
+            <img src="VETERINARIA%20LA%20VIRGEN/logo.jpg" onerror="this.src='VETERINARIA%20LA%20VIRGEN/logo.svg'" alt="Logo Oficial Veterinaria La Virgen" style="max-height: 100px; max-width: 100%; object-fit: contain;">
+          </div>
+          <h4 class="fw-bold text-white mb-1">Veterinaria La Virgen</h4>
+          <small class="text-secondary d-block mb-3"><i class="bi bi-person text-info"></i> Dr. Junior Elián Villalobos &bull; El Viejo</small>
+          <p class="small text-secondary mb-3">
+            Ubicada del portón de la Virgen del Hato carretera Potosí 200m norte (12.798347, -87.402766). Consultas clínicas, visitas a domicilio, cirugías, aplicación y venta de medicamentos.
+          </p>
+
+          <div class="p-3 rounded-3 bg-dark border border-secondary mb-4 small">
+            <span class="d-block text-secondary text-uppercase fw-bold mb-2">Paleta: Base Blanco, Celeste, Verde y Café</span>
+            <div class="d-flex align-items-center gap-2">
+              <span class="color-dot" style="background:#FFFFFF;"></span>
+              <span class="color-dot" style="background:#0EA5E9;"></span>
+              <span class="color-dot" style="background:#10B981;"></span>
+              <span class="color-dot" style="background:#7B4B27;"></span>
+              <span class="text-white-50 ms-1">Blanco + Celeste + Verde + Café</span>
+            </div>
+          </div>
+
+          <a href="VETERINARIA%20LA%20VIRGEN/index.html" class="btn btn-portal btn-v w-100 mt-auto">
+            <span>Visitar Veterinaria La Virgen</span>
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center mt-5 text-secondary small animate-fade-in-up" style="animation-delay: 0.5s;">
+      El Viejo y Chinandega &bull; Diseñadas con Bootstrap 5 &bull; Sin emojis &bull; 2026
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

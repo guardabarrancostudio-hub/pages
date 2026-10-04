@@ -1,0 +1,438 @@
+/* ==========================================================================
+   VETERINARIA LA VIRGEN - ESTILOS BOOTSTRAP 5
+   Colores: Base Blanco, Celeste, Verde y Café
+   Ubicación: Del portón de la Virgen del Hato carretera Potosí 200m norte, El Viejo
+   ========================================================================== */
+
+:root {
+  --c-white: #FFFFFF;
+  --c-celeste-primary: #0EA5E9;
+  --c-celeste-dark: #0284C7;
+  --c-celeste-light: #E0F2FE;
+  --c-celeste-tint: #F0F9FF;
+
+  --c-verde-primary: #10B981;
+  --c-verde-dark: #059669;
+  --c-verde-light: #D1FAE5;
+  --c-verde-tint: #ECFDF5;
+
+  --c-cafe-vet: #7B4B27;
+  --c-cafe-dark: #5C3518;
+  --c-cafe-light: #F7EFE9;
+
+  --c-gray-border: #E2E8F0;
+  --c-gray-dark: #1E293B;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--c-white);
+  color: var(--c-gray-dark);
+  line-height: 1.6;
+}
+
+/* Clases de Color */
+.text-celeste-dark {
+  color: var(--c-celeste-dark) !important;
+}
+
+.text-verde-dark {
+  color: var(--c-verde-dark) !important;
+}
+
+.text-cafe-vet {
+  color: var(--c-cafe-vet) !important;
+}
+
+.bg-celeste-tint {
+  background-color: var(--c-celeste-tint) !important;
+}
+
+.bg-celeste-light {
+  background-color: var(--c-celeste-light) !important;
+}
+
+.bg-verde-light {
+  background-color: var(--c-verde-light) !important;
+}
+
+.bg-cafe-light {
+  background-color: var(--c-cafe-light) !important;
+}
+
+.bg-verde {
+  background-color: var(--c-verde-primary) !important;
+}
+
+/* Botones */
+.btn-celeste {
+  background-color: var(--c-celeste-primary);
+  border-color: var(--c-celeste-primary);
+  color: #FFFFFF;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-celeste:hover {
+  background-color: var(--c-celeste-dark);
+  border-color: var(--c-celeste-dark);
+  color: #FFFFFF;
+}
+
+.btn-verde {
+  background-color: var(--c-verde-primary);
+  border-color: var(--c-verde-primary);
+  color: #FFFFFF;
+}
+
+.btn-verde:hover {
+  background-color: var(--c-verde-dark);
+  border-color: var(--c-verde-dark);
+  color: #FFFFFF;
+}
+
+.btn-outline-celeste {
+  border-color: var(--c-celeste-primary);
+  color: var(--c-celeste-dark);
+}
+
+.btn-outline-celeste:hover {
+  background-color: var(--c-celeste-primary);
+  color: #FFFFFF;
+}
+
+.btn-outline-cafe {
+  border-color: var(--c-cafe-vet);
+  color: var(--c-cafe-vet);
+}
+
+.btn-outline-cafe:hover {
+  background-color: var(--c-cafe-vet);
+  color: #FFFFFF;
+}
+
+/* Barra Superior */
+.top-vet-bar {
+  background-color: var(--c-celeste-dark);
+  border-bottom: 2px solid var(--c-verde-primary);
+}
+
+/* Navbar */
+.navbar-vet {
+  border-bottom: 1px solid var(--c-gray-border);
+}
+
+.brand-logo-img {
+  width: 48px !important;
+  height: 48px !important;
+  max-width: 48px !important;
+  max-height: 48px !important;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.brand-logo-img:hover {
+  transform: scale(1.08);
+}
+
+.brand-vet-name {
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+
+.brand-vet-sub {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+.navbar-vet .nav-link {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--c-gray-dark);
+  padding: 0.5rem 0.85rem;
+}
+
+.navbar-vet .nav-link:hover,
+.navbar-vet .nav-link.active {
+  color: var(--c-celeste-dark);
+}
+
+/* Hero Section */
+.hero-vet {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--c-celeste-tint) 100%);
+}
+
+.badge-vet {
+  background-color: var(--c-verde-tint);
+  border: 1px solid var(--c-verde-light);
+  color: var(--c-verde-dark);
+}
+
+/* Iconos y Tarjetas */
+.vet-icon-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vet-card-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-color: var(--c-gray-border) !important;
+}
+
+.vet-card-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(14, 165, 233, 0.08) !important;
+  border-color: var(--c-celeste-primary) !important;
+}
+
+.doctor-badge-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: var(--c-celeste-light);
+  border: 3px solid var(--c-verde-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+}
+
+.doctor-photo-frame,
+.doctor-contact-photo-frame {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-color: var(--c-verde-primary) !important;
+}
+
+.doctor-photo-frame:hover,
+.doctor-contact-photo-frame:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 24px rgba(16, 185, 129, 0.25) !important;
+}
+
+.location-icon-box {
+  width: 44px;
+  height: 44px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--c-gray-border);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.25rem;
+}
+
+.max-w-700 {
+  max-width: 700px;
+}
+
+/* ==========================================================================
+   ANIMACIONES Y MICROINTERACCIONES
+   ========================================================================== */
+
+/* Revelado al hacer Scroll */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Flotación del Logo Oficial */
+.logo-display-frame img {
+  animation: floatVet 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatVet {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+/* Hover en Tarjetas de Servicios Médicos */
+.vet-card-item {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease !important;
+}
+
+.vet-card-item:hover {
+  transform: translateY(-8px) scale(1.01) !important;
+  box-shadow: 0 16px 30px rgba(14, 165, 233, 0.15) !important;
+  border-color: var(--c-celeste-primary) !important;
+}
+
+.vet-card-item:hover .vet-icon-circle {
+  transform: scale(1.12) rotate(4deg);
+}
+
+.vet-icon-circle {
+  transition: transform 0.3s ease;
+}
+
+/* Chips de Selección Rápida de Animales */
+.animal-chip {
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--c-gray-border);
+  color: #374151;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.animal-chip:hover, .animal-chip.active {
+  background-color: var(--c-verde-primary);
+  border-color: var(--c-verde-primary);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(42, 123, 57, 0.25);
+}
+
+/* Botón Flotante de WhatsApp con Radar */
+.floating-whatsapp-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1050;
+  background-color: #25D366;
+  color: #FFFFFF;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.floating-whatsapp-fab:hover {
+  transform: scale(1.1);
+  color: #FFFFFF;
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.6);
+}
+
+.floating-whatsapp-fab::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #25D366;
+  top: 0;
+  left: 0;
+  animation: radarPing 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes radarPing {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* Indicador en vivo de Clínica Abierta y Urgencias */
+.vet-live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #10B981;
+  display: inline-block;
+  margin-right: 6px;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: vetLivePing 1.8s infinite;
+}
+
+@keyframes vetLivePing {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.btn-celeste:hover i,
+.btn-verde:hover i {
+  transform: translateX(3px);
+}
+
+.btn-celeste i,
+.btn-verde i {
+  transition: transform 0.2s ease;
+}
+
+/* Estilos de Carrusel de Panfletos */
+#carouselVetPanfletos {
+  box-shadow: 0 16px 40px rgba(14, 165, 233, 0.08) !important;
+}
+
+#carouselVetPanfletos .carousel-indicators [data-bs-target] {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--c-verde-primary);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+#carouselVetPanfletos .carousel-indicators .active {
+  width: 30px;
+  border-radius: 10px;
+  opacity: 1;
+  background-color: var(--c-celeste-primary);
+}
+
+#carouselVetPanfletos .carousel-control-prev,
+#carouselVetPanfletos .carousel-control-next {
+  width: 60px;
+  opacity: 0.85;
+}
+
+#carouselVetPanfletos .carousel-control-prev:hover,
+#carouselVetPanfletos .carousel-control-next:hover {
+  opacity: 1;
+}
+
+#carouselVetPanfletos .carousel-item {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#carouselVetPanfletos .carousel-item.active {
+  display: block;
+  opacity: 1;
+}
+
+#carouselVetPanfletos .carousel-item:hover img {
+  transform: scale(1.015);
+}
+
+/* Animación fade-in */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out both;
+}

@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 560" width="100%" height="100%">
+  <defs>
+    <!-- Degradados y sombras elegantes -->
+    <linearGradient id="gradShieldRS" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E2328" />
+      <stop offset="100%" stop-color="#2D353C" />
+    </linearGradient>
+
+    <linearGradient id="gradCafeRS" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#966340" />
+      <stop offset="50%" stop-color="#784F33" />
+      <stop offset="100%" stop-color="#55341E" />
+    </linearGradient>
+
+    <linearGradient id="gradBeigeRS" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF8" />
+      <stop offset="100%" stop-color="#D4B296" />
+    </linearGradient>
+
+    <filter id="shadowRS" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+
+    <style>
+      .stroke-gold { stroke: #D4B296; stroke-width: 4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .stroke-cafe-bold { stroke: #784F33; stroke-width: 6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .stroke-slate { stroke: #545E67; stroke-width: 2.5; fill: none; }
+      .text-title-rs { font-family: 'Inter', 'Segoe UI', Arial, sans-serif; font-weight: 900; font-size: 38px; fill: #1E2328; letter-spacing: 5px; }
+      .text-owner-rs { font-family: 'Inter', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 19px; fill: #784F33; letter-spacing: 4px; }
+      .text-specialty-rs { font-family: 'Inter', Arial, sans-serif; font-weight: 600; font-size: 13.5px; fill: #545E67; letter-spacing: 2.5px; }
+    </style>
+  </defs>
+
+  <!-- Escudo Central de Construcción e Ingeniería -->
+  <g transform="translate(325, 205)" filter="url(#shadowRS)">
+    <!-- Marco Exterior Hexagonal con bisel -->
+    <polygon points="0,-175 155,-85 155,85 0,175 -155,85 -155,-85" fill="url(#gradShieldRS)" stroke="#784F33" stroke-width="5" />
+    <polygon points="0,-160 140,-77 140,77 0,160 -140,77 -140,-77" fill="#181B1E" stroke="#D4B296" stroke-width="2" stroke-dasharray="8,4" />
+
+    <!-- Retícula de plano arquitectónico en fondo suave -->
+    <g opacity="0.18">
+      <line x1="-120" y1="-50" x2="120" y2="-50" stroke="#D4B296" stroke-width="1.5" />
+      <line x1="-120" y1="0" x2="120" y2="0" stroke="#D4B296" stroke-width="1.5" />
+      <line x1="-120" y1="50" x2="120" y2="50" stroke="#D4B296" stroke-width="1.5" />
+      <line x1="-60" y1="-120" x2="-60" y2="120" stroke="#D4B296" stroke-width="1.5" />
+      <line x1="0" y1="-140" x2="0" y2="140" stroke="#D4B296" stroke-width="1.5" />
+      <line x1="60" y1="-120" x2="60" y2="120" stroke="#D4B296" stroke-width="1.5" />
+    </g>
+
+    <!-- Estructura de Casa de 2 Pisos con Techo a Dos Aguas y Tijeras -->
+    <!-- Techo a dos aguas principal -->
+    <path d="M -100 0 L 0 -95 L 100 0" class="stroke-cafe-bold" stroke-width="7" />
+    <path d="M -90 -2 L 0 -88 L 90 -2" stroke="#D4B296" stroke-width="3" fill="none" />
+
+    <!-- Cumbrera y Tijera de Techo Metálica (Soldadura) -->
+    <line x1="0" y1="-95" x2="0" y2="85" class="stroke-gold" stroke-width="3" />
+    <line x1="-50" y1="-48" x2="0" y2="0" class="stroke-gold" stroke-width="2.5" />
+    <line x1="50" y1="-48" x2="0" y2="0" class="stroke-gold" stroke-width="2.5" />
+
+    <!-- Nivel 2 (Segunda Planta) -->
+    <rect x="-75" y="-5" width="150" height="42" fill="#242B30" stroke="#784F33" stroke-width="2" rx="2" />
+    <!-- Ventanas Segundo Piso -->
+    <rect x="-55" y="5" width="26" height="22" fill="#D4B296" opacity="0.85" rx="3" />
+    <line x1="-42" y1="5" x2="-42" y2="27" stroke="#181B1E" stroke-width="1.5" />
+    <line x1="-55" y1="16" x2="-29" y2="16" stroke="#181B1E" stroke-width="1.5" />
+
+    <rect x="29" y="5" width="26" height="22" fill="#D4B296" opacity="0.85" rx="3" />
+    <line x1="42" y1="5" x2="42" y2="27" stroke="#181B1E" stroke-width="1.5" />
+    <line x1="29" y1="16" x2="55" y2="16" stroke="#181B1E" stroke-width="1.5" />
+
+    <!-- Losa Intermedia / Viga Corona de Hormigón -->
+    <rect x="-84" y="37" width="168" height="8" fill="#784F33" rx="2" />
+
+    <!-- Nivel 1 (Primera Planta) -->
+    <rect x="-75" y="45" width="150" height="42" fill="#1C2125" stroke="#784F33" stroke-width="2" rx="2" />
+    <!-- Puerta de acceso principal -->
+    <rect x="-16" y="53" width="32" height="34" fill="#784F33" stroke="#D4B296" stroke-width="1.5" rx="2" />
+    <circle cx="8" cy="70" r="2" fill="#FFFDF8" />
+    <!-- Ventana Primer Piso -->
+    <rect x="-55" y="55" width="26" height="22" fill="#D4B296" opacity="0.85" rx="3" />
+    <rect x="29" y="55" width="26" height="22" fill="#D4B296" opacity="0.85" rx="3" />
+
+    <!-- Cimentación / Viga de Fundación Resistente -->
+    <line x1="-96" y1="87" x2="96" y2="87" stroke="#D4B296" stroke-width="6" stroke-linecap="round" />
+    <line x1="-106" y1="94" x2="106" y2="94" stroke="#784F33" stroke-width="5" stroke-linecap="round" />
+
+    <!-- Distintivo R&S en el frontispicio -->
+    <g transform="translate(0, -22)">
+      <polygon points="0,-24 38,0 0,24 -38,0" fill="#784F33" stroke="#D4B296" stroke-width="2" />
+      <text x="0" y="8" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="900" font-size="20" fill="#FFFDF8" letter-spacing="1">R&amp;S</text>
+    </g>
+
+    <!-- Herramientas Integradas: Nivel de Gota y Escuadra -->
+    <g transform="translate(0, 130)">
+      <rect x="-70" y="-12" width="140" height="22" rx="11" fill="#784F33" stroke="#D4B296" stroke-width="1.5" />
+      <text x="0" y="3" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="800" font-size="11" fill="#FFFFFF" letter-spacing="2">OBRAS CIVILES Y ACABADOS</text>
+    </g>
+  </g>
+
+  <!-- Tipografía Oficial Completa y Jerarquizada -->
+  <text x="325" y="440" text-anchor="middle" class="text-title-rs">CONSTRUCCIONES R&amp;S</text>
+  <text x="325" y="478" text-anchor="middle" class="text-owner-rs">PASTOR ROBERTO SERRANO &#8226; PROPIETARIO</text>
+  <text x="325" y="512" text-anchor="middle" class="text-specialty-rs">CASAS DE 1 Y 2 PISOS &#8226; SOLDADURA &#8226; ELECTRICIDAD &#8226; FONTANERÍA</text>
+  <text x="325" y="536" text-anchor="middle" font-family="'Inter', Arial, sans-serif" font-weight="700" font-size="13px" fill="#784F33" letter-spacing="3px">EL VIEJO &#8226; CHINANDEGA, NICARAGUA</text>
+</svg>

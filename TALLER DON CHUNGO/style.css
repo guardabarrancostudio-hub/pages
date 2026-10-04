@@ -1,0 +1,663 @@
+/* ==========================================================================
+   TALLER DON CHUNGO - ESTILOS BOOTSTRAP 5
+   Taller de Motocicletas de Edwin Oviedo
+   Colores: Verde Olivo Mate, Gris y Blanco
+   Ubicación: Carretera Chinandega - El Viejo Km 134
+   ========================================================================== */
+
+:root {
+  --c-olive: #597241;
+  --c-olive-dark: #3E512C;
+  --c-olive-light: #8BA870;
+  --c-olive-tint: #EEF4EA;
+
+  --c-gray-deep: #16181A;
+  --c-gray-dark: #22262A;
+  --c-gray-medium: #596570;
+  --c-gray-light: #F4F6F8;
+  --c-gray-border: #D8DFE5;
+
+  --c-white: #FFFFFF;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #FFFFFF;
+  color: var(--c-gray-dark);
+  line-height: 1.6;
+}
+
+/* Clases de Color */
+.text-olive {
+  color: var(--c-olive) !important;
+}
+
+.text-olive-light {
+  color: var(--c-olive-light) !important;
+}
+
+.text-gray-dark {
+  color: var(--c-gray-dark) !important;
+}
+
+.text-light-gray {
+  color: #CBD5E1 !important;
+}
+
+.bg-olive {
+  background-color: var(--c-olive) !important;
+}
+
+.bg-dark-gray {
+  background-color: var(--c-gray-deep) !important;
+}
+
+.bg-gray-light {
+  background-color: var(--c-gray-light) !important;
+}
+
+/* Botones */
+.btn-olive {
+  background-color: var(--c-olive);
+  border-color: var(--c-olive);
+  color: #FFFFFF;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-olive:hover {
+  background-color: var(--c-olive-dark);
+  border-color: var(--c-olive-dark);
+  color: #FFFFFF;
+}
+
+/* Barra Superior */
+.top-taller-bar {
+  background-color: var(--c-gray-deep);
+  border-bottom: 2px solid var(--c-olive);
+}
+
+/* Navbar */
+.navbar-taller {
+  border-bottom: 1px solid var(--c-gray-border);
+}
+
+.brand-taller-badge {
+  width: 40px;
+  height: 40px;
+  background-color: var(--c-olive);
+  color: #FFFFFF;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.brand-logo-taller {
+  width: 48px !important;
+  height: 48px !important;
+  max-width: 48px !important;
+  max-height: 48px !important;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.brand-logo-taller:hover {
+  transform: scale(1.08);
+}
+
+.brand-taller-name {
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+
+.brand-taller-sub {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.navbar-taller .nav-link {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--c-gray-dark);
+  padding: 0.5rem 0.85rem;
+}
+
+.navbar-taller .nav-link:hover,
+.navbar-taller .nav-link.active {
+  color: var(--c-olive);
+}
+
+/* Hero Section */
+.hero-taller {
+  background: linear-gradient(135deg, #1A1D20 0%, #262B30 60%, #2C3625 100%);
+}
+
+.badge-taller {
+  background-color: rgba(89, 114, 65, 0.25);
+  border: 1px solid var(--c-olive);
+  color: #D3E0C9;
+}
+
+.card-taller-diagnostic {
+  background-color: rgba(34, 38, 42, 0.95);
+  border: 1px solid var(--c-olive) !important;
+}
+
+/* Iconos de Servicios y Contacto */
+.taller-icon-box {
+  width: 50px;
+  height: 50px;
+  background-color: var(--c-olive-tint);
+  border: 1px solid rgba(89, 114, 65, 0.25);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.taller-contact-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--c-gray-border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.taller-service-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-color: var(--c-gray-border) !important;
+}
+
+.taller-service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.06) !important;
+  border-color: var(--c-olive) !important;
+}
+
+/* Tarjetas de Recomendaciones */
+.tip-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-color: var(--c-gray-border) !important;
+}
+
+.tip-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(89, 114, 65, 0.1) !important;
+  border-color: var(--c-olive) !important;
+}
+
+.tip-number-box {
+  width: 38px;
+  height: 38px;
+  background-color: var(--c-olive-tint);
+  border: 1.5px solid var(--c-olive);
+  color: var(--c-olive-dark);
+  font-weight: 800;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.taller-owner-icon {
+  width: 90px;
+  height: 90px;
+  background-color: var(--c-olive-tint);
+  border: 3px solid var(--c-olive);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+}
+
+.max-w-700 {
+  max-width: 700px;
+}
+
+/* ==========================================================================
+   ANIMACIONES Y MICROINTERACCIONES
+   ========================================================================== */
+
+/* Revelado al hacer Scroll */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Flotación del Logo Oficial */
+.card-taller-diagnostic img {
+  animation: floatMoto 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatMoto {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-7px) rotate(-1deg); }
+}
+
+/* Hover en Servicios */
+.taller-service-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease !important;
+}
+
+.taller-service-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 16px 30px rgba(89, 114, 65, 0.22) !important;
+  border-color: var(--c-olive) !important;
+}
+
+.taller-service-card:hover .taller-icon-box {
+  background-color: var(--c-olive);
+  color: #FFFFFF !important;
+  transform: scale(1.1) rotate(5deg);
+}
+
+.taller-service-card:hover .taller-icon-box i {
+  color: #FFFFFF !important;
+}
+
+.taller-icon-box {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover en Tarjetas de Recomendaciones */
+.tip-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+
+.tip-card:hover {
+  transform: translateY(-6px) scale(1.01) !important;
+  box-shadow: 0 14px 28px rgba(89, 114, 65, 0.15) !important;
+  border-color: var(--c-olive) !important;
+}
+
+.tip-card:hover .tip-number-box {
+  background-color: var(--c-olive);
+  color: #FFFFFF;
+  transform: scale(1.1);
+}
+
+.tip-number-box {
+  transition: all 0.25s ease;
+}
+
+/* Chips de Marcas Interactivas */
+.brand-chip {
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.brand-chip:hover, .brand-chip.active {
+  background-color: var(--c-olive);
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(89, 114, 65, 0.3);
+}
+
+/* Botón Flotante de WhatsApp con Radar */
+.floating-whatsapp-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1050;
+  background-color: #25D366;
+  color: #FFFFFF;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.floating-whatsapp-fab:hover {
+  transform: scale(1.1);
+  color: #FFFFFF;
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.6);
+}
+
+.floating-whatsapp-fab::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #25D366;
+  top: 0;
+  left: 0;
+  animation: radarPing 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes radarPing {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* Indicador en vivo de Taller Abierto */
+.taller-live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #8BA870;
+  display: inline-block;
+  margin-right: 6px;
+  box-shadow: 0 0 0 0 rgba(139, 168, 112, 0.7);
+  animation: tallerLive 1.8s infinite;
+}
+
+@keyframes tallerLive {
+  0% { box-shadow: 0 0 0 0 rgba(139, 168, 112, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(139, 168, 112, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(139, 168, 112, 0); }
+}
+
+.btn-olive:hover i {
+  transform: translateX(3px);
+}
+
+.btn-olive i {
+  transition: transform 0.2s ease;
+}
+
+/* Estilos de Carrusel de Panfletos de Taller */
+#carouselTallerPanfletos {
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45) !important;
+}
+
+#carouselTallerPanfletos .carousel-indicators [data-bs-target] {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--c-olive-light);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+#carouselTallerPanfletos .carousel-indicators .active {
+  width: 32px;
+  border-radius: 10px;
+  opacity: 1;
+  background-color: var(--c-olive);
+}
+
+#carouselTallerPanfletos .carousel-control-prev,
+#carouselTallerPanfletos .carousel-control-next {
+  width: 60px;
+  opacity: 0.85;
+}
+
+#carouselTallerPanfletos .carousel-control-prev:hover,
+#carouselTallerPanfletos .carousel-control-next:hover {
+  opacity: 1;
+}
+
+#carouselTallerPanfletos .carousel-item {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#carouselTallerPanfletos .carousel-item.active {
+  display: block;
+  opacity: 1;
+}
+
+#carouselTallerPanfletos .carousel-item:hover img {
+  transform: scale(1.02);
+}
+
+/* Animación fade-in */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+/* ==========================================================================
+   ESTILOS PREMIUM PARA SECCIÓN DE MÁQUINAS Y MARCAS (CON LOGOS OFICIALES)
+   ========================================================================== */
+
+.brand-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 1.4rem 1.2rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.brand-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--c-olive);
+  box-shadow: 0 16px 30px rgba(89, 114, 65, 0.18);
+}
+
+.brand-card.active {
+  border-color: var(--c-olive) !important;
+  background-color: #F8FAF5;
+  box-shadow: 0 0 0 3px rgba(89, 114, 65, 0.25), 0 16px 32px rgba(89, 114, 65, 0.2);
+}
+
+.brand-card.active::before {
+  content: '✓ Seleccionada';
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  background: var(--c-olive);
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(89, 114, 65, 0.4);
+}
+
+.brand-svg-box {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border-radius: 12px;
+  margin-bottom: 0.85rem;
+  padding: 10px 14px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  border: 1px solid #E2E8F0;
+  overflow: hidden;
+}
+
+.brand-card:hover .brand-svg-box {
+  transform: translateY(-2px) scale(1.02);
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.brand-svg-box.brand-box-dark {
+  background: #0D1B2A;
+  border-color: #1E293B;
+}
+
+.brand-card:hover .brand-svg-box.brand-box-dark {
+  background: #09131F;
+  border-color: #334155;
+}
+
+.brand-real-logo {
+  max-height: 52px;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  display: block;
+}
+
+.brand-card:hover .brand-real-logo {
+  transform: scale(1.05);
+}
+
+.brand-logo-serpento {
+  max-height: 44px;
+}
+
+.brand-logo-genesis {
+  max-height: 38px;
+}
+
+.brand-svg-logo {
+  max-height: 52px;
+  width: auto;
+  max-width: 100%;
+  transition: all 0.25s ease;
+}
+
+.brand-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--c-gray-dark);
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.2px;
+}
+
+.model-pill {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  margin: 2px;
+  border-radius: 12px;
+  background-color: #F1F5F9;
+  color: #475569;
+  border: 1px solid #E2E8F0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.brand-card:hover .model-pill {
+  background-color: #EBF1E6;
+  color: var(--c-olive-dark);
+  border-color: #D3DFCA;
+}
+
+/* Checklist de Inspección de 15 Puntos */
+.inspection-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 1.15rem;
+  transition: all 0.25s ease;
+  height: 100%;
+}
+
+.inspection-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--c-olive);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.inspection-step-number {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--c-olive);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(89, 114, 65, 0.3);
+}
+
+.inspection-zone-header {
+  border-left: 4px solid var(--c-olive);
+  padding-left: 12px;
+  margin-bottom: 1.25rem;
+}
+
+/* Badge de Coordenadas GPS */
+.gps-coord-badge {
+  font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+  color: var(--c-olive-dark);
+  background: #F1F5EB;
+  border: 1px solid #D5E1CC;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-copy-gps {
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: var(--c-gray-dark);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-copy-gps:hover {
+  background-color: var(--c-olive);
+  color: #FFFFFF;
+  border-color: var(--c-olive);
+}
+
+.brand-search-box {
+  border-radius: 25px;
+  padding: 10px 20px 10px 42px;
+  border: 1px solid #CBD5E1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  font-size: 0.92rem;
+}
+
+.brand-search-box:focus {
+  border-color: var(--c-olive);
+  box-shadow: 0 0 0 3px rgba(89, 114, 65, 0.2);
+}
+

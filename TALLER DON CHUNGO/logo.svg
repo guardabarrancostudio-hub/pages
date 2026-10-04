@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 560" width="100%" height="100%">
+  <defs>
+    <!-- Degradados y sombras mecánicas -->
+    <linearGradient id="gradGearDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D3339" />
+      <stop offset="50%" stop-color="#1E2328" />
+      <stop offset="100%" stop-color="#121517" />
+    </linearGradient>
+
+    <linearGradient id="gradOliveChungo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#769656" />
+      <stop offset="50%" stop-color="#597241" />
+      <stop offset="100%" stop-color="#3F522E" />
+    </linearGradient>
+
+    <filter id="shadowChungo" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+
+    <style>
+      .gear-tooth { fill: #22262A; stroke: #3A424A; stroke-width: 1.5; }
+      .olive-border { stroke: #597241; stroke-width: 12; fill: none; }
+      .olive-border-thin { stroke: #8BA870; stroke-width: 2.5; fill: none; }
+      .white-stroke { stroke: #FFFFFF; stroke-width: 7; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .text-title-chungo { font-family: 'Inter', 'Segoe UI', Arial, sans-serif; font-weight: 900; font-size: 40px; fill: #FFFFFF; letter-spacing: 5px; }
+      .text-sub-chungo { font-family: 'Inter', Arial, sans-serif; font-weight: 800; font-size: 21px; fill: #8BA870; letter-spacing: 6px; }
+      .text-owner-chungo { font-family: 'Inter', Arial, sans-serif; font-weight: 700; font-size: 16px; fill: #E5E7EB; letter-spacing: 4px; }
+      .text-loc-chungo { font-family: 'Inter', Arial, sans-serif; font-weight: 600; font-size: 13.5px; fill: #9CA3AF; letter-spacing: 2.5px; }
+    </style>
+  </defs>
+
+  <!-- Emblema Central Circular: Engranaje, Llaves y Motocicleta -->
+  <g transform="translate(325, 210)" filter="url(#shadowChungo)">
+    <!-- Corona de 12 Dientes de Engranaje Mecánico -->
+    <circle cx="0" cy="0" r="170" fill="url(#gradGearDark)" stroke="#3A424A" stroke-width="3" />
+    <path class="gear-tooth" d="
+      M -20 -190 L 20 -190 L 16 -170 L -16 -170 Z
+      M -20 190 L 20 190 L 16 170 L -16 170 Z
+      M -190 -20 L -190 20 L -170 16 L -170 -16 Z
+      M 190 -20 L 190 20 L 170 16 L 170 -16 Z
+      M -125 -135 L -100 -160 L -88 -145 L -112 -122 Z
+      M 125 135 L 100 160 L 88 145 L 112 122 Z
+      M -125 135 L -100 160 L -112 122 L -88 145 Z
+      M 125 -135 L 100 -160 L 112 -122 L 88 -145 Z
+      M -160 -100 L -135 -125 L -122 -112 L -145 -88 Z
+      M 160 100 L 135 125 L 122 112 L 145 88 Z
+      M -160 100 L -135 125 L -145 88 L -122 112 Z
+      M 160 -100 L 135 -125 L 145 -88 L 122 -112 Z
+    " />
+
+    <!-- Aro Verde Olivo y Bisel Interior -->
+    <circle cx="0" cy="0" r="154" class="olive-border" />
+    <circle cx="0" cy="0" r="142" class="olive-border-thin" />
+    <circle cx="0" cy="0" r="138" fill="#14171A" />
+
+    <!-- Remaches decorativos del aro -->
+    <g fill="#8BA870">
+      <circle cx="0" cy="-148" r="3.5" />
+      <circle cx="0" cy="148" r="3.5" />
+      <circle cx="-148" cy="0" r="3.5" />
+      <circle cx="148" cy="0" r="3.5" />
+      <circle cx="-105" cy="-105" r="3" />
+      <circle cx="105" cy="105" r="3" />
+      <circle cx="-105" cy="105" r="3" />
+      <circle cx="105" cy="-105" r="3" />
+    </g>
+
+    <!-- Llaves mecánicas cruzadas en el fondo con opacidad suave -->
+    <g opacity="0.4">
+      <path d="M -90 -75 L 90 75" stroke="#8BA870" stroke-width="15" stroke-linecap="round" />
+      <circle cx="-90" cy="-75" r="16" fill="#597241" stroke="#8BA870" stroke-width="2" />
+      <circle cx="90" cy="75" r="16" fill="#597241" stroke="#8BA870" stroke-width="2" />
+
+      <path d="M 90 -75 L -90 75" stroke="#8BA870" stroke-width="15" stroke-linecap="round" />
+      <circle cx="90" cy="-75" r="16" fill="#597241" stroke="#8BA870" stroke-width="2" />
+      <circle cx="-90" cy="75" r="16" fill="#597241" stroke="#8BA870" stroke-width="2" />
+    </g>
+
+    <!-- Silueta Vectorial Completa de Motocicleta -->
+    <g transform="translate(0, 12)">
+      <!-- Llanta Delantera (con disco y rayos) -->
+      <circle cx="82" cy="42" r="34" stroke="#FFFFFF" stroke-width="6.5" fill="none" />
+      <circle cx="82" cy="42" r="22" stroke="#8BA870" stroke-width="2" stroke-dasharray="6,4" fill="none" />
+      <circle cx="82" cy="42" r="13" fill="#597241" stroke="#8BA870" stroke-width="2.5" />
+
+      <!-- Llanta Trasera (con corona y rayos) -->
+      <circle cx="-82" cy="42" r="34" stroke="#FFFFFF" stroke-width="6.5" fill="none" />
+      <circle cx="-82" cy="42" r="22" stroke="#8BA870" stroke-width="2" stroke-dasharray="6,4" fill="none" />
+      <circle cx="-82" cy="42" r="13" fill="#597241" stroke="#8BA870" stroke-width="2.5" />
+
+      <!-- Chasis, Horquilla Delantera Telescópica y Manillar -->
+      <path class="white-stroke" d="
+        M 82 42
+        L 48 -28
+        L 32 -46
+        M 22 -46 L 46 -46
+        M 48 -28
+        L 12 -18
+        L -32 -18
+        L -70 14
+        L -82 42
+        M 12 -18
+        L 2 24
+        L -54 24
+        L -82 42
+        M 2 24
+        L -32 -18
+        M -16 -18
+        L -44 -40
+        L -12 -40
+        L 16 -28
+      " />
+
+      <!-- Bloque del Motor con Aletas de Enfriamiento -->
+      <rect x="-20" y="3" width="30" height="24" rx="4" fill="#8BA870" stroke="#FFFFFF" stroke-width="1.5" />
+      <line x1="-16" y1="8" x2="6" y2="8" stroke="#14171A" stroke-width="2" />
+      <line x1="-16" y1="14" x2="6" y2="14" stroke="#14171A" stroke-width="2" />
+      <line x1="-16" y1="20" x2="6" y2="20" stroke="#14171A" stroke-width="2" />
+
+      <!-- Tubo de Escape Deportivo Cromado -->
+      <path d="M 6 18 L -38 28 L -78 22" stroke="#FFFFFF" stroke-width="4.5" fill="none" stroke-linecap="round" />
+      <path d="M -78 22 L -88 20" stroke="#8BA870" stroke-width="6" fill="none" stroke-linecap="round" />
+
+      <!-- Foco Delantero -->
+      <path d="M 46 -24 L 56 -21" stroke="#8BA870" stroke-width="4" stroke-linecap="round" />
+    </g>
+
+    <!-- Insignia Superior: +20 Años de Trayectoria -->
+    <g transform="translate(0, -118)">
+      <rect x="-85" y="-14" width="170" height="28" rx="14" fill="url(#gradOliveChungo)" stroke="#FFFFFF" stroke-width="1.5" />
+      <text x="0" y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="900" font-size="12.5" fill="#FFFFFF" letter-spacing="2">MÁS DE 20 AÑOS</text>
+    </g>
+  </g>
+
+  <!-- Tipografía Oficial Completa y Pulida -->
+  <text x="325" y="442" text-anchor="middle" class="text-title-chungo">DON CHUNGO</text>
+  <text x="325" y="478" text-anchor="middle" class="text-sub-chungo">TALLER DE MOTOCICLETAS</text>
+  <text x="325" y="512" text-anchor="middle" class="text-owner-chungo">PROPIETARIO: EDWIN OVIEDO</text>
+  <text x="325" y="538" text-anchor="middle" class="text-loc-chungo">CARRETERA CHINANDEGA - EL VIEJO &#8226; KM 134</text>
+</svg>
