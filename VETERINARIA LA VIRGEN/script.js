@@ -1,6 +1,6 @@
 /**
  * VETERINARIA LA VIRGEN - LÓGICA INTERACTIVA Y ANIMACIONES
- * Dr. Junior Elian Villalobos - El Viejo, Chinandega
+ * Dr. Junior Elian Villalobos Meza - El Viejo, Chinandega
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -103,7 +103,7 @@ function enviarCitaVet(e) {
   const detalles = document.getElementById('animalDetalles')?.value || '';
 
   btn.disabled = true;
-  btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>Abriendo WhatsApp del Dr. Villalobos...`;
+  btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>Abriendo WhatsApp del Dr. Villalobos Meza...`;
 
   const textoWhatsApp = 
     `*NUEVA CITA - VETERINARIA LA VIRGEN* 🐾\n` +
@@ -119,14 +119,14 @@ function enviarCitaVet(e) {
   setTimeout(() => {
     feedback.classList.remove('d-none');
     btn.disabled = false;
-    btn.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> ¡Cita Enviada al Dr. Villalobos!`;
+    btn.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> ¡Cita Enviada al Dr. Villalobos Meza!`;
 
     // Redirigir a WhatsApp
     window.open(urlWhatsApp, '_blank');
 
     setTimeout(() => {
       document.getElementById('formCitaVet').reset();
-      btn.innerHTML = `<i class="bi bi-send-check-fill me-1"></i> Enviar Mensaje al Dr. Villalobos`;
+      btn.innerHTML = `<i class="bi bi-send-check-fill me-1"></i> Enviar Mensaje al Dr. Villalobos Meza`;
     }, 4500);
   }, 900);
 }

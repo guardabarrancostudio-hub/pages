@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Studio | Ingeniería de Software a Medida & Arquitectura Cloud</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Dev Studio es una firma de ingeniería de software a medida. Diseñamos plataformas web de alto rendimiento, aplicaciones móviles, APIs distribuidas y arquitecturas cloud para líderes empresariales.">
+  <meta name="keywords" content="desarrollo de software a medida, arquitectura cloud, consultoria de software, aplicaciones moviles flutter, microservicios dotnet nodejs, desarrollo enterprise">
+  <meta name="author" content="Dev Studio Engineering">
+
+  <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Favicon Oficial -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Light Orbs & Grid -->
+  <div class="tech-grid-bg"></div>
+  <div class="ambient-light-orb orb-silver-1"></div>
+  <div class="ambient-light-orb orb-silver-2"></div>
+
+  <!-- Telemetry Bar -->
+  <div class="telemetry-bar">
+    <div class="container telemetry-content">
+      <div class="telemetry-node">
+        <span class="live-indicator-dot"></span>
+        <span>SYSTEM STATUS: ALL ENGINES OPERATIONAL</span>
+      </div>
+      <div class="telemetry-node">
+        <i class="bi bi-speedometer2 text-silver"></i>
+        <span>LATENCY: 14ms &bull; SLA: 99.99% UPTIME</span>
+      </div>
+      <div class="telemetry-node">
+        <i class="bi bi-shield-lock text-silver"></i>
+        <span>SECURITY: SOC2 COMPLIANT &bull; ZERO TECH DEBT</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header & Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#inicio" class="nav-brand" aria-label="Dev Studio Inicio">
+        <img src="logo.svg" alt="Dev Studio Logo" class="nav-logo-img">
+      </a>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+        <li><a href="#capacidades" class="nav-link">Capacidades</a></li>
+        <li><a href="#stack" class="nav-link">Stack</a></li>
+        <li><a href="#catalogo" class="nav-link">Catálogo</a></li>
+        <li><a href="#estimador" class="nav-link">Estimador</a></li>
+        <li><a href="#metodologia" class="nav-link">Metodología</a></li>
+        <li><a href="#casos" class="nav-link">Casos de Estudio</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="#contacto" class="nav-link">Contacto</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#estimador" class="btn btn-silver" id="navBtnEstimador">
+          <i class="bi bi-cpu"></i>
+          <span>Estimar Arquitectura</span>
+        </a>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir navegación">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="badge-system mb-3">
+            <span class="live-indicator-dot"></span>
+            <span>ENTERPRISE SOFTWARE ENGINEERING &bull; v4.2</span>
+          </div>
+
+          <h1>
+            Ingeniería de Software a Medida para Empresas que <span class="text-chrome">no Aceptan Límites</span>.
+          </h1>
+
+          <p class="hero-lead">
+            Construimos sistemas empresariales de misión crítica, aplicaciones móviles de alto rendimiento y arquitecturas cloud distribuidas. Diseñado con código limpio, cero deuda técnica y con propiedad intelectual 100% tuya.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#estimador" class="btn btn-silver" id="heroBtnEstimate">
+              <i class="bi bi-calculator"></i>
+              <span>Calculadora de Sprints</span>
+            </a>
+            <a href="#stack" class="btn btn-outline-silver" id="heroBtnStack">
+              <i class="bi bi-layers-half"></i>
+              <span>Ver Ecosistema Tech</span>
+            </a>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20agendar%20una%20sesi%C3%B3n%20t%C3%A9cnica%20de%20descubrimiento" target="_blank" class="btn btn-whatsapp-tech" id="heroBtnWsp">
+              <i class="bi bi-whatsapp"></i>
+              <span>Hablar con Solution Architect</span>
+            </a>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-item">
+              <div class="metric-val">99.99%</div>
+              <div class="metric-label">SLA Disponibilidad</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-val">0%</div>
+              <div class="metric-label">Deuda Técnica</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-val">100%</div>
+              <div class="metric-label">Propiedad Intelectual</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-val">>85%</div>
+              <div class="metric-label">Test Coverage</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal Interactivo en Vivo -->
+        <div class="hero-terminal-wrap">
+          <div class="terminal-window">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="t-dot t-dot-red"></span>
+                <span class="t-dot t-dot-yellow"></span>
+                <span class="t-dot t-dot-green"></span>
+              </div>
+              <div class="terminal-title">devstudio@enterprise-cluster:~#</div>
+              <div style="font-size: 0.75rem; color: var(--silver-dark);">bash v5.2</div>
+            </div>
+            <div class="terminal-body" id="terminalOutput">
+              <div class="terminal-line t-silver">// Initializing Dev Studio Core Architecture Node...</div>
+              <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd">devstudio verify --architecture enterprise</span></div>
+              <div class="terminal-line t-success">[OK] Clean Architecture & Domain-Driven Design (DDD) verified.</div>
+              <div class="terminal-line t-info">[INFO] Microservices Gateway: 12 nodes listening on TLS 1.3</div>
+              <div class="terminal-line t-success">[OK] Cloud Providers: AWS / Azure / GCP hybrid connectivity active.</div>
+              <div class="terminal-line t-silver">[TIP] Escribe <span style="color:#FFF; font-weight:700;">help</span>, <span style="color:#FFF; font-weight:700;">stack</span>, <span style="color:#FFF; font-weight:700;">status</span>, o <span style="color:#FFF; font-weight:700;">quote</span> para interactuar.</div>
+            </div>
+            <div class="terminal-input-row" style="padding: 10px 16px; background: #0A0D13; border-top: 1px solid rgba(255,255,255,0.06);">
+              <span class="t-prompt" style="color: #38BDF8;">devstudio&gt;</span>
+              <input type="text" id="terminalInput" class="terminal-input" placeholder="Escribe un comando (ej: stack, quote, help)..." autocomplete="off" spellcheck="false">
+            </div>
+            <div class="terminal-suggestions">
+              <span style="font-size:0.75rem;color:var(--silver-dark);line-height:24px;">Atajos:</span>
+              <button type="button" class="term-chip" data-cmd="help">help</button>
+              <button type="button" class="term-chip" data-cmd="stack">stack</button>
+              <button type="button" class="term-chip" data-cmd="status">status</button>
+              <button type="button" class="term-chip" data-cmd="security">security</button>
+              <button type="button" class="term-chip" data-cmd="hub">hub</button>
+              <button type="button" class="term-chip" data-cmd="cases">cases</button>
+              <button type="button" class="term-chip" data-cmd="services">services</button>
+              <button type="button" class="term-chip" data-cmd="quote">quote</button>
+              <button type="button" class="term-chip" data-cmd="clear">clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capacidades de Ingeniería (Servicios Core) -->
+  <section class="section" id="capacidades">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system">CORE COMPETENCIES</span>
+        <h2>Capacidades de Ingeniería de Software</h2>
+        <p>
+          No adaptamos plantillas genéricas. Diseñamos sistemas hechos a la medida exacta de tus reglas de negocio y metas de escala.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <!-- Servicio 1 -->
+        <div class="service-card">
+          <div class="service-num">01 / ENTERPRISE CORE</div>
+          <h3>Software Empresarial & Plataformas Core</h3>
+          <p>
+            Desarrollo de ERP, CRM, sistemas de gestión logística, facturación electrónica y portales de proveedores de alto volumen construidos para operar 24/7 sin fallos.
+          </p>
+          <ul class="service-specs">
+            <li><i class="bi bi-chevron-right"></i> Domain-Driven Design (DDD)</li>
+            <li><i class="bi bi-chevron-right"></i> Reglas de negocio desacopladas</li>
+            <li><i class="bi bi-chevron-right"></i> Auditoría y trazabilidad transaccional</li>
+          </ul>
+        </div>
+
+        <!-- Servicio 2 -->
+        <div class="service-card">
+          <div class="service-num">02 / MOBILE & WEB</div>
+          <h3>Aplicaciones Móviles & Web Apps de Alto Desempeño</h3>
+          <p>
+            Apps nativas (iOS / Android) y multiplataforma con Flutter / React Native, acompañadas de frontends web ultrarrápidos con Next.js y TypeScript de grado bancario.
+          </p>
+          <ul class="service-specs">
+            <li><i class="bi bi-chevron-right"></i> Arquitecturas offline-first</li>
+            <li><i class="bi bi-chevron-right"></i> Biometría y cifrado local seguro</li>
+            <li><i class="bi bi-chevron-right"></i> Experiencia de usuario (UI/UX) de lujo</li>
+          </ul>
+        </div>
+
+        <!-- Servicio 3 -->
+        <div class="service-card">
+          <div class="service-num">03 / CLOUD & APIS</div>
+          <h3>Arquitectura Cloud, Microservicios & APIs</h3>
+          <p>
+            Diseño de APIs REST y GraphQL de ultra baja latencia, colas de mensajería asíncronas (Kafka / RabbitMQ) y orquestación con Kubernetes en AWS, Azure o Google Cloud.
+          </p>
+          <ul class="service-specs">
+            <li><i class="bi bi-chevron-right"></i> Autoscaling horizontal elástico</li>
+            <li><i class="bi bi-chevron-right"></i> Gateway API con rate limiting</li>
+            <li><i class="bi bi-chevron-right"></i> Infraestructura como Código (Terraform)</li>
+          </ul>
+        </div>
+
+        <!-- Servicio 4 -->
+        <div class="service-card">
+          <div class="service-num">04 / REFACTORING</div>
+          <h3>Modernización de Legacy & Migración a la Nube</h3>
+          <p>
+            Desmantelamos monolitos lentos y obsoletos aplicando patrones como Strangler Fig, migrando tu base de datos y lógica crítica sin detener las operaciones de tu negocio.
+          </p>
+          <ul class="service-specs">
+            <li><i class="bi bi-chevron-right"></i> Migración con Zero-Downtime</li>
+            <li><i class="bi bi-chevron-right"></i> Limpieza profunda de código spaguetti</li>
+            <li><i class="bi bi-chevron-right"></i> Reducción de costos de infraestructura hasta 60%</li>
+          </ul>
+        </div>
+
+        <!-- Servicio 5 -->
+        <div class="service-card">
+          <div class="service-num">05 / SECURITY & QA</div>
+          <h3>Auditoría de Código, QA Automatizado & Seguridad</h3>
+          <p>
+            Pruebas unitarias, de integración, pruebas de carga (k6) y escaneo de vulnerabilidades conforme a estándares OWASP Top 10 y preparación para certificaciones de seguridad.
+          </p>
+          <ul class="service-specs">
+            <li><i class="bi bi-chevron-right"></i> CI/CD con análisis estático (SonarQube)</li>
+            <li><i class="bi bi-chevron-right"></i> Penetration Testing ético</li>
+            <li><i class="bi bi-chevron-right"></i> Cifrado AES-256 en tránsito y reposo</li>
+          </ul>
+        </div>
+
+        <!-- Servicio 6 -->
+        <div class="service-card">
+          <div class="service-num">06 / SQUADS & AGILITY</div>
+          <h3>Dedicated Engineering Squads (Staff Augmentation)</h3>
+          <p>
+            Equipos dedicados de ingenieros de software senior (Tech Leads, Backend, Frontend, DevOps y QA) integrados directamente a tus sprints bajo metodologías ágiles Scrum/Kanban.
+          </p>
+          <ul class="service-specs">
+            <li><i class="bi bi-chevron-right"></i> Ingenieros 100% bilingües / zona horaria alineada</li>
+            <li><i class="bi bi-chevron-right"></i> Onboarding técnico en menos de 5 días</li>
+            <li><i class="bi bi-chevron-right"></i> Flexibilidad de escalamiento mensual</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive System Architecture Canvas (Topology Map) -->
+  <section class="section" id="arquitectura">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system"><i class="bi bi-diagram-2 text-silver me-1"></i> TOPOLOGY & LIVE ARCHITECTURE</span>
+        <h2>Arquitectura de Sistemas & Flujo Distribuido</h2>
+        <p>Haz clic en cualquier nodo para inspeccionar los protocolos de comunicación, latencia y tolerancia a fallos en tiempo real.</p>
+      </div>
+
+      <div class="topology-box-master">
+        <div class="topology-grid">
+          
+          <!-- Canvas de Nodos -->
+          <div class="arch-map-canvas">
+            
+            <!-- Layer 1: Clients -->
+            <div class="arch-layer">
+              <div class="arch-layer-label">
+                <i class="bi bi-phone"></i> 01. CAPA DE CLIENTES & CONSUMIDORES
+              </div>
+              <div class="arch-nodes-row">
+                <div class="arch-node-card active" data-node="clients">
+                  <div class="arch-node-icon"><i class="bi bi-display"></i></div>
+                  <div class="arch-node-info">
+                    <h5>Web & Mobile Apps</h5>
+                    <small>Next.js 15 &bull; Flutter iOS/Android</small>
+                  </div>
+                </div>
+                <div class="arch-node-card" data-node="external-api">
+                  <div class="arch-node-icon"><i class="bi bi-arrow-left-right"></i></div>
+                  <div class="arch-node-info">
+                    <h5>Integraciones B2B</h5>
+                    <small>Webhooks & REST APIs</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Layer 2: Gateway & Edge -->
+            <div class="arch-layer">
+              <div class="arch-layer-label">
+                <i class="bi bi-shield-check"></i> 02. EDGE, WAF & API GATEWAY
+              </div>
+              <div class="arch-nodes-row">
+                <div class="arch-node-card" data-node="gateway">
+                  <div class="arch-node-icon"><i class="bi bi-hdd-network"></i></div>
+                  <div class="arch-node-info">
+                    <h5>Cloudflare WAF / Gateway</h5>
+                    <small>TLS 1.3 &bull; Rate Limiting &bull; DDoS Shield</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Layer 3: Services Engine -->
+            <div class="arch-layer">
+              <div class="arch-layer-label">
+                <i class="bi bi-cpu"></i> 03. CLUSTER DE MICROSERVICIOS (KUBERNETES)
+              </div>
+              <div class="arch-nodes-row">
+                <div class="arch-node-card" data-node="dotnet-core">
+                  <div class="arch-node-icon"><i class="bi bi-microsoft"></i></div>
+                  <div class="arch-node-info">
+                    <h5>.NET 9 Core Engine</h5>
+                    <small>CQRS &bull; Clean Architecture</small>
+                  </div>
+                </div>
+                <div class="arch-node-card" data-node="go-service">
+                  <div class="arch-node-icon"><i class="bi bi-lightning-charge"></i></div>
+                  <div class="arch-node-info">
+                    <h5>Go Event Worker</h5>
+                    <small>High Concurrency &bull; 2ms latency</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Layer 4: Storage & Messaging -->
+            <div class="arch-layer" style="margin-bottom: 0;">
+              <div class="arch-layer-label">
+                <i class="bi bi-database"></i> 04. PERSISTENCIA & EVENT BUS
+              </div>
+              <div class="arch-nodes-row">
+                <div class="arch-node-card" data-node="redis">
+                  <div class="arch-node-icon"><i class="bi bi-lightning"></i></div>
+                  <div class="arch-node-info">
+                    <h5>Redis Cluster</h5>
+                    <small>Sub-millisecond Cache</small>
+                  </div>
+                </div>
+                <div class="arch-node-card" data-node="postgres">
+                  <div class="arch-node-icon"><i class="bi bi-database-check"></i></div>
+                  <div class="arch-node-info">
+                    <h5>PostgreSQL Sharded</h5>
+                    <small>ACID &bull; Multi-AZ Replicas</small>
+                  </div>
+                </div>
+                <div class="arch-node-card" data-node="kafka">
+                  <div class="arch-node-icon"><i class="bi bi-send-check"></i></div>
+                  <div class="arch-node-info">
+                    <h5>Kafka Stream</h5>
+                    <small>Event-Driven Architecture</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Panel de Telemetría del Nodo Seleccionado -->
+          <div class="arch-telemetry-panel">
+            <span class="badge-system mb-2" id="telemetryBadge">INSPECTOR DE NODO</span>
+            <h4 id="telemetryNodeTitle">Web & Mobile Apps</h4>
+            <p id="telemetryNodeDesc" style="color: var(--silver-mid); font-size: 0.9rem; line-height: 1.5;">
+              Capa de presentación moderna con Next.js 15 y Flutter compilado en código nativo (ARM64). Renderizado por servidor y consumo de APIs bajo GraphQL y gRPC.
+            </p>
+
+            <ul class="telemetry-spec-list">
+              <li>
+                <span>Protocolo:</span>
+                <strong id="telemetryProto">HTTPS / HTTP3 / gRPC</strong>
+              </li>
+              <li>
+                <span>Latencia Estimada:</span>
+                <strong id="telemetryLatency" style="color: #34D399;">~14ms P99</strong>
+              </li>
+              <li>
+                <span>Tolerancia a Fallos:</span>
+                <strong id="telemetryFailover">DNS Georredundante</strong>
+              </li>
+              <li>
+                <span>Cifrado:</span>
+                <strong id="telemetryCrypto">TLS 1.3 Strict</strong>
+              </li>
+            </ul>
+
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--silver-border); border-radius: var(--radius-xs); padding: 12px; margin-top: auto;">
+              <small class="font-mono text-silver" style="font-size: 0.76rem;">STATUS: NODE SYNCHRONIZED &bull; ZERO DRIFT</small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stack Tecnológico & Ecosistema -->
+  <section class="section" id="stack" style="background: #090B10; border-top: 1px solid var(--silver-border); border-bottom: 1px solid var(--silver-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system">MODERN TECH MATRIX</span>
+        <h2>Stack Tecnológico & Ecosistema</h2>
+        <p>
+          Seleccionamos las herramientas más sólidas, probadas y mantenibles del mercado para garantizar longevidad y velocidad a tu plataforma.
+        </p>
+      </div>
+
+      <!-- Pestañas de Filtro Tecnológico -->
+      <div class="stack-tabs">
+        <button class="stack-tab-btn active" data-stack="all">Todos los Componentes</button>
+        <button class="stack-tab-btn" data-stack="backend">Backend & APIs</button>
+        <button class="stack-tab-btn" data-stack="frontend">Frontend & UI</button>
+        <button class="stack-tab-btn" data-stack="mobile">Móvil Nativo & Cross</button>
+        <button class="stack-tab-btn" data-stack="cloud">Cloud & DevOps</button>
+        <button class="stack-tab-btn" data-stack="data">Bases de Datos & IA</button>
+      </div>
+
+      <div class="stack-grid" id="stackGrid">
+        
+        <!-- .NET 9 -->
+        <div class="stack-item-card" data-cat="backend">
+          <div class="stack-icon-box"><i class="bi bi-microsoft"></i></div>
+          <h4>.NET 9 / C#</h4>
+          <p>Rendimiento extremo, tipado estricto y robustez enterprise para APIs de misión crítica.</p>
+          <span class="stack-tag-badge">Backend Enterprise</span>
+        </div>
+
+        <!-- Node / NestJS -->
+        <div class="stack-item-card" data-cat="backend">
+          <div class="stack-icon-box"><i class="bi bi-terminal"></i></div>
+          <h4>Node.js & NestJS</h4>
+          <p>Microservicios asíncronos y arquitecturas orientadas a eventos en TypeScript.</p>
+          <span class="stack-tag-badge">High Concurrency</span>
+        </div>
+
+        <!-- Python FastAPI -->
+        <div class="stack-item-card" data-cat="backend data">
+          <div class="stack-icon-box"><i class="bi bi-code-slash"></i></div>
+          <h4>Python & FastAPI</h4>
+          <p>Servicios de procesamiento de datos, machine learning e integración con LLMs/AI.</p>
+          <span class="stack-tag-badge">Data & AI Backend</span>
+        </div>
+
+        <!-- Next.js / React -->
+        <div class="stack-item-card" data-cat="frontend">
+          <div class="stack-icon-box"><i class="bi bi-window-fullscreen"></i></div>
+          <h4>Next.js & React 19</h4>
+          <p>Server-side rendering, hidratación instantánea y arquitectura web moderna.</p>
+          <span class="stack-tag-badge">Frontend Moderno</span>
+        </div>
+
+        <!-- TypeScript -->
+        <div class="stack-item-card" data-cat="frontend backend">
+          <div class="stack-icon-box"><i class="bi bi-filetype-tsx"></i></div>
+          <h4>TypeScript</h4>
+          <p>Seguridad de tipos de extremo a extremo, autocompletado y cero errores en runtime.</p>
+          <span class="stack-tag-badge">Type Safety</span>
+        </div>
+
+        <!-- Flutter -->
+        <div class="stack-item-card" data-cat="mobile">
+          <div class="stack-icon-box"><i class="bi bi-phone"></i></div>
+          <h4>Flutter & Dart</h4>
+          <p>Aplicaciones móviles iOS y Android nativas compuestas desde una sola base de código.</p>
+          <span class="stack-tag-badge">Mobile Cross-Platform</span>
+        </div>
+
+        <!-- AWS & Azure -->
+        <div class="stack-item-card" data-cat="cloud">
+          <div class="stack-icon-box"><i class="bi bi-cloud-check"></i></div>
+          <h4>AWS & Microsoft Azure</h4>
+          <p>Infraestructura elástica global, ECS, Lambda, AKS y redes virtuales privadas seguras.</p>
+          <span class="stack-tag-badge">Cloud Architecture</span>
+        </div>
+
+        <!-- Docker & Kubernetes -->
+        <div class="stack-item-card" data-cat="cloud">
+          <div class="stack-icon-box"><i class="bi bi-boxes"></i></div>
+          <h4>Docker & Kubernetes</h4>
+          <p>Contenedores inmutables, orquestación distribuida y despliegues sin tiempo muerto.</p>
+          <span class="stack-tag-badge">DevOps & CI/CD</span>
+        </div>
+
+        <!-- PostgreSQL -->
+        <div class="stack-item-card" data-cat="data">
+          <div class="stack-icon-box"><i class="bi bi-database"></i></div>
+          <h4>PostgreSQL & PostGIS</h4>
+          <p>Base de datos relacional estándar de la industria, transacciones ACID y extensiones geo.</p>
+          <span class="stack-tag-badge">Relational Core</span>
+        </div>
+
+        <!-- Redis -->
+        <div class="stack-item-card" data-cat="data">
+          <div class="stack-icon-box"><i class="bi bi-lightning"></i></div>
+          <h4>Redis In-Memory</h4>
+          <p>Caché distribuida de ultra baja latencia, rate limiting y sesiones compartidas.</p>
+          <span class="stack-tag-badge">Sub-millisecond</span>
+        </div>
+
+        <!-- AI Integrations -->
+        <div class="stack-item-card" data-cat="data">
+          <div class="stack-icon-box"><i class="bi bi-robot"></i></div>
+          <h4>AI & RAG Pipelines</h4>
+          <p>Integración de modelos Gemini/OpenAI, embeddings vectoriales y agentes autónomos.</p>
+          <span class="stack-tag-badge">Intelligent Apps</span>
+        </div>
+
+        <!-- GitOps & Terraform -->
+        <div class="stack-item-card" data-cat="cloud">
+          <div class="stack-icon-box"><i class="bi bi-git"></i></div>
+          <h4>Terraform & GitHub CI/CD</h4>
+          <p>Infraestructura reproducible versionada en código con auditoría criptográfica.</p>
+          <span class="stack-tag-badge">Infrastructure as Code</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN CATÁLOGO DE SOLUCIONES & ARQUITECTURAS 2026 -->
+  <section class="section" id="catalogo" style="background: #08090C; border-top: 1px solid var(--silver-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system"><i class="bi bi-boxes me-1"></i> PRODUCTION-READY BLUEPRINTS</span>
+        <h2>Catálogo de Soluciones & Arquitecturas</h2>
+        <p>
+          Modelos de sistemas y arquitecturas de software probadas en producción. Diseñadas para empresas de Nicaragua y la región centroamericana que exigen alta concurrencia, seguridad SOC2, código limpio y propiedad intelectual 100% transferida.
+        </p>
+      </div>
+
+      <!-- Filtros de Categoría -->
+      <div class="dev-catalog-filters">
+        <button type="button" class="dev-catalog-tab-btn active" data-dev-cat="all">
+          <i class="bi bi-grid-fill"></i>
+          <span>Todos los Blueprints (6)</span>
+        </button>
+        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="enterprise">
+          <i class="bi bi-building-gear"></i>
+          <span>Enterprise & ERP</span>
+        </button>
+        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="saas">
+          <i class="bi bi-cloud-check-fill"></i>
+          <span>SaaS Multi-Tenant</span>
+        </button>
+        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="mobile">
+          <i class="bi bi-phone"></i>
+          <span>Apps Móviles</span>
+        </button>
+        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="apis">
+          <i class="bi bi-hdd-network"></i>
+          <span>APIs & Microservicios</span>
+        </button>
+        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="web">
+          <i class="bi bi-browser-chrome"></i>
+          <span>Web & Transaccional</span>
+        </button>
+      </div>
+
+      <!-- Grid de Soluciones -->
+      <div class="dev-catalog-grid" id="devCatalogGrid">
+
+        <!-- Blueprint 1: ERP Cloud Core Nicaragua -->
+        <div class="dev-catalog-card dev-catalog-card-featured" data-dev-item="enterprise">
+          <div class="dev-blueprint-thumb">
+            <img src="assets/blueprints/erp-core.jpg" alt="ERP Cloud Core & Facturación DGI" loading="lazy">
+            <span class="thumb-tag"><i class="bi bi-shield-check text-cyan me-1"></i> SOC2 / DGI</span>
+          </div>
+          <div class="dev-blueprint-badge badge-cyan"><i class="bi bi-check2-circle me-1"></i> Core Empresarial Nicaragua</div>
+          <h3 class="dev-blueprint-title">ERP Cloud Core & Facturación DGI</h3>
+          <p class="dev-blueprint-desc">
+            Sistema integral modular de gestión empresarial: facturación electrónica con normativas de la DGI de Nicaragua, multi-bodega, cuentas por cobrar, bancos y reportería financiera.
+          </p>
+          <div class="dev-blueprint-tags">
+            <span class="dev-blueprint-tag">.NET 9 C#</span>
+            <span class="dev-blueprint-tag">PostgreSQL 16</span>
+            <span class="dev-blueprint-tag">React / TypeScript</span>
+            <span class="dev-blueprint-tag">Docker</span>
+          </div>
+          <div class="dev-blueprint-pricing">
+            <div class="dev-price-main">$1,850 <span class="dev-price-period">USD base</span></div>
+            <div class="dev-price-sub">Aprox. C$ 67,747 NIO &bull; Despliegue en 3-4 semanas</div>
+          </div>
+          <ul class="dev-blueprint-features">
+            <li><i class="bi bi-check-circle-fill"></i> Módulo DGI: Retenciones IR, IVA y pie de imprenta fiscal</li>
+            <li><i class="bi bi-check-circle-fill"></i> Inventario Multi-Sucursal con kardex PEPS/Promedio</li>
+            <li><i class="bi bi-check-circle-fill"></i> Control de permisos por rol (RBAC) y auditoría total</li>
+            <li><i class="bi bi-check-circle-fill"></i> API abierta para conectar a CRM y tiendas online</li>
+          </ul>
+          <div class="dev-blueprint-actions">
+            <button type="button" class="btn btn-secondary w-100 btn-ver-blueprint" data-dev-ficha="erp-core">
+              <i class="bi bi-cpu me-1"></i> Ver Ficha Técnica Arquitectónica
+            </button>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20el%20Blueprint%20ERP%20Cloud%20Core%20Nicaragua%20($1,850%20USD)" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Cotizar este Blueprint
+            </a>
+          </div>
+        </div>
+
+        <!-- Blueprint 2: Plataforma SaaS Multi-Tenant Cloud-Native -->
+        <div class="dev-catalog-card" data-dev-item="saas">
+          <div class="dev-blueprint-thumb">
+            <img src="assets/blueprints/saas-platform.jpg" alt="Plataforma SaaS B2B Multi-Tenant" loading="lazy">
+            <span class="thumb-tag"><i class="bi bi-cloud-check text-green me-1"></i> Multi-Tenant</span>
+          </div>
+          <div class="dev-blueprint-badge badge-green"><i class="bi bi-cloud-arrow-up-fill me-1"></i> Escalabilidad Global</div>
+          <h3 class="dev-blueprint-title">Plataforma SaaS B2B Multi-Tenant</h3>
+          <p class="dev-blueprint-desc">
+            Arquitectura moderna lista para comercializar software por suscripción: particionamiento de bases de datos por inquilino, cobros recurrentes y panel de super-administrador.
+          </p>
+          <div class="dev-blueprint-tags">
+            <span class="dev-blueprint-tag">NestJS / Node</span>
+            <span class="dev-blueprint-tag">Next.js 14 App Router</span>
+            <span class="dev-blueprint-tag">Stripe / PixelPay</span>
+            <span class="dev-blueprint-tag">AWS ECS</span>
+          </div>
+          <div class="dev-blueprint-pricing">
+            <div class="dev-price-main">$3,200 <span class="dev-price-period">USD base</span></div>
+            <div class="dev-price-sub">Aprox. C$ 117,184 NIO &bull; Despliegue en 6-8 semanas</div>
+          </div>
+          <ul class="dev-blueprint-features">
+            <li><i class="bi bi-check-circle-fill"></i> Aislamiento estricto de datos con Schema-per-tenant</li>
+            <li><i class="bi bi-check-circle-fill"></i> Facturación recurrente y pasarelas centroamericanas</li>
+            <li><i class="bi bi-check-circle-fill"></i> Autenticación OAuth2 / JWT con 2FA biométrico</li>
+            <li><i class="bi bi-check-circle-fill"></i> Webhooks entrantes y salientes para integraciones</li>
+          </ul>
+          <div class="dev-blueprint-actions">
+            <button type="button" class="btn btn-secondary w-100 btn-ver-blueprint" data-dev-ficha="saas-platform">
+              <i class="bi bi-cpu me-1"></i> Ver Ficha Técnica Arquitectónica
+            </button>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20el%20Blueprint%20SaaS%20Multi-Tenant%20($3,200%20USD)" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Cotizar este Blueprint
+            </a>
+          </div>
+        </div>
+
+        <!-- Blueprint 3: App Móvil Offline-First (Flutter / React Native) -->
+        <div class="dev-catalog-card" data-dev-item="mobile">
+          <div class="dev-blueprint-thumb">
+            <img src="assets/blueprints/app-mobile.jpg" alt="App Móvil Offline-First de Campo" loading="lazy">
+            <span class="thumb-tag"><i class="bi bi-phone text-cyan me-1"></i> Flutter Offline</span>
+          </div>
+          <div class="dev-blueprint-badge badge-cyan"><i class="bi bi-phone-flip me-1"></i> iOS + Android Nativo</div>
+          <h3 class="dev-blueprint-title">App Móvil Offline-First de Campo</h3>
+          <p class="dev-blueprint-desc">
+            Aplicación móvil robusta para equipos de ventas, supervisores de obra o técnicos en campo. Funciona al 100% sin conexión a internet y sincroniza al detectar señal.
+          </p>
+          <div class="dev-blueprint-tags">
+            <span class="dev-blueprint-tag">Flutter 3.x</span>
+            <span class="dev-blueprint-tag">SQLite / Drift</span>
+            <span class="dev-blueprint-tag">Node / Go API</span>
+            <span class="dev-blueprint-tag">Firebase Push</span>
+          </div>
+          <div class="dev-blueprint-pricing">
+            <div class="dev-price-main">$2,450 <span class="dev-price-period">USD base</span></div>
+            <div class="dev-price-sub">Aprox. C$ 89,719 NIO &bull; Despliegue en 4-6 semanas</div>
+          </div>
+          <ul class="dev-blueprint-features">
+            <li><i class="bi bi-check-circle-fill"></i> Base de datos local encriptada con sincronización bidireccional</li>
+            <li><i class="bi bi-check-circle-fill"></i> Geolocalización GPS en segundo plano y captura de firmas</li>
+            <li><i class="bi bi-check-circle-fill"></i> Publicación y aprobación garantizada en App Store & Play Store</li>
+            <li><i class="bi bi-check-circle-fill"></i> Impresión térmica bluetooth de comprobantes y recibos</li>
+          </ul>
+          <div class="dev-blueprint-actions">
+            <button type="button" class="btn btn-secondary w-100 btn-ver-blueprint" data-dev-ficha="app-mobile">
+              <i class="bi bi-cpu me-1"></i> Ver Ficha Técnica Arquitectónica
+            </button>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20el%20Blueprint%20App%20M%C3%B3vil%20Offline-First%20($2,450%20USD)" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Cotizar este Blueprint
+            </a>
+          </div>
+        </div>
+
+        <!-- Blueprint 4: Enterprise API Gateway & Microservicios -->
+        <div class="dev-catalog-card" data-dev-item="apis">
+          <div class="dev-blueprint-thumb">
+            <img src="assets/blueprints/api-gateway.jpg" alt="API Gateway & Microservicios" loading="lazy">
+            <span class="thumb-tag"><i class="bi bi-lightning-charge text-green me-1"></i> 18k req/s</span>
+          </div>
+          <div class="dev-blueprint-badge badge-green"><i class="bi bi-hdd-rack me-1"></i> Ultra Concurrencia</div>
+          <h3 class="dev-blueprint-title">API Gateway & Microservicios</h3>
+          <p class="dev-blueprint-desc">
+            Orquestación de alto rendimiento capaz de procesar +15,000 req/sec: balanceo de carga, rate limiting, caché distribuida con Redis y telemetría Prometheus.
+          </p>
+          <div class="dev-blueprint-tags">
+            <span class="dev-blueprint-tag">Golang / Rust</span>
+            <span class="dev-blueprint-tag">Redis Cluster</span>
+            <span class="dev-blueprint-tag">Docker / K8s</span>
+            <span class="dev-blueprint-tag">Prometheus</span>
+          </div>
+          <div class="dev-blueprint-pricing">
+            <div class="dev-price-main">$2,100 <span class="dev-price-period">USD base</span></div>
+            <div class="dev-price-sub">Aprox. C$ 76,902 NIO &bull; Despliegue en 3-5 semanas</div>
+          </div>
+          <ul class="dev-blueprint-features">
+            <li><i class="bi bi-check-circle-fill"></i> Latencia sub-15ms con compilación nativa en Go/Rust</li>
+            <li><i class="bi bi-check-circle-fill"></i> Autenticación centralizada JWT / mTLS / API Keys</li>
+            <li><i class="bi bi-check-circle-fill"></i> Circuit breaker y auto-recuperación ante fallos</li>
+            <li><i class="bi bi-check-circle-fill"></i> Documentación interactiva Swagger / OpenAPI 3.1</li>
+          </ul>
+          <div class="dev-blueprint-actions">
+            <button type="button" class="btn btn-secondary w-100 btn-ver-blueprint" data-dev-ficha="api-gateway">
+              <i class="bi bi-cpu me-1"></i> Ver Ficha Técnica Arquitectónica
+            </button>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20el%20Blueprint%20API%20Gateway%20($2,100%20USD)" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Cotizar este Blueprint
+            </a>
+          </div>
+        </div>
+
+        <!-- Blueprint 5: Portal Web Transaccional & Headless Commerce -->
+        <div class="dev-catalog-card" data-dev-item="web">
+          <div class="dev-blueprint-thumb">
+            <img src="assets/blueprints/web-transaccional.jpg" alt="E-Commerce Headless & Portal Web" loading="lazy">
+            <span class="thumb-tag"><i class="bi bi-cart4 text-cyan me-1"></i> Headless Edge</span>
+          </div>
+          <div class="dev-blueprint-badge badge-cyan"><i class="bi bi-cart4 me-1"></i> PageSpeed 99/100</div>
+          <h3 class="dev-blueprint-title">E-Commerce Headless & Portal Web</h3>
+          <p class="dev-blueprint-desc">
+            Tienda digital y portal corporativo de carga instantánea en conexiones celulares de Nicaragua. Carrito desacoplado, pasarelas BAC/Banpro y panel de gestión.
+          </p>
+          <div class="dev-blueprint-tags">
+            <span class="dev-blueprint-tag">Next.js 14</span>
+            <span class="dev-blueprint-tag">Tailwind / Vanilla CSS</span>
+            <span class="dev-blueprint-tag">BAC / Banpro API</span>
+            <span class="dev-blueprint-tag">Edge Cloudflare</span>
+          </div>
+          <div class="dev-blueprint-pricing">
+            <div class="dev-price-main">$980 <span class="dev-price-period">USD base</span></div>
+            <div class="dev-price-sub">Aprox. C$ 35,888 NIO &bull; Despliegue en 2-3 semanas</div>
+          </div>
+          <ul class="dev-blueprint-features">
+            <li><i class="bi bi-check-circle-fill"></i> Carga sub-segundo con Server-Side Rendering (SSR)</li>
+            <li><i class="bi bi-check-circle-fill"></i> Integración directa con pasarelas de pago de Nicaragua</li>
+            <li><i class="bi bi-check-circle-fill"></i> Checkout con notificación automática a WhatsApp y correo</li>
+            <li><i class="bi bi-check-circle-fill"></i> Panel de control intuitivo para agregar productos y stock</li>
+          </ul>
+          <div class="dev-blueprint-actions">
+            <button type="button" class="btn btn-secondary w-100 btn-ver-blueprint" data-dev-ficha="web-transaccional">
+              <i class="bi bi-cpu me-1"></i> Ver Ficha Técnica Arquitectónica
+            </button>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20el%20Blueprint%20E-Commerce%20Headless%20($980%20USD)" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Cotizar este Blueprint
+            </a>
+          </div>
+        </div>
+
+        <!-- Blueprint 6: Plataforma IoT Telemetría & Monitoreo Industrial -->
+        <div class="dev-catalog-card" data-dev-item="enterprise">
+          <div class="dev-blueprint-thumb">
+            <img src="assets/blueprints/iot-industrial.jpg" alt="Telemetría IoT & Control Industrial" loading="lazy">
+            <span class="thumb-tag"><i class="bi bi-broadcast text-green me-1"></i> MQTT Live</span>
+          </div>
+          <div class="dev-blueprint-badge badge-green"><i class="bi bi-broadcast-pin me-1"></i> Industria & Agro</div>
+          <h3 class="dev-blueprint-title">Telemetría IoT & Control Industrial</h3>
+          <p class="dev-blueprint-desc">
+            Captura masiva y visualización en tiempo real de variables físicas (temperatura, flujo, nivel, consumo energético, GPS de maquinaria) para agroindustrias y plantas de Occidente.
+          </p>
+          <div class="dev-blueprint-tags">
+            <span class="dev-blueprint-tag">MQTT / WebSockets</span>
+            <span class="dev-blueprint-tag">TimescaleDB</span>
+            <span class="dev-blueprint-tag">Golang / Python</span>
+            <span class="dev-blueprint-tag">Grafana / React</span>
+          </div>
+          <div class="dev-blueprint-pricing">
+            <div class="dev-price-main">$2,800 <span class="dev-price-period">USD base</span></div>
+            <div class="dev-price-sub">Aprox. C$ 102,536 NIO &bull; Despliegue en 4-6 semanas</div>
+          </div>
+          <ul class="dev-blueprint-features">
+            <li><i class="bi bi-check-circle-fill"></i> Ingesta masiva con broker MQTT optimizado para bajo ancho de banda</li>
+            <li><i class="bi bi-check-circle-fill"></i> Alertas automáticas por WhatsApp / Telegram ante valores críticos</li>
+            <li><i class="bi bi-check-circle-fill"></i> Tableros de monitoreo en tiempo real con WebSockets</li>
+            <li><i class="bi bi-check-circle-fill"></i> Históricos de series de tiempo para mantenimiento predictivo</li>
+          </ul>
+          <div class="dev-blueprint-actions">
+            <button type="button" class="btn btn-secondary w-100 btn-ver-blueprint" data-dev-ficha="iot-industrial">
+              <i class="bi bi-cpu me-1"></i> Ver Ficha Técnica Arquitectónica
+            </button>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20el%20Blueprint%20IoT%20Telemetr%C3%ADa%20($2,800%20USD)" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Cotizar este Blueprint
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Dossier Callout Banner Dev Studio -->
+      <div class="dev-dossier-banner">
+        <div class="dev-dossier-icon">
+          <i class="bi bi-file-earmark-code"></i>
+        </div>
+        <div class="dev-dossier-info">
+          <h4>¿Requieres presentar las especificaciones a tu CTO o Equipo de TI?</h4>
+          <p>
+            Descarga nuestro <strong>Dossier de Arquitectura & SLA 2026</strong> en formato PDF interactivo con diagramas de bloques, estándares de seguridad SOC 2, contratos de confidencialidad y matrices de rendimiento.
+          </p>
+        </div>
+        <div class="dev-dossier-btns">
+          <a href="blueprints.html" class="btn btn-silver" id="btnDescargarDossierDev" target="_blank">
+            <i class="bi bi-file-earmark-code-fill me-1"></i> Abrir Catálogo de Blueprints & SLA
+          </a>
+          <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20recibir%20el%20Dossier%20T%C3%A9cnico%20de%20Arquitectura%20en%20PDF" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="bi bi-whatsapp me-1"></i> Solicitar por WhatsApp
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CALCULADORA INTERACTIVA DE ALCANCE Y ARQUITECTURA -->
+  <section class="section" id="estimador">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system">PROJECT SCOPE & BUDGET ESTIMATOR</span>
+        <h2>Calculadora de Arquitectura & Sprints</h2>
+        <p>
+          Configura los parámetros clave de tu sistema de software para proyectar de forma inmediata los sprints requeridos, la arquitectura recomendada y el rango de inversión orientativo.
+        </p>
+      </div>
+
+      <div class="calc-box-master">
+        <div class="calc-grid">
+          
+          <!-- Controles de Configuración Técnica -->
+          <div class="calc-inputs-col">
+            
+            <!-- Parámetro 1: Tipo de Plataforma -->
+            <div class="calc-field-group">
+              <div class="calc-field-label">
+                <span class="tech-step-idx">01</span>
+                <span>Tipo de Plataforma o Producto</span>
+              </div>
+              <div class="calc-pill-options">
+                <label class="calc-label-radio">
+                  <input type="radio" name="techType" value="web" data-weeks="4" data-price="2800" data-name="Plataforma Web SaaS / Portal B2B" checked>
+                  <div class="calc-option-tile">
+                    <h5>Plataforma Web Empresarial</h5>
+                    <small>SaaS B2B, portal corporativo, panel administrativo con React/Next</small>
+                  </div>
+                </label>
+
+                <label class="calc-label-radio">
+                  <input type="radio" name="techType" value="mobile" data-weeks="6" data-price="3600" data-name="App Móvil Nativa / Multiplataforma">
+                  <div class="calc-option-tile">
+                    <h5>App Móvil iOS & Android</h5>
+                    <small>Desarrollo cross-platform en Flutter con backend y API REST</small>
+                  </div>
+                </label>
+
+                <label class="calc-label-radio">
+                  <input type="radio" name="techType" value="api" data-weeks="5" data-price="3200" data-name="Arquitectura de Microservicios & APIs">
+                  <div class="calc-option-tile">
+                    <h5>Core de APIs & Microservicios</h5>
+                    <small>Backend distribuido, colas de eventos y base de datos de alta escala</small>
+                  </div>
+                </label>
+
+                <label class="calc-label-radio">
+                  <input type="radio" name="techType" value="suite" data-weeks="9" data-price="6200" data-name="Ecosistema Completo (Web + Mobile + Cloud Core)">
+                  <div class="calc-option-tile">
+                    <h5>Ecosistema Completo 360°</h5>
+                    <small>Web admin + Apps móviles + Backend escalable + DevOps pipeline</small>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Parámetro 2: Nivel de Escala y Concurrencia -->
+            <div class="calc-field-group">
+              <div class="calc-field-label">
+                <span class="tech-step-idx">02</span>
+                <span>Nivel de Escala & Concurrencia Prevista</span>
+              </div>
+              <div class="calc-pill-options">
+                <label class="calc-label-radio">
+                  <input type="radio" name="techScale" value="mvp" data-multiplier="1.0" data-name="MVP Inicial / Validación Comercial" checked>
+                  <div class="calc-option-tile">
+                    <h5>Fase Inicial (MVP)</h5>
+                    <small>Hasta 10,000 usuarios activos, arquitectura monolito modular</small>
+                  </div>
+                </label>
+
+                <label class="calc-label-radio">
+                  <input type="radio" name="techScale" value="growth" data-multiplier="1.4" data-name="Crecimiento / 50k Usuarios">
+                  <div class="calc-option-tile">
+                    <h5>Escala Media (Growth)</h5>
+                    <small>Hasta 50,000 usuarios, caché Redis y réplicas de lectura de BD</small>
+                  </div>
+                </label>
+
+                <label class="calc-label-radio" style="grid-column: span 2;">
+                  <input type="radio" name="techScale" value="enterprise" data-multiplier="1.85" data-name="Enterprise Scale (+100k Usuarios / Multi-Region)">
+                  <div class="calc-option-tile">
+                    <h5>Escala Enterprise (+100k transacciones)</h5>
+                    <small>Kubernetes georredundante, colas Kafka, observabilidad Datadog y SLA 99.99%</small>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Parámetro 3: Módulos Críticos Requeridos (Checkboxes) -->
+            <div class="calc-field-group">
+              <div class="calc-field-label">
+                <span class="tech-step-idx">03</span>
+                <span>Módulos de Arquitectura Específicos (Opcional)</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <label class="calc-label-radio">
+                  <input type="checkbox" name="techModule" value="auth" data-weeks="1" data-price="600" data-name="Autenticación SSO / OAuth2 / Biometría">
+                  <div class="calc-option-tile" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <h5 style="margin:0;">Autenticación Empresarial & SSO (OAuth2 / SAML / Biometría)</h5>
+                      <small>Seguridad de sesiones, 2FA, tokens JWT con rotación segura</small>
+                    </div>
+                    <span class="font-mono text-silver" style="font-size: 0.85rem;">+$600 USD</span>
+                  </div>
+                </label>
+
+                <label class="calc-label-radio">
+                  <input type="checkbox" name="techModule" value="payments" data-weeks="1" data-price="800" data-name="Integración Pasarelas de Pago Multi-Moneda">
+                  <div class="calc-option-tile" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <h5 style="margin:0;">Pasarela de Pagos & Facturación Automática (Stripe / BAC / PayPal)</h5>
+                      <small>Suscripciones recurrentes, webhooks de conciliación y facturación</small>
+                    </div>
+                    <span class="font-mono text-silver" style="font-size: 0.85rem;">+$800 USD</span>
+                  </div>
+                </label>
+
+                <label class="calc-label-radio">
+                  <input type="checkbox" name="techModule" value="ai" data-weeks="2" data-price="1200" data-name="Módulo IA / LLM RAG Copilot">
+                  <div class="calc-option-tile" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <h5 style="margin:0;">Módulo de Inteligencia Artificial (Copiloto LLM / RAG / Búsqueda Semántica)</h5>
+                      <small>Consultas inteligentes sobre base de conocimiento de la empresa</small>
+                    </div>
+                    <span class="font-mono text-silver" style="font-size: 0.85rem;">+$1,200 USD</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Salida de la Especificación de Arquitectura -->
+          <div class="calc-output-spec">
+            <div class="spec-header">
+              <h4>Blueprint Técnico</h4>
+              <small class="font-mono" style="color: var(--silver-dark);">SPEC ID: DEV-ARC-2026</small>
+            </div>
+
+            <ul class="spec-list">
+              <li>
+                <span>Arquitectura Base:</span>
+                <strong id="specPlatformName">Plataforma Web SaaS</strong>
+              </li>
+              <li>
+                <span>Nivel de Escala:</span>
+                <strong id="specScaleName">MVP Inicial</strong>
+              </li>
+              <li>
+                <span>Stack Recomendado:</span>
+                <strong id="specStack">.NET 9 + React + Postgres</strong>
+              </li>
+              <li id="specModulesRow" style="display: none;">
+                <span>Módulos Extra:</span>
+                <strong id="specModulesText">Ninguno</strong>
+              </li>
+              <li>
+                <span>Propiedad Intelectual:</span>
+                <strong style="color: #34D399;">100% Transferida</strong>
+              </li>
+            </ul>
+
+            <div class="spec-totals">
+              <span class="font-mono" style="font-size: 0.78rem; text-transform: uppercase; color: var(--silver-dark); display: block; margin-bottom: 4px;">Plazo de Ejecución:</span>
+              <div class="spec-sprints" id="specDurationText">4 - 5 Semanas</div>
+              <div class="spec-investment" id="specInvestmentText">Inversión: $2,800 - $3,500 USD</div>
+            </div>
+
+            <button type="button" class="btn btn-silver w-100" id="btnExportSpecWsp">
+              <i class="bi bi-file-earmark-code"></i>
+              <span>Solicitar Arquitectura a Asesor</span>
+            </button>
+            <small style="text-align: center; margin-top: 12px; color: var(--silver-dark); font-size: 0.78rem; line-height: 1.4;">
+              *Estimación basada en sprints ágiles de 2 semanas con QA automatizado y entrega continua de código.
+            </small>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metodología: The Dev Studio Blueprint -->
+  <section class="section" id="metodologia">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system">ENGINEERING LIFECYCLE</span>
+        <h2>The Dev Studio Blueprint</h2>
+        <p>Un proceso estructurado para erradicar la incertidumbre técnica y garantizar entregas predecibles en tiempo y costo.</p>
+      </div>
+
+      <div class="blueprint-steps-grid">
+        <div class="blueprint-card">
+          <div class="blueprint-num">01</div>
+          <h4>Discovery & System Blueprint</h4>
+          <p>Definición de modelo de dominio, diagramas C4 de arquitectura, elección de stack y desglose granular de requerimientos.</p>
+        </div>
+
+        <div class="blueprint-card">
+          <div class="blueprint-num">02</div>
+          <h4>UI/UX Prototyping</h4>
+          <p>Diseño de interfaces en alta fidelidad en Figma con componentes modulares, flujos de usuario y validación de interacciones.</p>
+        </div>
+
+        <div class="blueprint-card">
+          <div class="blueprint-num">03</div>
+          <h4>Agile Sprints & CI/CD</h4>
+          <p>Desarrollo iterativo en sprints quincenales. Código desplegado automáticamente en entornos de Staging para revisión del cliente.</p>
+        </div>
+
+        <div class="blueprint-card">
+          <div class="blueprint-num">04</div>
+          <h4>Automated QA & Security</h4>
+          <p>Pruebas unitarias, de integración y estrés (k6), análisis estático de vulnerabilidades y verificación con lineamientos OWASP.</p>
+        </div>
+
+        <div class="blueprint-card">
+          <div class="blueprint-num">05</div>
+          <h4>Zero-Downtime Launch</h4>
+          <p>Puesta en producción mediante pipelines Blue/Green o Canary, monitoreo de métricas APM en tiempo real y soporte con SLA 24/7.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparativa: Dev Studio vs Otras Opciones -->
+  <section class="section" id="comparativa" style="border-top: 1px solid var(--silver-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system"><i class="bi bi-shield-check text-silver me-1"></i> INDUSTRY COMPARISON</span>
+        <h2>¿Por Qué Líderes Eligen Dev Studio?</h2>
+        <p>Una comparación transparente de garantías contractuales, estándares de código y soporte técnico.</p>
+      </div>
+
+      <div class="comp-table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Criterio Técnico / Legal</th>
+              <th class="col-highlight">
+                <i class="bi bi-cpu-fill text-light me-1"></i> Dev Studio Engineering
+              </th>
+              <th>Fábricas de Software Tradicionales</th>
+              <th>Desarrolladores Freelancers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Propiedad Intelectual & Código</strong></td>
+              <td class="col-highlight">
+                <div class="check-pass"><i class="bi bi-check-circle-fill"></i> 100% Tuya desde el Día 1 (NDA)</div>
+              </td>
+              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Licenciamiento cautivo / costos extra</div></td>
+              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Disperso sin garantías legales</div></td>
+            </tr>
+            <tr>
+              <td><strong>Deuda Técnica & Arquitectura</strong></td>
+              <td class="col-highlight">
+                <div class="check-pass"><i class="bi bi-check-circle-fill"></i> 0% Garantizado con Clean Architecture</div>
+              </td>
+              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Media/Alta (código difícil de mantener)</div></td>
+              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Crítica (reescritura obligada al año)</div></td>
+            </tr>
+            <tr>
+              <td><strong>Pruebas & Cobertura de QA</strong></td>
+              <td class="col-highlight">
+                <div class="check-pass"><i class="bi bi-check-circle-fill"></i> >85% Cobertura Automatizada (Unit/E2E)</div>
+              </td>
+              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Pruebas manuales ocasionales</div></td>
+              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Inexistentes o sin documentar</div></td>
+            </tr>
+            <tr>
+              <td><strong>SLA de Disponibilidad Contractual</strong></td>
+              <td class="col-highlight">
+                <div class="check-pass"><i class="bi bi-check-circle-fill"></i> Hasta 99.99% con penalizaciones</div>
+              </td>
+              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> "Mejor esfuerzo" sin penalización</div></td>
+              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Sin garantías de tiempo de respuesta</div></td>
+            </tr>
+            <tr>
+              <td><strong>Seguridad & Auditoría Continua</strong></td>
+              <td class="col-highlight">
+                <div class="check-pass"><i class="bi bi-check-circle-fill"></i> OWASP Top 10 + Escaneo SonarQube</div>
+              </td>
+              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Seguridad básica perimetral</div></td>
+              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Vulnerable a inyecciones y fugas</div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Code Architecture Showcase -->
+  <section class="section" id="codigo" style="background: #090B10; border-top: 1px solid var(--silver-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system"><i class="bi bi-code-square text-silver me-1"></i> CODE CRAFTSMANSHIP</span>
+        <h2>Estándares de Código de Grado Enterprise</h2>
+        <p>Escribe menos, escala más. Echa un vistazo a la limpieza arquitectónica con la que construimos cada microservicio y componente.</p>
+      </div>
+
+      <div class="code-showcase-box">
+        <div class="code-viewer-bar">
+          <div class="code-tabs-nav">
+            <button type="button" class="code-tab-btn active" data-tab="csharp">
+              <i class="bi bi-microsoft me-1"></i> OrderAggregate.cs (.NET 9)
+            </button>
+            <button type="button" class="code-tab-btn" data-tab="typescript">
+              <i class="bi bi-filetype-tsx me-1"></i> api-route.ts (Next.js 15)
+            </button>
+            <button type="button" class="code-tab-btn" data-tab="terraform">
+              <i class="bi bi-cloud-arrow-up me-1"></i> cluster.tf (Terraform)
+            </button>
+          </div>
+          <button type="button" class="code-copy-btn" id="btnCopyCode">
+            <i class="bi bi-clipboard"></i>
+            <span id="copyBtnText">Copiar Código</span>
+          </button>
+        </div>
+
+        <pre class="code-pre-block" id="codePreBlock"><code>// .NET 9 Clean Architecture Domain Entity with CQRS
+namespace DevStudio.Core.Domain.Orders;
+
+public sealed class OrderAggregate : AggregateRoot&lt;OrderId&gt;
+{
+    private readonly List&lt;OrderItem&gt; _items = new();
+    public IReadOnlyCollection&lt;OrderItem&gt; Items =&gt; _items.AsReadOnly();
+    public Money TotalAmount =&gt; _items.Aggregate(Money.Zero, (acc, item) =&gt; acc + item.Subtotal);
+
+    public Result&lt;OrderConfirmation&gt; ConfirmPayment(TransactionToken token, IPaymentGateway gateway)
+    {
+        if (Status != OrderStatus.Pending)
+            return Result.Failure&lt;OrderConfirmation&gt;(OrderErrors.InvalidTransition);
+
+        var capture = gateway.Capture(token, TotalAmount);
+        if (!capture.IsSuccess)
+            return Result.Failure&lt;OrderConfirmation&gt;(capture.Error);
+
+        Status = OrderStatus.Paid;
+        RaiseDomainEvent(new OrderPaidDomainEvent(Id, DateTime.UtcNow));
+        return Result.Success(new OrderConfirmation(Id, capture.AuthCode));
+    }
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Casos de Estudio de Ingeniería -->
+  <section class="section" id="casos" style="background: #08090C; border-top: 1px solid var(--silver-border); border-bottom: 1px solid var(--silver-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system">PROVEN ARCHITECTURES</span>
+        <h2>Casos de Estudio de Ingeniería</h2>
+        <p>Soluciones técnicas que procesan millones de datos y transacciones sin interrupción.</p>
+      </div>
+
+      <div class="case-study-grid">
+        
+        <!-- Caso 1: FinEdge Core -->
+        <div class="case-card">
+          <div class="case-card-header">
+            <span class="badge-system"><i class="bi bi-bank"></i> FINTECH CORE</span>
+            <span class="font-mono text-silver" style="font-size: 0.8rem;">PROCESAMIENTO DISTRIBUIDO</span>
+          </div>
+          <h3>FinEdge Core &bull; Motor Transaccional de Microfinanzas</h3>
+          <p style="color: var(--silver-mid); font-size: 0.94rem; line-height: 1.6;">
+            Arquitectura de microservicios en .NET 9 con CQRS y Event Sourcing para conciliar más de 50,000 préstamos y desembolsos diarios con contabilidad bancaria automatizada en tiempo real.
+          </p>
+          <div class="case-metric-highlight">50k req/sec &bull; 0 fallos</div>
+          <div class="case-arch-tags">
+            <span class="arch-tag">.NET 9</span>
+            <span class="arch-tag">PostgreSQL</span>
+            <span class="arch-tag">Kafka</span>
+            <span class="arch-tag">Docker / K8s</span>
+          </div>
+        </div>
+
+        <!-- Caso 2: LogiTrack Cloud -->
+        <div class="case-card">
+          <div class="case-card-header">
+            <span class="badge-system"><i class="bi bi-truck"></i> IOT & TELEMÁTICA</span>
+            <span class="font-mono text-silver" style="font-size: 0.8rem;">TELEMETRÍA EN VIVO</span>
+          </div>
+          <h3>LogiTrack Cloud &bull; Telemetría Satelital para Flota Pesada</h3>
+          <p style="color: var(--silver-mid); font-size: 0.94rem; line-height: 1.6;">
+            Plataforma IoT conectada a más de 850 unidades de transporte de carga en Centroamérica, procesando datos de sensores de combustible, temperatura de furgón y geocercas en milisegundos.
+          </p>
+          <div class="case-metric-highlight">18ms Latencia de Sensores</div>
+          <div class="case-arch-tags">
+            <span class="arch-tag">Go (Golang)</span>
+            <span class="arch-tag">MQTT</span>
+            <span class="arch-tag">TimescaleDB</span>
+            <span class="arch-tag">Mapbox GL</span>
+          </div>
+        </div>
+
+        <!-- Caso 3: HealthSync EMR -->
+        <div class="case-card">
+          <div class="case-card-header">
+            <span class="badge-system"><i class="bi bi-hospital"></i> HEALTHCARE</span>
+            <span class="font-mono text-silver" style="font-size: 0.8rem;">CUMPLIMIENTO HIPAA</span>
+          </div>
+          <h3>HealthSync EMR &bull; Expediente Clínico Hospitalario Seguro</h3>
+          <p style="color: var(--silver-mid); font-size: 0.94rem; line-height: 1.6;">
+            Sistema de registro médico interoperable con soporte para estándares FHIR / HL7, cifrado a nivel de campo en base de datos y portal de telemedicina con videollamada WebRTC encriptada.
+          </p>
+          <div class="case-metric-highlight">100% Cifrado AES-256</div>
+          <div class="case-arch-tags">
+            <span class="arch-tag">Node / NestJS</span>
+            <span class="arch-tag">React 19</span>
+            <span class="arch-tag">WebRTC</span>
+            <span class="arch-tag">AWS KMS</span>
+          </div>
+        </div>
+
+        <!-- Caso 4: AgroStream Analytics -->
+        <div class="case-card">
+          <div class="case-card-header">
+            <span class="badge-system"><i class="bi bi-cpu-fill"></i> AGROTECH AI</span>
+            <span class="font-mono text-silver" style="font-size: 0.8rem;">PREDICCIÓN CLIMÁTICA</span>
+          </div>
+          <h3>AgroStream &bull; Monitoreo Satelital de Cultivos y Cosechas</h3>
+          <p style="color: var(--silver-mid); font-size: 0.94rem; line-height: 1.6;">
+            Ingesta de imágenes multiespectrales satelitales (Sentinel-2) procesadas con redes neuronales convolucionales para alertar sobre estrés hídrico y plagas en fincas de caña y café.
+          </p>
+          <div class="case-metric-highlight">+94% Precisión en Cosecha</div>
+          <div class="case-arch-tags">
+            <span class="arch-tag">Python FastAPI</span>
+            <span class="arch-tag">PyTorch</span>
+            <span class="arch-tag">GCP BigQuery</span>
+            <span class="arch-tag">Flutter Mobile</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Security & Enterprise Compliance Seals -->
+  <section class="section" id="seguridad" style="background: #090B10; border-top: 1px solid var(--silver-border); border-bottom: 1px solid var(--silver-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system"><i class="bi bi-shield-lock-fill text-silver me-1"></i> COMPLIANCE & SECURITY POSTURE</span>
+        <h2>Certificaciones & Blindaje de Seguridad</h2>
+        <p>Construido conforme a los más estrictos estándares internacionales de gobernanza de datos y ciberseguridad.</p>
+      </div>
+
+      <div class="security-seals-grid">
+        <div class="seal-card">
+          <div class="seal-icon-box"><i class="bi bi-patch-check-fill text-light"></i></div>
+          <h5>SOC 2 Type II</h5>
+          <small>Procesos auditados</small>
+        </div>
+
+        <div class="seal-card">
+          <div class="seal-icon-box"><i class="bi bi-shield-slash-fill text-light"></i></div>
+          <h5>OWASP Top 10</h5>
+          <small>Zero Vulnerability</small>
+        </div>
+
+        <div class="seal-card">
+          <div class="seal-icon-box"><i class="bi bi-file-earmark-lock-fill text-light"></i></div>
+          <h5>ISO/IEC 27001</h5>
+          <small>Gobernanza Cripto</small>
+        </div>
+
+        <div class="seal-card">
+          <div class="seal-icon-box"><i class="bi bi-heart-pulse-fill text-light"></i></div>
+          <h5>HIPAA Ready</h5>
+          <small>Datos Médicos Cifrados</small>
+        </div>
+
+        <div class="seal-card">
+          <div class="seal-icon-box"><i class="bi bi-key-fill text-light"></i></div>
+          <h5>AES-256 GCM</h5>
+          <small>Cifrado en Tránsito y Reposo</small>
+        </div>
+
+        <div class="seal-card">
+          <div class="seal-icon-box"><i class="bi bi-activity text-light"></i></div>
+          <h5>99.99% SLA</h5>
+          <small>Garantía Contractual</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system">TECHNICAL FAQ</span>
+        <h2>Preguntas Frecuentes Técnicas</h2>
+        <p>Respuestas claras y directas a las preguntas que todo CTO y líder empresarial se hace.</p>
+      </div>
+
+      <div class="faq-box">
+        <div class="faq-entry">
+          <button class="faq-trigger">
+            <span>¿Quién es el dueño legal del código fuente y los derechos de propiedad intelectual?</span>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="faq-body">
+            <p>
+              Tú eres el dueño absoluto al 100%. Toda la propiedad intelectual, código fuente en repositorios privados (GitHub/GitLab), documentación de arquitectura, esquemas de bases de datos y patentes pertenecen exclusivamente a tu empresa desde el primer día bajo contrato legal y acuerdo de confidencialidad (NDA).
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-entry">
+          <button class="faq-trigger">
+            <span>¿Cómo garantizan que el software sea escalable y no requiera ser reescrito después?</span>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="faq-body">
+            <p>
+              Diseñamos aplicando Clean Architecture y Domain-Driven Design (DDD). Esto significa que la lógica de negocio está totalmente separada de la base de datos o el framework web. Si en el futuro necesitas cambiar de base de datos relacional a NoSQL o escalar a microservicios, el núcleo del software permanece intacto sin necesidad de reescribir la plataforma.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-entry">
+          <button class="faq-trigger">
+            <span>¿Cuál es el esquema de entregas y control del proyecto?</span>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="faq-body">
+            <p>
+              Trabajamos con sprints ágiles de dos semanas. Al finalizar cada sprint, te mostramos una demo funcional ejecutándose en un entorno de pruebas real (Staging) y tienes acceso total al tablero de tareas (Jira / Linear) para auditar el avance diario.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-entry">
+          <button class="faq-trigger">
+            <span>¿Ofrecen soporte continuo y acuerdos de nivel de servicio (SLA) después del lanzamiento?</span>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="faq-body">
+            <p>
+              Sí. Brindamos contratos de soporte técnico con SLA garantizado (hasta 99.99% de disponibilidad), monitoreo proactivo 24/7 con alertas automáticas (PagerDuty / Datadog), copias de seguridad georredundantes y mantenimiento preventivo continuo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RFP / Contacto Técnico -->
+  <section class="section" id="contacto" style="background: #090B10; border-top: 1px solid var(--silver-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system">INITIATE DISCOVERY</span>
+        <h2>Agenda una Sesión Técnica de Descubrimiento</h2>
+        <p>Cuéntanos tus requerimientos. Un Solution Architect senior evaluará la viabilidad y diseñará tu propuesta técnica en menos de 24 horas.</p>
+      </div>
+
+      <div class="rfp-grid">
+        <div class="rfp-info-box">
+          <h3>Dev Studio Engineering</h3>
+          <p>
+            Firma especializada en desarrollo de software a medida, arquitectura de sistemas y modernización tecnológica de alto impacto.
+          </p>
+
+          <ul class="rfp-points">
+            <li>
+              <i class="bi bi-shield-check"></i>
+              <div>
+                <strong>Acuerdo de Confidencialidad (NDA)</strong>
+                <span>Firmamos NDA previo a la revisión de requerimientos confidenciales.</span>
+              </div>
+            </li>
+            <li>
+              <i class="bi bi-terminal-split"></i>
+              <div>
+                <strong>Reunión Directa con Arquitecto</strong>
+                <span>Hablas directamente con ingenieros de software, no con comerciales sin experiencia técnica.</span>
+              </div>
+            </li>
+            <li>
+              <i class="bi bi-clock-history"></i>
+              <div>
+                <strong>Estimación en 24 Horas</strong>
+                <span>Entregamos especificación inicial, tiempos por sprint y arquitectura recomendada.</span>
+              </div>
+            </li>
+            <li>
+              <i class="bi bi-envelope-at"></i>
+              <div>
+                <strong>Canal Seguro de Comunicación</strong>
+                <span class="font-mono">engineering@devstudio.com &bull; +505 8557 4484</span>
+              </div>
+            </li>
+          </ul>
+
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--silver-border); border-radius: var(--radius-sm); padding: 18px;">
+            <div class="font-mono text-silver" style="font-size: 0.8rem; margin-bottom: 4px;">PGP FINGERPRINT:</div>
+            <div class="font-mono" style="font-size: 0.75rem; color: var(--silver-mid); word-break: break-all;">
+              4E8A 91C2 0B3F 7D6E 5A1C  84F0 3E2B 9D7A 1C5F 2B8E
+            </div>
+          </div>
+        </div>
+
+        <div class="rfp-form-box">
+          <h4 style="font-size: 1.3rem; margin-bottom: 20px;">Solicitud de Propuesta Técnica (RFP)</h4>
+
+          <form id="rfpForm">
+            <div class="form-group">
+              <label class="form-label" for="rfpNombre">Nombre del Contacto & Empresa *</label>
+              <input type="text" id="rfpNombre" class="form-control" placeholder="Ej. Ing. Martín Rivas / Banco Pacífico" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div class="form-group">
+                <label class="form-label" for="rfpEmail">Correo Corporativo *</label>
+                <input type="email" id="rfpEmail" class="form-control" placeholder="mrivas@empresa.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="rfpTel">Teléfono / WhatsApp *</label>
+                <input type="tel" id="rfpTel" class="form-control" placeholder="+505 8888 8888" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="rfpTipo">Tipo de Proyecto Requerido</label>
+              <select id="rfpTipo" class="form-control" style="background:#090B10; color:#FFF;">
+                <option value="saas">Plataforma Web SaaS / Portal Corporativo</option>
+                <option value="mobile">Aplicación Móvil iOS / Android</option>
+                <option value="api">Arquitectura de Microservicios & APIs</option>
+                <option value="legacy">Modernización de Sistema Legacy</option>
+                <option value="squad">Squad de Ingeniería Dedicado</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="rfpDescripcion">Descripción del Problema o Requerimiento Técnico</label>
+              <textarea id="rfpDescripcion" class="form-control" placeholder="Describe brevemente qué debe resolver el sistema, número estimado de usuarios o tecnologías existentes..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-silver w-100" id="btnSubmitRfp">
+              <i class="bi bi-send"></i>
+              <span>Enviar Especificación a Arquitectura</span>
+            </button>
+
+            <div class="rfp-feedback-msg" id="rfpFeedback">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Especificación técnica recibida. Un Solution Architect senior se pondrá en contacto contigo en las próximas 4 horas hábiles.</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Monocromático de Alta Fidelidad -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="logo.svg" alt="Dev Studio Logo" style="height: 44px; margin-bottom: 18px;">
+          <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
+            Firma de ingeniería de software a medida, arquitectura cloud distribuida y modernización de sistemas de misión crítica.
+          </p>
+          <div class="badge-system mb-3">
+            <span class="live-indicator-dot"></span>
+            <span>PROPRIETARY SOURCE CODE ENGINE</span>
+          </div>
+          <!-- Canales Oficiales para Developers -->
+          <div class="footer-social-links">
+            <a href="https://github.com" target="_blank" rel="noopener" class="dev-social-btn" aria-label="GitHub"><i class="bi bi-github"></i></a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="dev-social-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            <a href="https://discord.com" target="_blank" rel="noopener" class="dev-social-btn" aria-label="Discord"><i class="bi bi-discord"></i></a>
+            <a href="https://telegram.org" target="_blank" rel="noopener" class="dev-social-btn" aria-label="Telegram"><i class="bi bi-telegram"></i></a>
+            <a href="https://wa.me/50585574484" target="_blank" rel="noopener" class="dev-social-btn" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Capacidades</h5>
+          <ul class="footer-links">
+            <li><a href="#capacidades"><i class="bi bi-terminal me-1"></i> Sistemas Core Enterprise</a></li>
+            <li><a href="#capacidades"><i class="bi bi-browser-chrome me-1"></i> Desarrollo Web & SaaS</a></li>
+            <li><a href="#capacidades"><i class="bi bi-phone me-1"></i> Apps Móviles Nativas</a></li>
+            <li><a href="#capacidades"><i class="bi bi-hdd-network me-1"></i> APIs & Microservicios</a></li>
+            <li><a href="#capacidades"><i class="bi bi-shield-check me-1"></i> Auditoría de Seguridad</a></li>
+            <li><a href="#capacidades"><i class="bi bi-people me-1"></i> Staff Augmentation</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Stack Tecnológico</h5>
+          <ul class="footer-links">
+            <li><a href="#stack"><i class="bi bi-code-slash me-1"></i> .NET 9 / C#</a></li>
+            <li><a href="#stack"><i class="bi bi-lightning-charge me-1"></i> React 19 & Next.js</a></li>
+            <li><a href="#stack"><i class="bi bi-phone-flip me-1"></i> Flutter & Dart</a></li>
+            <li><a href="#stack"><i class="bi bi-boxes me-1"></i> Docker & Kubernetes</a></li>
+            <li><a href="#stack"><i class="bi bi-database me-1"></i> PostgreSQL & Redis</a></li>
+            <li><a href="#stack"><i class="bi bi-cpu me-1"></i> AI & Vector Embeddings</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Agencia Creativa Aliada</h5>
+          <p style="font-size: 0.88rem; margin-bottom: 14px; color: var(--silver-mid);">
+            ¿Necesitas branding, estrategia publicitaria o pauta de marketing masiva?
+          </p>
+          <a href="../GUARDABARRANCO%20STUDIO/index.html" class="btn btn-outline-silver" style="font-size: 0.82rem; padding: 8px 14px;">
+            <i class="bi bi-gem"></i>
+            <span>Conoce Guardabarranco Studio</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 Dev Studio Engineering. Todos los derechos reservados.
+        </div>
+        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+          <a href="#inicio" style="color: var(--silver-mid);">Security Disclosure</a>
+          <a href="#inicio" style="color: var(--silver-mid);">Service Level Agreement (SLA)</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Ficha Técnica Arquitectónica Dev Studio -->
+  <div class="dev-modal-backdrop" id="devCatalogModal">
+    <div class="dev-modal-container">
+      <div class="dev-modal-header">
+        <div>
+          <span class="dev-blueprint-badge badge-cyan" id="devModalBadge">BLUEPRINT OFICIAL</span>
+          <h4 id="devModalTitle" style="color: #FFFFFF; margin: 6px 0 0 0; font-size: 1.35rem;">Título del Blueprint</h4>
+        </div>
+        <button type="button" class="dev-modal-close" id="closeDevCatalogModal" aria-label="Cerrar modal">&times;</button>
+      </div>
+      <div class="dev-modal-body" id="devModalContent">
+        <!-- Renderizado dinámicamente con JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Tech WhatsApp FAB -->
+  <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20vi%20su%20p%C3%A1gina%20web%20y%20deseo%20evaluar%20un%20proyecto%20de%20software" class="tech-fab-wsp" target="_blank" aria-label="Contacto Técnico Directo">
+    <i class="bi bi-whatsapp"></i>
+  </a>
+
+  <!-- Script Principal -->
+  <script src="script.js"></script>
+</body>
+</html>

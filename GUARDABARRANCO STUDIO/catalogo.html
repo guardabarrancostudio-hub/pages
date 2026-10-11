@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo Oficial de Tarifas & Dossier Comercial 2026 | Guardabarranco Studio</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="Dossier corporativo y catálogo oficial de tarifas 2026 de Guardabarranco Studio. Planes de marketing 360°, producción audiovisual dron 4K, branding y sitios web en Nicaragua y Centroamérica.">
+  <meta name="keywords" content="catalogo tarifas marketing nicaragua, precios publicidad chinandega, pauta meta ads managua, produccion dron 4k, guardabarranco studio">
+  <meta property="og:title" content="Catálogo Oficial de Tarifas 2026 | Guardabarranco Studio">
+  <meta property="og:description" content="Conoce la propuesta comercial completa con entregables garantizados y costos transparentes en Córdobas (NIO) y Dólares (USD).">
+  <meta property="og:image" content="assets/catalogo/marca-nacional.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Estilos Específicos del Dossier y Vista Imprimible */
+    .dossier-topbar {
+      background: var(--c-azul-profundo);
+      color: #FFFFFF;
+      padding: 12px 0;
+      font-size: 0.88rem;
+      border-bottom: 2px solid var(--c-turquesa-guarda);
+    }
+
+    .dossier-topbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .dossier-header-hero {
+      background: linear-gradient(135deg, rgba(7, 30, 61, 0.96) 0%, rgba(11, 19, 43, 0.98) 100%),
+                  radial-gradient(circle at 85% 20%, rgba(0, 168, 150, 0.25) 0%, transparent 50%),
+                  radial-gradient(circle at 15% 80%, rgba(247, 127, 0, 0.2) 0%, transparent 50%);
+      color: #FFFFFF;
+      padding: 60px 0 50px;
+      position: relative;
+      border-bottom: 1px solid var(--c-gris-200);
+    }
+
+    .dossier-cred-box {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .dossier-pkg-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--c-gris-200);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      margin-bottom: 40px;
+      transition: var(--transition-normal);
+      display: grid;
+      grid-template-columns: 380px 1fr;
+    }
+
+    @media (max-width: 991px) {
+      .dossier-pkg-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dossier-pkg-card:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: var(--c-turquesa-guarda);
+      transform: translateY(-3px);
+    }
+
+    .dossier-pkg-visual {
+      position: relative;
+      overflow: hidden;
+      background: var(--c-azul-noche);
+      min-height: 280px;
+    }
+
+    .dossier-pkg-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dossier-pkg-card:hover .dossier-pkg-visual img {
+      transform: scale(1.05);
+    }
+
+    .dossier-pkg-badge-overlay {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(7, 30, 61, 0.88);
+      color: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dossier-pkg-content {
+      padding: 32px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .dossier-pkg-pricing {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .dossier-pkg-price-usd {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--c-azul-profundo);
+      line-height: 1;
+    }
+
+    .dossier-pkg-price-nio {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--c-turquesa-guarda);
+    }
+
+    .dossier-deliverables-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px 16px;
+      margin: 18px 0 24px;
+    }
+
+    .dossier-deliverable-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.92rem;
+      color: var(--c-gris-700);
+    }
+
+    .dossier-deliverable-item i {
+      color: var(--c-turquesa-guarda);
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .dossier-table-wrap {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--c-gris-200);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+      margin-top: 30px;
+    }
+
+    .dossier-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      text-align: left;
+    }
+
+    .dossier-table th {
+      background: var(--c-azul-profundo);
+      color: #FFFFFF;
+      padding: 16px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dossier-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--c-gris-200);
+      border-right: 1px solid var(--c-gris-200);
+      color: var(--c-gris-700);
+    }
+
+    .dossier-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .dossier-table tr:hover td {
+      background: var(--c-fondo-crema);
+    }
+
+    /* Reglas de Impresión Profesionales */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+        font-size: 11pt !important;
+      }
+
+      .dossier-topbar,
+      .site-header,
+      .site-footer,
+      .no-print,
+      .btn,
+      .dossier-pkg-badge-overlay,
+      .floating-wsp {
+        display: none !important;
+      }
+
+      .dossier-header-hero {
+        background: none !important;
+        color: #000000 !important;
+        padding: 10px 0 20px !important;
+        border-bottom: 2px solid #000000 !important;
+      }
+
+      .dossier-header-hero h1,
+      .dossier-header-hero p {
+        color: #000000 !important;
+      }
+
+      .dossier-cred-box {
+        background: #F1F5F9 !important;
+        border: 1px solid #CBD5E1 !important;
+        color: #000000 !important;
+      }
+
+      .dossier-pkg-card {
+        page-break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #94A3B8 !important;
+        margin-bottom: 25px !important;
+        grid-template-columns: 200px 1fr !important;
+      }
+
+      .dossier-pkg-visual img {
+        filter: grayscale(15%);
+        max-height: 180px !important;
+      }
+
+      .dossier-table th {
+        background: #1E293B !important;
+        color: #FFFFFF !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .print-signatures-row {
+        display: flex !important;
+        justify-content: space-between;
+        margin-top: 50px;
+        page-break-inside: avoid;
+      }
+
+      .signature-box {
+        width: 45%;
+        border-top: 1px solid #000000;
+        padding-top: 8px;
+        text-align: center;
+        font-size: 9pt;
+      }
+    }
+
+    .print-signatures-row {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra Superior de Certificación / Dossier -->
+  <div class="dossier-topbar no-print">
+    <div class="container">
+      <div>
+        <i class="bi bi-shield-check text-warning me-1"></i>
+        <span>Documento Oficial Certificado &bull; Vigencia Primer Semestre 2026</span>
+      </div>
+      <div style="display: flex; gap: 20px; align-items: center;">
+        <a href="index.html" style="color: #FFFFFF; text-decoration: none; font-weight: 600;">
+          <i class="bi bi-arrow-left me-1"></i> Volver a Guardabarranco Studio
+        </a>
+        <button type="button" onclick="window.print()" class="btn btn-sm btn-accent" style="padding: 4px 12px; font-size: 0.8rem;">
+          <i class="bi bi-printer-fill me-1"></i> Imprimir / Guardar en PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Encabezado Principal del Dossier -->
+  <header class="dossier-header-hero">
+    <div class="container">
+      <div class="row align-items-center g-4" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+        <div style="flex: 1 1 540px;">
+          <div class="badge-tag badge-orange mb-2" style="background: rgba(247, 127, 0, 0.2); color: #F77F00; border: 1px solid rgba(247, 127, 0, 0.4);">
+            <i class="bi bi-award-fill me-1"></i> PORTAFOLIO & TARIFARIO CORPORATIVO
+          </div>
+          <h1 style="color: #FFFFFF; font-size: 2.8rem; margin-bottom: 14px;">
+            Catálogo Oficial de Soluciones 2026
+          </h1>
+          <p style="color: #CBD5E1; font-size: 1.1rem; max-width: 650px; line-height: 1.6; margin-bottom: 20px;">
+            Presentación técnica y económica de los paquetes de marketing 360°, producción de cine publicitario con dron 4K, branding e identidad comercial y desarrollo web de Guardabarranco Studio. Válido para operaciones en Nicaragua (Chinandega, Managua, León, Estelí) y Centroamérica.
+          </p>
+
+          <div class="no-print" style="display: flex; gap: 14px; flex-wrap: wrap;">
+            <button type="button" onclick="window.print()" class="btn btn-accent">
+              <i class="bi bi-file-earmark-pdf-fill me-1"></i> Generar PDF Ejecutivo
+            </button>
+            <a href="https://wa.me/50585574484?text=Hola%20Guardabarranco%20Studio,%20estoy%20revisando%20el%20Dossier%20Oficial%202026%20y%20deseo%20una%20reuni%C3%B3n" target="_blank" rel="noopener" class="btn btn-whatsapp">
+              <i class="bi bi-whatsapp me-1"></i> Coordinar Cita con Dirección
+            </a>
+          </div>
+        </div>
+
+        <div style="flex: 1 1 320px; max-width: 420px;">
+          <div class="dossier-cred-box">
+            <h4 style="color: #FFFFFF; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <i class="bi bi-building-check text-warning"></i> Ficha Legal & Operativa
+            </h4>
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.88rem; color: #E2E8F0; display: flex; flex-direction: column; gap: 8px;">
+              <li><strong>Razón Social:</strong> Guardabarranco Studio S.A.</li>
+              <li><strong>Sede Central:</strong> Chinandega &bull; Managua, Nicaragua</li>
+              <li><strong>Cobertura Activa:</strong> Nicaragua, Honduras, El Salvador, Costa Rica</li>
+              <li><strong>Moneda Operativa:</strong> Córdobas (NIO) & Dólares (USD)</li>
+              <li><strong>Tasa de Referencia:</strong> C$ 36.60 / USD 1.00</li>
+              <li><strong>Régimen:</strong> Facturación Fiscal con Retenciones DGI aplicables</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO: DETALLE DE PAQUETES COMERCIALES -->
+  <main class="container py-5" style="padding-top: 40px; padding-bottom: 60px;">
+
+    <div class="section-header" style="text-align: left; margin-bottom: 35px;">
+      <span class="badge-tag badge-teal"><i class="bi bi-boxes me-1"></i> Paquetes Llave en Mano</span>
+      <h2>Desglose Técnico de Soluciones Comerciales</h2>
+      <p style="max-width: 800px;">
+        Cada propuesta incluye cronograma detallado, entrega de archivos fuente (open-source / editables) y acompañamiento estratégico continuo.
+      </p>
+    </div>
+
+    <!-- PAQUETE 1: PLAN IMPULSO PYME LOCAL -->
+    <article class="dossier-pkg-card" id="pkg-pyme">
+      <div class="dossier-pkg-visual">
+        <img src="assets/catalogo/pyme-local.jpg" alt="Plan Impulso Pyme Local" loading="lazy">
+        <div class="dossier-pkg-badge-overlay">
+          <i class="bi bi-geo-alt-fill text-warning"></i> Solución PYME Occidente
+        </div>
+      </div>
+      <div class="dossier-pkg-content">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="badge-tag badge-teal" style="font-size: 0.75rem; margin-bottom: 6px;">CÓDIGO: GBS-PKG-01</span>
+              <h3 style="font-size: 1.6rem; color: var(--c-azul-profundo); margin-bottom: 4px;">Plan Impulso Pyme Local</h3>
+            </div>
+            <div class="dossier-pkg-pricing">
+              <span class="dossier-pkg-price-usd">$190 <span style="font-size: 0.9rem; color: var(--c-gris-400); font-weight: 500;">/mes</span></span>
+              <span class="dossier-pkg-price-nio">C$ 6,950 NIO</span>
+            </div>
+          </div>
+
+          <p style="color: var(--c-gris-700); font-size: 0.95rem; margin: 10px 0 14px;">
+            Diseñado para negocios, restaurantes, clínicas y comercios en Chinandega, El Viejo, León y cabeceras departamentales que requieren visibilidad digital profesional y flujo constante de clientes hacia WhatsApp y local físico.
+          </p>
+
+          <h5 style="font-size: 0.9rem; text-transform: uppercase; color: var(--c-azul-patrio); font-weight: 800; letter-spacing: 0.5px; margin-bottom: 10px;">
+            <i class="bi bi-check2-all me-1"></i> Entregables Garantizados en Contrato:
+          </h5>
+
+          <div class="dossier-deliverables-grid">
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> 12 Artes gráficos y carruseles mensuales para Instagram & Facebook</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> 4 Reels / TikToks con edición dinámica y guiones con gancho local</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Sesión fotográfica mensual de producto / menú en tu negocio (Occidente)</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Configuración y optimización de WhatsApp Business con catálogo y auto-respuestas</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Configuración de Google Mi Negocio (Google Maps local y reseñas)</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Informe mensual de rendimiento, alcance y leads generados</div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--c-gris-200); padding-top: 18px; margin-top: 10px; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.85rem; color: var(--c-gris-400);"><i class="bi bi-clock-history me-1"></i> Tiempo de activación: 5 días hábiles tras briefing</span>
+          <a href="https://wa.me/50585574484?text=Hola%20Guardabarranco%20Studio,%20deseo%20contratar%20el%20Plan%20Impulso%20Pyme%20Local%20($190)" target="_blank" rel="noopener" class="btn btn-sm btn-primary no-print">
+            <i class="bi bi-whatsapp me-1"></i> Contratar Plan Pyme
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- PAQUETE 2: PLAN MARCA LÍDER NACIONAL -->
+    <article class="dossier-pkg-card" id="pkg-nacional">
+      <div class="dossier-pkg-visual">
+        <img src="assets/catalogo/marca-nacional.jpg" alt="Plan Marca Líder Nacional" loading="lazy">
+        <div class="dossier-pkg-badge-overlay" style="background: rgba(247, 127, 0, 0.9);">
+          <i class="bi bi-fire text-white"></i> Alta Demanda Nacional
+        </div>
+      </div>
+      <div class="dossier-pkg-content">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="badge-tag badge-orange" style="font-size: 0.75rem; margin-bottom: 6px;">CÓDIGO: GBS-PKG-02</span>
+              <h3 style="font-size: 1.6rem; color: var(--c-azul-profundo); margin-bottom: 4px;">Plan Marca Líder Nacional</h3>
+            </div>
+            <div class="dossier-pkg-pricing">
+              <span class="dossier-pkg-price-usd">$490 <span style="font-size: 0.9rem; color: var(--c-gris-400); font-weight: 500;">/mes</span></span>
+              <span class="dossier-pkg-price-nio">C$ 17,930 NIO</span>
+            </div>
+          </div>
+
+          <p style="color: var(--c-gris-700); font-size: 0.95rem; margin: 10px 0 14px;">
+            La solución definitiva para marcas, distribuidores, colegios y empresas con presencia o ambición de cobertura en todo el territorio de Nicaragua (Managua, Occidente, Norte, Oriente y Caribe).
+          </p>
+
+          <h5 style="font-size: 0.9rem; text-transform: uppercase; color: var(--c-naranja-sol); font-weight: 800; letter-spacing: 0.5px; margin-bottom: 10px;">
+            <i class="bi bi-check2-all me-1"></i> Entregables Garantizados en Contrato:
+          </h5>
+
+          <div class="dossier-deliverables-grid">
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> 24 Contenidos estratégicos multiplataforma con copywriting persuasivo</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> 8 Reels / TikToks en calidad cinemática 4K con locución profesional y subtítulos</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Gestión y optimización diaria de campañas publicitarias en Meta Ads & Google Ads</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> 1 Sesión de fotos mensual + 1 toma con Dron 4K de instalaciones o eventos</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Tablero interactivo de analítica en tiempo real (Google Looker Studio)</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Community Management activo con respuesta de mensajes y filtro de prospectos</div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--c-gris-200); padding-top: 18px; margin-top: 10px; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.85rem; color: var(--c-gris-400);"><i class="bi bi-clock-history me-1"></i> Asignación de Director Creativo y Trafficker dedicado</span>
+          <a href="https://wa.me/50585574484?text=Hola%20Guardabarranco%20Studio,%20deseo%20contratar%20el%20Plan%20Marca%20L%C3%ADder%20Nacional%20($490)" target="_blank" rel="noopener" class="btn btn-sm btn-accent no-print">
+            <i class="bi bi-whatsapp me-1"></i> Contratar Plan Nacional
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- PAQUETE 3: PLAN EXPANSIÓN CENTROAMÉRICA B2B -->
+    <article class="dossier-pkg-card" id="pkg-centroamerica">
+      <div class="dossier-pkg-visual">
+        <img src="assets/catalogo/expansion-ca.jpg" alt="Plan Expansión Centroamérica B2B" loading="lazy">
+        <div class="dossier-pkg-badge-overlay" style="background: rgba(0, 168, 150, 0.9);">
+          <i class="bi bi-globe-americas text-white"></i> Escala Regional CA-4
+        </div>
+      </div>
+      <div class="dossier-pkg-content">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="badge-tag badge-nica" style="font-size: 0.75rem; margin-bottom: 6px;">CÓDIGO: GBS-PKG-03</span>
+              <h3 style="font-size: 1.6rem; color: var(--c-azul-profundo); margin-bottom: 4px;">Plan Expansión Centroamérica B2B</h3>
+            </div>
+            <div class="dossier-pkg-pricing">
+              <span class="dossier-pkg-price-usd">$1,250 <span style="font-size: 0.9rem; color: var(--c-gris-400); font-weight: 500;">/mes</span></span>
+              <span class="dossier-pkg-price-nio">C$ 45,750 NIO</span>
+            </div>
+          </div>
+
+          <p style="color: var(--c-gris-700); font-size: 0.95rem; margin: 10px 0 14px;">
+            Para exportadores, cadenas de retail, franquicias, agroindustria y firmas corporativas que necesitan posicionarse y generar prospectos calificados en Nicaragua, Honduras, El Salvador, Guatemala y Costa Rica.
+          </p>
+
+          <h5 style="font-size: 0.9rem; text-transform: uppercase; color: var(--c-turquesa-guarda); font-weight: 800; letter-spacing: 0.5px; margin-bottom: 10px;">
+            <i class="bi bi-check2-all me-1"></i> Entregables Garantizados en Contrato:
+          </h5>
+
+          <div class="dossier-deliverables-grid">
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Campañas transfronterizas segmentadas por país en Meta, Google Ads y LinkedIn B2B</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Producción audiovisual mensual con cobertura de exportaciones, bodegas y plantas</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Landing pages de captura de prospectos con integración a CRM (HubSpot / Zoho)</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Estrategia de pauta geolocalizada por hubs logísticos (Corinto, San Pedro Sula, Acajutla)</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Comité quincenal de estrategia y optimización de CAC (Costo de Adquisición de Cliente)</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Acuerdo de confidencialidad NDA y exclusividad de categoría por país</div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--c-gris-200); padding-top: 18px; margin-top: 10px; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.85rem; color: var(--c-gris-400);"><i class="bi bi-shield-lock-fill me-1"></i> Cláusula de confidencialidad y equipo dedicado</span>
+          <a href="https://wa.me/50585574484?text=Hola%20Guardabarranco%20Studio,%20quiero%20informaci%C3%B3n%20sobre%20el%20Plan%20Expansi%C3%B3n%20Centroam%C3%A9rica%20($1250)" target="_blank" rel="noopener" class="btn btn-sm btn-primary no-print">
+            <i class="bi bi-whatsapp me-1"></i> Solicitar Propuesta Regional
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- PAQUETE 4: SPOT PUBLICITARIO & PRODUCCIÓN DRON 4K -->
+    <article class="dossier-pkg-card" id="pkg-dron">
+      <div class="dossier-pkg-visual">
+        <img src="assets/catalogo/spot-dron.jpg" alt="Spot Publicitario y Producción Dron 4K" loading="lazy">
+        <div class="dossier-pkg-badge-overlay">
+          <i class="bi bi-camera-reels-fill text-warning"></i> Cine Publicitario
+        </div>
+      </div>
+      <div class="dossier-pkg-content">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="badge-tag badge-orange" style="font-size: 0.75rem; margin-bottom: 6px;">CÓDIGO: GBS-PKG-04</span>
+              <h3 style="font-size: 1.6rem; color: var(--c-azul-profundo); margin-bottom: 4px;">Spot Publicitario & Producción Dron 4K</h3>
+            </div>
+            <div class="dossier-pkg-pricing">
+              <span class="dossier-pkg-price-usd">$350 <span style="font-size: 0.9rem; color: var(--c-gris-400); font-weight: 500;">/proyecto</span></span>
+              <span class="dossier-pkg-price-nio">C$ 12,810 NIO</span>
+            </div>
+          </div>
+
+          <p style="color: var(--c-gris-700); font-size: 0.95rem; margin: 10px 0 14px;">
+            Producción audiovisual cinematográfica con cámaras Sony FX3 de cine y drones DJI Mavic 3 Cine con operadores certificados por INAC para tomas aéreas impactantes.
+          </p>
+
+          <h5 style="font-size: 0.9rem; text-transform: uppercase; color: var(--c-azul-patrio); font-weight: 800; letter-spacing: 0.5px; margin-bottom: 10px;">
+            <i class="bi bi-check2-all me-1"></i> Entregables Garantizados en Contrato:
+          </h5>
+
+          <div class="dossier-deliverables-grid">
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> 1 Video principal de 60 segundos en formato cine 4K (16:9)</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> 3 Micro-cápsulas de 15 segundos adaptadas a Reels, TikTok y YouTube Shorts (9:16)</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Tomas aéreas con dron profesional en locación (hasta 4 horas de rodaje)</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Colorización profesional (Color Grading estilo cine) y diseño sonoro envolvente</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Locución profesional en español neutro o con acento nicaragüense auténtico</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Derechos comerciales de uso ilimitado en televisión, eventos y pauta digital</div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--c-gris-200); padding-top: 18px; margin-top: 10px; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.85rem; color: var(--c-gris-400);"><i class="bi bi-check-shield-fill me-1"></i> Permisos de vuelo INAC gestionados por nuestro equipo</span>
+          <a href="https://wa.me/50585574484?text=Hola%20Guardabarranco%20Studio,%20quiero%20cotizar%20un%20Spot%20Publicitario%20con%20Dron%20($350)" target="_blank" rel="noopener" class="btn btn-sm btn-accent no-print">
+            <i class="bi bi-whatsapp me-1"></i> Agendar Rodaje
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- PAQUETE 5: BRANDING & PACKAGING COMERCIAL -->
+    <article class="dossier-pkg-card" id="pkg-branding">
+      <div class="dossier-pkg-visual">
+        <img src="assets/catalogo/branding-pack.jpg" alt="Branding y Packaging Comercial" loading="lazy">
+        <div class="dossier-pkg-badge-overlay">
+          <i class="bi bi-palette-fill text-info"></i> Identidad de Marca
+        </div>
+      </div>
+      <div class="dossier-pkg-content">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="badge-tag badge-teal" style="font-size: 0.75rem; margin-bottom: 6px;">CÓDIGO: GBS-PKG-05</span>
+              <h3 style="font-size: 1.6rem; color: var(--c-azul-profundo); margin-bottom: 4px;">Branding & Packaging Comercial</h3>
+            </div>
+            <div class="dossier-pkg-pricing">
+              <span class="dossier-pkg-price-usd">$280 <span style="font-size: 0.9rem; color: var(--c-gris-400); font-weight: 500;">/proyecto</span></span>
+              <span class="dossier-pkg-price-nio">C$ 10,250 NIO</span>
+            </div>
+          </div>
+
+          <p style="color: var(--c-gris-700); font-size: 0.95rem; margin: 10px 0 14px;">
+            Construcción integral de identidad visual corporativa pensada para competir en góndola de supermercados, empaques de exportación (café, cacao, lácteos) y presencia digital de alta jerarquía.
+          </p>
+
+          <h5 style="font-size: 0.9rem; text-transform: uppercase; color: var(--c-turquesa-guarda); font-weight: 800; letter-spacing: 0.5px; margin-bottom: 10px;">
+            <i class="bi bi-check2-all me-1"></i> Entregables Garantizados en Contrato:
+          </h5>
+
+          <div class="dossier-deliverables-grid">
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Manual de Identidad Corporativa completo (PDF vectorial de 30+ páginas)</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Logotipo principal, secundario, isotipo y favicon en formatos vectoriales (AI, EPS, SVG, PNG)</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Paleta cromática oficial con códigos Pantone, CMYK, RGB y HEX</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Diseño de empaque / etiqueta comercial con troquel técnico listo para imprenta</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Papelería corporativa: tarjetas de presentación, hojas membretadas, uniformes y firmas de email</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Kit de plantillas editables para redes sociales en Canva Pro o Figma</div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--c-gris-200); padding-top: 18px; margin-top: 10px; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.85rem; color: var(--c-gris-400);"><i class="bi bi-pencil-square me-1"></i> 3 Rondas de revisiones incluidas y cesión 100% de propiedad intelectual</span>
+          <a href="https://wa.me/50585574484?text=Hola%20Guardabarranco%20Studio,%20quiero%20crear%20el%20Branding%20de%20mi%20marca%20($280)" target="_blank" rel="noopener" class="btn btn-sm btn-primary no-print">
+            <i class="bi bi-whatsapp me-1"></i> Diseñar mi Marca
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- PAQUETE 6: SITIO WEB CORPORATIVO & CATÁLOGO DIGITAL -->
+    <article class="dossier-pkg-card" id="pkg-web">
+      <div class="dossier-pkg-visual">
+        <img src="assets/catalogo/web-corp.jpg" alt="Sitio Web Corporativo y Catálogo Digital" loading="lazy">
+        <div class="dossier-pkg-badge-overlay">
+          <i class="bi bi-laptop-fill text-warning"></i> Presencia Web 99+ Speed
+        </div>
+      </div>
+      <div class="dossier-pkg-content">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="badge-tag badge-orange" style="font-size: 0.75rem; margin-bottom: 6px;">CÓDIGO: GBS-PKG-06</span>
+              <h3 style="font-size: 1.6rem; color: var(--c-azul-profundo); margin-bottom: 4px;">Sitio Web Corporativo & Catálogo Digital</h3>
+            </div>
+            <div class="dossier-pkg-pricing">
+              <span class="dossier-pkg-price-usd">$490 <span style="font-size: 0.9rem; color: var(--c-gris-400); font-weight: 500;">/único</span></span>
+              <span class="dossier-pkg-price-nio">C$ 17,930 NIO</span>
+            </div>
+          </div>
+
+          <p style="color: var(--c-gris-700); font-size: 0.95rem; margin: 10px 0 14px;">
+            Desarrollo web a medida con arquitectura moderna ultra veloz (PageSpeed 95+), optimización SEO local y botón de conversión directa a WhatsApp para capturar leads las 24 horas del día.
+          </p>
+
+          <h5 style="font-size: 0.9rem; text-transform: uppercase; color: var(--c-naranja-sol); font-weight: 800; letter-spacing: 0.5px; margin-bottom: 10px;">
+            <i class="bi bi-check2-all me-1"></i> Entregables Garantizados en Contrato:
+          </h5>
+
+          <div class="dossier-deliverables-grid">
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Sitio web responsivo (Desktop, Tablet, Mobile) hasta 5 secciones estructuradas</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Catálogo digital interactivo de productos / servicios con filtro por categoría</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Dominio .com o .ni y hosting corporativo SSL ultrarrápido por 1 año incluido</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Integración de WhatsApp Leads con mensajes predefinidos automáticos</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Configuración de Google Analytics 4, Meta Pixel y Google Search Console</div>
+            <div class="dossier-deliverable-item"><i class="bi bi-check-circle-fill"></i> Correos corporativos con dominio propio (ejemplo: ventas@tuempresa.com)</div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--c-gris-200); padding-top: 18px; margin-top: 10px; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.85rem; color: var(--c-gris-400);"><i class="bi bi-lightning-charge-fill me-1"></i> Entrega en 10 a 14 días laborables</span>
+          <a href="https://wa.me/50585574484?text=Hola%20Guardabarranco%20Studio,%20quiero%20desarrollar%20mi%20Sitio%20Web%20Corporativo%20($490)" target="_blank" rel="noopener" class="btn btn-sm btn-accent no-print">
+            <i class="bi bi-whatsapp me-1"></i> Iniciar Desarrollo Web
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- MATRIZ COMPARATIVA DE PLANES MENSUALES -->
+    <section class="mt-5" style="margin-top: 50px;">
+      <div class="section-header" style="text-align: left; margin-bottom: 20px;">
+        <span class="badge-tag badge-nica"><i class="bi bi-layout-three-columns me-1"></i> Comparativa Estratégica</span>
+        <h3>Matriz Comparativa de Planes Mensuales</h3>
+        <p>Analiza el alcance exacto de cada modalidad para tomar la mejor decisión de inversión comercial para tu empresa.</p>
+      </div>
+
+      <div class="dossier-table-wrap">
+        <table class="dossier-table">
+          <thead>
+            <tr>
+              <th>Característica / Entregable</th>
+              <th>Impulso Pyme ($190/m)</th>
+              <th>Marca Líder ($490/m)</th>
+              <th>Expansión CA ($1,250/m)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Enfoque de Mercado</strong></td>
+              <td>Local (Chinandega, León, El Viejo)</td>
+              <td>Nacional (Managua y Departamentos)</td>
+              <td>Regional (Nicaragua + CA-4)</td>
+            </tr>
+            <tr>
+              <td><strong>Contenidos de Redes Mensuales</strong></td>
+              <td>12 publicaciones + 4 Reels</td>
+              <td>24 publicaciones + 8 Reels 4K</td>
+              <td>40+ piezas multiformato</td>
+            </tr>
+            <tr>
+              <td><strong>Pauta Digital Gestionada</strong></td>
+              <td>Meta Ads básico ($30-$80 recomendados)</td>
+              <td>Meta + Google Ads optimizados</td>
+              <td>Meta + Google + LinkedIn B2B</td>
+            </tr>
+            <tr>
+              <td><strong>Producción Audiovisual con Dron</strong></td>
+              <td>No incluida (opcional)</td>
+              <td>1 sesión fotográfica + tomas dron</td>
+              <td>Producción completa en plantas/sedes</td>
+            </tr>
+            <tr>
+              <td><strong>Landing Page / Web</strong></td>
+              <td>Menú digital / Catálogo WhatsApp</td>
+              <td>Landing page de captura</td>
+              <td>Embudo web completo multi-país</td>
+            </tr>
+            <tr>
+              <td><strong>Reporte de Resultados</strong></td>
+              <td>PDF mensual simplificado</td>
+              <td>Looker Studio en tiempo real</td>
+              <td>Comité quincenal con Dirección</td>
+            </tr>
+            <tr>
+              <td><strong>Acuerdo de Exclusividad de Categoría</strong></td>
+              <td>No aplica</td>
+              <td>Por ciudad</td>
+              <td>Por país y sector industrial</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- POLÍTICAS DE CONTRATACIÓN Y CONDICIONES -->
+    <section class="mt-5 p-4" style="background: #FFFFFF; border: 1px solid var(--c-gris-200); border-radius: var(--radius-lg); margin-top: 40px;">
+      <h4 style="color: var(--c-azul-profundo); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <i class="bi bi-file-text-fill text-warning"></i> Condiciones Comerciales & Términos Operativos
+      </h4>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--c-gris-700);">
+        <div>
+          <strong>1. Esquema de Pago:</strong> 50% de anticipo al firmar orden de servicio y 50% contra entrega a entera satisfacción para proyectos puntuales. Planes mensuales facturados los primeros 5 días del mes corriente.
+        </div>
+        <div>
+          <strong>2. Métodos de Pago:</strong> Transferencias ACH directas en BAC Credomatic, Banco LAFISE Bancentro, Banpro Promerica, pagos con tarjeta de crédito/débito internacional o transferencias SWIFT/Wire para Centroamérica.
+        </div>
+        <div>
+          <strong>3. Derechos de Autor:</strong> El cliente posee el 100% de los derechos patrimoniales sobre los artes, videos y manuales de identidad entregados, una vez cancelado el saldo del proyecto.
+        </div>
+        <div>
+          <strong>4. Validez de Tarifas:</strong> Precios en USD congelados por la vigencia del contrato firmado. Conversión a córdobas calculada a la tasa oficial de facturación DGI del día.
+        </div>
+      </div>
+    </section>
+
+    <!-- FIRMAS PARA IMPRESIÓN (SOLO APARECE EN PRINT) -->
+    <div class="print-signatures-row">
+      <div class="signature-box">
+        <strong>POR GUARDABARRANCO STUDIO S.A.</strong><br>
+        Dirección Comercial & Creativa<br>
+        RUC: J0310000392819 &bull; Chinandega, Nicaragua
+      </div>
+      <div class="signature-box">
+        <strong>ACEPTADO POR EL CLIENTE / EMPRESA</strong><br>
+        Firma Autorizada / Sello de Recepción<br>
+        Nombre del Representante: _______________________
+      </div>
+    </div>
+
+  </main>
+
+  <!-- PIE DE PÁGINA CORPORATIVO -->
+  <footer class="site-footer no-print" style="margin-top: 40px;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding: 30px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+        <div>
+          <h4 style="color: #FFFFFF; margin-bottom: 4px;">Guardabarranco Studio</h4>
+          <p style="color: #94A3B8; font-size: 0.88rem; margin: 0;">Creatividad con Raíces Nicas &bull; Resultados para Centroamérica</p>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <a href="index.html" class="btn btn-sm btn-secondary">
+            <i class="bi bi-house-door-fill me-1"></i> Portada Principal
+          </a>
+          <button type="button" onclick="window.print()" class="btn btn-sm btn-accent">
+            <i class="bi bi-printer me-1"></i> Imprimir Dossier
+          </button>
+          <a href="https://wa.me/50585574484" target="_blank" rel="noopener" class="btn btn-sm btn-whatsapp">
+            <i class="bi bi-whatsapp me-1"></i> WhatsApp Oficial
+          </a>
+        </div>
+      </div>
+      <div style="text-align: center; padding: 20px 0 10px; font-size: 0.82rem; color: #64748B;">
+        &copy; 2026 Guardabarranco Studio S.A. Todos los derechos reservados. Chinandega, Nicaragua & Proyección Centroamericana.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

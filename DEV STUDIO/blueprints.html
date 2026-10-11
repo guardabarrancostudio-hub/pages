@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dossier de Ingeniería & Blueprints de Arquitectura Cloud 2026 | Dev Studio</title>
+
+  <!-- SEO & Enterprise Meta -->
+  <meta name="description" content="Dossier de especificaciones técnicas, topologías cloud y blueprints de software de Dev Studio. Sistemas ERP con DGI, plataformas SaaS multi-tenant, apps offline-first, microservicios y telemetría IoT.">
+  <meta name="keywords" content="blueprints software nicaragua, arquitectura cloud dotnet nextjs, erp dgi facturacion electronica, apps offline flutter, dev studio">
+  <meta property="og:title" content="Dossier de Arquitectura & Blueprints 2026 | Dev Studio">
+  <meta property="og:description" content="Especificaciones de ingeniería, topologías de microservicios y garantías SLA para juntas directivas y CTOs.">
+  <meta property="og:image" content="assets/blueprints/erp-core.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+
+  <!-- Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Estilos Especializados para el Dossier de Ingeniería */
+    .dossier-topbar {
+      background: #050608;
+      border-bottom: 1px solid var(--silver-border);
+      padding: 10px 0;
+      font-size: 0.82rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--silver-mid);
+    }
+
+    .dossier-topbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .blueprint-hero {
+      background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 60%),
+                  linear-gradient(180deg, #050608 0%, #08090C 100%);
+      border-bottom: 1px solid var(--silver-border);
+      padding: 60px 0 50px;
+    }
+
+    .blueprint-card {
+      background: var(--bg-card);
+      border: 1px solid var(--silver-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 50px;
+      overflow: hidden;
+      box-shadow: var(--shadow-dark);
+      transition: var(--tr-normal);
+      display: grid;
+      grid-template-columns: 440px 1fr;
+    }
+
+    @media (max-width: 991px) {
+      .blueprint-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .blueprint-card:hover {
+      border-color: var(--laser-cyan);
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .blueprint-preview-box {
+      position: relative;
+      background: #030406;
+      border-right: 1px solid var(--silver-border);
+      overflow: hidden;
+      min-height: 320px;
+    }
+
+    @media (max-width: 991px) {
+      .blueprint-preview-box {
+        border-right: none;
+        border-bottom: 1px solid var(--silver-border);
+      }
+    }
+
+    .blueprint-preview-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .blueprint-card:hover .blueprint-preview-box img {
+      transform: scale(1.04);
+    }
+
+    .blueprint-tag-overlay {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(8, 9, 12, 0.9);
+      border: 1px solid var(--silver-border);
+      padding: 4px 12px;
+      border-radius: var(--radius-xs);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--laser-cyan);
+      backdrop-filter: blur(8px);
+    }
+
+    .blueprint-body {
+      padding: 32px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .blueprint-spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .spec-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--silver-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .spec-val {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--silver-white);
+    }
+
+    .stack-badges-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .stack-badge {
+      background: rgba(226, 232, 240, 0.08);
+      border: 1px solid rgba(226, 232, 240, 0.16);
+      color: var(--silver-light);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: var(--radius-xs);
+    }
+
+    .sla-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      background: var(--bg-card);
+      border: 1px solid var(--silver-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-top: 25px;
+    }
+
+    .sla-table th {
+      background: #0D1017;
+      color: var(--silver-white);
+      padding: 14px 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      border-bottom: 1px solid var(--silver-border);
+      text-align: left;
+    }
+
+    .sla-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--silver-mid);
+    }
+
+    .sla-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--silver-white);
+    }
+
+    /* Reglas de Impresión / Whitepaper Mode */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+
+      .dossier-topbar,
+      .site-header,
+      .site-footer,
+      .no-print,
+      .btn,
+      .blueprint-tag-overlay {
+        display: none !important;
+      }
+
+      .blueprint-hero {
+        background: none !important;
+        padding: 10px 0 20px !important;
+        border-bottom: 2px solid #000000 !important;
+      }
+
+      .blueprint-hero h1,
+      .blueprint-hero p,
+      .blueprint-hero .text-silver-mid {
+        color: #000000 !important;
+      }
+
+      .blueprint-card {
+        background: #FFFFFF !important;
+        border: 1px solid #94A3B8 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+        margin-bottom: 30px !important;
+        grid-template-columns: 220px 1fr !important;
+      }
+
+      .blueprint-preview-box {
+        background: #FFFFFF !important;
+        border-right: 1px solid #94A3B8 !important;
+      }
+
+      .blueprint-preview-box img {
+        filter: grayscale(20%);
+        max-height: 200px !important;
+      }
+
+      .blueprint-body h3,
+      .blueprint-body h4 {
+        color: #000000 !important;
+      }
+
+      .blueprint-spec-grid {
+        background: #F8FAFC !important;
+        border: 1px solid #CBD5E1 !important;
+      }
+
+      .spec-val {
+        color: #000000 !important;
+      }
+
+      .sla-table th {
+        background: #0F172A !important;
+        color: #FFFFFF !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .sla-table td {
+        color: #000000 !important;
+        border-bottom: 1px solid #CBD5E1 !important;
+      }
+
+      .print-signatures-row {
+        display: flex !important;
+        justify-content: space-between;
+        margin-top: 50px;
+        page-break-inside: avoid;
+      }
+
+      .signature-box {
+        width: 45%;
+        border-top: 1px solid #000000;
+        padding-top: 8px;
+        text-align: center;
+        font-size: 9pt;
+      }
+    }
+
+    .print-signatures-row {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar Técnica -->
+  <div class="dossier-topbar no-print">
+    <div class="container">
+      <div>
+        <i class="bi bi-terminal-fill text-info me-1"></i>
+        <span>DEV STUDIO // ARCHITECTURAL BLUEPRINTS & SLA WHITE-PAPER v2026.4</span>
+      </div>
+      <div style="display: flex; gap: 20px; align-items: center;">
+        <a href="index.html" style="color: var(--silver-bright); text-decoration: none;">
+          <i class="bi bi-arrow-left me-1"></i> Volver a Dev Studio
+        </a>
+        <button type="button" onclick="window.print()" class="btn btn-sm btn-silver" style="padding: 4px 12px; font-size: 0.78rem;">
+          <i class="bi bi-printer me-1"></i> Imprimir Whitepaper Técnico
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero del Dossier -->
+  <header class="blueprint-hero">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px;">
+        <div style="max-width: 720px;">
+          <div class="terminal-badge mb-3">
+            <span class="pulse-indicator"></span>
+            <span>SPECIFICATION REPOSITORY // CLOUD TOPOLOGY & SLA MATRIX</span>
+          </div>
+          <h1 style="color: var(--silver-white); font-size: 2.8rem; margin-bottom: 16px;">
+            Catálogo Oficial de <span class="text-silver-gradient">Blueprints de Arquitectura</span>
+          </h1>
+          <p style="color: var(--silver-mid); font-size: 1.05rem; line-height: 1.6; margin-bottom: 24px;">
+            Compendio de arquitecturas de software empresarial diseñadas por Dev Studio. Cada blueprint define topología de red, tolerancia a fallos, modelo de persistencia, integración con entes tributarios (DGI Nicaragua) y acuerdos de nivel de servicio (SLA) para directores de tecnología y comités ejecutivos.
+          </p>
+          <div class="no-print" style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button type="button" onclick="window.print()" class="btn btn-silver">
+              <i class="bi bi-file-earmark-pdf-fill me-1"></i> Exportar Dossier en PDF
+            </button>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20estoy%20analizando%20los%20Blueprints%20de%20Arquitectura%20y%20deseo%20una%20sesi%C3%B3n%20t%C3%A9cnica" target="_blank" rel="noopener" class="btn btn-outline-silver">
+              <i class="bi bi-whatsapp me-1"></i> Agendar Discovery Call con Arquitecto
+            </a>
+          </div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--silver-border); border-radius: var(--radius-md); padding: 22px 26px; min-width: 290px;">
+          <h4 style="font-size: 0.92rem; color: var(--silver-white); font-family: 'JetBrains Mono', monospace; margin-bottom: 14px;">
+            <i class="bi bi-shield-check text-success me-1"></i> Estándares y Certificaciones
+          </h4>
+          <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.82rem; color: var(--silver-mid); display: flex; flex-direction: column; gap: 8px;">
+            <li><i class="bi bi-check-circle text-info me-1"></i> <strong>DGI Compliance:</strong> Facturación electrónica Nicaragua</li>
+            <li><i class="bi bi-check-circle text-info me-1"></i> <strong>SLA Disponibilidad:</strong> 99.9% a 99.99% Cloud</li>
+            <li><i class="bi bi-check-circle text-info me-1"></i> <strong>Seguridad:</strong> OWASP Top 10 + SOC2 Type II Ready</li>
+            <li><i class="bi bi-check-circle text-info me-1"></i> <strong>Infraestructura:</strong> AWS / GCP / Azure Kubernetes</li>
+            <li><i class="bi bi-check-circle text-info me-1"></i> <strong>RTO / RPO:</strong> Disaster Recovery &lt; 15 min</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL: 6 BLUEPRINTS DE ARQUITECTURA -->
+  <main class="container py-5" style="padding-top: 40px; padding-bottom: 60px;">
+
+    <!-- BLUEPRINT 1: ERP CLOUD CORE -->
+    <article class="blueprint-card" id="bp-erp">
+      <div class="blueprint-preview-box">
+        <img src="assets/blueprints/erp-core.jpg" alt="Blueprint ERP Cloud Core & Facturación DGI" loading="lazy">
+        <div class="blueprint-tag-overlay">SYS-ARCH // 01</div>
+      </div>
+      <div class="blueprint-body">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="badge-tag badge-dark mb-1">MÓDULO CRÍTICO EMPRESARIAL</span>
+              <h3 style="color: var(--silver-white); font-size: 1.6rem; margin-bottom: 6px;">ERP Cloud Core & Facturación Electrónica DGI</h3>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 800; color: var(--laser-cyan);">$3,800 - $8,500</span>
+              <span style="display: block; font-size: 0.75rem; color: var(--silver-dark);">Estimación base según módulos</span>
+            </div>
+          </div>
+
+          <p style="color: var(--silver-mid); font-size: 0.92rem; margin: 12px 0 16px;">
+            Arquitectura de misión crítica para industrias, importadoras y distribuidores. Integra contabilidad multimoneda (NIO/USD), inventarios multi-bodega con costeo promedio/PEPS, cuentas por cobrar/pagar y emisor de facturación electrónica con firma digital XML homologada ante la DGI de Nicaragua.
+          </p>
+
+          <div class="blueprint-spec-grid">
+            <div class="spec-item">
+              <span class="spec-label">Throughput Máximo</span>
+              <span class="spec-val">4,500 transacciones/segundo</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Tolerancia de Caída</span>
+              <span class="spec-val">Failover automático Multi-AZ</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Persistencia de Datos</span>
+              <span class="spec-val">PostgreSQL 16 + Redis Cluster</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">SLA Comprometido</span>
+              <span class="spec-val">99.95% de uptime mensual</span>
+            </div>
+          </div>
+
+          <div class="stack-badges-wrap">
+            <span class="stack-badge">.NET 9 Web API</span>
+            <span class="stack-badge">PostgreSQL 16</span>
+            <span class="stack-badge">Redis Enterprise</span>
+            <span class="stack-badge">Next.js 15 Admin</span>
+            <span class="stack-badge">Docker / Podman</span>
+            <span class="stack-badge">DGI XML Digital Signer</span>
+            <span class="stack-badge">AWS Aurora</span>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--silver-border); padding-top: 18px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.8rem; color: var(--silver-dark); font-family: 'JetBrains Mono', monospace;">
+            <i class="bi bi-clock me-1"></i> Sprint estimado: 8 a 14 semanas &bull; Metodología Scrum
+          </span>
+          <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20cotizar%20la%20arquitectura%20ERP%20Cloud%20con%20DGI" target="_blank" rel="noopener" class="btn btn-sm btn-silver no-print">
+            <i class="bi bi-whatsapp me-1"></i> Solicitar Blueprint ERP
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- BLUEPRINT 2: SAAS MULTI-TENANT -->
+    <article class="blueprint-card" id="bp-saas">
+      <div class="blueprint-preview-box">
+        <img src="assets/blueprints/saas-platform.jpg" alt="Blueprint Plataforma SaaS Multi-Tenant" loading="lazy">
+        <div class="blueprint-tag-overlay">SYS-ARCH // 02</div>
+      </div>
+      <div class="blueprint-body">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="badge-tag badge-dark mb-1">ESCALABILIDAD HORIZONTAL</span>
+              <h3 style="color: var(--silver-white); font-size: 1.6rem; margin-bottom: 6px;">Plataforma SaaS B2B Multi-Tenant</h3>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 800; color: var(--laser-cyan);">$4,500 - $12,000</span>
+              <span style="display: block; font-size: 0.75rem; color: var(--silver-dark);">Estimación base según microservicios</span>
+            </div>
+          </div>
+
+          <p style="color: var(--silver-mid); font-size: 0.92rem; margin: 12px 0 16px;">
+            Topología cloud diseñada para empresas que construyen su propio software de suscripción o plataformas para miles de empresas clientes. Aislamiento estricto de datos con esquema por cliente (schema-per-tenant), motor de facturación recurrente internacional y portal de autoservicio.
+          </p>
+
+          <div class="blueprint-spec-grid">
+            <div class="spec-item">
+              <span class="spec-label">Aislamiento de Tenant</span>
+              <span class="spec-val">Schema-per-tenant + KMS Key</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Orquestación</span>
+              <span class="spec-val">Kubernetes EKS / Helm Charts</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Event Streaming</span>
+              <span class="spec-val">Apache Kafka / AWS SQS</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">SLA Comprometido</span>
+              <span class="spec-val">99.99% de disponibilidad</span>
+            </div>
+          </div>
+
+          <div class="stack-badges-wrap">
+            <span class="stack-badge">Kubernetes (K8s)</span>
+            <span class="stack-badge">Go / Golang</span>
+            <span class="stack-badge">Node.js TypeScript</span>
+            <span class="stack-badge">Apache Kafka</span>
+            <span class="stack-badge">PostgreSQL Multi-Schema</span>
+            <span class="stack-badge">Stripe & BAC Payment Nodes</span>
+            <span class="stack-badge">ArgoCD GitOps</span>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--silver-border); padding-top: 18px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.8rem; color: var(--silver-dark); font-family: 'JetBrains Mono', monospace;">
+            <i class="bi bi-clock me-1"></i> Sprint estimado: 10 a 16 semanas &bull; GitOps CI/CD
+          </span>
+          <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20cotizar%20una%20plataforma%20SaaS%20Multi-tenant" target="_blank" rel="noopener" class="btn btn-sm btn-silver no-print">
+            <i class="bi bi-whatsapp me-1"></i> Solicitar Blueprint SaaS
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- BLUEPRINT 3: APP MÓVIL OFFLINE-FIRST -->
+    <article class="blueprint-card" id="bp-mobile">
+      <div class="blueprint-preview-box">
+        <img src="assets/blueprints/app-mobile.jpg" alt="Blueprint App Móvil Offline-First de Campo" loading="lazy">
+        <div class="blueprint-tag-overlay">SYS-ARCH // 03</div>
+      </div>
+      <div class="blueprint-body">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="badge-tag badge-dark mb-1">RUTAS, AGRO & DISTRIBUCIÓN</span>
+              <h3 style="color: var(--silver-white); font-size: 1.6rem; margin-bottom: 6px;">App Móvil Offline-First de Campo & Ruteo</h3>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 800; color: var(--laser-cyan);">$2,900 - $6,400</span>
+              <span style="display: block; font-size: 0.75rem; color: var(--silver-dark);">Estimación iOS + Android nativo</span>
+            </div>
+          </div>
+
+          <p style="color: var(--silver-mid); font-size: 0.92rem; margin: 12px 0 16px;">
+            Desarrollada para cuadrillas de supervisión, técnicos agrícolas, preventistas y choferes de reparto en zonas rurales de Nicaragua sin señal celular (Occidente, Norte, RAAN/RAAS). Almacenamiento local SQLite con sincronización bidireccional delta en segundo plano y emisión de recibos por Bluetooth.
+          </p>
+
+          <div class="blueprint-spec-grid">
+            <div class="spec-item">
+              <span class="spec-label">Resiliencia a Red</span>
+              <span class="spec-val">100% Funcional sin Internet</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Periféricos de Campo</span>
+              <span class="spec-val">Impresoras térmicas ESC/POS + GPS</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Resolución de Conflictos</span>
+              <span class="spec-val">Vector Clocks / CRDT bidireccional</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Compatibilidad</span>
+              <span class="spec-val">Android 8.0+ / iOS 15+ / Rugged Phones</span>
+            </div>
+          </div>
+
+          <div class="stack-badges-wrap">
+            <span class="stack-badge">Flutter 3.x</span>
+            <span class="stack-badge">Dart</span>
+            <span class="stack-badge">SQLite / Drift</span>
+            <span class="stack-badge">Background Geolocation</span>
+            <span class="stack-badge">Bluetooth Low Energy (BLE)</span>
+            <span class="stack-badge">Delta Sync Protocol</span>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--silver-border); padding-top: 18px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.8rem; color: var(--silver-dark); font-family: 'JetBrains Mono', monospace;">
+            <i class="bi bi-clock me-1"></i> Sprint estimado: 6 a 10 semanas &bull; Pruebas con hardware real
+          </span>
+          <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20cotizar%20una%20App%20M%C3%B3vil%20Offline-First%20para%20rutas" target="_blank" rel="noopener" class="btn btn-sm btn-silver no-print">
+            <i class="bi bi-whatsapp me-1"></i> Solicitar Blueprint Móvil
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- BLUEPRINT 4: API GATEWAY & MICROSERVICIOS -->
+    <article class="blueprint-card" id="bp-gateway">
+      <div class="blueprint-preview-box">
+        <img src="assets/blueprints/api-gateway.jpg" alt="Blueprint API Gateway y Microservicios" loading="lazy">
+        <div class="blueprint-tag-overlay">SYS-ARCH // 04</div>
+      </div>
+      <div class="blueprint-body">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="badge-tag badge-dark mb-1">ULTRA BAJA LATENCIA</span>
+              <h3 style="color: var(--silver-white); font-size: 1.6rem; margin-bottom: 6px;">API Gateway & Microservicios de Alta Concurrencia</h3>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 800; color: var(--laser-cyan);">$3,200 - $7,000</span>
+              <span style="display: block; font-size: 0.75rem; color: var(--silver-dark);">Estimación infraestructura + nodos</span>
+            </div>
+          </div>
+
+          <p style="color: var(--silver-mid); font-size: 0.92rem; margin: 12px 0 16px;">
+            Columna vertebral para ecosistemas distribuidos, Fintechs, banca y empresas de remesas. Procesa picos de demanda con balanceo geográfico, rate limiting por token, autenticación mTLS y comunicación interna binaria gRPC de latencia sub-milisegundo.
+          </p>
+
+          <div class="blueprint-spec-grid">
+            <div class="spec-item">
+              <span class="spec-label">Latencia P99</span>
+              <span class="spec-val">&lt; 12 milisegundos</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Hit-Ratio en Caché</span>
+              <span class="spec-val">98.4% Redis in-memory</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Capacidad de Carga</span>
+              <span class="spec-val">25,000+ requests / segundo</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Seguridad de Tráfico</span>
+              <span class="spec-val">WAF Cloudflare + JWT Token Bucket</span>
+            </div>
+          </div>
+
+          <div class="stack-badges-wrap">
+            <span class="stack-badge">Envoy Gateway</span>
+            <span class="stack-badge">gRPC Binary Proto</span>
+            <span class="stack-badge">Redis Cluster</span>
+            <span class="stack-badge">Go Microservices</span>
+            <span class="stack-badge">Prometheus & Grafana</span>
+            <span class="stack-badge">OpenTelemetry</span>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--silver-border); padding-top: 18px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.8rem; color: var(--silver-dark); font-family: 'JetBrains Mono', monospace;">
+            <i class="bi bi-clock me-1"></i> Sprint estimado: 6 a 10 semanas &bull; Stress Testing certificado
+          </span>
+          <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20cotizar%20un%20API%20Gateway%20de%20alta%20concurrencia" target="_blank" rel="noopener" class="btn btn-sm btn-silver no-print">
+            <i class="bi bi-whatsapp me-1"></i> Solicitar Blueprint Gateway
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- BLUEPRINT 5: E-COMMERCE HEADLESS -->
+    <article class="blueprint-card" id="bp-ecommerce">
+      <div class="blueprint-preview-box">
+        <img src="assets/blueprints/web-transaccional.jpg" alt="Blueprint E-Commerce Headless y Portal Web" loading="lazy">
+        <div class="blueprint-tag-overlay">SYS-ARCH // 05</div>
+      </div>
+      <div class="blueprint-body">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="badge-tag badge-dark mb-1">FRONTEND DESACOPLADO</span>
+              <h3 style="color: var(--silver-white); font-size: 1.6rem; margin-bottom: 6px;">E-Commerce Headless & Portal Web Transaccional</h3>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 800; color: var(--laser-cyan);">$2,800 - $6,200</span>
+              <span style="display: block; font-size: 0.75rem; color: var(--silver-dark);">Estimación tienda completa</span>
+            </div>
+          </div>
+
+          <p style="color: var(--silver-mid); font-size: 0.92rem; margin: 12px 0 16px;">
+            Arquitectura moderna desacoplada (Headless) que separa el catálogo web de los motores de inventario y facturación. Carga instantánea en redes móviles 3G/4G, pasarelas de pago centroamericanas (BAC Credomatic, PixelPay) y cálculo de envíos nacional.
+          </p>
+
+          <div class="blueprint-spec-grid">
+            <div class="spec-item">
+              <span class="spec-label">Core Web Vitals</span>
+              <span class="spec-val">PageSpeed 98+ / LCP &lt; 0.9s</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Edge Rendering</span>
+              <span class="spec-val">Vercel / Cloudflare Workers</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Pasarelas de Pago</span>
+              <span class="spec-val">BAC Credomatic, Stripe, PayPal</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Búsqueda Instantánea</span>
+              <span class="spec-val">Algolia / Meilisearch (&lt; 20ms)</span>
+            </div>
+          </div>
+
+          <div class="stack-badges-wrap">
+            <span class="stack-badge">Next.js 15 App Router</span>
+            <span class="stack-badge">TypeScript</span>
+            <span class="stack-badge">TailwindCSS / Vanilla CSS</span>
+            <span class="stack-badge">GraphQL / REST</span>
+            <span class="stack-badge">Meilisearch</span>
+            <span class="stack-badge">BAC Gateway SDK</span>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--silver-border); padding-top: 18px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.8rem; color: var(--silver-dark); font-family: 'JetBrains Mono', monospace;">
+            <i class="bi bi-clock me-1"></i> Sprint estimado: 6 a 10 semanas &bull; Integración ERP lista
+          </span>
+          <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20cotizar%20un%20E-Commerce%20Headless%20con%20BAC%20Credomatic" target="_blank" rel="noopener" class="btn btn-sm btn-silver no-print">
+            <i class="bi bi-whatsapp me-1"></i> Solicitar Blueprint E-Commerce
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- BLUEPRINT 6: TELEMETRÍA IOT INDUSTRIAL -->
+    <article class="blueprint-card" id="bp-iot">
+      <div class="blueprint-preview-box">
+        <img src="assets/blueprints/iot-industrial.jpg" alt="Blueprint Telemetría IoT y Control SCADA" loading="lazy">
+        <div class="blueprint-tag-overlay">SYS-ARCH // 06</div>
+      </div>
+      <div class="blueprint-body">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="badge-tag badge-dark mb-1">AGROINDUSTRIA & MANUFACTURA</span>
+              <h3 style="color: var(--silver-white); font-size: 1.6rem; margin-bottom: 6px;">Telemetría IoT & Control Industrial SCADA</h3>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 800; color: var(--laser-cyan);">$4,200 - $9,800</span>
+              <span style="display: block; font-size: 0.75rem; color: var(--silver-dark);">Estimación según sensores y plantas</span>
+            </div>
+          </div>
+
+          <p style="color: var(--silver-mid); font-size: 0.92rem; margin: 12px 0 16px;">
+            Especializado para ingenios azucareros, beneficios de café en Matagalpa/Jinotega, granjas camaroneras de Chinandega y plantas procesadoras. Captura de variables físicas (presión, temperatura, flujo, peso en básculas y GPS de maquinaria) con analítica predictiva de fallos.
+          </p>
+
+          <div class="blueprint-spec-grid">
+            <div class="spec-item">
+              <span class="spec-label">Protocolo Industrial</span>
+              <span class="spec-val">MQTT 5.0 / Modbus TCP / OPC-UA</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Base de Datos de Series</span>
+              <span class="spec-val">TimescaleDB / InfluxDB (Millones/min)</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Visualización SCADA</span>
+              <span class="spec-val">Grafana Industrial + WebSockets</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Alertas Críticas</span>
+              <span class="spec-val">SMS, Telegram & Llamada de emergencia</span>
+            </div>
+          </div>
+
+          <div class="stack-badges-wrap">
+            <span class="stack-badge">EMQX MQTT Broker</span>
+            <span class="stack-badge">TimescaleDB</span>
+            <span class="stack-badge">Grafana Enterprise</span>
+            <span class="stack-badge">Python / Rust Edge</span>
+            <span class="stack-badge">Modbus RTU Gateway</span>
+            <span class="stack-badge">WebSockets en Vivo</span>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--silver-border); padding-top: 18px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.8rem; color: var(--silver-dark); font-family: 'JetBrains Mono', monospace;">
+            <i class="bi bi-clock me-1"></i> Sprint estimado: 8 a 14 semanas &bull; Pruebas en planta física
+          </span>
+          <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20cotizar%20un%20sistema%20IoT%20Industrial%20para%20mi%20planta" target="_blank" rel="noopener" class="btn btn-sm btn-silver no-print">
+            <i class="bi bi-whatsapp me-1"></i> Solicitar Blueprint Industrial
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- MATRIZ DE NIVELES DE SERVICIO (SLA) & SOPORTE -->
+    <section class="mt-5" style="margin-top: 50px;">
+      <div class="section-header" style="text-align: left; margin-bottom: 20px;">
+        <span class="badge-tag badge-dark"><i class="bi bi-shield-shaded me-1"></i> Compromisos de Calidad</span>
+        <h3 style="color: var(--silver-white);">Matriz de Acuerdos de Nivel de Servicio (SLA)</h3>
+        <p style="color: var(--silver-mid);">Garantías contractuales de respuesta, resolución y penalizaciones por interrupción de servicio.</p>
+      </div>
+
+      <table class="sla-table">
+        <thead>
+          <tr>
+            <th>Nivel de Severidad</th>
+            <th>Definición del Incidente</th>
+            <th>Tiempo de Respuesta</th>
+            <th>Tiempo Objetivo de Resolución</th>
+            <th>Canal de Notificación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color: #EF4444;"><i class="bi bi-exclamation-octagon-fill me-1"></i> Severidad 1 (Crítico)</strong></td>
+            <td>Parada total del sistema ERP, ventas caídas, DGI inaccesible.</td>
+            <td>&lt; 15 minutos (24/7)</td>
+            <td>&lt; 2 horas garantizadas</td>
+            <td>Línea telefónica directa + PagerDuty</td>
+          </tr>
+          <tr>
+            <td><strong style="color: #F59E0B;"><i class="bi bi-exclamation-triangle-fill me-1"></i> Severidad 2 (Mayor)</strong></td>
+            <td>Degradación de rendimiento, módulo no esencial con error.</td>
+            <td>&lt; 1 hora (24/7)</td>
+            <td>&lt; 6 horas laborables</td>
+            <td>Slack dedicado + Ticket Jira</td>
+          </tr>
+          <tr>
+            <td><strong style="color: #38BDF8;"><i class="bi bi-info-circle-fill me-1"></i> Severidad 3 (Menor)</strong></td>
+            <td>Duda operativa, ajuste cosmético o solicitud de nuevo reporte.</td>
+            <td>&lt; 4 horas laborables</td>
+            <td>Siguiente release / Sprint</td>
+            <td>Helpdesk portal</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- FIRMAS PARA IMPRESIÓN (SOLO APARECE EN PRINT) -->
+    <div class="print-signatures-row">
+      <div class="signature-box">
+        <strong>POR DEV STUDIO S.A.</strong><br>
+        Chief Technology Officer (CTO) & Lead Architect<br>
+        Ingeniería de Software & Arquitectura Cloud
+      </div>
+      <div class="signature-box">
+        <strong>CONFORMIDAD DEL CLIENTE / ENTERPRISE</strong><br>
+        Director de Tecnología / Gerencia General<br>
+        Nombre y Firma: _______________________
+      </div>
+    </div>
+
+  </main>
+
+  <!-- PIE DE PÁGINA DEV STUDIO -->
+  <footer class="site-footer no-print" style="margin-top: 50px; background: #050608; border-top: 1px solid var(--silver-border);">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding: 30px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+        <div>
+          <h4 style="color: var(--silver-white); margin-bottom: 4px;">Dev Studio</h4>
+          <p style="color: var(--silver-mid); font-size: 0.88rem; margin: 0;">High-End Software Engineering & Cloud Architecture</p>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <a href="index.html" class="btn btn-sm btn-outline-silver">
+            <i class="bi bi-house-door-fill me-1"></i> Portada Principal
+          </a>
+          <button type="button" onclick="window.print()" class="btn btn-sm btn-silver">
+            <i class="bi bi-printer me-1"></i> Imprimir Dossier
+          </button>
+          <a href="https://wa.me/50585574484" target="_blank" rel="noopener" class="btn btn-sm btn-outline-silver">
+            <i class="bi bi-whatsapp me-1"></i> WhatsApp Tech Desk
+          </a>
+        </div>
+      </div>
+      <div style="text-align: center; padding: 20px 0 10px; font-size: 0.82rem; color: var(--silver-dark); font-family: 'JetBrains Mono', monospace;">
+        &copy; 2026 Dev Studio S.A. All Systems Operational // SOC2 Ready // High-End Software Engineering.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
