@@ -118,13 +118,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     deletedProductIds: Array.isArray(savedState.deletedProductIds) ? savedState.deletedProductIds : [],
     productos: [],
     usuarios: mergeUsers(baseData.usuarios || [], savedState.usuarios || []),
-    activeUserId: savedState.activeUserId || null,
+    activeUserId: null,
     guestFavorites: Array.isArray(savedState.guestFavorites) ? savedState.guestFavorites : [],
     bag: Array.isArray(savedState.bag) ? savedState.bag : [],
     appliedGiftCode: savedState.appliedGiftCode || null,
     globalCurr: savedState.globalCurr || 'C$',
     ultimoFolio: Number(savedState.ultimoFolio || baseData.config?.ultimoFolio || 1)
   };
+
+  function getDefaultClientUserId() {
+    const cli = store.usuarios.find(u => u.rol === 'cliente');
+    return cli ? cli.id : null;
+  }
+
+  const hasSavedUser = savedState.activeUserId && store.usuarios.some(u => u.id === savedState.activeUserId);
+  store.activeUserId = hasSavedUser ? savedState.activeUserId : getDefaultClientUserId();
 
   store.productos = mergeById(baseData.productos || [], savedState.addedProductos || [])
     .filter(p => !store.deletedProductIds.includes(p.id));
@@ -139,8 +147,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function mergeUsers(baseUsers, savedUsers) {
     const map = new Map();
-    baseUsers.forEach(u => map.set(u.correo.toLowerCase(), u));
-    savedUsers.forEach(u => map.set(u.correo.toLowerCase(), u));
+    savedUsers.forEach(u => {
+      if (u && u.correo) map.set(u.correo.toLowerCase(), { ...u });
+    });
+    baseUsers.forEach(bu => {
+      const key = bu.correo.toLowerCase();
+      const prev = map.get(key) || {};
+      map.set(key, {
+        ...prev,
+        ...bu,
+        favoritos: Array.isArray(prev.favoritos) ? prev.favoritos : (bu.favoritos || []),
+        pedidos: Array.isArray(prev.pedidos) ? prev.pedidos : (bu.pedidos || []),
+        giftCards: Array.isArray(prev.giftCards) ? prev.giftCards : (bu.giftCards || [])
+      });
+    });
     return Array.from(map.values());
   }
 
@@ -174,7 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   function requireAdmin(actionLabel) {
     if (isAdminSession()) return true;
     showToast(`Acceso exclusivo del Administrador para ${actionLabel || 'esta acción'}.`, true);
-    if (typeof openAccountModal === 'function') openAccountModal(false);
+    if (typeof openAccountModal === 'function') openAccountModal({ forceLogin: true });
     return false;
   }
 
@@ -912,6 +932,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const admProdEditId = document.getElementById('admProdEditId');
   const admFormSubmitBtn = document.getElementById('admFormSubmitBtn');
   const admCancelEditBtn = document.getElementById('admCancelEditBtn');
+  const loginErrorEl = document.getElementById('ydLoginError');
+  const authSubtitleEl = document.getElementById('ydAuthSubtitle');
+  const btnSwitchAccount = document.getElementById('btnSwitchAccount');
+
+  let forceLoginView = false;
+  let returnToGiftAfterAdminLogin = false;
 
   function resetAdminForm() {
     if (!adminAddProdForm) return;
@@ -925,15 +951,46 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (badgeEl) badgeEl.value = 'Nuevo';
   }
 
-  function openAccountModal(focusAdminForm = false) {
+  function showLoginError(msg) {
+    if (!loginErrorEl) return;
+    if (!msg) {
+      loginErrorEl.hidden = true;
+      loginErrorEl.textContent = '';
+    } else {
+      loginErrorEl.textContent = msg;
+      loginErrorEl.hidden = false;
+    }
+  }
+
+  function openAccountModal(options = false) {
     if (!accModal) return;
+    const opts = typeof options === 'object' && options !== null
+      ? options
+      : { focusAdminForm: Boolean(options), forceLogin: false, fromGiftSection: false };
+
+    forceLoginView = Boolean(opts.forceLogin);
+    returnToGiftAfterAdminLogin = Boolean(opts.fromGiftSection);
+
+    if (authSubtitleEl) {
+      authSubtitleEl.textContent = opts.fromGiftSection || opts.forceLogin
+        ? 'Acceso Administrador: ingresa tu usuario o correo y PIN para gestionar catálogo y emitir Tarjetas de Regalo.'
+        : 'Guarda favoritos, consulta tu historial de pedidos o inicia sesión como Administrador.';
+    }
+
+    if (forceLoginView) {
+      authTabBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-auth-tab') === 'login'));
+      if (loginForm) loginForm.hidden = false;
+      if (registerForm) registerForm.hidden = true;
+    }
+
+    showLoginError('');
     renderAccountModal();
     accModal.classList.add('open');
     setTimeout(() => {
-      if (focusAdminForm && isAdminSession()) {
+      if (opts.focusAdminForm && isAdminSession()) {
         const nm = document.getElementById('admProdName');
         if (nm) nm.focus();
-      } else if (!getActiveUser()) {
+      } else if (forceLoginView || !getActiveUser()) {
         const le = document.getElementById('loginEmail');
         if (le) le.focus();
       }
@@ -955,7 +1012,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('admProdDesc').value = prod.descripcion || '';
     if (admFormSubmitBtn) admFormSubmitBtn.textContent = 'Guardar Cambios';
     if (admCancelEditBtn) admCancelEditBtn.hidden = false;
-    openAccountModal(true);
+    openAccountModal({ focusAdminForm: true });
   }
 
   function deleteProductAsAdmin(prodId) {
@@ -994,7 +1051,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   function renderAccountModal() {
     const user = getActiveUser();
     if (!authGuestView || !profileView) return;
-    if (!user) {
+    if (!user || forceLoginView) {
       authGuestView.hidden = false;
       profileView.hidden = true;
       const folioRoleHint = document.getElementById('gcFolioRoleHint');
@@ -1011,6 +1068,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('profFavCount').textContent = String((user.favoritos || []).length);
     document.getElementById('profOrdersCount').textContent = String((user.pedidos || []).length);
     document.getElementById('profGiftsCount').textContent = String((user.giftCards || []).length);
+    if (btnLogout) {
+      btnLogout.textContent = user.rol === 'admin' ? 'Volver a Modo Cliente' : 'Restablecer Sesión Cliente';
+    }
 
     const folioRoleHint = document.getElementById('gcFolioRoleHint');
     if (folioRoleHint) folioRoleHint.textContent = user.rol === 'admin' ? 'Editable (Admin)' : 'Consecutivo';
@@ -1031,12 +1091,32 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   if (btnOpenAccount) {
-    btnOpenAccount.addEventListener('click', () => openAccountModal(false));
+    btnOpenAccount.addEventListener('click', () => openAccountModal({ forceLogin: false }));
+  }
+  if (btnSwitchAccount) {
+    btnSwitchAccount.addEventListener('click', () => {
+      forceLoginView = true;
+      showLoginError('');
+      authTabBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-auth-tab') === 'login'));
+      if (loginForm) loginForm.hidden = false;
+      if (registerForm) registerForm.hidden = true;
+      renderAccountModal();
+      setTimeout(() => {
+        const le = document.getElementById('loginEmail');
+        if (le) le.focus();
+      }, 40);
+    });
   }
   if (btnCloseAccount && accModal) {
-    btnCloseAccount.addEventListener('click', () => accModal.classList.remove('open'));
+    btnCloseAccount.addEventListener('click', () => {
+      forceLoginView = false;
+      accModal.classList.remove('open');
+    });
     accModal.addEventListener('click', (e) => {
-      if (e.target === accModal) accModal.classList.remove('open');
+      if (e.target === accModal) {
+        forceLoginView = false;
+        accModal.classList.remove('open');
+      }
     });
   }
 
@@ -1046,6 +1126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       authTabBtns.forEach(b => b.classList.toggle('active', b === btn));
       if (loginForm) loginForm.hidden = mode !== 'login';
       if (registerForm) registerForm.hidden = mode !== 'register';
+      showLoginError('');
     });
   });
 
@@ -1054,28 +1135,53 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (btn.getAttribute('data-demo-user') !== 'cliente') return;
       document.getElementById('loginEmail').value = 'cliente@yademar.ni';
       document.getElementById('loginPin').value = '1234';
+      showLoginError('');
     });
   });
 
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-      const pin = document.getElementById('loginPin').value.trim();
-      const user = store.usuarios.find(u => u.correo.toLowerCase() === email && String(u.pin) === pin);
+      const identifier = (document.getElementById('loginEmail')?.value || '').trim().toLowerCase();
+      const pin = (document.getElementById('loginPin')?.value || '').trim();
+      const roleMatches = store.usuarios.filter(u => (u.rol || '').toLowerCase() === identifier);
+
+      const user = store.usuarios.find(u => {
+        if (String(u.pin || '').trim() !== pin) return false;
+        const email = (u.correo || '').toLowerCase();
+        const localPart = email.split('@')[0];
+        const idLower = (u.id || '').toLowerCase();
+        const roleLower = (u.rol || '').toLowerCase();
+        return (
+          email === identifier ||
+          localPart === identifier ||
+          idLower === identifier ||
+          (roleLower === identifier && roleMatches.length === 1)
+        );
+      });
+
       if (!user) {
-        showToast('Correo o PIN incorrecto. Verifica tus credenciales.', true);
+        showLoginError('Usuario/correo o PIN incorrecto. Verifica tus credenciales.');
+        showToast('Credenciales incorrectas.', true);
         return;
       }
+
+      showLoginError('');
+      forceLoginView = false;
       store.activeUserId = user.id;
       persistState();
       applyRoleVisibility();
       renderAccountModal();
       renderGiftHistory();
+      loginForm.reset();
       showToast(user.rol === 'admin' ? `Sesión Administrador activa (${user.nombre})` : `Bienvenida/o, ${user.nombre}`);
-      if (user.rol === 'admin' && accModal) {
-        accModal.classList.remove('open');
+
+      if (accModal) accModal.classList.remove('open');
+      if (user.rol === 'admin' && returnToGiftAfterAdminLogin) {
+        const giftSec = document.getElementById('tarjeta-regalo');
+        if (giftSec) giftSec.scrollIntoView({ behavior: 'smooth' });
       }
+      returnToGiftAfterAdminLogin = false;
     });
   }
 
@@ -1105,6 +1211,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         giftCards: []
       };
       store.usuarios.push(newUser);
+      forceLoginView = false;
       store.activeUserId = newUser.id;
       persistState();
       applyRoleVisibility();
@@ -1114,11 +1221,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function performLogout() {
-    store.activeUserId = null;
+    forceLoginView = false;
+    returnToGiftAfterAdminLogin = false;
+    store.activeUserId = getDefaultClientUserId();
     persistState();
     applyRoleVisibility();
     renderAccountModal();
-    showToast('Sesión cerrada');
+    if (accModal) accModal.classList.remove('open');
+    showToast('Sesión cambiada a modo Cliente');
   }
 
   if (btnLogout) btnLogout.addEventListener('click', performLogout);
@@ -1292,11 +1402,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  if (btnUnlockGiftAdmin) btnUnlockGiftAdmin.addEventListener('click', () => openAccountModal(false));
+  if (btnUnlockGiftAdmin) btnUnlockGiftAdmin.addEventListener('click', () => openAccountModal({ forceLogin: true, fromGiftSection: true }));
   if (btnFooterAdmin) {
     btnFooterAdmin.addEventListener('click', (e) => {
       e.preventDefault();
-      openAccountModal(false);
+      openAccountModal({ forceLogin: true });
     });
   }
   syncClientGiftSample();

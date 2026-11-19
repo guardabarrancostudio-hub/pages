@@ -928,7 +928,7 @@
       <div id="ydAuthGuestView">
         <span class="yd-kicker" style="margin-bottom:8px;"><i class="bi bi-person-badge"></i> Acceso Clientes &amp; Tienda</span>
         <h3 style="font-size:1.5rem; margin-bottom:4px;">Tu Perfil Yademar</h3>
-        <p style="font-size:0.86rem; color:var(--yd-slate);">Guarda favoritos, consulta tu historial de pedidos y tarjetas de regalo emitidas.</p>
+        <p id="ydAuthSubtitle" style="font-size:0.86rem; color:var(--yd-slate);">Guarda favoritos, consulta tu historial de pedidos o inicia sesión como Administrador.</p>
 
         <div class="yd-auth-tabs" id="ydAuthTabs">
           <button type="button" class="yd-filter-pill active" data-auth-tab="login">Iniciar Sesión</button>
@@ -937,13 +937,14 @@
 
         <form id="ydLoginForm">
           <div class="yd-studio-block">
-            <label class="yd-field-label" for="loginEmail">Correo electrónico</label>
-            <input type="email" id="loginEmail" class="yd-input" placeholder="correo@yademar.ni" required>
+            <label class="yd-field-label" for="loginEmail">Usuario o correo electrónico</label>
+            <input type="text" id="loginEmail" class="yd-input" placeholder="admin@yademar.ni o admin" autocomplete="username" required>
           </div>
           <div class="yd-studio-block">
             <label class="yd-field-label" for="loginPin">PIN de acceso (4 dígitos)</label>
-            <input type="password" id="loginPin" class="yd-input" placeholder="••••" required>
+            <input type="password" id="loginPin" class="yd-input" placeholder="••••" autocomplete="current-password" required>
           </div>
+          <div id="ydLoginError" class="yd-form-error" role="alert" hidden></div>
           <div class="yd-chip-row" style="margin-bottom:16px;">
             <button type="button" class="yd-chip-btn" data-demo-user="cliente">Acceso Cliente Demo (1234)</button>
           </div>
@@ -980,7 +981,7 @@
       </div>
 
       <div id="ydProfileView" hidden>
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:14px; border-bottom:1px solid var(--yd-border);">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding-bottom:14px; border-bottom:1px solid var(--yd-border);">
           <div style="display:flex; align-items:center; gap:12px;">
             <div id="profAvatar" style="width:48px; height:48px; border-radius:50%; background:var(--yd-red); color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.1rem;">Y</div>
             <div>
@@ -989,7 +990,10 @@
               <span class="yd-kicker" id="profRoleBadge" style="margin:4px 0 0; padding:2px 8px; font-size:0.65rem;">Cliente</span>
             </div>
           </div>
-          <button type="button" class="yd-btn yd-btn-outline yd-btn-sm" id="btnLogout">Cerrar Sesión</button>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="yd-btn yd-btn-noir yd-btn-sm" id="btnSwitchAccount">Cambiar a Admin / Otra Cuenta</button>
+            <button type="button" class="yd-btn yd-btn-outline yd-btn-sm" id="btnLogout">Volver a Modo Cliente</button>
+          </div>
         </div>
 
         <div class="yd-cards-3" style="margin:16px 0; gap:10px;">

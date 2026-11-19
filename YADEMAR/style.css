@@ -2243,8 +2243,25 @@ img { display: block; max-width: 100%; }
 .yd-admin-ribbon[hidden],
 .yd-catalog-admin-bar[hidden],
 #ydGiftAdminStudio[hidden],
-#ydGiftClientView[hidden] {
+#ydGiftClientView[hidden],
+#ydAuthGuestView[hidden],
+#ydProfileView[hidden],
+#ydLoginForm[hidden],
+#ydRegisterForm[hidden],
+#ydAdminSection[hidden],
+.yd-form-error[hidden] {
   display: none !important;
+}
+
+.yd-form-error {
+  margin-bottom: 14px;
+  padding: 10px 13px;
+  border-radius: var(--yd-radius-sm);
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #991B1B;
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
 .yd-admin-ribbon-inner {
