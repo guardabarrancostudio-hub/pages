@@ -4,6 +4,8 @@
      - Vista Cliente  (index.html + client.js)
      - Vista Admin    (admin.html + admin.js)
    Persistencia JSON + fallback offline (file://) + localStorage
+   Soporta: CRUD Productos + Stock/Cantidad, CRUD Clientes,
+            Bolsa con control de stock, Pedidos y Tarjetas de Regalo
    ============================================================ */
 
 (function (global) {
@@ -29,6 +31,38 @@
     eventos: 'Noche & Eventos',
     navidad: 'Fiestas & Navidad',
   };
+
+  const COLOR_HEX_MAP = [
+    ['negro', '#141216'],
+    ['noir', '#141216'],
+    ['blanco', '#FFFFFF'],
+    ['marfil', '#F8F4EE'],
+    ['crema', '#EFE7DA'],
+    ['arena', '#D8C39E'],
+    ['beige', '#D8C39E'],
+    ['rojo', '#D90429'],
+    ['carmes', '#D90429'],
+    ['vino', '#7D0620'],
+    ['borgo', '#7D0620'],
+    ['rosa', '#F4B6CC'],
+    ['blush', '#F4B6CC'],
+    ['coral', '#E07A5F'],
+    ['azul', '#1D3557'],
+    ['marino', '#1D3557'],
+    ['celeste', '#BFD7EA'],
+    ['verde', '#2D6A4F'],
+    ['oliva', '#556B2F'],
+    ['oro', '#C59B47'],
+    ['dorado', '#C59B47'],
+    ['champagne', '#D4B475'],
+    ['gris', '#5A5760'],
+    ['grafito', '#343138'],
+    ['café', '#6F4E37'],
+    ['cafe', '#6F4E37'],
+    ['morado', '#6D28D9'],
+    ['lila', '#C084FC'],
+    ['amarillo', '#EAB308'],
+  ];
 
   function deepClone(obj) {
     return JSON.parse(JSON.stringify(obj));
@@ -84,9 +118,37 @@
       .replace(/^N(?!°)/, 'N°');
   }
 
-  /**
-   * Genera un patrón determinista de barras (anchos y espacios) para el código de barras de Gift Card.
-   */
+  function guessHexForColor(name) {
+    const low = String(name || '').toLowerCase();
+    for (let i = 0; i < COLOR_HEX_MAP.length; i++) {
+      if (low.includes(COLOR_HEX_MAP[i][0])) return COLOR_HEX_MAP[i][1];
+    }
+    return '#141216';
+  }
+
+  function parseColorsInput(input) {
+    if (Array.isArray(input) && input.length > 0 && typeof input[0] === 'object') {
+      return input
+        .filter((c) => c && c.nombre)
+        .map((c) => ({ nombre: String(c.nombre).trim(), hex: c.hex || guessHexForColor(c.nombre) }));
+    }
+    const str = String(input || '').trim();
+    if (!str) {
+      return [
+        { nombre: 'Negro Couture', hex: '#141216' },
+        { nombre: 'Carmesí Yademar', hex: '#D90429' },
+      ];
+    }
+    const parts = str
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (parts.length === 0) {
+      return [{ nombre: 'Estándar', hex: '#141216' }];
+    }
+    return parts.map((name) => ({ nombre: name, hex: guessHexForColor(name) }));
+  }
+
   function generateBarcodeBars(code) {
     const clean = String(code || 'N°0001').trim();
     let hash = 2166136261;
@@ -95,22 +157,21 @@
       hash = Math.imul(hash, 16777619);
     }
     const bars = [];
-    // Guard bars iniciales
     bars.push(2, 1, 2, 1);
     for (let i = 0; i < 34; i++) {
-      hash ^= (hash << 13);
-      hash ^= (hash >>> 17);
-      hash ^= (hash << 5);
+      hash ^= hash << 13;
+      hash ^= hash >>> 17;
+      hash ^= hash << 5;
       const val = Math.abs(hash);
       bars.push((val % 3) + 1);
     }
-    // Guard bars finales
     bars.push(2, 1, 2);
     return bars;
   }
 
   let toastTimer = null;
   function showToast(message, type) {
+    if (typeof document === 'undefined') return;
     let el = document.getElementById('ydToast');
     if (!el) {
       el = document.createElement('div');
@@ -128,10 +189,9 @@
     if (toastTimer) clearTimeout(toastTimer);
     toastTimer = setTimeout(() => {
       el.classList.remove('is-visible');
-    }, 3200);
+    }, 3400);
   }
 
-  // Estado compartido en memoria
   let state = {
     data: null,
     currency: 'NIO',
@@ -141,7 +201,6 @@
     deletedProductIds: [],
     customProducts: [],
     editedProducts: {},
-    extraUsers: [],
   };
 
   function getFallbackSeed() {
@@ -170,6 +229,7 @@
           pin: '2026',
           rol: 'admin',
           ciudad: 'Chinandega',
+          direccion: 'De la trasera del Calvario 2 ½ c. al este, Chinandega',
           telefono: '8956-3257',
           favoritos: [],
           pedidos: [],
@@ -182,6 +242,7 @@
           pin: '1234',
           rol: 'cliente',
           ciudad: 'Chinandega',
+          direccion: 'Chinandega Centro',
           telefono: '8800-1122',
           favoritos: [],
           pedidos: [],
@@ -191,11 +252,19 @@
     };
   }
 
-  /**
-   * Fusiona usuarios del seed JSON con usuarios guardados en localStorage.
-   * Los campos de autenticación del JSON (id, correo, pin, rol) son autoritativos
-   * para las cuentas base para evitar bloqueos por caché corrupto.
-   */
+  function normalizeProduct(p) {
+    const stockVal = Number.isFinite(Number(p.stock)) ? Math.max(0, Math.floor(Number(p.stock))) : 10;
+    return {
+      ...p,
+      precio: Math.max(1, Math.round(Number(p.precio) || 0)),
+      stock: stockVal,
+      tallas: Array.isArray(p.tallas) && p.tallas.length > 0 ? p.tallas : ['S', 'M', 'L'],
+      colores: parseColorsInput(p.colores),
+      disponible: p.disponible !== false,
+      imagenUrl: p.imagenUrl || IMG_FALLBACK_SVG,
+    };
+  }
+
   function mergeUsers(baseUsers, savedUsers) {
     const baseList = Array.isArray(baseUsers) ? deepClone(baseUsers) : [];
     const savedList = Array.isArray(savedUsers) ? savedUsers : [];
@@ -213,13 +282,13 @@
       if (saved) {
         merged.push({
           ...saved,
-          // Credenciales autoritativas desde el JSON
           id: baseUser.id,
           correo: baseUser.correo,
           pin: String(baseUser.pin),
           rol: baseUser.rol,
           nombre: saved.nombre || baseUser.nombre,
           ciudad: saved.ciudad || baseUser.ciudad || 'Chinandega',
+          direccion: saved.direccion || baseUser.direccion || 'Chinandega',
           telefono: saved.telefono || baseUser.telefono || '',
           favoritos: Array.isArray(saved.favoritos)
             ? saved.favoritos
@@ -242,6 +311,9 @@
         merged.push({
           ...baseUser,
           pin: String(baseUser.pin || ''),
+          ciudad: baseUser.ciudad || 'Chinandega',
+          direccion: baseUser.direccion || 'Chinandega',
+          telefono: baseUser.telefono || '',
           favoritos: Array.isArray(baseUser.favoritos) ? baseUser.favoritos : [],
           pedidos: Array.isArray(baseUser.pedidos) ? baseUser.pedidos : [],
           giftCards: Array.isArray(baseUser.giftCards) ? baseUser.giftCards : [],
@@ -249,7 +321,6 @@
       }
     });
 
-    // Agregar usuarios nuevos creados dinámicamente (que no existen en base)
     savedList.forEach((saved) => {
       if (!saved || !saved.correo) return;
       const exists = merged.some(
@@ -262,6 +333,9 @@
           ...saved,
           rol: saved.rol === 'admin' ? 'cliente' : saved.rol || 'cliente',
           pin: String(saved.pin || '1234'),
+          ciudad: saved.ciudad || 'Chinandega',
+          direccion: saved.direccion || saved.ciudad || 'Chinandega',
+          telefono: saved.telefono || '',
           favoritos: Array.isArray(saved.favoritos) ? saved.favoritos : [],
           pedidos: Array.isArray(saved.pedidos) ? saved.pedidos : [],
           giftCards: Array.isArray(saved.giftCards) ? saved.giftCards : [],
@@ -278,18 +352,17 @@
     const editedMap = savedOverlay.editedProducts && typeof savedOverlay.editedProducts === 'object' ? savedOverlay.editedProducts : {};
     const customList = Array.isArray(savedOverlay.customProducts) ? deepClone(savedOverlay.customProducts) : [];
 
-    // Si existe una lista completa productosOverride (importación JSON), úsala como base
     if (Array.isArray(savedOverlay.productosOverride) && savedOverlay.productosOverride.length > 0) {
-      return deepClone(savedOverlay.productosOverride);
+      return deepClone(savedOverlay.productosOverride).map(normalizeProduct);
     }
 
     const result = [];
     baseList.forEach((prod) => {
       if (deleted.has(prod.id)) return;
       if (editedMap[prod.id]) {
-        result.push({ ...prod, ...deepClone(editedMap[prod.id]), id: prod.id });
+        result.push(normalizeProduct({ ...prod, ...deepClone(editedMap[prod.id]), id: prod.id }));
       } else {
-        result.push(prod);
+        result.push(normalizeProduct(prod));
       }
     });
 
@@ -297,9 +370,9 @@
       if (!custom || !custom.id || deleted.has(custom.id)) return;
       const idx = result.findIndex((p) => p.id === custom.id);
       if (idx >= 0) {
-        result[idx] = { ...result[idx], ...custom };
+        result[idx] = normalizeProduct({ ...result[idx], ...custom });
       } else {
-        result.push(custom);
+        result.push(normalizeProduct(custom));
       }
     });
 
@@ -320,7 +393,7 @@
     if (!state.data) return;
     try {
       const payload = {
-        version: 2,
+        version: 3,
         updatedAt: new Date().toISOString(),
         currency: state.currency,
         activeClientUserId: state.activeClientUserId,
@@ -338,7 +411,7 @@
         global.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
       }
     } catch (_) {
-      // Ignorar si almacenamiento está lleno o restringido
+      // Ignore storage error
     }
   }
 
@@ -367,7 +440,7 @@
           }
         }
       } catch (_) {
-        // Usar fallback local si fetch falla
+        // Fallback offline
       }
     }
     return seed;
@@ -401,6 +474,7 @@
       state.activeClientUserId = saved.activeClientUserId || 'U-CLI-01';
     } else {
       merged.usuarios = mergeUsers(merged.usuarios, []);
+      merged.productos = merged.productos.map(normalizeProduct);
       state.currency = 'NIO';
       state.cart = [];
       state.appliedGiftCard = null;
@@ -409,7 +483,6 @@
 
     state.data = merged;
 
-    // Asegurar que el usuario cliente activo exista y tenga rol cliente por defecto
     const clientMatch = state.data.usuarios.find(
       (u) => u.id === state.activeClientUserId && u.rol === 'cliente'
     );
@@ -418,7 +491,6 @@
       state.activeClientUserId = defClient ? defClient.id : null;
     }
 
-    // Recalcular ultimoFolio con base en todas las gift cards registradas
     const allCards = getAllGiftCards();
     const maxFolio = allCards.reduce((max, c) => Math.max(max, parseFolioNumber(c.folio)), 0);
     if (maxFolio > (state.data.config.ultimoFolio || 0)) {
@@ -428,10 +500,6 @@
     return state.data;
   }
 
-  /**
-   * Autenticación flexible por correo completo, prefijo antes de @ (ej. "admin" o "cliente"),
-   * ID de usuario (ej. "U-ADMIN"), o rol único ("admin" / "cliente").
-   */
   function authenticate(identifier, pin) {
     if (!state.data || !Array.isArray(state.data.usuarios)) return null;
     const rawId = String(identifier || '').trim().toLowerCase();
@@ -456,13 +524,18 @@
     return matched || null;
   }
 
-  // ---- Sesión Cliente (index.html) ----
+  // ---- Sesión y CRUD Clientes ----
   function getActiveClientUser() {
     if (!state.data) return null;
     return (
       state.data.usuarios.find((u) => u.id === state.activeClientUserId) ||
       getDefaultClientUser()
     );
+  }
+
+  function getUserById(userId) {
+    if (!state.data) return null;
+    return state.data.usuarios.find((u) => u.id === userId) || null;
   }
 
   function setActiveClientUser(userId) {
@@ -485,8 +558,9 @@
     return def;
   }
 
-  function registerClientUser({ nombre, correo, pin, ciudad, telefono }) {
+  function registerClientUser({ nombre, correo, pin, ciudad, direccion, telefono }, options) {
     if (!state.data) return { ok: false, error: 'Tienda no inicializada.' };
+    const opts = options || { setActive: true };
     const cleanEmail = String(correo || '').trim().toLowerCase();
     const cleanName = String(nombre || '').trim();
     const cleanPin = String(pin || '').trim();
@@ -499,16 +573,22 @@
       (u) => String(u.correo || '').trim().toLowerCase() === cleanEmail
     );
     if (exists) {
-      return { ok: false, error: 'Ya existe una cuenta registrada con ese correo.' };
+      return { ok: false, error: 'Ya existe una cuenta registrada con ese correo electrónico.' };
     }
 
+    const maxCliNum = state.data.usuarios.reduce((m, u) => {
+      const match = String(u.id || '').match(/U-CLI-(\d+)/);
+      return match ? Math.max(m, parseInt(match[1], 10)) : m;
+    }, 1);
+
     const newUser = {
-      id: `U-CLI-${Date.now().toString().slice(-4)}`,
+      id: `U-CLI-${pad(maxCliNum + 1, 2)}`,
       nombre: cleanName,
       correo: cleanEmail,
       pin: cleanPin,
       rol: 'cliente',
       ciudad: String(ciudad || 'Chinandega').trim(),
+      direccion: String(direccion || ciudad || 'Chinandega').trim(),
       telefono: String(telefono || '').trim(),
       favoritos: [],
       pedidos: [],
@@ -516,19 +596,95 @@
     };
 
     state.data.usuarios.push(newUser);
-    state.activeClientUserId = newUser.id;
+    if (opts.setActive !== false) {
+      state.activeClientUserId = newUser.id;
+    }
     persistState();
     return { ok: true, user: newUser };
   }
 
-  // ---- Sesión Administrador (admin.html) ----
+  function updateActiveClientProfile({ nombre, telefono, ciudad, direccion }) {
+    const user = getActiveClientUser();
+    if (!user) return { ok: false, error: 'No hay una cuenta cliente activa.' };
+    const cleanName = String(nombre || '').trim();
+    if (!cleanName) return { ok: false, error: 'El nombre no puede estar vacío.' };
+    user.nombre = cleanName;
+    user.telefono = String(telefono || '').trim();
+    user.ciudad = String(ciudad || 'Chinandega').trim();
+    user.direccion = String(direccion || '').trim();
+    persistState();
+    return { ok: true, user };
+  }
+
+  function saveClientUserByAdmin({ id, nombre, correo, pin, ciudad, direccion, telefono }) {
+    if (!state.data) return { ok: false, error: 'Tienda no inicializada.' };
+    const cleanName = String(nombre || '').trim();
+    const cleanEmail = String(correo || '').trim().toLowerCase();
+    const cleanPin = String(pin || '').trim();
+
+    if (!cleanName || !cleanEmail || !cleanEmail.includes('@')) {
+      return { ok: false, error: 'Ingresa nombre completo y un correo electrónico válido.' };
+    }
+
+    const existing = id ? getUserById(id) : null;
+    if (existing) {
+      if (existing.rol === 'admin') {
+        return { ok: false, error: 'La cuenta principal de administrador no puede editarse desde el listado de clientes.' };
+      }
+      const dup = state.data.usuarios.some(
+        (u) => u.id !== existing.id && String(u.correo || '').toLowerCase() === cleanEmail
+      );
+      if (dup) {
+        return { ok: false, error: 'Otro usuario ya utiliza ese correo electrónico.' };
+      }
+      existing.nombre = cleanName;
+      existing.correo = cleanEmail;
+      if (cleanPin.length >= 4) existing.pin = cleanPin;
+      existing.ciudad = String(ciudad || 'Chinandega').trim();
+      existing.direccion = String(direccion || '').trim();
+      existing.telefono = String(telefono || '').trim();
+      persistState();
+      return { ok: true, user: existing, isEdit: true };
+    }
+
+    if (cleanPin.length < 4) {
+      return { ok: false, error: 'El PIN del nuevo cliente debe tener al menos 4 caracteres.' };
+    }
+    const created = registerClientUser(
+      { nombre: cleanName, correo: cleanEmail, pin: cleanPin, ciudad, direccion, telefono },
+      { setActive: false }
+    );
+    if (!created.ok) return created;
+    return { ok: true, user: created.user, isEdit: false };
+  }
+
+  function deleteClientUser(userId) {
+    if (!state.data) return { ok: false, error: 'Tienda no inicializada.' };
+    const target = getUserById(userId);
+    if (!target) return { ok: false, error: 'Cliente no encontrado.' };
+    if (target.rol === 'admin') {
+      return { ok: false, error: 'No se puede eliminar la cuenta de administrador.' };
+    }
+    const clients = state.data.usuarios.filter((u) => u.rol === 'cliente');
+    if (clients.length <= 1) {
+      return { ok: false, error: 'Debe existir al menos un cliente registrado en el sistema.' };
+    }
+    state.data.usuarios = state.data.usuarios.filter((u) => u.id !== userId);
+    if (state.activeClientUserId === userId) {
+      const def = getDefaultClientUser();
+      state.activeClientUserId = def ? def.id : null;
+    }
+    persistState();
+    return { ok: true };
+  }
+
+  // ---- Sesión Administrador ----
   function getAdminSessionUser() {
     if (!state.data) return null;
     try {
       const savedId = global.localStorage && global.localStorage.getItem(ADMIN_SESSION_KEY);
       if (!savedId) return null;
-      const found = state.data.usuarios.find((u) => u.id === savedId && u.rol === 'admin');
-      return found || null;
+      return state.data.usuarios.find((u) => u.id === savedId && u.rol === 'admin') || null;
     } catch (_) {
       return null;
     }
@@ -554,7 +710,7 @@
         global.localStorage.setItem(ADMIN_SESSION_KEY, user.id);
       }
     } catch (_) {
-      // Ignore storage error
+      // Ignore
     }
     return { ok: true, user };
   }
@@ -565,11 +721,11 @@
         global.localStorage.removeItem(ADMIN_SESSION_KEY);
       }
     } catch (_) {
-      // Ignore storage error
+      // Ignore
     }
   }
 
-  // ---- Moneda y Formatos ----
+  // ---- Moneda ----
   function getCurrency() {
     return state.currency;
   }
@@ -598,7 +754,7 @@
     return `C$${Math.round(val).toLocaleString('en-US')}`;
   }
 
-  // ---- Productos (CRUD Admin + Consultas Cliente) ----
+  // ---- Productos + Stock / Cantidad ----
   function getProducts() {
     return (state.data && state.data.productos) || [];
   }
@@ -620,8 +776,16 @@
     if (!state.data) return { ok: false, error: 'Tienda no inicializada.' };
     const cleanName = String(productPayload.nombre || '').trim();
     const cleanPrice = Number(productPayload.precio);
+    const parsedStock =
+      productPayload.stock === undefined || productPayload.stock === ''
+        ? 10
+        : Math.max(0, Math.floor(Number(productPayload.stock)));
+
     if (!cleanName || !Number.isFinite(cleanPrice) || cleanPrice <= 0) {
       return { ok: false, error: 'Ingresa un nombre válido y un precio mayor a 0.' };
+    }
+    if (!Number.isFinite(parsedStock) || parsedStock < 0) {
+      return { ok: false, error: 'La cantidad en inventario debe ser 0 o mayor.' };
     }
 
     const tallasArr = Array.isArray(productPayload.tallas)
@@ -631,14 +795,7 @@
           .map((t) => t.trim())
           .filter(Boolean);
 
-    const coloresArr =
-      Array.isArray(productPayload.colores) && productPayload.colores.length > 0
-        ? productPayload.colores
-        : [
-            { nombre: 'Negro Couture', hex: '#141216' },
-            { nombre: 'Carmesí Yademar', hex: '#D90429' },
-          ];
-
+    const coloresArr = parseColorsInput(productPayload.colores);
     const imgUrl = String(productPayload.imagenUrl || '').trim() || IMG_FALLBACK_SVG;
     const isEdit = Boolean(productPayload.id && getProductById(productPayload.id));
 
@@ -661,6 +818,7 @@
         productPayload.precioAnterior && Number(productPayload.precioAnterior) > cleanPrice
           ? Math.round(Number(productPayload.precioAnterior))
           : undefined,
+      stock: parsedStock,
       tallas: tallasArr.length > 0 ? tallasArr : ['S', 'M', 'L'],
       colores: coloresArr,
       etiqueta: String(productPayload.etiqueta || 'Nuevo').trim(),
@@ -686,6 +844,15 @@
     return { ok: true, product: record, isEdit };
   }
 
+  function adjustProductStock(prodId, delta) {
+    const prod = getProductById(prodId);
+    if (!prod) return null;
+    prod.stock = Math.max(0, (Number(prod.stock) || 0) + (parseInt(delta, 10) || 0));
+    state.editedProducts[prodId] = prod;
+    persistState();
+    return prod.stock;
+  }
+
   function deleteProduct(prodId) {
     if (!state.data) return false;
     const before = state.data.productos.length;
@@ -700,7 +867,7 @@
     return true;
   }
 
-  // ---- Favoritos y Bolsa (Vista Cliente) ----
+  // ---- Favoritos y Bolsa con Control de Cantidad/Stock ----
   function toggleFavorite(prodId) {
     const user = getActiveClientUser();
     if (!user) return false;
@@ -721,11 +888,41 @@
     return state.cart;
   }
 
+  function getCartQtyForProduct(prodId) {
+    return state.cart
+      .filter((c) => c.id === prodId)
+      .reduce((sum, c) => sum + (Number(c.qty) || 0), 0);
+  }
+
   function addToCart(item) {
+    const reqQty = Math.max(1, parseInt(item.qty, 10) || 1);
     const key = `${item.id}|${item.talla || ''}|${item.color || ''}`;
     const existing = state.cart.find((c) => c.key === key);
+
+    if (!item.esGiftCardSolicitud) {
+      const prod = getProductById(item.id);
+      if (prod) {
+        const available = Number(prod.stock) || 0;
+        const alreadyInCart = getCartQtyForProduct(prod.id);
+        if (available <= 0) {
+          return { ok: false, error: `"${prod.nombre}" está agotada en este momento.`, cart: state.cart };
+        }
+        if (alreadyInCart + reqQty > available) {
+          const remaining = Math.max(0, available - alreadyInCart);
+          return {
+            ok: false,
+            error:
+              remaining > 0
+                ? `Solo quedan ${remaining} unidad(es) disponibles para agregar de "${prod.nombre}".`
+                : `Ya tienes el máximo disponible (${available} uds) de "${prod.nombre}" en tu bolsa.`,
+            cart: state.cart,
+          };
+        }
+      }
+    }
+
     if (existing) {
-      existing.qty += item.qty || 1;
+      existing.qty += reqQty;
     } else {
       state.cart.push({
         key,
@@ -735,22 +932,40 @@
         talla: item.talla || 'Única',
         color: item.color || 'Estándar',
         imagenUrl: item.imagenUrl || IMG_FALLBACK_SVG,
-        qty: item.qty || 1,
+        qty: reqQty,
         esGiftCardSolicitud: Boolean(item.esGiftCardSolicitud),
       });
     }
     persistState();
-    return state.cart;
+    return { ok: true, cart: state.cart, addedQty: reqQty };
   }
 
   function updateCartQty(key, delta) {
     const idx = state.cart.findIndex((c) => c.key === key);
-    if (idx < 0) return;
-    state.cart[idx].qty += delta;
-    if (state.cart[idx].qty <= 0) {
+    if (idx < 0) return { ok: false };
+    const item = state.cart[idx];
+    const nextQty = item.qty + delta;
+
+    if (nextQty <= 0) {
       state.cart.splice(idx, 1);
+      persistState();
+      return { ok: true, removed: true };
     }
+
+    if (delta > 0 && !item.esGiftCardSolicitud) {
+      const prod = getProductById(item.id);
+      if (prod) {
+        const available = Number(prod.stock) || 0;
+        const totalInCart = getCartQtyForProduct(prod.id);
+        if (totalInCart + delta > available) {
+          return { ok: false, error: `Stock máximo disponible: ${available} unidad(es).` };
+        }
+      }
+    }
+
+    item.qty = nextQty;
     persistState();
+    return { ok: true, qty: item.qty };
   }
 
   function removeFromCart(key) {
@@ -785,19 +1000,40 @@
     const user = getActiveClientUser();
     if (!user) return null;
     if (!Array.isArray(user.pedidos)) user.pedidos = [];
+
+    const itemsCopy = deepClone(orderPayload.items || []);
+    // Descontar stock real de las prendas compradas
+    itemsCopy.forEach((it) => {
+      if (it.esGiftCardSolicitud) return;
+      const prod = getProductById(it.id);
+      if (prod) {
+        prod.stock = Math.max(0, (Number(prod.stock) || 0) - (Number(it.qty) || 1));
+        state.editedProducts[prod.id] = prod;
+      }
+    });
+
     const order = {
       id: `PED-${Date.now().toString().slice(-5)}`,
       fecha: todayISO(),
-      items: deepClone(orderPayload.items || []),
+      items: itemsCopy,
       subtotalNio: Math.round(Number(orderPayload.subtotalNio) || 0),
       descuentoGiftCardNio: Math.round(Number(orderPayload.descuentoGiftCardNio) || 0),
       giftCardFolio: orderPayload.giftCardFolio || null,
       totalNio: Math.round(Number(orderPayload.totalNio) || 0),
-      clienteNombre: user.nombre,
+      clienteNombre: String(orderPayload.clienteNombre || user.nombre).trim(),
+      clienteTelefono: String(orderPayload.clienteTelefono || user.telefono || '').trim(),
       clienteCorreo: user.correo,
+      entregaTipo: orderPayload.entregaTipo || 'Retiro en tienda',
+      direccionEntrega: String(orderPayload.direccionEntrega || user.direccion || 'Chinandega').trim(),
+      notas: String(orderPayload.notas || '').trim(),
       estado: 'Enviado por WhatsApp',
     };
+
     user.pedidos.unshift(order);
+    if (orderPayload.clearCartAfter !== false) {
+      state.cart = [];
+      state.appliedGiftCard = null;
+    }
     persistState();
     return order;
   }
@@ -811,13 +1047,29 @@
           ...p,
           clienteNombre: p.clienteNombre || u.nombre,
           clienteCorreo: p.clienteCorreo || u.correo,
+          ownerId: u.id,
         });
       });
     });
     return list;
   }
 
-  // ---- Tarjetas de Regalo (Folios Oficiales) ----
+  function updateOrderStatus(orderId, newStatus) {
+    if (!state.data) return false;
+    let updated = false;
+    state.data.usuarios.forEach((u) => {
+      (u.pedidos || []).forEach((p) => {
+        if (p.id === orderId) {
+          p.estado = String(newStatus || 'Confirmado');
+          updated = true;
+        }
+      });
+    });
+    if (updated) persistState();
+    return updated;
+  }
+
+  // ---- Tarjetas de Regalo ----
   function getAllGiftCards() {
     if (!state.data || !Array.isArray(state.data.usuarios)) return [];
     const cards = [];
@@ -928,7 +1180,7 @@
     state.data = {
       config: { ...seed.config, ...(jsonObj.config || {}) },
       temporadas: Array.isArray(jsonObj.temporadas) && jsonObj.temporadas.length > 0 ? deepClone(jsonObj.temporadas) : seed.temporadas,
-      productos: deepClone(jsonObj.productos),
+      productos: deepClone(jsonObj.productos).map(normalizeProduct),
       usuarios: mergeUsers(seed.usuarios, jsonObj.usuarios),
     };
     state.deletedProductIds = [];
@@ -991,16 +1243,21 @@
     formatFolio,
     parseFolioNumber,
     normalizeCode,
+    parseColorsInput,
     generateBarcodeBars,
     showToast,
     initStore,
     persistState,
     authenticate,
-    // Cliente
+    // Cliente & CRUD Clientes
     getActiveClientUser,
+    getUserById,
     setActiveClientUser,
     resetClientToDefault,
     registerClientUser,
+    updateActiveClientProfile,
+    saveClientUserByAdmin,
+    deleteClientUser,
     toggleFavorite,
     // Admin
     getAdminSessionUser,
@@ -1012,17 +1269,19 @@
     setCurrency,
     formatMoney,
     formatRawAmount,
-    // Datos
+    // Productos & Stock
     getConfig,
     getSeasons,
     getSeasonLabel,
     getProducts,
     getProductById,
     addOrUpdateProduct,
+    adjustProductStock,
     deleteProduct,
     getUsers,
     // Bolsa & Pedidos
     getCart,
+    getCartQtyForProduct,
     addToCart,
     updateCartQty,
     removeFromCart,
@@ -1032,6 +1291,7 @@
     clearAppliedGiftCard,
     recordOrder,
     getAllOrders,
+    updateOrderStatus,
     // Gift Cards
     getAllGiftCards,
     findGiftCardByCode,

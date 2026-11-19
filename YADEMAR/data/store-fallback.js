@@ -53,15 +53,26 @@ window.YADEMAR_STORE_FALLBACK = {
       "temporada": "verano",
       "precio": 1350,
       "precioAnterior": 1520,
-      "tallas": ["S", "M", "L"],
+      "tallas": [
+        "S",
+        "M",
+        "L"
+      ],
       "colores": [
-        { "nombre": "Blanco Marfil", "hex": "#F8F4EE" },
-        { "nombre": "Rojo Carmesí", "hex": "#D90429" }
+        {
+          "nombre": "Blanco Marfil",
+          "hex": "#F8F4EE"
+        },
+        {
+          "nombre": "Rojo Carmesí",
+          "hex": "#D90429"
+        }
       ],
       "etiqueta": "Nuevo",
       "disponible": true,
       "descripcion": "Vestido midi en mezcla de lino transpirable ideal para el clima de Chinandega, con corte cintura definida y caída fluida.",
-      "imagenUrl": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=720&q=80"
+      "imagenUrl": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=720&q=80",
+      "stock": 8
     },
     {
       "id": "YD-02",
@@ -69,15 +80,27 @@ window.YADEMAR_STORE_FALLBACK = {
       "categoria": "dama",
       "temporada": "verano",
       "precio": 1150,
-      "tallas": ["XS", "S", "M", "L"],
+      "tallas": [
+        "XS",
+        "S",
+        "M",
+        "L"
+      ],
       "colores": [
-        { "nombre": "Coral Suave", "hex": "#E07A5F" },
-        { "nombre": "Negro Couture", "hex": "#141216" }
+        {
+          "nombre": "Coral Suave",
+          "hex": "#E07A5F"
+        },
+        {
+          "nombre": "Negro Couture",
+          "hex": "#141216"
+        }
       ],
       "etiqueta": "Temporada",
       "disponible": true,
       "descripcion": "Set coordinado de top estructurado y falda pantalón de tiro alto, perfecto para salidas de tarde o reuniones.",
-      "imagenUrl": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=720&q=80"
+      "imagenUrl": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=720&q=80",
+      "stock": 10
     },
     {
       "id": "YD-03",
@@ -85,15 +108,27 @@ window.YADEMAR_STORE_FALLBACK = {
       "categoria": "caballero",
       "temporada": "verano",
       "precio": 1280,
-      "tallas": ["S", "M", "L", "XL"],
+      "tallas": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
       "colores": [
-        { "nombre": "Blanco Puro", "hex": "#FFFFFF" },
-        { "nombre": "Arena Champagne", "hex": "#D8C39E" }
+        {
+          "nombre": "Blanco Puro",
+          "hex": "#FFFFFF"
+        },
+        {
+          "nombre": "Arena Champagne",
+          "hex": "#D8C39E"
+        }
       ],
       "etiqueta": "Destacado",
       "disponible": true,
       "descripcion": "Camisa guayabera moderna en corte entallado, frescura natural y terminaciones limpias para eventos de día.",
-      "imagenUrl": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=720&q=80"
+      "imagenUrl": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=720&q=80",
+      "stock": 7
     },
     {
       "id": "YD-04",
@@ -101,15 +136,28 @@ window.YADEMAR_STORE_FALLBACK = {
       "categoria": "dama",
       "temporada": "urbano",
       "precio": 820,
-      "tallas": ["XS", "S", "M", "L", "XL"],
+      "tallas": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
       "colores": [
-        { "nombre": "Rosa Perla", "hex": "#F4D0DC" },
-        { "nombre": "Vino Intenso", "hex": "#8B0A24" }
+        {
+          "nombre": "Rosa Perla",
+          "hex": "#F4D0DC"
+        },
+        {
+          "nombre": "Vino Intenso",
+          "hex": "#8B0A24"
+        }
       ],
       "etiqueta": "Oficina",
       "disponible": true,
       "descripcion": "Blusa de caída sedosa con cuello delicado y puños sastre, fácil de combinar con pantalón o falda lápiz.",
-      "imagenUrl": "https://images.unsplash.com/photo-1551163943-3f6a855d1153?auto=format&fit=crop&w=720&q=80"
+      "imagenUrl": "https://images.unsplash.com/photo-1551163943-3f6a855d1153?auto=format&fit=crop&w=720&q=80",
+      "stock": 12
     },
     {
       "id": "YD-05",
@@ -117,15 +165,27 @@ window.YADEMAR_STORE_FALLBACK = {
       "categoria": "caballero",
       "temporada": "urbano",
       "precio": 790,
-      "tallas": ["S", "M", "L", "XL"],
+      "tallas": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
       "colores": [
-        { "nombre": "Negro Noir", "hex": "#18161B" },
-        { "nombre": "Azul Marino", "hex": "#1D3557" }
+        {
+          "nombre": "Negro Noir",
+          "hex": "#18161B"
+        },
+        {
+          "nombre": "Azul Marino",
+          "hex": "#1D3557"
+        }
       ],
       "etiqueta": "Básico",
       "disponible": true,
       "descripcion": "Polo en tejido piqué de algodón peinado que conserva su cuello firme y brinda un porte casual elegante.",
-      "imagenUrl": "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=720&q=80"
+      "imagenUrl": "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=720&q=80",
+      "stock": 14
     },
     {
       "id": "YD-06",
@@ -133,15 +193,28 @@ window.YADEMAR_STORE_FALLBACK = {
       "categoria": "caballero",
       "temporada": "urbano",
       "precio": 1120,
-      "tallas": ["30", "32", "34", "36", "38"],
+      "tallas": [
+        "30",
+        "32",
+        "34",
+        "36",
+        "38"
+      ],
       "colores": [
-        { "nombre": "Arena Neutro", "hex": "#CBB692" },
-        { "nombre": "Grafito", "hex": "#343138" }
+        {
+          "nombre": "Arena Neutro",
+          "hex": "#CBB692"
+        },
+        {
+          "nombre": "Grafito",
+          "hex": "#343138"
+        }
       ],
       "etiqueta": "Top Venta",
       "disponible": true,
       "descripcion": "Pantalón chino con ligera elasticidad en sarga suave para máxima comodidad en jornadas laborales o fines de semana.",
-      "imagenUrl": "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=720&q=80"
+      "imagenUrl": "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=720&q=80",
+      "stock": 9
     },
     {
       "id": "YD-07",
@@ -150,15 +223,27 @@ window.YADEMAR_STORE_FALLBACK = {
       "temporada": "eventos",
       "precio": 1950,
       "precioAnterior": 2200,
-      "tallas": ["XS", "S", "M", "L"],
+      "tallas": [
+        "XS",
+        "S",
+        "M",
+        "L"
+      ],
       "colores": [
-        { "nombre": "Carmesí Yademar", "hex": "#D90429" },
-        { "nombre": "Negro Satinado", "hex": "#141216" }
+        {
+          "nombre": "Carmesí Yademar",
+          "hex": "#D90429"
+        },
+        {
+          "nombre": "Negro Satinado",
+          "hex": "#141216"
+        }
       ],
       "etiqueta": "Couture",
       "disponible": true,
       "descripcion": "Vestido icónico de noche en tono carmesí con escote estilizado y abertura lateral sutil para celebraciones inolvidables.",
-      "imagenUrl": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=720&q=80"
+      "imagenUrl": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=720&q=80",
+      "stock": 6
     },
     {
       "id": "YD-08",
@@ -166,15 +251,26 @@ window.YADEMAR_STORE_FALLBACK = {
       "categoria": "dama",
       "temporada": "eventos",
       "precio": 1790,
-      "tallas": ["S", "M", "L"],
+      "tallas": [
+        "S",
+        "M",
+        "L"
+      ],
       "colores": [
-        { "nombre": "Crema Sastrería", "hex": "#EFE7DA" },
-        { "nombre": "Negro Clásico", "hex": "#141216" }
+        {
+          "nombre": "Crema Sastrería",
+          "hex": "#EFE7DA"
+        },
+        {
+          "nombre": "Negro Clásico",
+          "hex": "#141216"
+        }
       ],
       "etiqueta": "Elegante",
       "disponible": true,
       "descripcion": "Blazer entallado de forro liviano con solapa definida para elevar cualquier conjunto de día o noche.",
-      "imagenUrl": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=720&q=80"
+      "imagenUrl": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=720&q=80",
+      "stock": 8
     },
     {
       "id": "YD-09",
@@ -182,15 +278,28 @@ window.YADEMAR_STORE_FALLBACK = {
       "categoria": "caballero",
       "temporada": "eventos",
       "precio": 1090,
-      "tallas": ["S", "M", "L", "XL", "XXL"],
+      "tallas": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
       "colores": [
-        { "nombre": "Blanco Óptico", "hex": "#FFFFFF" },
-        { "nombre": "Celeste Sutil", "hex": "#BFD7EA" }
+        {
+          "nombre": "Blanco Óptico",
+          "hex": "#FFFFFF"
+        },
+        {
+          "nombre": "Celeste Sutil",
+          "hex": "#BFD7EA"
+        }
       ],
       "etiqueta": "Formal",
       "disponible": true,
       "descripcion": "Camisa manga larga de textura oxford refinada, pensada para bodas, graduaciones y compromisos ejecutivos.",
-      "imagenUrl": "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=720&q=80"
+      "imagenUrl": "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=720&q=80",
+      "stock": 11
     },
     {
       "id": "YD-10",
@@ -198,15 +307,27 @@ window.YADEMAR_STORE_FALLBACK = {
       "categoria": "dama",
       "temporada": "navidad",
       "precio": 2250,
-      "tallas": ["XS", "S", "M", "L"],
+      "tallas": [
+        "XS",
+        "S",
+        "M",
+        "L"
+      ],
       "colores": [
-        { "nombre": "Borgoña Gala", "hex": "#7D0620" },
-        { "nombre": "Champagne Oro", "hex": "#C59B47" }
+        {
+          "nombre": "Borgoña Gala",
+          "hex": "#7D0620"
+        },
+        {
+          "nombre": "Champagne Oro",
+          "hex": "#C59B47"
+        }
       ],
       "etiqueta": "Edición Festiva",
       "disponible": true,
       "descripcion": "Diseño largo con caída drapeada y sutil destello festivo para brillar en cenas navideñas y fin de año.",
-      "imagenUrl": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=720&q=80"
+      "imagenUrl": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=720&q=80",
+      "stock": 5
     },
     {
       "id": "YD-11",
@@ -214,15 +335,27 @@ window.YADEMAR_STORE_FALLBACK = {
       "categoria": "caballero",
       "temporada": "navidad",
       "precio": 1190,
-      "tallas": ["S", "M", "L", "XL"],
+      "tallas": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
       "colores": [
-        { "nombre": "Noir Brillante", "hex": "#141216" },
-        { "nombre": "Vino Profundo", "hex": "#66071A" }
+        {
+          "nombre": "Noir Brillante",
+          "hex": "#141216"
+        },
+        {
+          "nombre": "Vino Profundo",
+          "hex": "#66071A"
+        }
       ],
       "etiqueta": "Edición Festiva",
       "disponible": true,
       "descripcion": "Camisa masculina con acabado satinado suave y botones ocultos, pensada para celebraciones nocturnas.",
-      "imagenUrl": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=720&q=80"
+      "imagenUrl": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=720&q=80",
+      "stock": 9
     },
     {
       "id": "YD-12",
@@ -230,15 +363,28 @@ window.YADEMAR_STORE_FALLBACK = {
       "categoria": "caballero",
       "temporada": "navidad",
       "precio": 1320,
-      "tallas": ["30", "32", "34", "36", "38"],
+      "tallas": [
+        "30",
+        "32",
+        "34",
+        "36",
+        "38"
+      ],
       "colores": [
-        { "nombre": "Negro Sastre", "hex": "#141216" },
-        { "nombre": "Gris Carbón", "hex": "#4A4750" }
+        {
+          "nombre": "Negro Sastre",
+          "hex": "#141216"
+        },
+        {
+          "nombre": "Gris Carbón",
+          "hex": "#4A4750"
+        }
       ],
       "etiqueta": "Sastrería",
       "disponible": true,
       "descripcion": "Pantalón de vestir con caída recta impecable y pretina reforzada para combinar con camisas formales.",
-      "imagenUrl": "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=720&q=80"
+      "imagenUrl": "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=720&q=80",
+      "stock": 10
     }
   ],
   "usuarios": [
@@ -250,7 +396,10 @@ window.YADEMAR_STORE_FALLBACK = {
       "rol": "admin",
       "ciudad": "Chinandega",
       "telefono": "8956-3257",
-      "favoritos": ["YD-07", "YD-10"],
+      "favoritos": [
+        "YD-07",
+        "YD-10"
+      ],
       "pedidos": [],
       "giftCards": [
         {
@@ -266,7 +415,8 @@ window.YADEMAR_STORE_FALLBACK = {
           "mensaje": "Disfruta eligiendo tu outfit favorito en Yademar.",
           "fechaEmision": "2026-11-18"
         }
-      ]
+      ],
+      "direccion": "De la trasera del Calvario 2 ½ c. al este, Chinandega"
     },
     {
       "id": "U-CLI-01",
@@ -276,9 +426,13 @@ window.YADEMAR_STORE_FALLBACK = {
       "rol": "cliente",
       "ciudad": "Chinandega",
       "telefono": "8800-1122",
-      "favoritos": ["YD-01", "YD-07"],
+      "favoritos": [
+        "YD-01",
+        "YD-07"
+      ],
       "pedidos": [],
-      "giftCards": []
+      "giftCards": [],
+      "direccion": "Chinandega Centro"
     }
   ]
 };

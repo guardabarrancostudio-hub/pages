@@ -1,6 +1,8 @@
 /* ============================================================
    YADEMAR — Vista Cliente (client.js)
    Conecta index.html con window.YademarStore y Bootstrap 5.3
+   Todos los formularios funcionales: Registro Cliente, Perfil,
+   Login, Cantidad en Vista Rápida, Solicitud Gift Card y Checkout
    ============================================================ */
 
 (function () {
@@ -17,6 +19,7 @@
     qvProductId: null,
     qvSize: '',
     qvColor: '',
+    qvQty: 1,
   };
 
   let qvModalInstance = null;
@@ -34,7 +37,6 @@
     };
   }
 
-  // ---- Navbar scroll shadow & desktop tel copy ----
   function initGlobalInteractions() {
     const nav = $('ydMainNav');
     window.addEventListener(
@@ -45,7 +47,6 @@
       { passive: true }
     );
 
-    // En escritorio copiar teléfono al portapapeles
     document.querySelectorAll('.yd-phone-link').forEach((link) => {
       link.addEventListener('click', (e) => {
         const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -59,7 +60,6 @@
       });
     });
 
-    // Cerrar menú collapse en móvil al hacer clic en un enlace
     const collapseEl = $('ydNavbarCollapse');
     if (collapseEl && window.bootstrap) {
       collapseEl.querySelectorAll('.nav-link').forEach((a) => {
@@ -71,7 +71,6 @@
     }
   }
 
-  // ---- Moneda Global ----
   function syncCurrencyButtons() {
     const active = Store.getCurrency();
     document.querySelectorAll('.yd-currency-btn').forEach((btn) => {
@@ -91,7 +90,6 @@
     });
   }
 
-  // ---- Temporadas ----
   function renderSeasons() {
     const grid = $('ydSeasonsGrid');
     if (!grid) return;
@@ -139,10 +137,9 @@
     });
   }
 
-  // ---- Catálogo Cliente ----
   function getFilteredProducts() {
     const user = Store.getActiveClientUser();
-    const favs = (user && Array.isArray(user.favoritos)) ? user.favoritos : [];
+    const favs = user && Array.isArray(user.favoritos) ? user.favoritos : [];
     const term = ui.search.trim().toLowerCase();
 
     let list = Store.getProducts().filter((p) => p.disponible !== false);
@@ -185,7 +182,7 @@
     if (!grid) return;
 
     const user = Store.getActiveClientUser();
-    const favs = (user && Array.isArray(user.favoritos)) ? user.favoritos : [];
+    const favs = user && Array.isArray(user.favoritos) ? user.favoritos : [];
     if (favCountEl) favCountEl.textContent = String(favs.length);
 
     if (seasonBar && seasonNameEl) {
@@ -215,6 +212,8 @@
     grid.innerHTML = items
       .map((p) => {
         const isFav = favs.includes(p.id);
+        const stock = Number(p.stock) || 0;
+        const badgeText = stock <= 0 ? 'Agotado' : p.etiqueta || '';
         const oldPriceHtml = p.precioAnterior
           ? `<span class="yd-product-oldprice">${Store.formatMoney(p.precioAnterior)}</span>`
           : '';
@@ -223,21 +222,21 @@
             <article class="yd-product-card">
               <div class="yd-product-media">
                 <img src="${Store.escapeHtml(p.imagenUrl)}" alt="${Store.escapeHtml(p.nombre)}" loading="lazy" data-open-qv="${Store.escapeHtml(p.id)}" style="cursor:pointer;">
-                ${p.etiqueta ? `<span class="yd-product-badge">${Store.escapeHtml(p.etiqueta)}</span>` : ''}
+                ${badgeText ? `<span class="yd-product-badge ${stock <= 0 ? 'bg-secondary' : ''}">${Store.escapeHtml(badgeText)}</span>` : ''}
                 <button type="button" class="yd-fav-btn ${isFav ? 'is-fav' : ''}" data-toggle-fav="${Store.escapeHtml(p.id)}" aria-label="Guardar en favoritos">
                   <i class="bi ${isFav ? 'bi-heart-fill' : 'bi-heart'}"></i>
                 </button>
               </div>
               <div class="yd-product-body">
-                <div class="yd-product-meta">${Store.escapeHtml(p.categoria)} &bull; ${Store.escapeHtml(Store.getSeasonLabel(p.temporada))}</div>
+                <div class="yd-product-meta">${Store.escapeHtml(p.categoria)} &bull; ${stock > 0 ? `${stock} disponibles` : 'Agotado'}</div>
                 <h3 class="yd-product-name">${Store.escapeHtml(p.nombre)}</h3>
                 <div class="mb-3">
                   <span class="yd-product-price">${Store.formatMoney(p.precio)}</span>
                   ${oldPriceHtml}
                 </div>
                 <div class="mt-auto d-flex gap-2">
-                  <button type="button" class="btn btn-sm btn-yd-dark flex-fill" data-open-qv="${Store.escapeHtml(p.id)}">
-                    Ver y elegir talla
+                  <button type="button" class="btn btn-sm ${stock > 0 ? 'btn-yd-dark' : 'btn-yd-outline'} flex-fill" data-open-qv="${Store.escapeHtml(p.id)}">
+                    ${stock > 0 ? 'Elegir talla y cantidad' : 'Ver detalle'}
                   </button>
                 </div>
               </div>
@@ -320,12 +319,43 @@
     }
   }
 
-  // ---- Modal Vista Rápida ----
+  // ---- Modal Vista Rápida con Cantidad y Control de Stock ----
+  function syncQuickViewQtyButton(product) {
+    const qtyInput = $('qvQtyInput');
+    const btnAdd = $('btnQvAddToBag');
+    const wspLink = $('btnQvWhatsApp');
+    if (!product || !qtyInput || !btnAdd) return;
+
+    const stock = Number(product.stock) || 0;
+    const maxQty = Math.max(1, stock);
+    ui.qvQty = Math.min(maxQty, Math.max(1, parseInt(ui.qvQty, 10) || 1));
+    qtyInput.max = String(maxQty);
+    qtyInput.value = String(ui.qvQty);
+    qtyInput.disabled = stock <= 0;
+    $('btnQvQtyDec').disabled = stock <= 0 || ui.qvQty <= 1;
+    $('btnQvQtyInc').disabled = stock <= 0 || ui.qvQty >= maxQty;
+
+    if (stock <= 0) {
+      btnAdd.disabled = true;
+      btnAdd.innerHTML = `<i class="bi bi-x-circle me-1"></i> Temporalmente Agotado`;
+    } else {
+      btnAdd.disabled = false;
+      const lineTotal = Store.formatMoney(product.precio * ui.qvQty);
+      btnAdd.innerHTML = `<i class="bi bi-bag-plus me-1"></i> Agregar ${ui.qvQty} a mi Bolsa (${lineTotal})`;
+    }
+
+    if (wspLink) {
+      const msg = `Hola Yademar, me interesa la prenda "${product.nombre}" (${product.id}) — Cantidad: ${ui.qvQty}, Talla: ${ui.qvSize}, Color: ${ui.qvColor} (${Store.formatMoney(product.precio * ui.qvQty)}). ¿Está disponible?`;
+      wspLink.href = Store.getWhatsAppUrl(msg);
+    }
+  }
+
   function populateQuickView(prodId) {
     const p = Store.getProductById(prodId);
     if (!p) return;
 
     ui.qvProductId = p.id;
+    const stock = Number(p.stock) || 0;
     const tallas = Array.isArray(p.tallas) && p.tallas.length > 0 ? p.tallas : ['Única'];
     const colores =
       Array.isArray(p.colores) && p.colores.length > 0
@@ -346,6 +376,12 @@
     $('qvMeta').textContent = `${p.categoria.toUpperCase()} • ${Store.getSeasonLabel(p.temporada)}`;
     $('qvTitle').textContent = p.nombre;
     $('qvPrice').textContent = Store.formatMoney(p.precio);
+
+    const stockBadge = $('qvStockBadge');
+    if (stockBadge) {
+      stockBadge.textContent = stock > 0 ? `Disponibles: ${stock} uds` : 'Agotado';
+      stockBadge.className = `badge ms-2 ${stock > 0 ? 'text-bg-light border text-dark' : 'text-bg-secondary'}`;
+    }
 
     const oldEl = $('qvOldPrice');
     if (p.precioAnterior) {
@@ -386,16 +422,13 @@
       });
     });
 
-    const wspLink = $('btnQvWhatsApp');
-    if (wspLink) {
-      const msg = `Hola Yademar, me interesa la prenda "${p.nombre}" (${p.id}) en talla ${ui.qvSize}, color ${ui.qvColor} (${Store.formatMoney(p.precio)}). ¿Está disponible?`;
-      wspLink.href = Store.getWhatsAppUrl(msg);
-    }
+    syncQuickViewQtyButton(p);
   }
 
   function openQuickView(prodId) {
     ui.qvSize = '';
     ui.qvColor = '';
+    ui.qvQty = 1;
     populateQuickView(prodId);
     const modalEl = $('ydQuickViewModal');
     if (modalEl && window.bootstrap) {
@@ -405,23 +438,42 @@
   }
 
   function bindQuickViewActions() {
+    const btnDec = $('btnQvQtyDec');
+    const btnInc = $('btnQvQtyInc');
+    const qtyInput = $('qvQtyInput');
+
+    const updateQty = (val) => {
+      const p = Store.getProductById(ui.qvProductId);
+      if (!p) return;
+      ui.qvQty = parseInt(val, 10) || 1;
+      syncQuickViewQtyButton(p);
+    };
+
+    if (btnDec) btnDec.addEventListener('click', () => updateQty(ui.qvQty - 1));
+    if (btnInc) btnInc.addEventListener('click', () => updateQty(ui.qvQty + 1));
+    if (qtyInput) qtyInput.addEventListener('input', () => updateQty(qtyInput.value));
+
     const btnAdd = $('btnQvAddToBag');
     if (btnAdd) {
       btnAdd.addEventListener('click', () => {
         const p = Store.getProductById(ui.qvProductId);
         if (!p) return;
-        Store.addToCart({
+        const res = Store.addToCart({
           id: p.id,
           nombre: p.nombre,
           precio: p.precio,
           talla: ui.qvSize || 'Única',
           color: ui.qvColor || 'Estándar',
           imagenUrl: p.imagenUrl,
-          qty: 1,
+          qty: ui.qvQty,
         });
+        if (!res.ok) {
+          Store.showToast(res.error, 'error');
+          return;
+        }
         renderBag();
         if (qvModalInstance) qvModalInstance.hide();
-        Store.showToast(`"${p.nombre}" agregada a tu bolsa`, 'success');
+        Store.showToast(`${ui.qvQty}× "${p.nombre}" agregada(s) a tu bolsa`, 'success');
       });
     }
   }
@@ -450,7 +502,7 @@
     const form = $('clientGiftRequestForm');
     if (!form) return;
 
-    ['reqGiftAmount', 'reqGiftPara', 'reqGiftDe', 'reqGiftMotivo', 'reqGiftTema'].forEach((id) => {
+    ['reqGiftAmount', 'reqGiftPara', 'reqGiftDe', 'reqGiftMotivo', 'reqGiftTema', 'reqGiftQty'].forEach((id) => {
       const el = $(id);
       if (el) el.addEventListener('input', updateClientSampleCard);
       if (el) el.addEventListener('change', updateClientSampleCard);
@@ -469,6 +521,7 @@
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const amount = Math.max(200, Number($('reqGiftAmount').value) || 1100);
+      const qty = Math.max(1, Math.min(20, parseInt($('reqGiftQty').value, 10) || 1));
       const para = ($('reqGiftPara').value || '').trim();
       const de = ($('reqGiftDe').value || '').trim();
       const motivo = $('reqGiftMotivo').value;
@@ -476,8 +529,9 @@
       const temaLabel = temaSelect.options[temaSelect.selectedIndex].text;
 
       const msg =
-        `Hola Yademar, deseo solicitar una Tarjeta de Regalo oficial:\n` +
-        `• Monto: C$${Math.round(amount).toLocaleString('en-US')}\n` +
+        `Hola Yademar, deseo solicitar ${qty} Tarjeta(s) de Regalo oficial:\n` +
+        `• Monto unitario: C$${Math.round(amount).toLocaleString('en-US')}\n` +
+        `• Total (${qty} tarjeta/s): C$${Math.round(amount * qty).toLocaleString('en-US')}\n` +
         `• Para: ${para}\n` +
         `• De: ${de}\n` +
         `• Ocasión: ${motivo}\n` +
@@ -492,6 +546,7 @@
     if (btnBagReq) {
       btnBagReq.addEventListener('click', () => {
         const amount = Math.max(200, Number($('reqGiftAmount').value) || 1100);
+        const qty = Math.max(1, Math.min(20, parseInt($('reqGiftQty').value, 10) || 1));
         const para = ($('reqGiftPara').value || 'Destinatario').trim();
         const de = ($('reqGiftDe').value || 'Cliente').trim();
         const tema = $('reqGiftTema').value;
@@ -503,7 +558,7 @@
           talla: `Diseño ${tema}`,
           color: `De: ${de}`,
           imagenUrl: 'logo.jpg',
-          qty: 1,
+          qty: qty,
           esGiftCardSolicitud: true,
         });
         renderBag();
@@ -512,14 +567,14 @@
           bagOffcanvasInstance = window.bootstrap.Offcanvas.getOrCreateInstance(offEl);
           bagOffcanvasInstance.show();
         }
-        Store.showToast('Solicitud de Tarjeta de Regalo añadida a tu bolsa', 'success');
+        Store.showToast(`${qty} solicitud(es) de Tarjeta de Regalo añadida(s) a tu bolsa`, 'success');
       });
     }
 
     updateClientSampleCard();
   }
 
-  // ---- Bolsa de Compras Offcanvas ----
+  // ---- Bolsa de Compras Offcanvas + Formulario de Checkout ----
   function computeBagTotals() {
     const cart = Store.getCart();
     const subtotalNio = cart.reduce((sum, item) => sum + item.precio * item.qty, 0);
@@ -536,6 +591,17 @@
     return { subtotalNio, discountNio, totalNio, gc };
   }
 
+  function prefillBagCheckoutFields() {
+    const user = Store.getActiveClientUser();
+    if (!user) return;
+    const nameIn = $('bagClientName');
+    const phoneIn = $('bagClientPhone');
+    const addrIn = $('bagDeliveryAddress');
+    if (nameIn && !nameIn.value) nameIn.value = user.nombre || '';
+    if (phoneIn && !phoneIn.value) phoneIn.value = user.telefono || '';
+    if (addrIn && !addrIn.value) addrIn.value = user.direccion || user.ciudad || 'Chinandega';
+  }
+
   function renderBag() {
     const cart = Store.getCart();
     const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
@@ -547,7 +613,7 @@
 
     if (cart.length === 0) {
       listEl.innerHTML = `
-        <div class="text-center py-5 my-auto text-muted">
+        <div class="text-center py-4 my-auto text-muted">
           <i class="bi bi-bag fs-1 d-block mb-2 opacity-50"></i>
           <div class="fw-semibold text-dark mb-1">Tu bolsa está vacía</div>
           <p class="small mb-0">Agrega prendas del catálogo o una solicitud de Tarjeta de Regalo.</p>
@@ -582,7 +648,8 @@
       listEl.querySelectorAll('img').forEach(safeImgHandler);
       listEl.querySelectorAll('[data-bag-inc]').forEach((b) =>
         b.addEventListener('click', () => {
-          Store.updateCartQty(b.dataset.bagInc, 1);
+          const res = Store.updateCartQty(b.dataset.bagInc, 1);
+          if (res && !res.ok && res.error) Store.showToast(res.error, 'error');
           renderBag();
         })
       );
@@ -623,6 +690,8 @@
       discRow.classList.add('d-none');
       appliedMsg.classList.add('d-none');
     }
+
+    prefillBagCheckoutFields();
   }
 
   function bindBagActions() {
@@ -654,45 +723,69 @@
       });
     }
 
-    const btnCheckout = $('btnCheckoutWhatsApp');
-    if (btnCheckout) {
-      btnCheckout.addEventListener('click', () => {
+    const checkoutForm = $('bagCheckoutForm');
+    if (checkoutForm) {
+      checkoutForm.addEventListener('submit', (e) => {
+        e.preventDefault();
         const cart = Store.getCart();
         if (cart.length === 0) {
           Store.showToast('Agrega al menos una prenda antes de enviar tu pedido', 'error');
           return;
         }
 
-        const user = Store.getActiveClientUser();
+        const clienteNombre = ($('bagClientName').value || '').trim();
+        const clienteTelefono = ($('bagClientPhone').value || '').trim();
+        const entregaTipo = $('bagDeliveryType').value;
+        const direccionEntrega = ($('bagDeliveryAddress').value || '').trim();
+        const notas = ($('bagOrderNotes').value || '').trim();
+
+        if (!clienteNombre || !clienteTelefono) {
+          Store.showToast('Completa tu nombre y WhatsApp para enviar el pedido', 'error');
+          return;
+        }
+
         const { subtotalNio, discountNio, totalNio, gc } = computeBagTotals();
+        const cartSnapshot = cart.slice();
 
         const order = Store.recordOrder({
-          items: cart,
+          items: cartSnapshot,
           subtotalNio,
           descuentoGiftCardNio: discountNio,
           giftCardFolio: gc ? gc.folio : null,
           totalNio,
+          clienteNombre,
+          clienteTelefono,
+          entregaTipo,
+          direccionEntrega,
+          notas,
+          clearCartAfter: true,
         });
 
-        const lines = cart.map(
+        const lines = cartSnapshot.map(
           (i) => `• ${i.qty}x ${i.nombre} (${i.talla}, ${i.color}) — ${Store.formatMoney(i.precio * i.qty)}`
         );
 
         let msg = `Hola Yademar, deseo confirmar mi pedido ${order ? order.id : ''}:\n`;
-        if (user) msg += `Cliente: ${user.nombre}\n`;
+        msg += `Cliente: ${clienteNombre} (${clienteTelefono})\n`;
+        msg += `Entrega: ${entregaTipo}${direccionEntrega ? ` — ${direccionEntrega}` : ''}\n`;
+        if (notas) msg += `Notas: ${notas}\n`;
         msg += `\n${lines.join('\n')}\n`;
         msg += `\nSubtotal: ${Store.formatMoney(subtotalNio)}`;
         if (gc) msg += `\nCrédito Gift Card (${gc.folio}): -${Store.formatMoney(discountNio)}`;
         msg += `\nTotal estimado: ${Store.formatMoney(totalNio)}`;
 
+        $('bagOrderNotes').value = '';
+        renderCatalog();
+        renderBag();
         renderAccountModal();
+
         window.open(Store.getWhatsAppUrl(msg), '_blank', 'noopener');
-        Store.showToast('Pedido registrado y enviado a WhatsApp', 'success');
+        Store.showToast(`Pedido ${order.id} registrado y enviado por WhatsApp`, 'success');
       });
     }
   }
 
-  // ---- Modal Cuenta Cliente ----
+  // ---- Modal Cuenta Cliente (Pedidos, Editar Perfil, Ingresar, Registrar) ----
   function renderAccountModal() {
     const user = Store.getActiveClientUser();
     if (!user) return;
@@ -706,6 +799,17 @@
     $('accStatFavs').textContent = String((user.favoritos || []).length);
     $('accStatOrders').textContent = String((user.pedidos || []).length);
 
+    // Prellenar formulario de Mis Datos
+    if ($('profName')) $('profName').value = user.nombre || '';
+    if ($('profPhone')) $('profPhone').value = user.telefono || '';
+    if ($('profCity')) $('profCity').value = user.ciudad || 'Chinandega';
+    if ($('profAddress')) $('profAddress').value = user.direccion || '';
+
+    // Sincronizar también campos de checkout
+    if ($('bagClientName')) $('bagClientName').value = user.nombre || '';
+    if ($('bagClientPhone')) $('bagClientPhone').value = user.telefono || '';
+    if ($('bagDeliveryAddress')) $('bagDeliveryAddress').value = user.direccion || user.ciudad || 'Chinandega';
+
     const ordersList = $('accOrdersList');
     if (!ordersList) return;
     const pedidos = user.pedidos || [];
@@ -714,23 +818,55 @@
     } else {
       ordersList.innerHTML = pedidos
         .slice(0, 6)
-        .map(
-          (o) => `
-          <div class="p-2 px-3 rounded-3 border bg-white small">
-            <div class="d-flex justify-content-between align-items-center mb-1">
-              <strong class="text-dark">${Store.escapeHtml(o.id)}</strong>
-              <span class="badge text-bg-success rounded-pill">${Store.escapeHtml(o.estado || 'Enviado')}</span>
+        .map((o) => {
+          const totalItems = (o.items || []).reduce((s, it) => s + (Number(it.qty) || 1), 0);
+          return `
+            <div class="p-2 px-3 rounded-3 border bg-white small">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <strong class="text-dark">${Store.escapeHtml(o.id)}</strong>
+                <span class="badge text-bg-success rounded-pill">${Store.escapeHtml(o.estado || 'Enviado')}</span>
+              </div>
+              <div class="text-muted">${Store.formatDateDMY(o.fecha)} &bull; ${totalItems} ud(s) &bull; ${Store.escapeHtml(o.entregaTipo || 'Tienda')}</div>
+              <div class="fw-bold text-danger mt-1">Total: ${Store.formatMoney(o.totalNio)}</div>
             </div>
-            <div class="text-muted">${Store.formatDateDMY(o.fecha)} &bull; ${(o.items || []).length} artículo(s)</div>
-            <div class="fw-bold text-danger mt-1">Total: ${Store.formatMoney(o.totalNio)}</div>
-          </div>
-        `
-        )
+          `;
+        })
         .join('');
     }
   }
 
   function bindAccountForms() {
+    // 1. Editar perfil cliente
+    const profForm = $('clientProfileForm');
+    if (profForm) {
+      profForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const err = $('cliProfileError');
+        const ok = $('cliProfileSuccess');
+        err.classList.add('d-none');
+        ok.classList.add('d-none');
+
+        const res = Store.updateActiveClientProfile({
+          nombre: $('profName').value,
+          telefono: $('profPhone').value,
+          ciudad: $('profCity').value,
+          direccion: $('profAddress').value,
+        });
+
+        if (!res.ok) {
+          err.textContent = res.error;
+          err.classList.remove('d-none');
+          return;
+        }
+
+        renderAccountModal();
+        ok.textContent = 'Tus datos de cliente fueron actualizados correctamente.';
+        ok.classList.remove('d-none');
+        Store.showToast('Datos de cliente guardados', 'success');
+      });
+    }
+
+    // 2. Cambiar de cuenta / Iniciar sesión
     const loginForm = $('clientLoginForm');
     if (loginForm) {
       loginForm.addEventListener('submit', (e) => {
@@ -746,7 +882,6 @@
           return;
         }
         if (matched.rol === 'admin') {
-          // Si ingresa cuenta de admin, redirigir al Panel Administrador independiente
           Store.loginAdmin(idVal, pinVal);
           window.location.href = 'admin.html';
           return;
@@ -755,36 +890,50 @@
         loginForm.reset();
         renderAccountModal();
         renderCatalog();
+        const ordersTabBtn = $('btnTabCliOrders');
+        if (ordersTabBtn && window.bootstrap) {
+          window.bootstrap.Tab.getOrCreateInstance(ordersTabBtn).show();
+        }
         Store.showToast(`Sesión iniciada como ${matched.nombre}`, 'success');
       });
     }
 
+    // 3. Registrar nuevo cliente
     const regForm = $('clientRegisterForm');
     if (regForm) {
       regForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const err = $('cliRegError');
+        const ok = $('cliRegSuccess');
         err.classList.add('d-none');
+        ok.classList.add('d-none');
+
         const res = Store.registerClientUser({
           nombre: $('regName').value,
           correo: $('regEmail').value,
           telefono: $('regPhone').value,
+          ciudad: $('regCity').value,
+          direccion: $('regAddress').value,
           pin: $('regPin').value,
         });
+
         if (!res.ok) {
           err.textContent = res.error;
           err.classList.remove('d-none');
           return;
         }
+
         regForm.reset();
+        if ($('regCity')) $('regCity').value = 'Chinandega';
         renderAccountModal();
         renderCatalog();
-        Store.showToast(`Cuenta creada para ${res.user.nombre}`, 'success');
+        ok.textContent = `¡Cuenta creada! Sesión activa como ${res.user.nombre} (${res.user.correo}).`;
+        ok.classList.remove('d-none');
+        Store.showToast(`Cliente "${res.user.nombre}" registrado correctamente`, 'success');
       });
     }
   }
 
-  // ---- Inicialización Vista Cliente ----
   async function boot() {
     await Store.initStore();
 
@@ -809,7 +958,6 @@
     renderBag();
     renderAccountModal();
 
-    // Sincronización en vivo cuando el Admin actualiza catálogo o emite folios en otra pestaña
     Store.subscribeExternalSync(() => {
       syncCurrencyButtons();
       renderSeasons();

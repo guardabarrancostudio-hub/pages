@@ -332,7 +332,7 @@
                   <input type="text" class="form-control" id="reqGiftDe" value="Zairy Morales" maxlength="45" required>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                   <label for="reqGiftMotivo" class="form-label small fw-semibold">Ocasión</label>
                   <select class="form-select" id="reqGiftMotivo">
                     <option value="DETALLE ESPECIAL">Detalle Especial</option>
@@ -343,7 +343,7 @@
                   </select>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                   <label for="reqGiftTema" class="form-label small fw-semibold">Acabado preferido</label>
                   <select class="form-select" id="reqGiftTema">
                     <option value="crimson">Carmesí Couture</option>
@@ -351,6 +351,11 @@
                     <option value="noir">Noir Gala</option>
                     <option value="gold">Champagne Oro</option>
                   </select>
+                </div>
+
+                <div class="col-sm-4">
+                  <label for="reqGiftQty" class="form-label small fw-semibold">Cantidad</label>
+                  <input type="number" class="form-control" id="reqGiftQty" min="1" max="20" value="1" required>
                 </div>
 
                 <div class="col-12 d-grid d-sm-flex gap-2 pt-2">
@@ -545,6 +550,7 @@
               <div class="mb-3">
                 <span class="fs-4 fw-bold text-danger" id="qvPrice">C$0</span>
                 <span class="small text-muted text-decoration-line-through ms-2 d-none" id="qvOldPrice"></span>
+                <span class="badge text-bg-light border text-dark ms-2" id="qvStockBadge">Disponibles: 0</span>
               </div>
               <p class="small text-muted mb-3" id="qvDesc"></p>
 
@@ -553,9 +559,19 @@
                 <div class="d-flex flex-wrap gap-2" id="qvSizes"></div>
               </div>
 
-              <div class="mb-3">
-                <label class="form-label small fw-bold mb-1">Color: <span class="fw-normal text-muted" id="qvColorName">—</span></label>
-                <div class="d-flex flex-wrap gap-2" id="qvColors"></div>
+              <div class="row g-2 align-items-end mb-3">
+                <div class="col-7">
+                  <label class="form-label small fw-bold mb-1">Color: <span class="fw-normal text-muted" id="qvColorName">—</span></label>
+                  <div class="d-flex flex-wrap gap-2" id="qvColors"></div>
+                </div>
+                <div class="col-5">
+                  <label for="qvQtyInput" class="form-label small fw-bold mb-1">Cantidad</label>
+                  <div class="input-group input-group-sm">
+                    <button class="btn btn-outline-secondary" type="button" id="btnQvQtyDec" aria-label="Disminuir cantidad">−</button>
+                    <input type="number" class="form-control text-center fw-bold" id="qvQtyInput" value="1" min="1" max="10">
+                    <button class="btn btn-outline-secondary" type="button" id="btnQvQtyInc" aria-label="Aumentar cantidad">+</button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -602,15 +618,18 @@
           </div>
 
           <!-- Tabs Cliente -->
-          <ul class="nav nav-pills nav-fill mb-3 small" role="tablist">
+          <ul class="nav nav-pills nav-fill mb-3 small gap-1" id="accTabsNav" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tabCliOrders" type="button" role="tab">Mis Pedidos</button>
+              <button class="nav-link active px-2" id="btnTabCliOrders" data-bs-toggle="pill" data-bs-target="#tabCliOrders" type="button" role="tab">Pedidos</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabCliSwitch" type="button" role="tab">Cambiar Cuenta</button>
+              <button class="nav-link px-2" id="btnTabCliProfile" data-bs-toggle="pill" data-bs-target="#tabCliProfile" type="button" role="tab">Mis Datos</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabCliRegister" type="button" role="tab">Crear Cuenta</button>
+              <button class="nav-link px-2" id="btnTabCliSwitch" data-bs-toggle="pill" data-bs-target="#tabCliSwitch" type="button" role="tab">Ingresar</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link px-2" id="btnTabCliRegister" data-bs-toggle="pill" data-bs-target="#tabCliRegister" type="button" role="tab">Registrar</button>
             </li>
           </ul>
 
@@ -620,6 +639,35 @@
               <div id="accOrdersList" class="d-flex flex-column gap-2">
                 <!-- Renderizado dinámico -->
               </div>
+            </div>
+
+            <!-- Editar Datos del Cliente Activo -->
+            <div class="tab-pane fade" id="tabCliProfile" role="tabpanel">
+              <form id="clientProfileForm" class="row g-2">
+                <div class="col-12">
+                  <label for="profName" class="form-label small fw-semibold mb-1">Nombre completo</label>
+                  <input type="text" class="form-control form-control-sm" id="profName" required>
+                </div>
+                <div class="col-6">
+                  <label for="profPhone" class="form-label small fw-semibold mb-1">WhatsApp / Teléfono</label>
+                  <input type="tel" class="form-control form-control-sm" id="profPhone" placeholder="8800-0000">
+                </div>
+                <div class="col-6">
+                  <label for="profCity" class="form-label small fw-semibold mb-1">Ciudad</label>
+                  <input type="text" class="form-control form-control-sm" id="profCity" placeholder="Chinandega">
+                </div>
+                <div class="col-12">
+                  <label for="profAddress" class="form-label small fw-semibold mb-1">Dirección de entrega</label>
+                  <input type="text" class="form-control form-control-sm" id="profAddress" placeholder="Barrio, referencia...">
+                </div>
+                <div class="col-12">
+                  <div class="alert alert-danger py-2 small d-none mb-0" id="cliProfileError"></div>
+                  <div class="alert alert-success py-2 small d-none mb-0" id="cliProfileSuccess"></div>
+                </div>
+                <div class="col-12 pt-1">
+                  <button type="submit" class="btn btn-yd-dark btn-sm w-100">Guardar mis datos</button>
+                </div>
+              </form>
             </div>
 
             <!-- Iniciar sesión cliente -->
@@ -642,26 +690,35 @@
             <div class="tab-pane fade" id="tabCliRegister" role="tabpanel">
               <form id="clientRegisterForm" class="row g-2">
                 <div class="col-12">
-                  <label for="regName" class="form-label small fw-semibold">Nombre completo</label>
-                  <input type="text" class="form-control" id="regName" placeholder="Ej. Sofía Mendoza" required>
+                  <label for="regName" class="form-label small fw-semibold mb-1">Nombre completo</label>
+                  <input type="text" class="form-control form-control-sm" id="regName" placeholder="Ej. Sofía Mendoza" required>
                 </div>
                 <div class="col-12">
-                  <label for="regEmail" class="form-label small fw-semibold">Correo electrónico</label>
-                  <input type="email" class="form-control" id="regEmail" placeholder="sofia@correo.com" required>
+                  <label for="regEmail" class="form-label small fw-semibold mb-1">Correo electrónico</label>
+                  <input type="email" class="form-control form-control-sm" id="regEmail" placeholder="sofia@correo.com" required>
                 </div>
                 <div class="col-6">
-                  <label for="regPhone" class="form-label small fw-semibold">WhatsApp</label>
-                  <input type="tel" class="form-control" id="regPhone" placeholder="8888-0000">
+                  <label for="regPhone" class="form-label small fw-semibold mb-1">WhatsApp</label>
+                  <input type="tel" class="form-control form-control-sm" id="regPhone" placeholder="8888-0000">
                 </div>
                 <div class="col-6">
-                  <label for="regPin" class="form-label small fw-semibold">PIN (4+ dígitos)</label>
-                  <input type="password" class="form-control" id="regPin" minlength="4" placeholder="1234" required>
+                  <label for="regCity" class="form-label small fw-semibold mb-1">Ciudad</label>
+                  <input type="text" class="form-control form-control-sm" id="regCity" value="Chinandega">
+                </div>
+                <div class="col-8">
+                  <label for="regAddress" class="form-label small fw-semibold mb-1">Dirección</label>
+                  <input type="text" class="form-control form-control-sm" id="regAddress" placeholder="Referencia para entrega">
+                </div>
+                <div class="col-4">
+                  <label for="regPin" class="form-label small fw-semibold mb-1">PIN (4+)</label>
+                  <input type="password" class="form-control form-control-sm" id="regPin" minlength="4" placeholder="1234" required>
                 </div>
                 <div class="col-12">
                   <div class="alert alert-danger py-2 small d-none mb-0" id="cliRegError"></div>
+                  <div class="alert alert-success py-2 small d-none mb-0" id="cliRegSuccess"></div>
                 </div>
                 <div class="col-12 pt-1">
-                  <button type="submit" class="btn btn-yd-primary w-100">Crear cuenta cliente</button>
+                  <button type="submit" class="btn btn-yd-primary w-100">Registrar cuenta cliente</button>
                 </div>
               </form>
             </div>
@@ -723,14 +780,43 @@
           </div>
         </div>
 
-        <div class="d-grid gap-2">
-          <button type="button" class="btn btn-yd-whatsapp" id="btnCheckoutWhatsApp">
-            <i class="bi bi-whatsapp me-1"></i> Enviar Pedido por WhatsApp
-          </button>
-          <button type="button" class="btn btn-sm btn-link text-muted text-decoration-none" id="btnClearBag">
-            Vaciar bolsa
-          </button>
-        </div>
+        <!-- Formulario de Confirmación de Pedido -->
+        <form id="bagCheckoutForm" class="d-flex flex-column gap-2">
+          <div class="row g-2">
+            <div class="col-6">
+              <label for="bagClientName" class="form-label small fw-semibold mb-1">Tu nombre</label>
+              <input type="text" class="form-control form-control-sm" id="bagClientName" placeholder="Nombre completo" required>
+            </div>
+            <div class="col-6">
+              <label for="bagClientPhone" class="form-label small fw-semibold mb-1">WhatsApp</label>
+              <input type="tel" class="form-control form-control-sm" id="bagClientPhone" placeholder="8800-0000" required>
+            </div>
+            <div class="col-6">
+              <label for="bagDeliveryType" class="form-label small fw-semibold mb-1">Entrega</label>
+              <select class="form-select form-select-sm" id="bagDeliveryType">
+                <option value="Retiro en tienda">Retiro en tienda</option>
+                <option value="Envío Chinandega">Envío en Chinandega</option>
+                <option value="Envío departamental">Envío departamental</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="bagDeliveryAddress" class="form-label small fw-semibold mb-1">Dirección / Ref.</label>
+              <input type="text" class="form-control form-control-sm" id="bagDeliveryAddress" placeholder="Tienda o dirección">
+            </div>
+            <div class="col-12">
+              <input type="text" class="form-control form-control-sm" id="bagOrderNotes" placeholder="Nota opcional (horario, empaque regalo...)">
+            </div>
+          </div>
+
+          <div class="d-grid gap-2 pt-1">
+            <button type="submit" class="btn btn-yd-whatsapp" id="btnCheckoutWhatsApp">
+              <i class="bi bi-whatsapp me-1"></i> Confirmar y Enviar por WhatsApp
+            </button>
+            <button type="button" class="btn btn-sm btn-link text-muted text-decoration-none" id="btnClearBag">
+              Vaciar bolsa
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

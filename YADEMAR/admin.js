@@ -11,6 +11,7 @@
   if (!Store) return;
 
   let prodModalInstance = null;
+  let clientModalInstance = null;
   let activeGcTheme = 'crimson';
   let isGcFlipped = false;
 
@@ -159,6 +160,7 @@
       btn.addEventListener('click', () => {
         switchPanel(btn.dataset.jumpPanel);
         if (btn.id === 'btnDashNewProd') openProductModal(null);
+        if (btn.id === 'btnDashNewClient') openClientModal(null);
       });
     });
   }
@@ -169,8 +171,12 @@
     const seasons = Store.getSeasons();
     const cards = Store.getAllGiftCards();
     const orders = Store.getAllOrders();
+    const totalUnits = products.reduce((sum, p) => sum + (Number(p.stock) || 0), 0);
 
     $('kpiProducts').textContent = String(products.length);
+    if ($('kpiTotalUnits')) {
+      $('kpiTotalUnits').textContent = `${totalUnits} unidades en inventario`;
+    }
     $('kpiSeasons').textContent = String(seasons.length);
     $('kpiGiftCards').textContent = String(cards.length);
     $('kpiOrders').textContent = String(orders.length);
@@ -243,9 +249,12 @@
 
     tbody.innerHTML = list
       .map((p) => {
+        const stock = Number(p.stock) || 0;
         const statusBadge =
           p.disponible !== false
-            ? `<span class="badge text-bg-success rounded-pill">Visible</span>`
+            ? stock > 0
+              ? `<span class="badge text-bg-success rounded-pill">Visible</span>`
+              : `<span class="badge text-bg-warning text-dark rounded-pill">Agotado</span>`
             : `<span class="badge text-bg-secondary rounded-pill">Oculta</span>`;
         const tallas = Array.isArray(p.tallas) ? p.tallas.join(', ') : '';
         return `
@@ -253,14 +262,20 @@
             <td><img src="${Store.escapeHtml(p.imagenUrl)}" alt="${Store.escapeHtml(p.nombre)}" class="yd-admin-thumb"></td>
             <td>
               <div class="fw-bold text-dark">${Store.escapeHtml(p.nombre)}</div>
-              <div class="text-muted" style="font-size:0.75rem;">${Store.escapeHtml(p.id)} &bull; ${Store.escapeHtml(p.etiqueta || '')}</div>
+              <div class="text-muted" style="font-size:0.75rem;">${Store.escapeHtml(p.id)} &bull; Tallas: ${Store.escapeHtml(tallas)}</div>
             </td>
             <td>
               <span class="text-capitalize fw-semibold">${Store.escapeHtml(p.categoria)}</span>
               <div class="text-muted" style="font-size:0.75rem;">${Store.escapeHtml(Store.getSeasonLabel(p.temporada))}</div>
             </td>
             <td class="fw-bold text-danger">C$${Math.round(p.precio).toLocaleString('en-US')}</td>
-            <td><span class="text-muted">${Store.escapeHtml(tallas)}</span></td>
+            <td>
+              <div class="btn-group btn-group-sm" role="group" aria-label="Ajustar cantidad">
+                <button type="button" class="btn btn-outline-secondary py-0 px-2" data-stock-dec="${Store.escapeHtml(p.id)}">−</button>
+                <span class="btn btn-outline-secondary py-0 px-2 disabled fw-bold ${stock <= 2 ? 'text-danger' : 'text-dark'}">${stock}</span>
+                <button type="button" class="btn btn-outline-secondary py-0 px-2" data-stock-inc="${Store.escapeHtml(p.id)}">+</button>
+              </div>
+            </td>
             <td>${statusBadge}</td>
             <td class="text-end text-nowrap">
               <button type="button" class="btn btn-sm btn-outline-dark me-1" data-edit-prod="${Store.escapeHtml(p.id)}" title="Editar">
@@ -276,6 +291,22 @@
       .join('');
 
     tbody.querySelectorAll('img').forEach(safeImgHandler);
+
+    tbody.querySelectorAll('[data-stock-dec]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const next = Store.adjustProductStock(btn.dataset.stockDec, -1);
+        refreshAllPanels();
+        Store.showToast(`Cantidad actualizada: ${next} uds`);
+      });
+    });
+
+    tbody.querySelectorAll('[data-stock-inc]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const next = Store.adjustProductStock(btn.dataset.stockInc, 1);
+        refreshAllPanels();
+        Store.showToast(`Cantidad actualizada: ${next} uds`, 'success');
+      });
+    });
 
     tbody.querySelectorAll('[data-edit-prod]').forEach((btn) => {
       btn.addEventListener('click', () => openProductModal(btn.dataset.editProd));
@@ -304,25 +335,33 @@
   function openProductModal(prodId) {
     const form = $('adminProdForm');
     form.reset();
+    const errEl = $('prodFormError');
+    if (errEl) errEl.classList.add('d-none');
 
     const p = prodId ? Store.getProductById(prodId) : null;
     if (p) {
-      $('prodModalTitle').textContent = `Editar Prenda (${p.id})`;
+      $('prodModalTitle').textContent = `Editar Artículo (${p.id})`;
       $('prodEditId').value = p.id;
       $('prodNombre').value = p.nombre || '';
       $('prodCategoria').value = p.categoria || 'dama';
       $('prodTemporada').value = p.temporada || 'verano';
       $('prodPrecio').value = p.precio || '';
       $('prodPrecioAnt').value = p.precioAnterior || '';
+      $('prodStock').value = Number.isFinite(Number(p.stock)) ? p.stock : 10;
       $('prodTallas').value = Array.isArray(p.tallas) ? p.tallas.join(', ') : 'S, M, L';
+      $('prodColores').value = Array.isArray(p.colores)
+        ? p.colores.map((c) => c.nombre).join(', ')
+        : 'Negro Couture, Rojo Carmesí';
       $('prodEtiqueta').value = p.etiqueta || 'Nuevo';
-      $('prodImgUrl').value = p.imagenUrl || '';
+      $('prodImgUrl').value = p.imagenUrl && !p.imagenUrl.startsWith('data:image/svg') ? p.imagenUrl : '';
       $('prodDesc').value = p.descripcion || '';
       $('prodDisponible').checked = p.disponible !== false;
     } else {
-      $('prodModalTitle').textContent = 'Agregar Nueva Prenda';
+      $('prodModalTitle').textContent = 'Registrar Nuevo Artículo';
       $('prodEditId').value = '';
+      $('prodStock').value = 10;
       $('prodTallas').value = 'S, M, L';
+      $('prodColores').value = 'Negro Couture, Rojo Carmesí';
       $('prodEtiqueta').value = 'Nuevo';
       $('prodDisponible').checked = true;
     }
@@ -353,6 +392,9 @@
     if (form) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+        const errEl = $('prodFormError');
+        if (errEl) errEl.classList.add('d-none');
+
         const res = Store.addOrUpdateProduct({
           id: $('prodEditId').value || null,
           nombre: $('prodNombre').value,
@@ -360,7 +402,9 @@
           temporada: $('prodTemporada').value,
           precio: Number($('prodPrecio').value),
           precioAnterior: $('prodPrecioAnt').value ? Number($('prodPrecioAnt').value) : undefined,
+          stock: Number($('prodStock').value),
           tallas: $('prodTallas').value,
+          colores: $('prodColores').value,
           etiqueta: $('prodEtiqueta').value,
           imagenUrl: $('prodImgUrl').value,
           descripcion: $('prodDesc').value,
@@ -368,6 +412,10 @@
         });
 
         if (!res.ok) {
+          if (errEl) {
+            errEl.textContent = res.error;
+            errEl.classList.remove('d-none');
+          }
           Store.showToast(res.error, 'error');
           return;
         }
@@ -376,8 +424,8 @@
         refreshAllPanels();
         Store.showToast(
           res.isEdit
-            ? `Prenda "${res.product.nombre}" actualizada`
-            : `Prenda "${res.product.nombre}" agregada al catálogo`,
+            ? `Artículo "${res.product.nombre}" actualizado (Stock: ${res.product.stock})`
+            : `Artículo "${res.product.nombre}" registrado (Stock: ${res.product.stock})`,
           'success'
         );
       });
@@ -867,54 +915,186 @@
     }
   }
 
-  // ---- Panel 4: Usuarios, Pedidos & Respaldo JSON ----
+  // ---- Panel 4: CRUD Clientes, Estado de Pedidos & Respaldo JSON ----
+  function openClientModal(userId) {
+    const form = $('adminClientForm');
+    if (!form) return;
+    form.reset();
+    const errEl = $('cliAdminError');
+    if (errEl) errEl.classList.add('d-none');
+
+    const u = userId ? Store.getUserById(userId) : null;
+    if (u) {
+      $('clientModalTitle').textContent = `Editar Cliente (${u.id})`;
+      $('cliAdminEditId').value = u.id;
+      $('cliAdminName').value = u.nombre || '';
+      $('cliAdminEmail').value = u.correo || '';
+      $('cliAdminPhone').value = u.telefono || '';
+      $('cliAdminCity').value = u.ciudad || 'Chinandega';
+      $('cliAdminAddress').value = u.direccion || '';
+      $('cliAdminPin').value = '';
+      $('cliAdminPin').required = false;
+      $('cliAdminPinHelp').textContent = 'Déjalo vacío para mantener el PIN actual del cliente.';
+    } else {
+      $('clientModalTitle').textContent = 'Registrar Nuevo Cliente';
+      $('cliAdminEditId').value = '';
+      $('cliAdminCity').value = 'Chinandega';
+      $('cliAdminPin').required = true;
+      $('cliAdminPinHelp').textContent = 'Asigna un PIN de al menos 4 dígitos para el cliente.';
+    }
+
+    const modalEl = $('ydAdminClientModal');
+    if (modalEl && window.bootstrap) {
+      clientModalInstance = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+      clientModalInstance.show();
+    }
+  }
+
   function renderUsersAndOrders() {
     const usersBody = $('adminUsersTbody');
     if (usersBody) {
       const users = Store.getUsers();
       usersBody.innerHTML = users
-        .map(
-          (u) => `
-          <tr>
-            <td>
-              <div class="fw-semibold text-dark">${Store.escapeHtml(u.nombre)}</div>
-              <div class="text-muted" style="font-size:0.74rem;">${Store.escapeHtml(u.id)} &bull; ${Store.escapeHtml(u.ciudad || 'Chinandega')}</div>
-            </td>
-            <td>${Store.escapeHtml(u.correo)}</td>
-            <td>
-              <span class="badge ${u.rol === 'admin' ? 'text-bg-danger' : 'text-bg-secondary'} rounded-pill text-uppercase">
-                ${Store.escapeHtml(u.rol)}
-              </span>
-            </td>
-            <td class="text-end">${(u.favoritos || []).length} / ${(u.pedidos || []).length}</td>
-          </tr>
-        `
-        )
+        .map((u) => {
+          const isAdm = u.rol === 'admin';
+          const actionsHtml = isAdm
+            ? `<span class="text-muted small">Protegido</span>`
+            : `
+                <button type="button" class="btn btn-sm btn-outline-dark me-1" data-edit-client="${Store.escapeHtml(u.id)}" title="Editar cliente">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-danger" data-del-client="${Store.escapeHtml(u.id)}" title="Eliminar cliente">
+                  <i class="bi bi-trash3"></i>
+                </button>
+              `;
+          return `
+            <tr>
+              <td>
+                <div class="fw-semibold text-dark">${Store.escapeHtml(u.nombre)}</div>
+                <div class="text-muted" style="font-size:0.74rem;">${Store.escapeHtml(u.id)} &bull; ${Store.escapeHtml(u.ciudad || 'Chinandega')}</div>
+              </td>
+              <td>
+                <div>${Store.escapeHtml(u.correo)}</div>
+                <div class="text-muted" style="font-size:0.74rem;">${Store.escapeHtml(u.telefono || 'Sin tel.')}</div>
+              </td>
+              <td>
+                <span class="badge ${isAdm ? 'text-bg-danger' : 'text-bg-secondary'} rounded-pill text-uppercase">
+                  ${Store.escapeHtml(u.rol)}
+                </span>
+              </td>
+              <td class="text-end text-nowrap">${actionsHtml}</td>
+            </tr>
+          `;
+        })
         .join('');
+
+      usersBody.querySelectorAll('[data-edit-client]').forEach((btn) => {
+        btn.addEventListener('click', () => openClientModal(btn.dataset.editClient));
+      });
+
+      usersBody.querySelectorAll('[data-del-client]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const u = Store.getUserById(btn.dataset.delClient);
+          if (!u) return;
+          if (!window.confirm(`¿Eliminar al cliente "${u.nombre}" (${u.correo})?`)) return;
+          const res = Store.deleteClientUser(u.id);
+          if (!res.ok) {
+            Store.showToast(res.error, 'error');
+            return;
+          }
+          refreshAllPanels();
+          Store.showToast(`Cliente "${u.nombre}" eliminado`);
+        });
+      });
     }
 
     const ordersBody = $('adminOrdersTbody');
     if (ordersBody) {
       const orders = Store.getAllOrders();
+      const statuses = ['Enviado por WhatsApp', 'Confirmado', 'En Preparación', 'Entregado', 'Cancelado'];
       if (orders.length === 0) {
         ordersBody.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-muted">Aún no hay pedidos registrados.</td></tr>`;
       } else {
         ordersBody.innerHTML = orders
-          .map(
-            (o) => `
-            <tr>
-              <td><span class="badge text-bg-success">${Store.escapeHtml(o.id)}</span></td>
-              <td>
-                <div class="fw-semibold">${Store.escapeHtml(o.clienteNombre || 'Cliente')}</div>
-                <div class="text-muted" style="font-size:0.74rem;">${(o.items || []).length} artículo(s)${o.giftCardFolio ? ` • GC ${Store.escapeHtml(o.giftCardFolio)}` : ''}</div>
-              </td>
-              <td>${Store.formatDateDMY(o.fecha)}</td>
-              <td class="text-end fw-bold text-danger">${Store.formatMoney(o.totalNio, 'NIO')}</td>
-            </tr>
-          `
-          )
+          .map((o) => {
+            const totalUnits = (o.items || []).reduce((s, it) => s + (Number(it.qty) || 1), 0);
+            const optionsHtml = statuses
+              .map(
+                (st) =>
+                  `<option value="${Store.escapeHtml(st)}" ${(o.estado || 'Enviado por WhatsApp') === st ? 'selected' : ''}>${Store.escapeHtml(st)}</option>`
+              )
+              .join('');
+            return `
+              <tr>
+                <td>
+                  <span class="badge text-bg-dark">${Store.escapeHtml(o.id)}</span>
+                  <div class="text-muted" style="font-size:0.72rem;">${Store.formatDateDMY(o.fecha)}</div>
+                </td>
+                <td>
+                  <div class="fw-semibold">${Store.escapeHtml(o.clienteNombre || 'Cliente')}</div>
+                  <div class="text-muted" style="font-size:0.74rem;">${totalUnits} ud(s) &bull; ${Store.escapeHtml(o.entregaTipo || 'Tienda')}</div>
+                </td>
+                <td>
+                  <select class="form-select form-select-sm" data-order-status="${Store.escapeHtml(o.id)}" aria-label="Estado del pedido ${Store.escapeHtml(o.id)}">
+                    ${optionsHtml}
+                  </select>
+                </td>
+                <td class="text-end fw-bold text-danger text-nowrap">${Store.formatMoney(o.totalNio, 'NIO')}</td>
+              </tr>
+            `;
+          })
           .join('');
+
+        ordersBody.querySelectorAll('[data-order-status]').forEach((sel) => {
+          sel.addEventListener('change', () => {
+            Store.updateOrderStatus(sel.dataset.orderStatus, sel.value);
+            renderDashboard();
+            Store.showToast(`Pedido ${sel.dataset.orderStatus} → ${sel.value}`, 'success');
+          });
+        });
       }
+    }
+  }
+
+  function bindClientAdminHandlers() {
+    const btnNewClient = $('btnOpenNewClientModal');
+    if (btnNewClient) btnNewClient.addEventListener('click', () => openClientModal(null));
+
+    const form = $('adminClientForm');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const errEl = $('cliAdminError');
+        if (errEl) errEl.classList.add('d-none');
+
+        const res = Store.saveClientUserByAdmin({
+          id: $('cliAdminEditId').value || null,
+          nombre: $('cliAdminName').value,
+          correo: $('cliAdminEmail').value,
+          telefono: $('cliAdminPhone').value,
+          ciudad: $('cliAdminCity').value,
+          direccion: $('cliAdminAddress').value,
+          pin: $('cliAdminPin').value,
+        });
+
+        if (!res.ok) {
+          if (errEl) {
+            errEl.textContent = res.error;
+            errEl.classList.remove('d-none');
+          }
+          Store.showToast(res.error, 'error');
+          return;
+        }
+
+        if (clientModalInstance) clientModalInstance.hide();
+        refreshAllPanels();
+        Store.showToast(
+          res.isEdit
+            ? `Cliente "${res.user.nombre}" actualizado`
+            : `Cliente "${res.user.nombre}" registrado correctamente`,
+          'success'
+        );
+      });
     }
   }
 
@@ -991,6 +1171,7 @@
     bindAuthHandlers();
     bindPanelNavigation();
     bindCatalogAdminHandlers();
+    bindClientAdminHandlers();
     bindGiftStudioHandlers();
     bindJsonDataHandlers();
 

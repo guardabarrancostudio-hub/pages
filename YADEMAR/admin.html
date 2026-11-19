@@ -138,7 +138,10 @@
               </div>
               <div class="d-flex flex-wrap gap-2">
                 <button type="button" class="btn btn-sm btn-yd-primary" data-jump-panel="panelCatalog" id="btnDashNewProd">
-                  <i class="bi bi-plus-lg me-1"></i> Nueva Prenda
+                  <i class="bi bi-plus-lg me-1"></i> Nuevo Artículo
+                </button>
+                <button type="button" class="btn btn-sm btn-yd-outline" data-jump-panel="panelUsersJson" id="btnDashNewClient">
+                  <i class="bi bi-person-plus me-1"></i> Registrar Cliente
                 </button>
                 <button type="button" class="btn btn-sm btn-yd-dark" data-jump-panel="panelGiftCards">
                   <i class="bi bi-gift me-1"></i> Emitir Tarjeta
@@ -151,10 +154,11 @@
               <div class="col">
                 <div class="yd-kpi-card">
                   <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="small text-muted fw-semibold">Prendas Activas</span>
+                    <span class="small text-muted fw-semibold">Artículos / Stock</span>
                     <span class="yd-kpi-icon bg-danger bg-opacity-10 text-danger"><i class="bi bi-bag-heart-fill"></i></span>
                   </div>
                   <div class="fs-2 fw-bold lh-1" id="kpiProducts">0</div>
+                  <small class="text-muted" id="kpiTotalUnits">0 unidades en inventario</small>
                 </div>
               </div>
               <div class="col">
@@ -256,10 +260,10 @@
                   <thead class="table-light">
                     <tr>
                       <th>Foto</th>
-                      <th>Prenda</th>
+                      <th>Artículo</th>
                       <th>Categoría / Temporada</th>
                       <th>Precio (C$)</th>
-                      <th>Tallas</th>
+                      <th>Cantidad (Stock)</th>
                       <th>Estado</th>
                       <th class="text-end">Acciones</th>
                     </tr>
@@ -561,15 +565,20 @@
             <div class="row g-4">
               <div class="col-lg-6">
                 <div class="yd-admin-panel-card h-100">
-                  <h3 class="h6 fw-bold mb-3"><i class="bi bi-people-fill text-dark me-1"></i> Cuentas Registradas</h3>
+                  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                    <h3 class="h6 fw-bold mb-0"><i class="bi bi-people-fill text-dark me-1"></i> Clientes y Cuentas Registradas</h3>
+                    <button type="button" class="btn btn-yd-primary btn-sm" id="btnOpenNewClientModal">
+                      <i class="bi bi-person-plus-fill me-1"></i> Registrar Cliente
+                    </button>
+                  </div>
                   <div class="table-responsive">
                     <table class="table table-sm table-hover align-middle mb-0 small">
                       <thead class="table-light">
                         <tr>
-                          <th>Usuario</th>
-                          <th>Correo</th>
+                          <th>Cliente</th>
+                          <th>Contacto</th>
                           <th>Rol</th>
-                          <th class="text-end">Fav / Ped</th>
+                          <th class="text-end">Acciones</th>
                         </tr>
                       </thead>
                       <tbody id="adminUsersTbody"></tbody>
@@ -580,14 +589,14 @@
 
               <div class="col-lg-6">
                 <div class="yd-admin-panel-card h-100">
-                  <h3 class="h6 fw-bold mb-3"><i class="bi bi-receipt-cutoff text-success me-1"></i> Historial de Pedidos</h3>
+                  <h3 class="h6 fw-bold mb-3"><i class="bi bi-receipt-cutoff text-success me-1"></i> Historial y Estado de Pedidos</h3>
                   <div class="table-responsive">
                     <table class="table table-sm table-hover align-middle mb-0 small">
                       <thead class="table-light">
                         <tr>
-                          <th>ID</th>
+                          <th>Pedido</th>
                           <th>Cliente</th>
-                          <th>Fecha</th>
+                          <th>Estado</th>
                           <th class="text-end">Total</th>
                         </tr>
                       </thead>
@@ -653,29 +662,40 @@
                       <option value="navidad">Fiestas &amp; Navidad</option>
                     </select>
                   </div>
-                  <div class="col-6">
+                  <div class="col-4">
                     <label for="prodPrecio" class="form-label small fw-semibold mb-1">Precio (C$)</label>
-                    <input type="number" class="form-control form-control-sm" id="prodPrecio" min="50" step="10" placeholder="1250" required>
+                    <input type="number" class="form-control form-control-sm" id="prodPrecio" min="1" step="10" placeholder="1250" required>
                   </div>
-                  <div class="col-6">
-                    <label for="prodPrecioAnt" class="form-label small fw-semibold mb-1">Precio anterior (opcional)</label>
+                  <div class="col-4">
+                    <label for="prodPrecioAnt" class="form-label small fw-semibold mb-1">Precio ant. (opc.)</label>
                     <input type="number" class="form-control form-control-sm" id="prodPrecioAnt" min="0" step="10" placeholder="1450">
                   </div>
+                  <div class="col-4">
+                    <label for="prodStock" class="form-label small fw-semibold mb-1">Cantidad (Stock)</label>
+                    <input type="number" class="form-control form-control-sm fw-bold" id="prodStock" min="0" step="1" value="10" required>
+                  </div>
                   <div class="col-6">
-                    <label for="prodTallas" class="form-label small fw-semibold mb-1">Tallas (separadas por coma)</label>
+                    <label for="prodTallas" class="form-label small fw-semibold mb-1">Tallas (por coma)</label>
                     <input type="text" class="form-control form-control-sm" id="prodTallas" value="S, M, L">
+                  </div>
+                  <div class="col-6">
+                    <label for="prodColores" class="form-label small fw-semibold mb-1">Colores (por coma)</label>
+                    <input type="text" class="form-control form-control-sm" id="prodColores" value="Negro Couture, Rojo Carmesí">
                   </div>
                   <div class="col-6">
                     <label for="prodEtiqueta" class="form-label small fw-semibold mb-1">Etiqueta</label>
                     <input type="text" class="form-control form-control-sm" id="prodEtiqueta" value="Nuevo">
                   </div>
-                  <div class="col-12">
-                    <label for="prodImgUrl" class="form-label small fw-semibold mb-1">URL de imagen externa</label>
-                    <input type="url" class="form-control form-control-sm" id="prodImgUrl" placeholder="https://images.unsplash.com/..." required>
+                  <div class="col-6">
+                    <label for="prodImgUrl" class="form-label small fw-semibold mb-1">URL de imagen (opcional)</label>
+                    <input type="text" class="form-control form-control-sm" id="prodImgUrl" placeholder="https://... o dejar vacío">
                   </div>
                   <div class="col-12">
                     <label for="prodDesc" class="form-label small fw-semibold mb-1">Descripción</label>
                     <textarea class="form-control form-control-sm" id="prodDesc" rows="2" placeholder="Detalles de tela, corte y ocasión de uso..."></textarea>
+                  </div>
+                  <div class="col-12">
+                    <div class="alert alert-danger py-2 small d-none mb-0" id="prodFormError"></div>
                   </div>
                   <div class="col-12 pt-1">
                     <div class="form-check form-switch">
@@ -691,7 +711,66 @@
           <div class="modal-footer border-top">
             <button type="button" class="btn btn-yd-outline btn-sm" data-bs-dismiss="modal">Cancelar</button>
             <button type="submit" class="btn btn-yd-primary btn-sm">
-              <i class="bi bi-save me-1"></i> Guardar Prenda
+              <i class="bi bi-save me-1"></i> Guardar Artículo
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODAL REGISTRAR / EDITAR CLIENTE (Bootstrap 5 Modal)
+       ============================================================ -->
+  <div class="modal fade" id="ydAdminClientModal" tabindex="-1" aria-labelledby="clientModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4">
+        <div class="modal-header border-bottom">
+          <h5 class="modal-title font-display fw-bold" id="clientModalTitle">Registrar Nuevo Cliente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <form id="adminClientForm">
+          <input type="hidden" id="cliAdminEditId">
+          <div class="modal-body">
+            <div class="row g-2">
+              <div class="col-12">
+                <label for="cliAdminName" class="form-label small fw-semibold mb-1">Nombre completo</label>
+                <input type="text" class="form-control form-control-sm" id="cliAdminName" placeholder="Ej. Valeria Morales" required>
+              </div>
+              <div class="col-12">
+                <label for="cliAdminEmail" class="form-label small fw-semibold mb-1">Correo electrónico</label>
+                <input type="email" class="form-control form-control-sm" id="cliAdminEmail" placeholder="valeria@correo.com" required>
+              </div>
+              <div class="col-6">
+                <label for="cliAdminPhone" class="form-label small fw-semibold mb-1">Teléfono / WhatsApp</label>
+                <input type="tel" class="form-control form-control-sm" id="cliAdminPhone" placeholder="8800-0000">
+              </div>
+              <div class="col-6">
+                <label for="cliAdminCity" class="form-label small fw-semibold mb-1">Ciudad</label>
+                <input type="text" class="form-control form-control-sm" id="cliAdminCity" value="Chinandega">
+              </div>
+              <div class="col-8">
+                <label for="cliAdminAddress" class="form-label small fw-semibold mb-1">Dirección de entrega</label>
+                <input type="text" class="form-control form-control-sm" id="cliAdminAddress" placeholder="Barrio, referencia...">
+              </div>
+              <div class="col-4">
+                <label for="cliAdminPin" class="form-label small fw-semibold mb-1">PIN (4+)</label>
+                <input type="text" class="form-control form-control-sm" id="cliAdminPin" placeholder="1234">
+              </div>
+              <div class="col-12">
+                <small class="text-muted" id="cliAdminPinHelp">Mínimo 4 dígitos. Al editar, déjalo vacío para conservar el PIN actual.</small>
+              </div>
+              <div class="col-12">
+                <div class="alert alert-danger py-2 small d-none mb-0" id="cliAdminError"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer border-top">
+            <button type="button" class="btn btn-yd-outline btn-sm" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-yd-primary btn-sm">
+              <i class="bi bi-person-check-fill me-1"></i> Guardar Cliente
             </button>
           </div>
         </form>
