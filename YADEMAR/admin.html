@@ -19,7 +19,7 @@
   <!-- Tema Couture Editorial & Admin Yademar -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="yd-admin-body yd-admin-print-ready">
+<body class="yd-admin-body">
 
   <!-- ============================================================
        PUERTA DE ACCESO ADMINISTRADOR (Visible cuando no hay sesión)
@@ -50,7 +50,10 @@
           <label for="adminLoginPin" class="form-label small fw-semibold">PIN de seguridad</label>
           <div class="input-group">
             <span class="input-group-text bg-white"><i class="bi bi-key text-muted"></i></span>
-            <input type="password" class="form-control" id="adminLoginPin" placeholder="Ingresa tu PIN" required>
+            <input type="password" class="form-control" id="adminLoginPin" inputmode="numeric" placeholder="Ingresa tu PIN" required>
+            <button class="btn btn-outline-secondary" type="button" data-toggle-pin="adminLoginPin" aria-label="Mostrar u ocultar PIN">
+              <i class="bi bi-eye"></i>
+            </button>
           </div>
         </div>
 
@@ -103,7 +106,7 @@
       <div class="row g-4">
         <!-- Navegación Lateral / Pills Móvil -->
         <aside class="col-12 col-lg-3 col-xl-2">
-          <div class="yd-admin-sidebar sticky-lg-top" style="top: 76px;">
+          <div class="yd-admin-sidebar sticky-lg-top" style="top: 5.5rem;">
             <div class="small text-uppercase text-muted fw-bold px-2 mb-2 d-none d-lg-block" style="letter-spacing: 0.1em; font-size: 0.7rem;">
               Módulos
             </div>
@@ -165,7 +168,7 @@
                 <div class="yd-kpi-card">
                   <div class="d-flex justify-content-between align-items-center mb-2">
                     <span class="small text-muted fw-semibold">Temporadas</span>
-                    <span class="yd-kpi-icon bg-warning bg-opacity-10 text-warning"><i class="bi bi-collection-fill"></i></span>
+                    <span class="yd-kpi-icon bg-warning bg-opacity-25 text-warning-emphasis"><i class="bi bi-collection-fill"></i></span>
                   </div>
                   <div class="fs-2 fw-bold lh-1" id="kpiSeasons">0</div>
                 </div>
@@ -234,20 +237,16 @@
                 <div class="col-12 col-md-5">
                   <div class="input-group input-group-sm">
                     <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
-                    <input type="search" class="form-control" id="adminProdSearch" placeholder="Buscar por nombre o código YD-...">
+                    <input type="search" class="form-control" id="adminProdSearch" aria-label="Buscar prenda en el catálogo" placeholder="Buscar por nombre o código YD-...">
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
-                  <select class="form-select form-select-sm" id="adminProdSeasonFilter">
+                  <select class="form-select form-select-sm" id="adminProdSeasonFilter" aria-label="Filtrar por temporada">
                     <option value="todas">Todas las temporadas</option>
-                    <option value="verano">Verano Chinandega</option>
-                    <option value="urbano">Oficina &amp; Urbano</option>
-                    <option value="eventos">Noche &amp; Eventos</option>
-                    <option value="navidad">Fiestas &amp; Navidad</option>
                   </select>
                 </div>
                 <div class="col-6 col-md-3">
-                  <select class="form-select form-select-sm" id="adminProdCatFilter">
+                  <select class="form-select form-select-sm" id="adminProdCatFilter" aria-label="Filtrar por categoría">
                     <option value="todas">Todas las categorías</option>
                     <option value="dama">Dama</option>
                     <option value="caballero">Caballero</option>
@@ -314,11 +313,11 @@
                         </div>
                         <div class="col-8">
                           <label for="gcAmount" class="form-label small fw-semibold mb-1">Monto</label>
-                          <input type="number" class="form-control form-control-sm" id="gcAmount" value="1100" min="50" step="10" required>
+                          <input type="number" class="form-control form-control-sm" id="gcAmount" value="1100" min="10" step="1" required>
                         </div>
                         <div class="col-6">
                           <label for="gcFolio" class="form-label small fw-semibold mb-1">Folio oficial</label>
-                          <input type="text" class="form-control form-control-sm fw-bold" id="gcFolio" value="N°0002" required>
+                          <input type="text" class="form-control form-control-sm fw-bold" id="gcFolio" value="N°0002" maxlength="12" required>
                         </div>
                         <div class="col-6">
                           <label for="gcExpiry" class="form-label small fw-semibold mb-1">Válido hasta</label>
@@ -335,11 +334,11 @@
                       <div class="row g-2">
                         <div class="col-sm-6">
                           <label for="gcPara" class="form-label small fw-semibold mb-1">Para</label>
-                          <input type="text" class="form-control form-control-sm" id="gcPara" value="Isabella Castro" maxlength="42" required>
+                          <input type="text" class="form-control form-control-sm" id="gcPara" placeholder="Ej. Isabella Castro" maxlength="42" required>
                         </div>
                         <div class="col-sm-6">
                           <label for="gcDe" class="form-label small fw-semibold mb-1">De</label>
-                          <input type="text" class="form-control form-control-sm" id="gcDe" value="Zairy Morales" maxlength="42" required>
+                          <input type="text" class="form-control form-control-sm" id="gcDe" placeholder="Ej. Zairy Morales" maxlength="42" required>
                         </div>
                         <div class="col-sm-6">
                           <label for="gcMotivo" class="form-label small fw-semibold mb-1">Ocasión</label>
@@ -385,7 +384,12 @@
                       <div class="row g-2">
                         <div class="col-6">
                           <button type="button" class="btn btn-yd-dark btn-sm w-100" id="btnDownloadPng">
-                            <i class="bi bi-file-earmark-image me-1"></i> PNG HD
+                            <i class="bi bi-file-earmark-image me-1"></i> PNG Anverso
+                          </button>
+                        </div>
+                        <div class="col-6">
+                          <button type="button" class="btn btn-yd-outline btn-sm w-100" id="btnDownloadBackPng">
+                            <i class="bi bi-upc-scan me-1"></i> PNG Reverso
                           </button>
                         </div>
                         <div class="col-6">
@@ -393,10 +397,12 @@
                             <i class="bi bi-printer me-1"></i> Imprimir / PDF
                           </button>
                         </div>
+                        <div class="col-6">
+                          <button type="button" class="btn btn-yd-whatsapp btn-sm w-100" id="btnShareGiftWsp">
+                            <i class="bi bi-whatsapp me-1"></i> WhatsApp
+                          </button>
+                        </div>
                       </div>
-                      <button type="button" class="btn btn-yd-whatsapp btn-sm w-100" id="btnShareGiftWsp">
-                        <i class="bi bi-whatsapp me-1"></i> Enviar Notificación por WhatsApp
-                      </button>
                     </div>
                   </form>
                 </div>
@@ -404,8 +410,8 @@
 
               <!-- Vista Previa 3D Anverso / Reverso -->
               <div class="col-xl-7">
-                <div class="yd-admin-panel-card sticky-xl-top" style="top: 76px;">
-                  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div class="yd-admin-panel-card sticky-xl-top" style="top: 5.5rem;">
+                  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3" id="ydGiftPreviewHeader">
                     <div>
                       <div class="fw-bold small">Vista Previa Oficial en Vivo</div>
                       <small class="text-muted">Proporción física 176×110 mm &bull; Exportación PNG 1800×1125 px</small>
@@ -457,7 +463,7 @@
                           </div>
 
                           <div class="yd-gc-footer">
-                            <span><i class="bi bi-facebook me-1"></i>Yademar Tienda Online</span>
+                            <span class="yd-gc-social-fb"><i class="bi bi-facebook me-1"></i>Yademar Tienda Online</span>
                             <span><i class="bi bi-instagram me-1"></i>@yademar5</span>
                             <span><i class="bi bi-whatsapp me-1"></i>8956-3257</span>
                             <span class="yd-gc-folio-pill" id="prevGcFolio">N°0002</span>
@@ -509,18 +515,24 @@
 
             <!-- Tabla de Folios Emitidos -->
             <div class="yd-admin-panel-card">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="h6 fw-bold mb-0"><i class="bi bi-card-checklist text-danger me-1"></i> Registro de Folios Emitidos</h3>
-                <small class="text-muted">Haz clic en "Cargar" para re-imprimir o descargar PNG</small>
+              <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div>
+                  <h3 class="h6 fw-bold mb-0"><i class="bi bi-card-checklist text-danger me-1"></i> Registro de Folios Emitidos</h3>
+                  <small class="text-muted">Haz clic en "Cargar" para re-imprimir o descargar PNG</small>
+                </div>
+                <div class="input-group input-group-sm" style="max-width: 260px;">
+                  <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+                  <input type="search" class="form-control" id="adminGcSearch" aria-label="Buscar folio o destinatario" placeholder="Buscar folio o nombre...">
+                </div>
               </div>
               <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0 small">
                   <thead class="table-light">
                     <tr>
                       <th>Folio</th>
-                      <th>Monto</th>
+                      <th>Monto / Saldo</th>
                       <th>Para / De</th>
-                      <th>Tema</th>
+                      <th>Estado</th>
                       <th>Vigencia</th>
                       <th class="text-end">Acciones</th>
                     </tr>
@@ -544,7 +556,7 @@
 
             <!-- Centro JSON -->
             <div class="yd-admin-panel-card mb-4">
-              <h3 class="h6 fw-bold mb-2"><i class="bi bi-database-gear text-danger me-1"></i> Persistencia JSON (`data/store-data.json`)</h3>
+              <h3 class="h6 fw-bold mb-2"><i class="bi bi-database-gear text-danger me-1"></i> Persistencia JSON (<code>data/store-data.json</code>)</h3>
               <p class="small text-muted mb-3">
                 Exporta la base completa (catálogo, temporadas, usuarios, pedidos y folios de tarjetas) para reemplazar <code>YADEMAR/data/store-data.json</code> en el repositorio, o importa un archivo respaldado.
               </p>
@@ -664,11 +676,11 @@
                   </div>
                   <div class="col-4">
                     <label for="prodPrecio" class="form-label small fw-semibold mb-1">Precio (C$)</label>
-                    <input type="number" class="form-control form-control-sm" id="prodPrecio" min="1" step="10" placeholder="1250" required>
+                    <input type="number" class="form-control form-control-sm" id="prodPrecio" min="1" step="1" placeholder="1250" required>
                   </div>
                   <div class="col-4">
                     <label for="prodPrecioAnt" class="form-label small fw-semibold mb-1">Precio ant. (opc.)</label>
-                    <input type="number" class="form-control form-control-sm" id="prodPrecioAnt" min="0" step="10" placeholder="1450">
+                    <input type="number" class="form-control form-control-sm" id="prodPrecioAnt" min="0" step="1" placeholder="1450">
                   </div>
                   <div class="col-4">
                     <label for="prodStock" class="form-label small fw-semibold mb-1">Cantidad (Stock)</label>
@@ -756,7 +768,12 @@
               </div>
               <div class="col-4">
                 <label for="cliAdminPin" class="form-label small fw-semibold mb-1">PIN (4+)</label>
-                <input type="text" class="form-control form-control-sm" id="cliAdminPin" placeholder="1234">
+                <div class="input-group input-group-sm">
+                  <input type="password" class="form-control" id="cliAdminPin" inputmode="numeric" minlength="4" placeholder="1234">
+                  <button class="btn btn-outline-secondary px-2" type="button" data-toggle-pin="cliAdminPin" aria-label="Mostrar u ocultar PIN">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
               </div>
               <div class="col-12">
                 <small class="text-muted" id="cliAdminPinHelp">Mínimo 4 dígitos. Al editar, déjalo vacío para conservar el PIN actual.</small>
@@ -774,6 +791,32 @@
             </button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODAL DETALLE DE PEDIDO (Bootstrap 5 Modal)
+       ============================================================ -->
+  <div class="modal fade" id="ydAdminOrderModal" tabindex="-1" aria-labelledby="orderDetailTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4">
+        <div class="modal-header border-bottom">
+          <div>
+            <h5 class="modal-title font-display fw-bold" id="orderDetailTitle">Detalle del Pedido</h5>
+            <small class="text-muted" id="orderDetailMeta">—</small>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body small" id="orderDetailBody">
+          <!-- Renderizado dinámico por admin.js -->
+        </div>
+        <div class="modal-footer border-top justify-content-between">
+          <a href="#" target="_blank" rel="noopener" class="btn btn-yd-whatsapp btn-sm" id="btnOrderContactWsp">
+            <i class="bi bi-whatsapp me-1"></i> Contactar Cliente
+          </a>
+          <button type="button" class="btn btn-yd-outline btn-sm" data-bs-dismiss="modal">Cerrar</button>
+        </div>
       </div>
     </div>
   </div>

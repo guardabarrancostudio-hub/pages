@@ -1,7 +1,13 @@
 /* ============================================================
    YADEMAR — Vista Administrador (admin.js)
    Conecta admin.html con window.YademarStore y Bootstrap 5.3
-   Incluye Dashboard, CRUD Catálogo, Estudio Gift Card 3D/HD y JSON
+   Incluye:
+     - Puerta de validación en cada acceso/recarga
+     - Dashboard KPIs + Resumen operativo
+     - CRUD Catálogo + Control de Cantidad/Stock
+     - Estudio Couture 3D de Tarjetas de Regalo (PNG HD Anverso/Reverso
+       con autoajuste tipográfico + impresión calibrada 176×110mm)
+     - CRUD Clientes, Detalle & Estado de Pedidos y Respaldo JSON
    ============================================================ */
 
 (function () {
@@ -12,6 +18,7 @@
 
   let prodModalInstance = null;
   let clientModalInstance = null;
+  let orderModalInstance = null;
   let activeGcTheme = 'crimson';
   let isGcFlipped = false;
 
@@ -90,7 +97,47 @@
     };
   }
 
-  // ---- Control de Puerta de Acceso (Gate vs Workspace) ----
+  function bindPinToggles() {
+    document.querySelectorAll('[data-toggle-pin]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const input = $(btn.dataset.togglePin);
+        if (!input) return;
+        const isPass = input.type === 'password';
+        input.type = isPass ? 'text' : 'password';
+        const icon = btn.querySelector('i');
+        if (icon) {
+          icon.classList.toggle('bi-eye', !isPass);
+          icon.classList.toggle('bi-eye-slash', isPass);
+        }
+      });
+    });
+  }
+
+  function populateSeasonSelects() {
+    const seasons = Store.getSeasons();
+    const filterSel = $('adminProdSeasonFilter');
+    const prodSel = $('prodTemporada');
+
+    if (filterSel) {
+      const current = filterSel.value || 'todas';
+      filterSel.innerHTML =
+        `<option value="todas">Todas las temporadas</option>` +
+        seasons
+          .map((s) => `<option value="${Store.escapeHtml(s.id)}">${Store.escapeHtml(s.nombre)}</option>`)
+          .join('');
+      filterSel.value = seasons.some((s) => s.id === current) ? current : 'todas';
+    }
+
+    if (prodSel) {
+      const current = prodSel.value;
+      prodSel.innerHTML = seasons
+        .map((s) => `<option value="${Store.escapeHtml(s.id)}">${Store.escapeHtml(s.nombre)}</option>`)
+        .join('');
+      if (current && seasons.some((s) => s.id === current)) prodSel.value = current;
+    }
+  }
+
+  // ---- Control de Puerta de Acceso ----
   function syncAuthView() {
     const adminUser = Store.getAdminSessionUser();
     const gate = $('ydAdminGate');
@@ -101,6 +148,7 @@
       workspace.classList.remove('d-none');
       const header = $('adminActiveHeader');
       if (header) header.textContent = `${adminUser.nombre} (${adminUser.correo})`;
+      populateSeasonSelects();
       refreshAllPanels();
     } else {
       workspace.classList.add('d-none');
@@ -187,18 +235,22 @@
     } else {
       recentCardsEl.innerHTML = cards
         .slice(0, 5)
-        .map(
-          (c) => `
-          <div class="d-flex justify-content-between align-items-center p-2 rounded-3 bg-light border">
-            <div>
-              <span class="badge text-bg-danger me-1">${Store.escapeHtml(c.folio)}</span>
-              <strong>${Store.escapeHtml(c.para)}</strong>
-              <div class="text-muted" style="font-size:0.74rem;">De: ${Store.escapeHtml(c.de)} &bull; Válida: ${Store.formatDateDMY(c.validoHasta)}</div>
+        .map((c) => {
+          const st = Store.getGiftCardStatus(c);
+          const badgeCls =
+            st === 'Vigente' ? 'text-bg-success' : st === 'Canjeada' ? 'text-bg-secondary' : 'text-bg-warning text-dark';
+          return `
+            <div class="d-flex justify-content-between align-items-center p-2 rounded-3 bg-light border">
+              <div>
+                <span class="badge text-bg-danger me-1">${Store.escapeHtml(c.folio)}</span>
+                <strong>${Store.escapeHtml(c.para)}</strong>
+                <span class="badge ${badgeCls} ms-1">${st}</span>
+                <div class="text-muted" style="font-size:0.74rem;">De: ${Store.escapeHtml(c.de)} &bull; Válida: ${Store.formatDateDMY(c.validoHasta)}</div>
+              </div>
+              <div class="fw-bold text-dark">${Store.formatRawAmount(c.monto, c.moneda)}</div>
             </div>
-            <div class="fw-bold text-dark">${Store.formatRawAmount(c.monto, c.moneda)}</div>
-          </div>
-        `
-        )
+          `;
+        })
         .join('');
     }
 
@@ -212,15 +264,22 @@
           (o) => `
           <div class="d-flex justify-content-between align-items-center p-2 rounded-3 bg-light border">
             <div>
-              <span class="badge text-bg-success me-1">${Store.escapeHtml(o.id)}</span>
+              <span class="badge ${o.estado === 'Cancelado' ? 'text-bg-secondary' : 'text-bg-success'} me-1">${Store.escapeHtml(o.id)}</span>
               <strong>${Store.escapeHtml(o.clienteNombre || 'Cliente')}</strong>
-              <div class="text-muted" style="font-size:0.74rem;">${Store.formatDateDMY(o.fecha)} &bull; ${(o.items || []).length} artículo(s)</div>
+              <div class="text-muted" style="font-size:0.74rem;">${Store.formatDateDMY(o.fecha)} &bull; ${Store.escapeHtml(o.estado || 'Enviado')}</div>
             </div>
-            <div class="fw-bold text-danger">${Store.formatMoney(o.totalNio, 'NIO')}</div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="fw-bold text-danger">${Store.formatMoney(o.totalNio, 'NIO')}</span>
+              <button type="button" class="btn btn-sm btn-outline-dark py-0 px-2" data-view-order="${Store.escapeHtml(o.id)}">Ver</button>
+            </div>
           </div>
         `
         )
         .join('');
+
+      recentOrdersEl.querySelectorAll('[data-view-order]').forEach((b) => {
+        b.addEventListener('click', () => openOrderDetailModal(b.dataset.viewOrder));
+      });
     }
   }
 
@@ -271,7 +330,7 @@
             <td class="fw-bold text-danger">C$${Math.round(p.precio).toLocaleString('en-US')}</td>
             <td>
               <div class="btn-group btn-group-sm" role="group" aria-label="Ajustar cantidad">
-                <button type="button" class="btn btn-outline-secondary py-0 px-2" data-stock-dec="${Store.escapeHtml(p.id)}">−</button>
+                <button type="button" class="btn btn-outline-secondary py-0 px-2" data-stock-dec="${Store.escapeHtml(p.id)}" ${stock <= 0 ? 'disabled' : ''}>−</button>
                 <span class="btn btn-outline-secondary py-0 px-2 disabled fw-bold ${stock <= 2 ? 'text-danger' : 'text-dark'}">${stock}</span>
                 <button type="button" class="btn btn-outline-secondary py-0 px-2" data-stock-inc="${Store.escapeHtml(p.id)}">+</button>
               </div>
@@ -337,6 +396,7 @@
     form.reset();
     const errEl = $('prodFormError');
     if (errEl) errEl.classList.add('d-none');
+    populateSeasonSelects();
 
     const p = prodId ? Store.getProductById(prodId) : null;
     if (p) {
@@ -436,10 +496,10 @@
   function getGiftFormValues() {
     const moneda = $('gcCurrency').value === 'US$' ? 'US$' : 'C$';
     const monto = Math.max(10, Number($('gcAmount').value) || 1100);
-    const folio = Store.normalizeCode($('gcFolio').value || Store.getNextFolio());
+    const folio = Store.normalizeCode($('gcFolio').value || Store.getNextFolio()).slice(0, 12);
     const validoHasta = $('gcExpiry').value || Store.defaultExpiryISO();
-    const para = ($('gcPara').value || 'Destinatario Especial').trim();
-    const de = ($('gcDe').value || 'Con cariño').trim();
+    const para = ($('gcPara').value || '').trim() || 'Destinatario Especial';
+    const de = ($('gcDe').value || '').trim() || 'Con cariño';
     const motivo = ($('gcMotivo').value || 'DETALLE ESPECIAL').trim().toUpperCase();
     const canje = ($('gcCanje').value || 'Para gastar en la tienda física y Online.').trim();
     const mensaje = ($('gcMessage').value || '').trim();
@@ -455,6 +515,31 @@
       mensaje,
       tema: activeGcTheme,
     };
+  }
+
+  function validateAndSaveGiftCard() {
+    const form = $('adminGiftForm');
+    if (form && !form.reportValidity()) return null;
+
+    const data = getGiftFormValues();
+    const existing = Store.findGiftCardByCode(data.folio);
+    if (existing) {
+      const sameOwner =
+        existing.para.toLowerCase() === data.para.toLowerCase() &&
+        Number(existing.monto) === Number(data.monto);
+      if (
+        !sameOwner &&
+        !window.confirm(
+          `El folio ${data.folio} ya está registrado para "${existing.para}" (${Store.formatRawAmount(existing.monto, existing.moneda)}). ¿Deseas sobrescribirlo?`
+        )
+      ) {
+        return null;
+      }
+    }
+
+    const saved = Store.recordGiftCard(data);
+    refreshAllPanels();
+    return saved;
   }
 
   function renderBarcodeInto(container, code) {
@@ -519,36 +604,59 @@
   function renderGiftCardsTable() {
     const tbody = $('adminGiftCardsTbody');
     if (!tbody) return;
-    const cards = Store.getAllGiftCards();
+
+    const term = ($('adminGcSearch') ? $('adminGcSearch').value : '').trim().toLowerCase();
+    let cards = Store.getAllGiftCards();
+    if (term) {
+      cards = cards.filter((c) =>
+        `${c.folio} ${c.para} ${c.de} ${Store.getGiftCardStatus(c)}`.toLowerCase().includes(term)
+      );
+    }
 
     if (cards.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">Aún no hay tarjetas de regalo registradas.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No hay tarjetas de regalo que coincidan.</td></tr>`;
       return;
     }
 
     tbody.innerHTML = cards
-      .map(
-        (c) => `
-        <tr>
-          <td><span class="badge text-bg-danger">${Store.escapeHtml(c.folio)}</span></td>
-          <td class="fw-bold">${Store.formatRawAmount(c.monto, c.moneda)}</td>
-          <td>
-            <div class="fw-semibold text-dark">Para: ${Store.escapeHtml(c.para)}</div>
-            <div class="text-muted" style="font-size:0.75rem;">De: ${Store.escapeHtml(c.de)}</div>
-          </td>
-          <td class="text-capitalize">${Store.escapeHtml(c.tema || 'crimson')}</td>
-          <td>${Store.formatDateDMY(c.validoHasta)}</td>
-          <td class="text-end text-nowrap">
-            <button type="button" class="btn btn-sm btn-outline-dark me-1" data-load-gc="${Store.escapeHtml(c.folio)}">
-              <i class="bi bi-eye me-1"></i>Cargar
-            </button>
-            <button type="button" class="btn btn-sm btn-outline-danger" data-del-gc="${Store.escapeHtml(c.folio)}" title="Eliminar folio">
-              <i class="bi bi-trash3"></i>
-            </button>
-          </td>
-        </tr>
-      `
-      )
+      .map((c) => {
+        const st = Store.getGiftCardStatus(c);
+        const badgeCls =
+          st === 'Vigente'
+            ? 'text-bg-success'
+            : st === 'Canjeada'
+            ? 'text-bg-secondary'
+            : 'text-bg-warning text-dark';
+        const saldo = typeof c.saldoRestante === 'number' ? c.saldoRestante : c.monto;
+        const saldoHtml =
+          saldo !== c.monto
+            ? `<div class="text-muted" style="font-size:0.72rem;">Saldo: ${Store.formatRawAmount(saldo, c.moneda)}</div>`
+            : '';
+
+        return `
+          <tr>
+            <td><span class="badge text-bg-danger">${Store.escapeHtml(c.folio)}</span></td>
+            <td>
+              <div class="fw-bold">${Store.formatRawAmount(c.monto, c.moneda)}</div>
+              ${saldoHtml}
+            </td>
+            <td>
+              <div class="fw-semibold text-dark">Para: ${Store.escapeHtml(c.para)}</div>
+              <div class="text-muted" style="font-size:0.75rem;">De: ${Store.escapeHtml(c.de)}</div>
+            </td>
+            <td><span class="badge ${badgeCls} rounded-pill">${st}</span></td>
+            <td>${Store.formatDateDMY(c.validoHasta)}</td>
+            <td class="text-end text-nowrap">
+              <button type="button" class="btn btn-sm btn-outline-dark me-1" data-load-gc="${Store.escapeHtml(c.folio)}">
+                <i class="bi bi-eye me-1"></i>Cargar
+              </button>
+              <button type="button" class="btn btn-sm btn-outline-danger" data-del-gc="${Store.escapeHtml(c.folio)}" title="Eliminar folio">
+                <i class="bi bi-trash3"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      })
       .join('');
 
     tbody.querySelectorAll('[data-load-gc]').forEach((btn) => {
@@ -570,7 +678,7 @@
     });
   }
 
-  // ---- Generador Canvas PNG HD 1800x1125 px (Sin Taint CORS usando YADEMAR_LOGO_DATA_URI) ----
+  // ---- Generador Canvas PNG HD 1800x1125 px (Autoajuste tipográfico + Anverso y Reverso) ----
   function drawRoundRect(ctx, x, y, w, h, r) {
     ctx.beginPath();
     ctx.moveTo(x + r, y);
@@ -583,6 +691,37 @@
     ctx.lineTo(x, y + r);
     ctx.quadraticCurveTo(x, y, x + r, y);
     ctx.closePath();
+  }
+
+  function drawFittedText(ctx, text, x, y, maxWidth, baseSize, minSize, fontFamily, weight) {
+    const clean = String(text || '');
+    let size = baseSize;
+    const w = weight || 700;
+    while (size > minSize) {
+      ctx.font = `${w} ${size}px ${fontFamily}`;
+      if (ctx.measureText(clean).width <= maxWidth) break;
+      size -= 2;
+    }
+    ctx.font = `${w} ${size}px ${fontFamily}`;
+    ctx.fillText(clean, x, y, maxWidth);
+  }
+
+  function wrapCanvasText(ctx, text, maxWidth, maxLines) {
+    const words = String(text || '').trim().split(/\s+/).filter(Boolean);
+    const lines = [];
+    let current = '';
+    for (let i = 0; i < words.length; i++) {
+      const test = current ? `${current} ${words[i]}` : words[i];
+      if (ctx.measureText(test).width <= maxWidth) {
+        current = test;
+      } else {
+        if (current) lines.push(current);
+        current = words[i];
+        if (lines.length >= maxLines - 1) break;
+      }
+    }
+    if (current && lines.length < maxLines) lines.push(current);
+    return lines;
   }
 
   function loadLogoImageForCanvas() {
@@ -608,16 +747,7 @@
     ctx.restore();
   }
 
-  async function exportGiftCardPngHD() {
-    const canvas = $('ydGiftCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const W = 1800;
-    const H = 1125;
-    const data = getGiftFormValues();
-    const pal = GC_CANVAS_PALETTES[data.tema] || GC_CANVAS_PALETTES.crimson;
-
-    // Fondo con gradiente couture
+  function drawCardBackdrop(ctx, W, H, pal) {
     ctx.clearRect(0, 0, W, H);
     drawRoundRect(ctx, 18, 18, W - 36, H - 36, 44);
     const bgGrad = ctx.createLinearGradient(0, 0, W, H);
@@ -627,7 +757,6 @@
     ctx.fillStyle = bgGrad;
     ctx.fill();
 
-    // Brillo diagonal sutil
     ctx.save();
     drawRoundRect(ctx, 18, 18, W - 36, H - 36, 44);
     ctx.clip();
@@ -639,7 +768,6 @@
     ctx.fillRect(0, 0, W, H);
     ctx.restore();
 
-    // Marco exterior e interior filigrana
     drawRoundRect(ctx, 18, 18, W - 36, H - 36, 44);
     ctx.lineWidth = 6;
     ctx.strokeStyle = pal.border;
@@ -651,174 +779,281 @@
     ctx.strokeStyle = pal.border;
     ctx.stroke();
     ctx.globalAlpha = 1;
+  }
 
-    // Motivo superior y título
-    ctx.fillStyle = pal.accent;
-    ctx.font = '700 28px "Plus Jakarta Sans", sans-serif';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillText(data.motivo, 102, 148);
-
-    ctx.fillStyle = pal.ink;
-    ctx.font = '700 108px "Playfair Display", Georgia, serif';
-    ctx.fillText('TARJETA', 98, 256);
-    ctx.fillText('REGALO', 98, 360);
-
-    // Logo oficial en recuadro blanco limpio (arriba derecha)
-    const logoImg = await loadLogoImageForCanvas();
-    const logoBoxW = 310;
-    const logoBoxH = 310;
-    const logoBoxX = W - 102 - logoBoxW;
-    const logoBoxY = 96;
-    ctx.save();
-    ctx.shadowColor = 'rgba(20, 18, 22, 0.14)';
-    ctx.shadowBlur = 24;
-    ctx.shadowOffsetY = 8;
-    drawRoundRect(ctx, logoBoxX, logoBoxY, logoBoxW, logoBoxH, 28);
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fill();
-    ctx.restore();
-
-    if (logoImg) {
-      const pad = 18;
-      const scale = Math.min((logoBoxW - pad * 2) / logoImg.width, (logoBoxH - pad * 2) / logoImg.height);
-      const dw = logoImg.width * scale;
-      const dh = logoImg.height * scale;
-      ctx.drawImage(logoImg, logoBoxX + (logoBoxW - dw) / 2, logoBoxY + (logoBoxH - dh) / 2, dw, dh);
+  async function exportGiftCardPngHD(side) {
+    const canvas = $('ydGiftCanvas');
+    if (!canvas) return;
+    if (document.fonts && document.fonts.ready) {
+      try {
+        await document.fonts.ready;
+      } catch (_) {
+        // Continuar si falla carga de fuentes
+      }
     }
 
-    // Caja de Monto (izquierda centro)
-    const amtX = 102;
-    const amtY = 448;
-    const amtW = 590;
-    const amtH = 195;
-    drawRoundRect(ctx, amtX, amtY, amtW, amtH, 26);
-    ctx.fillStyle = pal.boxBg;
-    ctx.fill();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = pal.boxBorder;
-    ctx.stroke();
+    const ctx = canvas.getContext('2d');
+    const W = 1800;
+    const H = 1125;
+    const data = getGiftFormValues();
+    const pal = GC_CANVAS_PALETTES[data.tema] || GC_CANVAS_PALETTES.crimson;
 
-    ctx.fillStyle = pal.accent;
-    ctx.font = '700 102px "Playfair Display", Georgia, serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(Store.formatRawAmount(data.monto, data.moneda), amtX + amtW / 2, amtY + amtH / 2 + 4);
+    drawCardBackdrop(ctx, W, H, pal);
 
-    // Texto de canje debajo del monto
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillStyle = pal.ink;
-    ctx.globalAlpha = 0.86;
-    ctx.font = '600 32px "Plus Jakarta Sans", sans-serif';
-    const canjeWords = data.canje.split(' ');
-    let line1 = '';
-    let line2 = '';
-    canjeWords.forEach((w) => {
-      if ((line1 + ' ' + w).trim().length <= 28) line1 = (line1 + ' ' + w).trim();
-      else line2 = (line2 + ' ' + w).trim();
-    });
-    ctx.fillText(line1, amtX + 4, amtY + amtH + 58);
-    if (line2) ctx.fillText(line2, amtX + 4, amtY + amtH + 100);
-    ctx.globalAlpha = 1;
-
-    // Filas Para / De / Válido hasta (derecha centro)
-    const fieldX = 745;
-    const fieldW = W - 102 - fieldX;
-    const fields = [
-      { label: 'Para:', value: data.para },
-      { label: 'De:', value: data.de },
-      { label: 'Válido hasta:', value: Store.formatDateDMY(data.validoHasta) },
-    ];
-    fields.forEach((f, idx) => {
-      const fy = 456 + idx * 106;
-      const fh = 82;
-      drawRoundRect(ctx, fieldX, fy, fieldW, fh, 18);
-      ctx.fillStyle = pal.rowBg;
-      ctx.fill();
-
-      // Barra lateral de acento
-      drawRoundRect(ctx, fieldX, fy, 12, fh, 6);
-      ctx.fillStyle = pal.rowBar;
-      ctx.fill();
+    if (side === 'back') {
+      // ---- REVERSO HD ----
+      ctx.fillStyle = pal.accent;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      drawFittedText(ctx, 'CERTIFICADO OFICIAL YADEMAR', 102, 160, 1100, 32, 22, '"Plus Jakarta Sans", sans-serif', 700);
 
       ctx.fillStyle = pal.ink;
-      ctx.font = '700 32px "Plus Jakarta Sans", sans-serif';
+      drawFittedText(ctx, 'Boutique & Tienda Online • Chinandega', 102, 214, 1100, 36, 24, '"Playfair Display", Georgia, serif', 700);
+
+      // Folio arriba derecha
+      const folioW = 260;
+      const folioH = 74;
+      const folioX = W - 102 - folioW;
+      const folioY = 116;
+      drawRoundRect(ctx, folioX, folioY, folioW, folioH, 18);
+      ctx.fillStyle = pal.folioBg;
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = pal.border;
+      ctx.stroke();
+      ctx.fillStyle = pal.folioText;
+      ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(f.label, fieldX + 32, fy + fh / 2);
+      drawFittedText(ctx, data.folio, folioX + folioW / 2, folioY + folioH / 2 + 2, folioW - 24, 38, 22, '"Plus Jakarta Sans", sans-serif', 800);
 
-      const labelWidth = ctx.measureText(f.label).width;
+      // Caja central de dedicatoria
+      drawRoundRect(ctx, 102, 290, W - 204, 330, 26);
+      ctx.fillStyle = pal.rowBg;
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = pal.boxBorder;
+      ctx.stroke();
+
+      ctx.fillStyle = pal.ink;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      ctx.font = 'italic 600 44px "Playfair Display", Georgia, serif';
+      const msgText = data.mensaje || 'Disfruta eligiendo tu outfit favorito en Yademar Boutique Chinandega.';
+      const msgLines = wrapCanvasText(ctx, msgText, W - 290, 3);
+      msgLines.forEach((line, idx) => {
+        ctx.fillText(line, 146, 386 + idx * 62, W - 290);
+      });
+
+      // Condiciones
+      ctx.fillStyle = pal.ink;
+      ctx.globalAlpha = 0.85;
+      ctx.font = '500 30px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('• Presenta este folio en tienda física (De la trasera del Calvario 2 ½ c. al este, Chinandega) o en tienda online.', 102, 700, W - 204);
+      ctx.fillText(`• Válido hasta el ${Store.formatDateDMY(data.validoHasta)}. No canjeable por efectivo.`, 102, 754, W - 204);
+      ctx.globalAlpha = 1;
+
+      // Código de barras grande abajo izquierda
+      const bars = Store.generateBarcodeBars(data.folio);
+      const barBoxX = 102;
+      const barBoxY = 824;
+      drawRoundRect(ctx, barBoxX, barBoxY, 560, 150, 18);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+      let bx = barBoxX + 28;
+      bars.forEach((bw, idx) => {
+        if (idx % 2 === 0 && bx < barBoxX + 528) {
+          ctx.fillStyle = '#141216';
+          ctx.fillRect(bx, barBoxY + 22, bw * 5.2, 106);
+        }
+        bx += bw * 5.2 + 3.2;
+      });
+      ctx.fillStyle = pal.ink;
+      ctx.font = '700 28px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(`YDM-${data.folio}`, barBoxX + 6, barBoxY + 190);
+
+      // Contacto derecha
+      ctx.textAlign = 'right';
+      ctx.fillStyle = pal.ink;
+      ctx.font = '700 34px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('WhatsApp: +505 8956-3257', W - 102, 908);
       ctx.fillStyle = pal.accent;
-      ctx.font = '700 40px "Playfair Display", Georgia, serif';
-      ctx.fillText(f.value, fieldX + 48 + labelWidth, fy + fh / 2);
-    });
+      ctx.font = '700 32px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('@yademar5  •  Yademar Tienda Online', W - 102, 962);
+    } else {
+      // ---- ANVERSO HD ----
+      ctx.fillStyle = pal.accent;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      drawFittedText(ctx, data.motivo, 102, 148, 1180, 28, 20, '"Plus Jakarta Sans", sans-serif', 700);
 
-    // Línea divisoria del footer
-    const footY = 930;
-    ctx.beginPath();
-    ctx.moveTo(102, footY);
-    ctx.lineTo(W - 102, footY);
-    ctx.lineWidth = 2.5;
-    ctx.strokeStyle = pal.footerLine;
-    ctx.stroke();
+      ctx.fillStyle = pal.ink;
+      ctx.font = '700 108px "Playfair Display", Georgia, serif';
+      ctx.fillText('TARJETA', 98, 256);
+      ctx.fillText('REGALO', 98, 360);
 
-    // Redes verificadas + Folio Oficial
-    const rowY = 1004;
-    drawSocialBadge(ctx, 126, rowY, 24, '#1877F2', 'f');
-    ctx.fillStyle = pal.ink;
-    ctx.font = '700 30px "Plus Jakarta Sans", sans-serif';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('YADEMAR TIENDA ONLINE', 162, rowY);
+      // Logo oficial en recuadro blanco
+      const logoImg = await loadLogoImageForCanvas();
+      const logoBoxW = 310;
+      const logoBoxH = 310;
+      const logoBoxX = W - 102 - logoBoxW;
+      const logoBoxY = 96;
+      ctx.save();
+      ctx.shadowColor = 'rgba(20, 18, 22, 0.14)';
+      ctx.shadowBlur = 24;
+      ctx.shadowOffsetY = 8;
+      drawRoundRect(ctx, logoBoxX, logoBoxY, logoBoxW, logoBoxH, 28);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+      ctx.restore();
 
-    drawSocialBadge(ctx, 646, rowY, 24, '#E1306C', 'ig');
-    ctx.fillText('@yademar5', 682, rowY);
-
-    drawSocialBadge(ctx, 944, rowY, 24, '#16A34A', 'W');
-    ctx.fillText('8956-3257', 980, rowY);
-
-    // Código de barras compacto antes del folio
-    const bars = Store.generateBarcodeBars(data.folio);
-    let bx = 1230;
-    const by = rowY - 26;
-    ctx.fillStyle = '#FFFFFF';
-    drawRoundRect(ctx, bx - 12, by - 6, 200, 64, 10);
-    ctx.fill();
-    bars.forEach((bw, idx) => {
-      if (idx % 2 === 0 && bx < 1412) {
-        ctx.fillStyle = '#141216';
-        ctx.fillRect(bx, by, bw * 2.2, 52);
+      if (logoImg) {
+        const pad = 18;
+        const scale = Math.min((logoBoxW - pad * 2) / logoImg.width, (logoBoxH - pad * 2) / logoImg.height);
+        const dw = logoImg.width * scale;
+        const dh = logoImg.height * scale;
+        ctx.drawImage(logoImg, logoBoxX + (logoBoxW - dw) / 2, logoBoxY + (logoBoxH - dh) / 2, dw, dh);
       }
-      bx += bw * 2.2 + 1.5;
-    });
 
-    // Pastilla de Folio Oficial
-    const folioW = 240;
-    const folioH = 68;
-    const folioX = W - 102 - folioW;
-    const folioY = rowY - folioH / 2;
-    drawRoundRect(ctx, folioX, folioY, folioW, folioH, 16);
-    ctx.fillStyle = pal.folioBg;
-    ctx.fill();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = pal.border;
-    ctx.stroke();
+      // Caja de Monto (izquierda centro) con autoajuste
+      const amtX = 102;
+      const amtY = 448;
+      const amtW = 590;
+      const amtH = 195;
+      drawRoundRect(ctx, amtX, amtY, amtW, amtH, 26);
+      ctx.fillStyle = pal.boxBg;
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = pal.boxBorder;
+      ctx.stroke();
 
-    ctx.fillStyle = pal.folioText;
-    ctx.font = '800 36px "Plus Jakarta Sans", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(data.folio, folioX + folioW / 2, rowY + 1);
+      ctx.fillStyle = pal.accent;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      drawFittedText(
+        ctx,
+        Store.formatRawAmount(data.monto, data.moneda),
+        amtX + amtW / 2,
+        amtY + amtH / 2 + 4,
+        amtW - 44,
+        102,
+        48,
+        '"Playfair Display", Georgia, serif',
+        700
+      );
 
-    // Descargar PNG HD
-    const cleanFileFolio = data.folio.replace(/[^A-Z0-9]/gi, '');
-    const link = document.createElement('a');
-    link.download = `Tarjeta-Regalo-Yademar-${cleanFileFolio}.png`;
-    link.href = canvas.toDataURL('image/png', 1.0);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    Store.showToast(`PNG HD (1800×1125 px) descargado para ${data.folio}`, 'success');
+      // Texto de canje medido con wrap real dentro de amtW (nunca choca con la columna derecha)
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillStyle = pal.ink;
+      ctx.globalAlpha = 0.86;
+      ctx.font = '600 30px "Plus Jakarta Sans", sans-serif';
+      const canjeLines = wrapCanvasText(ctx, data.canje, amtW - 12, 3);
+      canjeLines.forEach((ln, idx) => {
+        ctx.fillText(ln, amtX + 4, amtY + amtH + 54 + idx * 40, amtW - 12);
+      });
+      ctx.globalAlpha = 1;
+
+      // Filas Para / De / Válido hasta con autoajuste
+      const fieldX = 745;
+      const fieldW = W - 102 - fieldX;
+      const fields = [
+        { label: 'Para:', value: data.para },
+        { label: 'De:', value: data.de },
+        { label: 'Válido hasta:', value: Store.formatDateDMY(data.validoHasta) },
+      ];
+      fields.forEach((f, idx) => {
+        const fy = 456 + idx * 106;
+        const fh = 82;
+        drawRoundRect(ctx, fieldX, fy, fieldW, fh, 18);
+        ctx.fillStyle = pal.rowBg;
+        ctx.fill();
+
+        drawRoundRect(ctx, fieldX, fy, 12, fh, 6);
+        ctx.fillStyle = pal.rowBar;
+        ctx.fill();
+
+        ctx.fillStyle = pal.ink;
+        ctx.font = '700 32px "Plus Jakarta Sans", sans-serif';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(f.label, fieldX + 32, fy + fh / 2);
+
+        const labelWidth = ctx.measureText(f.label).width;
+        const valX = fieldX + 48 + labelWidth;
+        const valMaxW = Math.max(120, fieldW - (valX - fieldX) - 24);
+        ctx.fillStyle = pal.accent;
+        drawFittedText(ctx, f.value, valX, fy + fh / 2, valMaxW, 40, 22, '"Playfair Display", Georgia, serif', 700);
+      });
+
+      // Línea divisoria del footer
+      const footY = 930;
+      ctx.beginPath();
+      ctx.moveTo(102, footY);
+      ctx.lineTo(W - 102, footY);
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = pal.footerLine;
+      ctx.stroke();
+
+      // Redes verificadas + Código de barras + Folio Oficial
+      const rowY = 1004;
+      drawSocialBadge(ctx, 126, rowY, 24, '#1877F2', 'f');
+      ctx.fillStyle = pal.ink;
+      ctx.font = '700 30px "Plus Jakarta Sans", sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('YADEMAR TIENDA ONLINE', 162, rowY);
+
+      drawSocialBadge(ctx, 646, rowY, 24, '#E1306C', 'ig');
+      ctx.fillText('@yademar5', 682, rowY);
+
+      drawSocialBadge(ctx, 944, rowY, 24, '#15803D', 'W');
+      ctx.fillText('8956-3257', 980, rowY);
+
+      const bars = Store.generateBarcodeBars(data.folio);
+      let bx = 1230;
+      const by = rowY - 26;
+      ctx.fillStyle = '#FFFFFF';
+      drawRoundRect(ctx, bx - 12, by - 6, 200, 64, 10);
+      ctx.fill();
+      bars.forEach((bw, idx) => {
+        if (idx % 2 === 0 && bx < 1412) {
+          ctx.fillStyle = '#141216';
+          ctx.fillRect(bx, by, bw * 2.2, 52);
+        }
+        bx += bw * 2.2 + 1.5;
+      });
+
+      const folioW = 240;
+      const folioH = 68;
+      const folioX = W - 102 - folioW;
+      const folioY = rowY - folioH / 2;
+      drawRoundRect(ctx, folioX, folioY, folioW, folioH, 16);
+      ctx.fillStyle = pal.folioBg;
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = pal.border;
+      ctx.stroke();
+
+      ctx.fillStyle = pal.folioText;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      drawFittedText(ctx, data.folio, folioX + folioW / 2, rowY + 1, folioW - 24, 36, 20, '"Plus Jakarta Sans", sans-serif', 800);
+    }
+
+    try {
+      const dataUrl = canvas.toDataURL('image/png', 1.0);
+      const cleanFileFolio = data.folio.replace(/[^A-Z0-9]/gi, '');
+      const suffix = side === 'back' ? 'Reverso' : 'Anverso';
+      const link = document.createElement('a');
+      link.download = `Tarjeta-Regalo-Yademar-${cleanFileFolio}-${suffix}.png`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      Store.showToast(`PNG HD ${suffix} (1800×1125 px) descargado para ${data.folio}`, 'success');
+    } catch (_) {
+      Store.showToast('No se pudo exportar la imagen PNG. Verifica que logo-data.js esté cargado.', 'error');
+    }
   }
 
   function bindGiftStudioHandlers() {
@@ -829,6 +1064,9 @@
       el.addEventListener('input', updateGiftPreview);
       el.addEventListener('change', updateGiftPreview);
     });
+
+    const gcSearch = $('adminGcSearch');
+    if (gcSearch) gcSearch.addEventListener('input', renderGiftCardsTable);
 
     document.querySelectorAll('#adminGcPresets [data-gc-preset]').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -868,9 +1106,8 @@
     if (form) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const saved = Store.recordGiftCard(getGiftFormValues());
+        const saved = validateAndSaveGiftCard();
         if (saved) {
-          refreshAllPanels();
           Store.showToast(`Folio oficial ${saved.folio} guardado y activo para canje`, 'success');
         }
       });
@@ -879,29 +1116,42 @@
     const btnPng = $('btnDownloadPng');
     if (btnPng) {
       btnPng.addEventListener('click', async () => {
-        Store.recordGiftCard(getGiftFormValues());
-        refreshAllPanels();
-        await exportGiftCardPngHD();
+        const saved = validateAndSaveGiftCard();
+        if (!saved) return;
+        await exportGiftCardPngHD('front');
+      });
+    }
+
+    const btnBackPng = $('btnDownloadBackPng');
+    if (btnBackPng) {
+      btnBackPng.addEventListener('click', async () => {
+        const saved = validateAndSaveGiftCard();
+        if (!saved) return;
+        await exportGiftCardPngHD('back');
       });
     }
 
     const btnPrint = $('btnPrintGiftCard');
     if (btnPrint) {
       btnPrint.addEventListener('click', () => {
-        Store.recordGiftCard(getGiftFormValues());
-        refreshAllPanels();
-        // Asegurar anverso visible al imprimir
+        const saved = validateAndSaveGiftCard();
+        if (!saved) return;
         isGcFlipped = false;
         $('ydGiftFlipper').classList.remove('is-flipped');
+        document.body.classList.add('yd-printing-giftcard');
         window.print();
       });
     }
 
+    window.addEventListener('afterprint', () => {
+      document.body.classList.remove('yd-printing-giftcard');
+    });
+
     const btnShareWsp = $('btnShareGiftWsp');
     if (btnShareWsp) {
       btnShareWsp.addEventListener('click', () => {
-        const saved = Store.recordGiftCard(getGiftFormValues());
-        refreshAllPanels();
+        const saved = validateAndSaveGiftCard();
+        if (!saved) return;
         const msg =
           `¡Tarjeta de Regalo Oficial Yademar Emitida!\n` +
           `• Folio: ${saved.folio}\n` +
@@ -912,6 +1162,93 @@
           `Canjeable en tienda física (Chinandega) y tienda online.`;
         window.open(Store.getWhatsAppUrl(msg), '_blank', 'noopener');
       });
+    }
+  }
+
+  // ---- Modal Detalle de Pedido ----
+  function openOrderDetailModal(orderId) {
+    const order = Store.getOrderById(orderId);
+    if (!order) return;
+
+    $('orderDetailTitle').textContent = `Pedido ${order.id}`;
+    $('orderDetailMeta').textContent = `${Store.formatDateDMY(order.fecha)} • Estado: ${order.estado || 'Enviado por WhatsApp'}`;
+
+    const itemsRows = (order.items || [])
+      .map(
+        (it) => `
+        <tr>
+          <td class="fw-semibold">${Store.escapeHtml(it.nombre)}</td>
+          <td>${Store.escapeHtml(it.talla || '—')} / ${Store.escapeHtml(it.color || '—')}</td>
+          <td class="text-center">${it.qty || 1}</td>
+          <td class="text-end">${Store.formatMoney((Number(it.precio) || 0) * (Number(it.qty) || 1), 'NIO')}</td>
+        </tr>
+      `
+      )
+      .join('');
+
+    $('orderDetailBody').innerHTML = `
+      <div class="row g-3 mb-3">
+        <div class="col-sm-6">
+          <div class="p-3 rounded-3 bg-light border h-100">
+            <div class="text-uppercase text-muted fw-bold mb-1" style="font-size:0.7rem;">Cliente</div>
+            <div class="fw-bold">${Store.escapeHtml(order.clienteNombre || 'Cliente')}</div>
+            <div class="text-muted">${Store.escapeHtml(order.clienteCorreo || '')}</div>
+            <div class="mt-1"><i class="bi bi-whatsapp text-success me-1"></i>${Store.escapeHtml(order.clienteTelefono || 'No registrado')}</div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="p-3 rounded-3 bg-light border h-100">
+            <div class="text-uppercase text-muted fw-bold mb-1" style="font-size:0.7rem;">Entrega &amp; Notas</div>
+            <div class="fw-bold">${Store.escapeHtml(order.entregaTipo || 'Retiro en tienda')}</div>
+            <div class="text-muted">${Store.escapeHtml(order.direccionEntrega || 'Retiro en Boutique Chinandega')}</div>
+            ${order.notas ? `<div class="mt-1 fst-italic text-dark">“${Store.escapeHtml(order.notas)}”</div>` : ''}
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive mb-3">
+        <table class="table table-sm align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Artículo</th>
+              <th>Talla / Color</th>
+              <th class="text-center">Cant.</th>
+              <th class="text-end">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>${itemsRows}</tbody>
+        </table>
+      </div>
+
+      <div class="p-3 rounded-3 bg-light border">
+        <div class="d-flex justify-content-between mb-1">
+          <span>Subtotal:</span>
+          <strong>${Store.formatMoney(order.subtotalNio, 'NIO')}</strong>
+        </div>
+        ${
+          order.giftCardFolio && order.descuentoGiftCardNio > 0
+            ? `<div class="d-flex justify-content-between mb-1 text-success"><span>Gift Card (${Store.escapeHtml(order.giftCardFolio)}):</span><strong>-${Store.formatMoney(order.descuentoGiftCardNio, 'NIO')}</strong></div>`
+            : ''
+        }
+        <div class="d-flex justify-content-between pt-2 mt-2 border-top fs-6">
+          <span class="fw-bold">Total:</span>
+          <strong class="text-danger">${Store.formatMoney(order.totalNio, 'NIO')}</strong>
+        </div>
+      </div>
+    `;
+
+    const cleanPhone = String(order.clienteTelefono || '').replace(/[^\d]/g, '');
+    const wspBtn = $('btnOrderContactWsp');
+    if (wspBtn) {
+      const targetPhone = cleanPhone.length === 8 ? `505${cleanPhone}` : cleanPhone || (Store.getConfig().whatsapp || '50589563257');
+      const msg = `Hola ${order.clienteNombre || ''}, te escribimos de Yademar Boutique sobre tu pedido ${order.id} (${order.estado || 'Confirmado'}).`;
+      wspBtn.href = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
+    }
+
+    const modalEl = $('ydAdminOrderModal');
+    if (modalEl && window.bootstrap) {
+      orderModalInstance = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+      orderModalInstance.show();
     }
   }
 
@@ -1027,7 +1364,9 @@
             return `
               <tr>
                 <td>
-                  <span class="badge text-bg-dark">${Store.escapeHtml(o.id)}</span>
+                  <button type="button" class="btn btn-sm btn-link p-0 fw-bold text-decoration-none" data-view-order="${Store.escapeHtml(o.id)}">
+                    ${Store.escapeHtml(o.id)} <i class="bi bi-eye"></i>
+                  </button>
                   <div class="text-muted" style="font-size:0.72rem;">${Store.formatDateDMY(o.fecha)}</div>
                 </td>
                 <td>
@@ -1045,11 +1384,20 @@
           })
           .join('');
 
+        ordersBody.querySelectorAll('[data-view-order]').forEach((btn) => {
+          btn.addEventListener('click', () => openOrderDetailModal(btn.dataset.viewOrder));
+        });
+
         ordersBody.querySelectorAll('[data-order-status]').forEach((sel) => {
           sel.addEventListener('change', () => {
             Store.updateOrderStatus(sel.dataset.orderStatus, sel.value);
-            renderDashboard();
-            Store.showToast(`Pedido ${sel.dataset.orderStatus} → ${sel.value}`, 'success');
+            refreshAllPanels();
+            Store.showToast(
+              sel.value === 'Cancelado'
+                ? `Pedido ${sel.dataset.orderStatus} cancelado (inventario restaurado)`
+                : `Pedido ${sel.dataset.orderStatus} → ${sel.value}`,
+              'success'
+            );
           });
         });
       }
@@ -1124,6 +1472,7 @@
               Store.showToast(res.error, 'error');
               return;
             }
+            populateSeasonSelects();
             refreshAllPanels();
             Store.showToast(
               `JSON importado: ${res.countProducts} prendas y ${res.countUsers} usuarios`,
@@ -1144,6 +1493,7 @@
       btnReset.addEventListener('click', async () => {
         if (!window.confirm('¿Restablecer la caché local a los datos base de store-data.json?')) return;
         await Store.resetLocalCache();
+        populateSeasonSelects();
         refreshAllPanels();
         Store.showToast('Caché local restablecida a los datos base');
       });
@@ -1161,15 +1511,14 @@
   // ---- Inicialización Vista Admin ----
   async function boot() {
     await Store.initStore();
-    // Consumir token de un solo uso si viene recién validado desde index.html; en cualquier recarga exige validación
     Store.consumeAdminHandoff();
 
-    // Inicializar valores por defecto en el estudio de tarjetas
     const folioInput = $('gcFolio');
     if (folioInput) folioInput.value = Store.getNextFolio();
     const expiryInput = $('gcExpiry');
     if (expiryInput && !expiryInput.value) expiryInput.value = Store.defaultExpiryISO();
 
+    bindPinToggles();
     bindAuthHandlers();
     bindPanelNavigation();
     bindCatalogAdminHandlers();
@@ -1180,7 +1529,10 @@
     syncAuthView();
 
     Store.subscribeExternalSync(() => {
-      syncAuthView();
+      if (Store.isAdminAuthenticated()) {
+        populateSeasonSelects();
+        refreshAllPanels();
+      }
     });
   }
 

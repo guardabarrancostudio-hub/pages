@@ -65,7 +65,10 @@
               <label for="gateLoginPin" class="form-label small fw-semibold mb-1">PIN de acceso</label>
               <div class="input-group">
                 <span class="input-group-text bg-white"><i class="bi bi-key text-muted"></i></span>
-                <input type="password" class="form-control" id="gateLoginPin" placeholder="Ingresa tu PIN" required>
+                <input type="password" class="form-control" id="gateLoginPin" inputmode="numeric" placeholder="Ingresa tu PIN" required>
+                <button class="btn btn-outline-secondary" type="button" data-toggle-pin="gateLoginPin" aria-label="Mostrar u ocultar PIN">
+                  <i class="bi bi-eye"></i>
+                </button>
               </div>
             </div>
             <div class="alert alert-danger py-2 small d-none mb-0" id="gateLoginError" role="alert"></div>
@@ -100,7 +103,12 @@
             </div>
             <div class="col-4">
               <label for="gateRegPin" class="form-label small fw-semibold mb-1">PIN (4+)</label>
-              <input type="password" class="form-control form-control-sm" id="gateRegPin" minlength="4" placeholder="1234" required>
+              <div class="input-group input-group-sm">
+                <input type="password" class="form-control" id="gateRegPin" inputmode="numeric" minlength="4" placeholder="1234" required>
+                <button class="btn btn-outline-secondary px-2" type="button" data-toggle-pin="gateRegPin" aria-label="Mostrar u ocultar PIN">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
             </div>
             <div class="col-12">
               <div class="alert alert-danger py-2 small d-none mb-0" id="gateRegError" role="alert"></div>
@@ -134,9 +142,9 @@
   <div class="yd-topbar py-2">
     <div class="container d-flex flex-wrap align-items-center justify-content-between gap-2">
       <div class="d-flex flex-wrap align-items-center gap-3">
-        <span><i class="bi bi-geo-alt-fill text-danger me-1"></i> De la trasera del Calvario 2 ½ c. al este, Chinandega</span>
+        <span class="d-none d-md-inline"><i class="bi bi-geo-alt-fill text-danger me-1"></i> De la trasera del Calvario 2 ½ c. al este, Chinandega</span>
         <span class="d-none d-md-inline opacity-50">|</span>
-        <a href="tel:+50589563257" class="yd-phone-link" data-phone="8956-3257">
+        <a href="https://wa.me/50589563257?text=Hola%20Yademar%2C%20deseo%20hacer%20una%20consulta" target="_blank" rel="noopener" class="yd-phone-link" data-phone="8956-3257">
           <i class="bi bi-whatsapp text-success me-1"></i> Pedidos: <strong>8956-3257</strong>
         </a>
       </div>
@@ -241,10 +249,10 @@
           <div class="col-lg-6">
             <div class="yd-hero-frame mx-auto">
               <img id="ydHeroImg" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80" alt="Lookbook editorial Yademar Boutique Chinandega" loading="eager">
-              <div class="yd-hero-float d-flex align-items-center justify-content-between gap-3">
+              <div class="yd-hero-float d-flex flex-wrap align-items-center justify-content-between gap-2">
                 <div>
                   <span class="badge text-bg-danger rounded-pill mb-1">Nueva Temporada</span>
-                  <div class="fw-bold text-dark">4 Colecciones Activas</div>
+                  <div class="fw-bold text-dark" id="ydHeroSeasonsCount">4 Colecciones Activas</div>
                   <small class="text-muted">Precios en Córdobas (C$) y Dólares (US$)</small>
                 </div>
                 <a href="#temporadas" class="btn btn-sm btn-yd-dark flex-shrink-0">Ver Looks</a>
@@ -288,7 +296,10 @@
               Explora nuestras prendas seleccionadas, revisa tallas disponibles y agrégalas a tu bolsa de pedido.
             </p>
           </div>
-          <div class="small text-muted fw-semibold" id="ydCatalogCount">Mostrando prendas...</div>
+          <div class="text-md-end">
+            <div class="small text-muted fw-semibold" id="ydCatalogCount">Mostrando prendas...</div>
+            <div class="small text-muted d-none" id="ydExchangeNote">Tipo de cambio ref.: C$36.62 / US$1</div>
+          </div>
         </div>
 
         <!-- Barra de Filtros Responsiva Bootstrap 5 -->
@@ -296,10 +307,10 @@
           <div class="row g-3 align-items-center">
             <div class="col-12 col-lg-5">
               <div class="d-flex flex-wrap gap-2" id="ydCategoryPills" role="group" aria-label="Filtrar por categoría">
-                <button type="button" class="yd-filter-pill is-active" data-cat="todos">Todo</button>
-                <button type="button" class="yd-filter-pill" data-cat="dama">Dama</button>
-                <button type="button" class="yd-filter-pill" data-cat="caballero">Caballero</button>
-                <button type="button" class="yd-filter-pill" data-cat="favoritos">
+                <button type="button" class="yd-filter-pill is-active" data-cat="todos" aria-pressed="true">Todo</button>
+                <button type="button" class="yd-filter-pill" data-cat="dama" aria-pressed="false">Dama</button>
+                <button type="button" class="yd-filter-pill" data-cat="caballero" aria-pressed="false">Caballero</button>
+                <button type="button" class="yd-filter-pill" data-cat="favoritos" aria-pressed="false">
                   <i class="bi bi-heart-fill text-danger me-1"></i>Favoritos (<span id="ydFavCount">0</span>)
                 </button>
               </div>
@@ -307,7 +318,7 @@
             <div class="col-12 col-sm-6 col-lg-4">
               <div class="input-group">
                 <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
-                <input type="search" class="form-control border-start-0" id="ydSearchInput" placeholder="Buscar vestido, camisa, lino...">
+                <input type="search" class="form-control border-start-0" id="ydSearchInput" aria-label="Buscar prenda en el catálogo" placeholder="Buscar vestido, camisa, lino...">
               </div>
             </div>
             <div class="col-12 col-sm-6 col-lg-3">
@@ -395,7 +406,7 @@
                   </div>
 
                   <div class="yd-gc-footer">
-                    <span><i class="bi bi-facebook me-1"></i>Yademar Tienda Online</span>
+                    <span class="yd-gc-social-fb"><i class="bi bi-facebook me-1"></i>Yademar Tienda Online</span>
                     <span><i class="bi bi-instagram me-1"></i>@yademar5</span>
                     <span><i class="bi bi-whatsapp me-1"></i>8956-3257</span>
                     <span class="yd-gc-folio-pill">FOLIO OFICIAL</span>
@@ -418,7 +429,7 @@
 
               <form id="clientGiftRequestForm" class="row g-3">
                 <div class="col-12">
-                  <label class="form-label small fw-semibold mb-1">Monto sugerido</label>
+                  <label for="reqGiftAmount" class="form-label small fw-semibold mb-1">Monto sugerido (Córdobas C$)</label>
                   <div class="d-flex flex-wrap gap-2 mb-2" id="samplePresetWrap">
                     <button type="button" class="yd-filter-pill" data-preset="500">C$500</button>
                     <button type="button" class="yd-filter-pill is-active" data-preset="1100">C$1,100</button>
@@ -427,18 +438,19 @@
                   </div>
                   <div class="input-group">
                     <span class="input-group-text">C$</span>
-                    <input type="number" class="form-control" id="reqGiftAmount" min="200" step="50" value="1100" required>
+                    <input type="number" class="form-control" id="reqGiftAmount" min="200" step="1" value="1100" required>
                   </div>
+                  <small class="text-muted d-none" id="reqGiftUsdRef"></small>
                 </div>
 
                 <div class="col-sm-6">
                   <label for="reqGiftPara" class="form-label small fw-semibold">Para (destinatario)</label>
-                  <input type="text" class="form-control" id="reqGiftPara" value="Isabella Castro" maxlength="45" required>
+                  <input type="text" class="form-control" id="reqGiftPara" placeholder="Ej. Isabella Castro" maxlength="45" required>
                 </div>
 
                 <div class="col-sm-6">
                   <label for="reqGiftDe" class="form-label small fw-semibold">De (quien obsequia)</label>
-                  <input type="text" class="form-control" id="reqGiftDe" value="Zairy Morales" maxlength="45" required>
+                  <input type="text" class="form-control" id="reqGiftDe" placeholder="Ej. Zairy Morales" maxlength="45" required>
                 </div>
 
                 <div class="col-sm-4">
@@ -512,7 +524,7 @@
             <div class="yd-info-card">
               <div class="yd-step-num">3</div>
               <h3 class="h5 font-display fw-bold mb-2">Retira o recibe en Chinandega</h3>
-              <p class="yd-section-lead small mb-0">Visítanos de la trasera del Calvario 2 ½ c. al este o coordina entrega directa según tu ubicación.</p>
+              <p class="small text-muted mb-0">Visítanos de la trasera del Calvario 2 ½ c. al este o coordina entrega directa según tu ubicación.</p>
             </div>
           </div>
         </div>
@@ -559,6 +571,13 @@
                     <div>
                       <div class="fw-bold small">Facebook</div>
                       <a href="https://www.facebook.com/Yademar-Tienda-Online-231953607295655" target="_blank" rel="noopener" class="small text-decoration-none">Yademar Tienda Online</a>
+                    </div>
+                  </li>
+                  <li class="d-flex gap-3">
+                    <i class="bi bi-credit-card-2-front text-dark fs-5"></i>
+                    <div>
+                      <div class="fw-bold small">Pagos &amp; Cambios</div>
+                      <div class="small text-muted">Efectivo (C$/US$), transferencia bancaria y cambio de talla sujeto a disponibilidad en tienda.</div>
                     </div>
                   </li>
                 </ul>
@@ -633,13 +652,15 @@
 
       <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-4 small text-white-50">
         <span>&copy; 2026 Yademar Boutique Chinandega. Todos los derechos reservados.</span>
-        <span>Vista Cliente &bull; Bootstrap 5</span>
+        <span>Chinandega, Nicaragua &bull; Retiro en tienda y envíos</span>
       </div>
     </div>
   </footer>
 
+  </div><!-- /#ydClientApp -->
+
   <!-- ============================================================
-       MODAL VISTA RÁPIDA DE PRENDA (Bootstrap 5 Modal)
+       MODAL VISTA RÁPIDA DE PRENDA (Fuera de #ydClientApp para transiciones limpias)
        ============================================================ -->
   <div class="modal fade" id="ydQuickViewModal" tabindex="-1" aria-labelledby="qvTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -863,8 +884,8 @@
         <!-- Items renderizados por client.js -->
       </div>
 
-      <!-- Aplicar Folio de Tarjeta de Regalo -->
-      <div class="border-top pt-3 mt-3">
+      <!-- Bloque Inferior (oculto cuando la bolsa está vacía) -->
+      <div class="border-top pt-3 mt-3 d-none" id="ydBagFooter">
         <label for="bagGiftCodeInput" class="form-label small fw-semibold mb-1">
           <i class="bi bi-gift text-danger me-1"></i>¿Tienes una Tarjeta de Regalo oficial?
         </label>
@@ -910,12 +931,12 @@
                 <option value="Envío departamental">Envío departamental</option>
               </select>
             </div>
-            <div class="col-6">
-              <label for="bagDeliveryAddress" class="form-label small fw-semibold mb-1">Dirección / Ref.</label>
-              <input type="text" class="form-control form-control-sm" id="bagDeliveryAddress" placeholder="Tienda o dirección">
+            <div class="col-6" id="bagDeliveryAddressWrap">
+              <label for="bagDeliveryAddress" class="form-label small fw-semibold mb-1" id="bagDeliveryAddressLabel">Ref. (opcional)</label>
+              <input type="text" class="form-control form-control-sm" id="bagDeliveryAddress" placeholder="Opcional en retiro">
             </div>
             <div class="col-12">
-              <input type="text" class="form-control form-control-sm" id="bagOrderNotes" placeholder="Nota opcional (horario, empaque regalo...)">
+              <input type="text" class="form-control form-control-sm" id="bagOrderNotes" aria-label="Notas opcionales del pedido" placeholder="Nota opcional (horario, empaque regalo...)">
             </div>
           </div>
 
@@ -932,7 +953,32 @@
     </div>
   </div>
 
-  </div><!-- /#ydClientApp -->
+  <!-- ============================================================
+       MODAL CONFIRMACIÓN DE PEDIDO (Respaldo garantizado WhatsApp)
+       ============================================================ -->
+  <div class="modal fade" id="ydOrderConfirmModal" tabindex="-1" aria-labelledby="orderConfirmTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4">
+        <div class="modal-header border-bottom">
+          <div>
+            <span class="badge text-bg-success rounded-pill mb-1">Pedido Registrado</span>
+            <h5 class="modal-title font-display fw-bold" id="orderConfirmTitle">¡Gracias por tu pedido!</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body small">
+          <p class="text-muted mb-2">Tu pedido quedó guardado en tu historial. Si WhatsApp no se abrió automáticamente, usa el botón de abajo para enviarlo a Yademar:</p>
+          <div class="p-3 rounded-3 bg-light border mb-3" id="orderConfirmSummary"></div>
+          <div class="d-grid gap-2">
+            <a href="#" target="_blank" rel="noopener" class="btn btn-yd-whatsapp" id="btnConfirmOpenWsp">
+              <i class="bi bi-whatsapp me-1"></i> Abrir WhatsApp ahora (8956-3257)
+            </a>
+            <button type="button" class="btn btn-yd-outline btn-sm" data-bs-dismiss="modal">Seguir explorando</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

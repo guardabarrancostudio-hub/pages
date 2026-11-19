@@ -4,8 +4,12 @@
      - Vista Cliente  (index.html + client.js)
      - Vista Admin    (admin.html + admin.js)
    Persistencia JSON + fallback offline (file://) + localStorage
-   Soporta: CRUD Productos + Stock/Cantidad, CRUD Clientes,
-            Bolsa con control de stock, Pedidos y Tarjetas de Regalo
+   Características:
+     - Validación obligatoria por visita (sesiones en memoria)
+     - Bolsa y folio Gift Card aislados por cliente
+     - Validación de vigencia/saldo y canje de Gift Cards
+     - Revalidación de stock/precios en checkout y reversión al cancelar
+     - Merge diferencial de productos y clientes (sin resucitar eliminados)
    ============================================================ */
 
 (function (global) {
@@ -199,11 +203,14 @@
     // Sesiones estrictamente en memoria por carga de página (pide validación en cada acceso/recarga)
     activeClientUserId: null,
     activeAdminUserId: null,
-    cart: [],
-    appliedGiftCard: null,
+    // Carritos aislados por ID de usuario cliente: { [userId]: { items: [], appliedGiftCardFolio: null } }
+    cartsByUserId: {},
     deletedProductIds: [],
     customProducts: [],
     editedProducts: {},
+    deletedUserIds: [],
+    hasImportedProductsOverride: false,
+    importedProductsSnapshot: null,
   };
 
   function getFallbackSeed() {
@@ -268,12 +275,38 @@
     };
   }
 
-  function mergeUsers(baseUsers, savedUsers) {
+  function normalizeGiftCard(gc) {
+    const monto = Number(gc.monto) || 1100;
+    const saldo =
+      typeof gc.saldoRestante === 'number' && Number.isFinite(gc.saldoRestante)
+        ? Math.max(0, gc.saldoRestante)
+        : gc.canjeada
+        ? 0
+        : monto;
+    return {
+      ...gc,
+      folio: normalizeCode(gc.folio || 'N°0001'),
+      monto,
+      moneda: gc.moneda === 'US$' ? 'US$' : 'C$',
+      saldoRestante: saldo,
+      canjeada: Boolean(gc.canjeada || saldo <= 0),
+    };
+  }
+
+  /**
+   * Fusiona usuarios respetando ediciones de correo/PIN en clientes y respetando eliminaciones (deletedUserIds).
+   * La cuenta admin principal conserva sus credenciales autoritativas del JSON base.
+   */
+  function mergeUsers(baseUsers, savedUsers, deletedUserIds) {
     const baseList = Array.isArray(baseUsers) ? deepClone(baseUsers) : [];
     const savedList = Array.isArray(savedUsers) ? savedUsers : [];
+    const deletedSet = new Set(Array.isArray(deletedUserIds) ? deletedUserIds : []);
     const merged = [];
 
     baseList.forEach((baseUser) => {
+      const isAdminBase = baseUser.rol === 'admin';
+      if (!isAdminBase && deletedSet.has(baseUser.id)) return;
+
       const saved = savedList.find(
         (u) =>
           u &&
@@ -282,13 +315,21 @@
               baseUser.correo &&
               String(u.correo).toLowerCase() === String(baseUser.correo).toLowerCase()))
       );
+
       if (saved) {
+        const rawCards =
+          Array.isArray(saved.giftCards)
+            ? saved.giftCards
+            : Array.isArray(baseUser.giftCards)
+            ? baseUser.giftCards
+            : [];
         merged.push({
           ...saved,
           id: baseUser.id,
-          correo: baseUser.correo,
-          pin: String(baseUser.pin),
           rol: baseUser.rol,
+          // Admin siempre autoritativo desde JSON; clientes respetan ediciones guardadas
+          correo: isAdminBase ? baseUser.correo : saved.correo || baseUser.correo,
+          pin: isAdminBase ? String(baseUser.pin) : String(saved.pin || baseUser.pin),
           nombre: saved.nombre || baseUser.nombre,
           ciudad: saved.ciudad || baseUser.ciudad || 'Chinandega',
           direccion: saved.direccion || baseUser.direccion || 'Chinandega',
@@ -303,12 +344,7 @@
             : Array.isArray(baseUser.pedidos)
             ? baseUser.pedidos
             : [],
-          giftCards:
-            Array.isArray(saved.giftCards) && saved.giftCards.length > 0
-              ? saved.giftCards
-              : Array.isArray(baseUser.giftCards)
-              ? baseUser.giftCards
-              : [],
+          giftCards: rawCards.map(normalizeGiftCard),
         });
       } else {
         merged.push({
@@ -319,13 +355,13 @@
           telefono: baseUser.telefono || '',
           favoritos: Array.isArray(baseUser.favoritos) ? baseUser.favoritos : [],
           pedidos: Array.isArray(baseUser.pedidos) ? baseUser.pedidos : [],
-          giftCards: Array.isArray(baseUser.giftCards) ? baseUser.giftCards : [],
+          giftCards: (Array.isArray(baseUser.giftCards) ? baseUser.giftCards : []).map(normalizeGiftCard),
         });
       }
     });
 
     savedList.forEach((saved) => {
-      if (!saved || !saved.correo) return;
+      if (!saved || !saved.correo || deletedSet.has(saved.id)) return;
       const exists = merged.some(
         (u) =>
           u.id === saved.id ||
@@ -341,7 +377,7 @@
           telefono: saved.telefono || '',
           favoritos: Array.isArray(saved.favoritos) ? saved.favoritos : [],
           pedidos: Array.isArray(saved.pedidos) ? saved.pedidos : [],
-          giftCards: Array.isArray(saved.giftCards) ? saved.giftCards : [],
+          giftCards: (Array.isArray(saved.giftCards) ? saved.giftCards : []).map(normalizeGiftCard),
         });
       }
     });
@@ -349,33 +385,36 @@
     return merged;
   }
 
+  /**
+   * Merge diferencial de productos: permite que nuevos artículos en store-data.json
+   * aparezcan automáticamente sin ser bloqueados por snapshots viejos.
+   */
   function mergeProducts(baseProducts, savedOverlay) {
     const baseList = Array.isArray(baseProducts) ? deepClone(baseProducts) : [];
     const deleted = new Set(Array.isArray(savedOverlay.deletedProductIds) ? savedOverlay.deletedProductIds : []);
     const editedMap = savedOverlay.editedProducts && typeof savedOverlay.editedProducts === 'object' ? savedOverlay.editedProducts : {};
     const customList = Array.isArray(savedOverlay.customProducts) ? deepClone(savedOverlay.customProducts) : [];
 
-    if (Array.isArray(savedOverlay.productosOverride) && savedOverlay.productosOverride.length > 0) {
-      return deepClone(savedOverlay.productosOverride).map(normalizeProduct);
+    // Solo usar snapshot completo si proviene de una importación manual de JSON
+    if (savedOverlay.hasImportedProductsOverride && Array.isArray(savedOverlay.importedProductsSnapshot)) {
+      return deepClone(savedOverlay.importedProductsSnapshot).map(normalizeProduct);
     }
 
     const result = [];
+    // Productos agregados por admin primero (más recientes arriba)
+    customList.forEach((custom) => {
+      if (!custom || !custom.id || deleted.has(custom.id)) return;
+      const edited = editedMap[custom.id] ? deepClone(editedMap[custom.id]) : null;
+      result.push(normalizeProduct(edited ? { ...custom, ...edited, id: custom.id } : custom));
+    });
+
     baseList.forEach((prod) => {
       if (deleted.has(prod.id)) return;
+      if (result.some((r) => r.id === prod.id)) return;
       if (editedMap[prod.id]) {
         result.push(normalizeProduct({ ...prod, ...deepClone(editedMap[prod.id]), id: prod.id }));
       } else {
         result.push(normalizeProduct(prod));
-      }
-    });
-
-    customList.forEach((custom) => {
-      if (!custom || !custom.id || deleted.has(custom.id)) return;
-      const idx = result.findIndex((p) => p.id === custom.id);
-      if (idx >= 0) {
-        result[idx] = normalizeProduct({ ...result[idx], ...custom });
-      } else {
-        result.push(normalizeProduct(custom));
       }
     });
 
@@ -393,38 +432,31 @@
   }
 
   function persistState() {
-    if (!state.data) return;
+    if (!state.data) return false;
     try {
       const payload = {
-        version: 4,
+        version: 5,
         updatedAt: new Date().toISOString(),
         currency: state.currency,
-        cart: state.cart,
-        appliedGiftCard: state.appliedGiftCard,
+        cartsByUserId: state.cartsByUserId,
         ultimoFolio: state.data.config.ultimoFolio,
         usuarios: state.data.usuarios,
-        productosOverride: state.data.productos,
         temporadasOverride: state.data.temporadas,
         deletedProductIds: state.deletedProductIds,
         customProducts: state.customProducts,
         editedProducts: state.editedProducts,
+        deletedUserIds: state.deletedUserIds,
+        hasImportedProductsOverride: state.hasImportedProductsOverride,
+        importedProductsSnapshot: state.hasImportedProductsOverride ? state.data.productos : null,
       };
       if (global.localStorage) {
         global.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
       }
+      return true;
     } catch (_) {
-      // Ignore storage error
+      showToast('No se pudieron guardar los cambios en almacenamiento local (revisa espacio o modo privado).', 'error');
+      return false;
     }
-  }
-
-  function getDefaultClientUser() {
-    if (!state.data || !Array.isArray(state.data.usuarios)) return null;
-    return (
-      state.data.usuarios.find((u) => u.id === 'U-CLI-01') ||
-      state.data.usuarios.find((u) => u.rol === 'cliente') ||
-      state.data.usuarios[0] ||
-      null
-    );
   }
 
   async function loadBaseJson() {
@@ -459,7 +491,16 @@
     if (!Array.isArray(merged.usuarios)) merged.usuarios = getFallbackSeed().usuarios;
 
     if (saved && typeof saved === 'object') {
-      merged.usuarios = mergeUsers(merged.usuarios, saved.usuarios);
+      state.deletedUserIds = Array.isArray(saved.deletedUserIds) ? saved.deletedUserIds : [];
+      state.deletedProductIds = Array.isArray(saved.deletedProductIds) ? saved.deletedProductIds : [];
+      state.customProducts = Array.isArray(saved.customProducts) ? saved.customProducts : [];
+      state.editedProducts = saved.editedProducts && typeof saved.editedProducts === 'object' ? saved.editedProducts : {};
+      state.hasImportedProductsOverride = Boolean(saved.hasImportedProductsOverride);
+      state.importedProductsSnapshot = Array.isArray(saved.importedProductsSnapshot)
+        ? saved.importedProductsSnapshot
+        : null;
+
+      merged.usuarios = mergeUsers(merged.usuarios, saved.usuarios, state.deletedUserIds);
       merged.productos = mergeProducts(merged.productos, saved);
       if (Array.isArray(saved.temporadasOverride) && saved.temporadasOverride.length > 0) {
         merged.temporadas = deepClone(saved.temporadasOverride);
@@ -468,17 +509,19 @@
         merged.config.ultimoFolio = saved.ultimoFolio;
       }
       state.currency = saved.currency === 'USD' ? 'USD' : 'NIO';
-      state.cart = Array.isArray(saved.cart) ? saved.cart : [];
-      state.appliedGiftCard = saved.appliedGiftCard || null;
-      state.deletedProductIds = Array.isArray(saved.deletedProductIds) ? saved.deletedProductIds : [];
-      state.customProducts = Array.isArray(saved.customProducts) ? saved.customProducts : [];
-      state.editedProducts = saved.editedProducts && typeof saved.editedProducts === 'object' ? saved.editedProducts : {};
+      state.cartsByUserId =
+        saved.cartsByUserId && typeof saved.cartsByUserId === 'object' ? saved.cartsByUserId : {};
     } else {
-      merged.usuarios = mergeUsers(merged.usuarios, []);
+      merged.usuarios = mergeUsers(merged.usuarios, [], []);
       merged.productos = merged.productos.map(normalizeProduct);
       state.currency = 'NIO';
-      state.cart = [];
-      state.appliedGiftCard = null;
+      state.cartsByUserId = {};
+      state.deletedUserIds = [];
+      state.deletedProductIds = [];
+      state.customProducts = [];
+      state.editedProducts = {};
+      state.hasImportedProductsOverride = false;
+      state.importedProductsSnapshot = null;
     }
 
     // Limpiar cualquier sesión persistida antigua para exigir validación en cada visita
@@ -490,7 +533,6 @@
 
     state.data = merged;
 
-    // Verificar que las sesiones en memoria (si ya se validaron en esta pestaña) sigan existiendo
     if (state.activeClientUserId) {
       const stillExists = state.data.usuarios.some((u) => u.id === state.activeClientUserId);
       if (!stillExists) state.activeClientUserId = null;
@@ -535,7 +577,7 @@
     return matched || null;
   }
 
-  // ---- Sesión y CRUD Clientes (validación obligatoria por carga) ----
+  // ---- Sesión y CRUD Clientes ----
   function getActiveClientUser() {
     if (!state.data || !state.activeClientUserId) return null;
     return state.data.usuarios.find((u) => u.id === state.activeClientUserId) || null;
@@ -694,15 +736,18 @@
       return { ok: false, error: 'Debe existir al menos un cliente registrado en el sistema.' };
     }
     state.data.usuarios = state.data.usuarios.filter((u) => u.id !== userId);
+    if (!state.deletedUserIds.includes(userId)) {
+      state.deletedUserIds.push(userId);
+    }
+    delete state.cartsByUserId[userId];
     if (state.activeClientUserId === userId) {
-      const def = getDefaultClientUser();
-      state.activeClientUserId = def ? def.id : null;
+      state.activeClientUserId = null;
     }
     persistState();
     return { ok: true };
   }
 
-  // ---- Sesión Administrador (en memoria por carga + handoff de un solo uso) ----
+  // ---- Sesión Administrador (en memoria + handoff 1 solo uso) ----
   function createAdminHandoff(userId) {
     try {
       if (global.sessionStorage) {
@@ -886,7 +931,7 @@
       state.editedProducts[prodId] = record;
     } else {
       state.data.productos.unshift(record);
-      state.customProducts.push(record);
+      state.customProducts.unshift(record);
     }
 
     persistState();
@@ -916,7 +961,19 @@
     return true;
   }
 
-  // ---- Favoritos y Bolsa con Control de Cantidad/Stock ----
+  // ---- Favoritos y Bolsa Aislada por Cliente ----
+  function ensureActiveCartBucket() {
+    const uid = state.activeClientUserId;
+    if (!uid) return { items: [], appliedGiftCardFolio: null };
+    if (!state.cartsByUserId[uid] || typeof state.cartsByUserId[uid] !== 'object') {
+      state.cartsByUserId[uid] = { items: [], appliedGiftCardFolio: null };
+    }
+    if (!Array.isArray(state.cartsByUserId[uid].items)) {
+      state.cartsByUserId[uid].items = [];
+    }
+    return state.cartsByUserId[uid];
+  }
+
   function toggleFavorite(prodId) {
     const user = getActiveClientUser();
     if (!user) return false;
@@ -934,27 +991,31 @@
   }
 
   function getCart() {
-    return state.cart;
+    return ensureActiveCartBucket().items;
   }
 
   function getCartQtyForProduct(prodId) {
-    return state.cart
+    return getCart()
       .filter((c) => c.id === prodId)
       .reduce((sum, c) => sum + (Number(c.qty) || 0), 0);
   }
 
   function addToCart(item) {
+    const bucket = ensureActiveCartBucket();
     const reqQty = Math.max(1, parseInt(item.qty, 10) || 1);
     const key = `${item.id}|${item.talla || ''}|${item.color || ''}`;
-    const existing = state.cart.find((c) => c.key === key);
+    const existing = bucket.items.find((c) => c.key === key);
 
     if (!item.esGiftCardSolicitud) {
       const prod = getProductById(item.id);
       if (prod) {
+        if (prod.disponible === false) {
+          return { ok: false, error: `"${prod.nombre}" no está disponible en este momento.`, cart: bucket.items };
+        }
         const available = Number(prod.stock) || 0;
         const alreadyInCart = getCartQtyForProduct(prod.id);
         if (available <= 0) {
-          return { ok: false, error: `"${prod.nombre}" está agotada en este momento.`, cart: state.cart };
+          return { ok: false, error: `"${prod.nombre}" está agotada en este momento.`, cart: bucket.items };
         }
         if (alreadyInCart + reqQty > available) {
           const remaining = Math.max(0, available - alreadyInCart);
@@ -964,7 +1025,7 @@
               remaining > 0
                 ? `Solo quedan ${remaining} unidad(es) disponibles para agregar de "${prod.nombre}".`
                 : `Ya tienes el máximo disponible (${available} uds) de "${prod.nombre}" en tu bolsa.`,
-            cart: state.cart,
+            cart: bucket.items,
           };
         }
       }
@@ -973,7 +1034,7 @@
     if (existing) {
       existing.qty += reqQty;
     } else {
-      state.cart.push({
+      bucket.items.push({
         key,
         id: item.id,
         nombre: item.nombre,
@@ -986,17 +1047,18 @@
       });
     }
     persistState();
-    return { ok: true, cart: state.cart, addedQty: reqQty };
+    return { ok: true, cart: bucket.items, addedQty: reqQty };
   }
 
   function updateCartQty(key, delta) {
-    const idx = state.cart.findIndex((c) => c.key === key);
+    const bucket = ensureActiveCartBucket();
+    const idx = bucket.items.findIndex((c) => c.key === key);
     if (idx < 0) return { ok: false };
-    const item = state.cart[idx];
+    const item = bucket.items[idx];
     const nextQty = item.qty + delta;
 
     if (nextQty <= 0) {
-      state.cart.splice(idx, 1);
+      bucket.items.splice(idx, 1);
       persistState();
       return { ok: true, removed: true };
     }
@@ -1018,45 +1080,141 @@
   }
 
   function removeFromCart(key) {
-    state.cart = state.cart.filter((c) => c.key !== key);
+    const bucket = ensureActiveCartBucket();
+    bucket.items = bucket.items.filter((c) => c.key !== key);
     persistState();
   }
 
   function clearCart() {
-    state.cart = [];
-    state.appliedGiftCard = null;
+    const bucket = ensureActiveCartBucket();
+    bucket.items = [];
+    bucket.appliedGiftCardFolio = null;
     persistState();
   }
 
+  // ---- Estado y Validación Dinámica de Gift Cards ----
+  function getGiftCardStatus(card) {
+    if (!card) return 'Inválida';
+    const saldo = typeof card.saldoRestante === 'number' ? card.saldoRestante : Number(card.monto) || 0;
+    if (card.canjeada || saldo <= 0) return 'Canjeada';
+    if (card.validoHasta && card.validoHasta < todayISO()) return 'Vencida';
+    return 'Vigente';
+  }
+
+  function getGiftCardAvailableNio(card) {
+    if (!card || getGiftCardStatus(card) !== 'Vigente') return 0;
+    const saldo = typeof card.saldoRestante === 'number' ? card.saldoRestante : Number(card.monto) || 0;
+    const rate = (state.data && state.data.config && state.data.config.tasaCambio) || 36.62;
+    return card.moneda === 'US$' ? Math.round(saldo * rate) : Math.round(saldo);
+  }
+
   function getAppliedGiftCard() {
-    return state.appliedGiftCard;
+    const bucket = ensureActiveCartBucket();
+    if (!bucket.appliedGiftCardFolio) return null;
+    const liveCard = findGiftCardByCode(bucket.appliedGiftCardFolio);
+    if (!liveCard || getGiftCardStatus(liveCard) !== 'Vigente') {
+      bucket.appliedGiftCardFolio = null;
+      return null;
+    }
+    return liveCard;
   }
 
   function applyGiftCardCode(codeInput) {
     const found = findGiftCardByCode(codeInput);
-    if (!found) return { ok: false, error: 'Folio no encontrado en el registro de Yademar.' };
-    state.appliedGiftCard = found;
+    if (!found) {
+      return { ok: false, error: 'Folio no encontrado en el registro oficial de Yademar.' };
+    }
+    const status = getGiftCardStatus(found);
+    if (status === 'Canjeada') {
+      return { ok: false, error: `El folio ${found.folio} ya fue canjeado completamente.` };
+    }
+    if (status === 'Vencida') {
+      return { ok: false, error: `El folio ${found.folio} venció el ${formatDateDMY(found.validoHasta)}.` };
+    }
+    const bucket = ensureActiveCartBucket();
+    bucket.appliedGiftCardFolio = found.folio;
     persistState();
     return { ok: true, card: found };
   }
 
   function clearAppliedGiftCard() {
-    state.appliedGiftCard = null;
+    const bucket = ensureActiveCartBucket();
+    bucket.appliedGiftCardFolio = null;
     persistState();
   }
 
+  // ---- Pedidos (con revalidación de stock, precios y descuento real de Gift Card) ----
   function recordOrder(orderPayload) {
     const user = getActiveClientUser();
-    if (!user) return null;
+    if (!user) return { ok: false, error: 'Debes validar tu sesión de cliente para confirmar el pedido.' };
     if (!Array.isArray(user.pedidos)) user.pedidos = [];
 
-    const itemsCopy = deepClone(orderPayload.items || []);
-    // Descontar stock real de las prendas compradas
-    itemsCopy.forEach((it) => {
-      if (it.esGiftCardSolicitud) return;
+    const rawItems = Array.isArray(orderPayload.items) ? deepClone(orderPayload.items) : [];
+    if (rawItems.length === 0) {
+      return { ok: false, error: 'Tu bolsa está vacía.' };
+    }
+
+    // Revalidar existencia, disponibilidad, stock acumulado por producto y precio vigente
+    const qtyByProd = {};
+    for (let i = 0; i < rawItems.length; i++) {
+      const it = rawItems[i];
+      if (it.esGiftCardSolicitud) continue;
       const prod = getProductById(it.id);
+      if (!prod || prod.disponible === false) {
+        return {
+          ok: false,
+          error: `"${it.nombre}" ya no está disponible en el catálogo. Retírala de tu bolsa para continuar.`,
+        };
+      }
+      qtyByProd[prod.id] = (qtyByProd[prod.id] || 0) + (Number(it.qty) || 1);
+      if (qtyByProd[prod.id] > (Number(prod.stock) || 0)) {
+        return {
+          ok: false,
+          error: `Stock insuficiente para "${prod.nombre}". Solo hay ${prod.stock} unidad(es) disponibles.`,
+        };
+      }
+      // Sincronizar con el precio vigente del catálogo
+      it.precio = prod.precio;
+    }
+
+    const subtotalNio = rawItems.reduce((sum, it) => sum + (Number(it.precio) || 0) * (Number(it.qty) || 1), 0);
+
+    // Validar y descontar folio Gift Card si aplica
+    let discountNio = 0;
+    let usedFolio = null;
+    const liveGc = orderPayload.giftCardFolio
+      ? findGiftCardByCode(orderPayload.giftCardFolio)
+      : getAppliedGiftCard();
+
+    if (liveGc && getGiftCardStatus(liveGc) === 'Vigente') {
+      const availNio = getGiftCardAvailableNio(liveGc);
+      discountNio = Math.min(subtotalNio, availNio);
+      usedFolio = liveGc.folio;
+
+      // Descontar saldo real del objeto Gift Card en state.data.usuarios
+      const rate = (state.data && state.data.config && state.data.config.tasaCambio) || 36.62;
+      const discountInCardCurrency = liveGc.moneda === 'US$' ? discountNio / rate : discountNio;
+      state.data.usuarios.forEach((u) => {
+        (u.giftCards || []).forEach((c) => {
+          if (normalizeCode(c.folio) === normalizeCode(liveGc.folio)) {
+            const prevSaldo = typeof c.saldoRestante === 'number' ? c.saldoRestante : Number(c.monto) || 0;
+            c.saldoRestante = Math.max(0, Math.round((prevSaldo - discountInCardCurrency) * 100) / 100);
+            if (c.saldoRestante <= 0.01) {
+              c.saldoRestante = 0;
+              c.canjeada = true;
+            }
+          }
+        });
+      });
+    }
+
+    const totalNio = Math.max(0, subtotalNio - discountNio);
+
+    // Descontar stock real
+    Object.keys(qtyByProd).forEach((pid) => {
+      const prod = getProductById(pid);
       if (prod) {
-        prod.stock = Math.max(0, (Number(prod.stock) || 0) - (Number(it.qty) || 1));
+        prod.stock = Math.max(0, (Number(prod.stock) || 0) - qtyByProd[pid]);
         state.editedProducts[prod.id] = prod;
       }
     });
@@ -1064,27 +1222,30 @@
     const order = {
       id: `PED-${Date.now().toString().slice(-5)}`,
       fecha: todayISO(),
-      items: itemsCopy,
-      subtotalNio: Math.round(Number(orderPayload.subtotalNio) || 0),
-      descuentoGiftCardNio: Math.round(Number(orderPayload.descuentoGiftCardNio) || 0),
-      giftCardFolio: orderPayload.giftCardFolio || null,
-      totalNio: Math.round(Number(orderPayload.totalNio) || 0),
+      createdAt: new Date().toISOString(),
+      items: rawItems,
+      subtotalNio: Math.round(subtotalNio),
+      descuentoGiftCardNio: Math.round(discountNio),
+      giftCardFolio: usedFolio,
+      totalNio: Math.round(totalNio),
       clienteNombre: String(orderPayload.clienteNombre || user.nombre).trim(),
       clienteTelefono: String(orderPayload.clienteTelefono || user.telefono || '').trim(),
       clienteCorreo: user.correo,
       entregaTipo: orderPayload.entregaTipo || 'Retiro en tienda',
-      direccionEntrega: String(orderPayload.direccionEntrega || user.direccion || 'Chinandega').trim(),
+      direccionEntrega: String(orderPayload.direccionEntrega || '').trim(),
       notas: String(orderPayload.notas || '').trim(),
       estado: 'Enviado por WhatsApp',
+      stockRestored: false,
     };
 
     user.pedidos.unshift(order);
     if (orderPayload.clearCartAfter !== false) {
-      state.cart = [];
-      state.appliedGiftCard = null;
+      const bucket = ensureActiveCartBucket();
+      bucket.items = [];
+      bucket.appliedGiftCardFolio = null;
     }
     persistState();
-    return order;
+    return { ok: true, order };
   }
 
   function getAllOrders() {
@@ -1100,7 +1261,17 @@
         });
       });
     });
+    list.sort((a, b) => {
+      const ta = a.createdAt || a.fecha || '';
+      const tb = b.createdAt || b.fecha || '';
+      if (tb !== ta) return tb.localeCompare(ta);
+      return String(b.id || '').localeCompare(String(a.id || ''));
+    });
     return list;
+  }
+
+  function getOrderById(orderId) {
+    return getAllOrders().find((o) => o.id === orderId) || null;
   }
 
   function updateOrderStatus(orderId, newStatus) {
@@ -1108,10 +1279,33 @@
     let updated = false;
     state.data.usuarios.forEach((u) => {
       (u.pedidos || []).forEach((p) => {
-        if (p.id === orderId) {
-          p.estado = String(newStatus || 'Confirmado');
-          updated = true;
+        if (p.id !== orderId) return;
+        const prevStatus = p.estado;
+        p.estado = String(newStatus || 'Confirmado');
+
+        // Restaurar inventario si se cancela un pedido
+        if (p.estado === 'Cancelado' && prevStatus !== 'Cancelado' && !p.stockRestored) {
+          (p.items || []).forEach((it) => {
+            if (it.esGiftCardSolicitud) return;
+            const prod = getProductById(it.id);
+            if (prod) {
+              prod.stock = (Number(prod.stock) || 0) + (Number(it.qty) || 1);
+              state.editedProducts[prod.id] = prod;
+            }
+          });
+          p.stockRestored = true;
+        } else if (p.estado !== 'Cancelado' && prevStatus === 'Cancelado' && p.stockRestored) {
+          (p.items || []).forEach((it) => {
+            if (it.esGiftCardSolicitud) return;
+            const prod = getProductById(it.id);
+            if (prod) {
+              prod.stock = Math.max(0, (Number(prod.stock) || 0) - (Number(it.qty) || 1));
+              state.editedProducts[prod.id] = prod;
+            }
+          });
+          p.stockRestored = false;
         }
+        updated = true;
       });
     });
     if (updated) persistState();
@@ -1124,7 +1318,8 @@
     const cards = [];
     state.data.usuarios.forEach((u) => {
       (u.giftCards || []).forEach((gc) => {
-        cards.push({ ...gc, emitidaPor: u.nombre, ownerId: u.id });
+        const norm = normalizeGiftCard(gc);
+        cards.push({ ...norm, emitidaPor: u.nombre, ownerId: u.id });
       });
     });
     cards.sort((a, b) => parseFolioNumber(b.folio) - parseFolioNumber(a.folio));
@@ -1154,9 +1349,12 @@
     if (!Array.isArray(adminUser.giftCards)) adminUser.giftCards = [];
 
     const folioClean = normalizeCode(cardData.folio || getNextFolio());
+    const montoVal = Math.max(10, Number(cardData.monto) || 1100);
     const entry = {
       folio: folioClean,
-      monto: Number(cardData.monto) || 1100,
+      monto: montoVal,
+      saldoRestante: montoVal,
+      canjeada: false,
       moneda: cardData.moneda === 'US$' ? 'US$' : 'C$',
       para: String(cardData.para || 'Destinatario Especial').trim(),
       de: String(cardData.de || 'Con cariño').trim(),
@@ -1230,11 +1428,14 @@
       config: { ...seed.config, ...(jsonObj.config || {}) },
       temporadas: Array.isArray(jsonObj.temporadas) && jsonObj.temporadas.length > 0 ? deepClone(jsonObj.temporadas) : seed.temporadas,
       productos: deepClone(jsonObj.productos).map(normalizeProduct),
-      usuarios: mergeUsers(seed.usuarios, jsonObj.usuarios),
+      usuarios: mergeUsers(seed.usuarios, jsonObj.usuarios, []),
     };
     state.deletedProductIds = [];
     state.customProducts = [];
     state.editedProducts = {};
+    state.deletedUserIds = [];
+    state.hasImportedProductsOverride = true;
+    state.importedProductsSnapshot = deepClone(state.data.productos);
     persistState();
     return { ok: true, countProducts: state.data.productos.length, countUsers: state.data.usuarios.length };
   }
@@ -1250,8 +1451,10 @@
     state.deletedProductIds = [];
     state.customProducts = [];
     state.editedProducts = {};
-    state.cart = [];
-    state.appliedGiftCard = null;
+    state.deletedUserIds = [];
+    state.cartsByUserId = {};
+    state.hasImportedProductsOverride = false;
+    state.importedProductsSnapshot = null;
     await initStore();
     return state.data;
   }
@@ -1339,11 +1542,14 @@
     updateCartQty,
     removeFromCart,
     clearCart,
+    getGiftCardStatus,
+    getGiftCardAvailableNio,
     getAppliedGiftCard,
     applyGiftCardCode,
     clearAppliedGiftCard,
     recordOrder,
     getAllOrders,
+    getOrderById,
     updateOrderStatus,
     // Gift Cards
     getAllGiftCards,

@@ -51,7 +51,7 @@ body {
   background-color: var(--yd-ivory);
   color: var(--yd-noir);
   font-family: var(--yd-font-sans);
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -60,77 +60,170 @@ h1, h2, .yd-display-title {
   font-family: var(--yd-font-display);
 }
 
-/* Botones personalizados sobre Bootstrap 5 */
+/* Foco de teclado accesible en controles interactivos */
+.yd-season-card:focus-visible,
+.yd-filter-pill:focus-visible,
+.yd-icon-pill:focus-visible,
+.yd-size-chip:focus-visible,
+.yd-color-swatch:focus-visible,
+.yd-admin-nav-btn:focus-visible,
+.yd-theme-swatch-btn:focus-visible,
+.yd-fav-btn:focus-visible,
+.yd-currency-btn:focus-visible,
+.navbar-toggler:focus-visible {
+  outline: 2px solid var(--yd-crimson);
+  outline-offset: 2px;
+}
+
+/* Botones personalizados compatibles con variables nativas Bootstrap 5.3 (.btn-sm, :active, :disabled) */
 .btn-yd-primary {
-  background-color: var(--yd-crimson);
-  border-color: var(--yd-crimson);
-  color: #FFFFFF;
+  --bs-btn-color: #FFFFFF;
+  --bs-btn-bg: var(--yd-crimson);
+  --bs-btn-border-color: var(--yd-crimson);
+  --bs-btn-hover-color: #FFFFFF;
+  --bs-btn-hover-bg: var(--yd-crimson-dark);
+  --bs-btn-hover-border-color: var(--yd-crimson-dark);
+  --bs-btn-active-color: #FFFFFF;
+  --bs-btn-active-bg: #8C021B;
+  --bs-btn-active-border-color: #8C021B;
+  --bs-btn-disabled-color: #FFFFFF;
+  --bs-btn-disabled-bg: #D48593;
+  --bs-btn-disabled-border-color: #D48593;
+  --bs-btn-focus-shadow-rgb: 217, 4, 41;
   font-weight: 600;
   border-radius: 999px;
-  padding: 0.68rem 1.45rem;
   transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-yd-primary:hover,
-.btn-yd-primary:focus-visible {
-  background-color: var(--yd-crimson-dark);
-  border-color: var(--yd-crimson-dark);
-  color: #FFFFFF;
+.btn-yd-primary:not(.btn-sm):not(.btn-lg) {
+  padding: 0.65rem 1.4rem;
+}
+
+.btn-yd-primary:hover {
   transform: translateY(-1px);
   box-shadow: 0 10px 24px rgba(217, 4, 41, 0.24);
 }
 
 .btn-yd-dark {
-  background-color: var(--yd-noir);
-  border-color: var(--yd-noir);
-  color: #FFFFFF;
+  --bs-btn-color: #FFFFFF;
+  --bs-btn-bg: var(--yd-noir);
+  --bs-btn-border-color: var(--yd-noir);
+  --bs-btn-hover-color: #FFFFFF;
+  --bs-btn-hover-bg: #2B2630;
+  --bs-btn-hover-border-color: #2B2630;
+  --bs-btn-active-color: #FFFFFF;
+  --bs-btn-active-bg: #0B0A0D;
+  --bs-btn-active-border-color: #0B0A0D;
+  --bs-btn-disabled-color: #FFFFFF;
+  --bs-btn-disabled-bg: #6C6570;
+  --bs-btn-disabled-border-color: #6C6570;
+  --bs-btn-focus-shadow-rgb: 20, 18, 22;
   font-weight: 600;
   border-radius: 999px;
-  padding: 0.68rem 1.45rem;
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.btn-yd-dark:hover,
-.btn-yd-dark:focus-visible {
-  background-color: #2B2630;
-  border-color: #2B2630;
-  color: #FFFFFF;
+.btn-yd-dark:not(.btn-sm):not(.btn-lg) {
+  padding: 0.65rem 1.4rem;
+}
+
+.btn-yd-dark:hover {
   transform: translateY(-1px);
 }
 
 .btn-yd-outline {
-  background-color: transparent;
-  border: 1px solid var(--yd-border);
-  color: var(--yd-noir);
+  --bs-btn-color: var(--yd-noir);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: #C9BCB2;
+  --bs-btn-hover-color: var(--yd-crimson);
+  --bs-btn-hover-bg: var(--yd-crimson-soft);
+  --bs-btn-hover-border-color: var(--yd-crimson);
+  --bs-btn-active-color: #FFFFFF;
+  --bs-btn-active-bg: var(--yd-crimson);
+  --bs-btn-active-border-color: var(--yd-crimson);
+  --bs-btn-disabled-color: var(--yd-muted);
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: var(--yd-border);
+  --bs-btn-focus-shadow-rgb: 217, 4, 41;
   font-weight: 600;
   border-radius: 999px;
-  padding: 0.65rem 1.35rem;
   transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
 
-.btn-yd-outline:hover,
-.btn-yd-outline:focus-visible {
-  border-color: var(--yd-crimson);
-  color: var(--yd-crimson);
-  background-color: var(--yd-crimson-soft);
+.btn-yd-outline:not(.btn-sm):not(.btn-lg) {
+  padding: 0.62rem 1.35rem;
 }
 
 .btn-yd-whatsapp {
-  background-color: #16A34A;
-  border-color: #16A34A;
-  color: #FFFFFF;
+  --bs-btn-color: #FFFFFF;
+  --bs-btn-bg: #15803D;
+  --bs-btn-border-color: #15803D;
+  --bs-btn-hover-color: #FFFFFF;
+  --bs-btn-hover-bg: #166534;
+  --bs-btn-hover-border-color: #166534;
+  --bs-btn-active-color: #FFFFFF;
+  --bs-btn-active-bg: #14532D;
+  --bs-btn-active-border-color: #14532D;
+  --bs-btn-disabled-color: #FFFFFF;
+  --bs-btn-disabled-bg: #86EFAC;
+  --bs-btn-disabled-border-color: #86EFAC;
+  --bs-btn-focus-shadow-rgb: 21, 128, 61;
   font-weight: 600;
   border-radius: 999px;
-  padding: 0.68rem 1.45rem;
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.btn-yd-whatsapp:hover,
-.btn-yd-whatsapp:focus-visible {
-  background-color: #15803D;
-  border-color: #15803D;
-  color: #FFFFFF;
+.btn-yd-whatsapp:not(.btn-sm):not(.btn-lg) {
+  padding: 0.65rem 1.4rem;
+}
+
+.btn-yd-whatsapp:hover {
   transform: translateY(-1px);
+}
+
+/* Badges y chips compactos en tarjetas del catálogo */
+.yd-discount-badge {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  background: var(--yd-crimson);
+  color: #FFFFFF;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.yd-card-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid rgba(20, 18, 22, 0.25);
+}
+
+.yd-card-size-pill {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--yd-muted);
+  background: var(--yd-ivory-warm);
+  border: 1px solid var(--yd-border);
+  border-radius: 0.35rem;
+  padding: 0.05rem 0.38rem;
+}
+
+.yd-product-name-btn {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.yd-product-name-btn:hover {
+  color: var(--yd-crimson);
 }
 
 /* ============================================================
@@ -883,17 +976,45 @@ h1, h2, .yd-display-title {
 .yd-barcode-strip {
   background: #FFFFFF;
   border-radius: 0.5rem;
-  padding: 0.45rem 0.7rem;
+  padding: 0.35rem 0.55rem;
   display: inline-flex;
   align-items: stretch;
   gap: 1.5px;
-  height: 44px;
+  height: 38px;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .yd-barcode-bar {
   background: #141216;
   height: 100%;
   border-radius: 1px;
+  flex-shrink: 0;
+}
+
+/* Ajuste responsivo de Tarjeta de Regalo 3D en celulares (< 460px) */
+@media (max-width: 460px) {
+  .yd-gc-flipper {
+    aspect-ratio: auto;
+    min-height: 256px;
+  }
+
+  .yd-gc-face {
+    padding: 0.85rem;
+  }
+
+  .yd-gc-logo-badge img {
+    height: 44px;
+  }
+
+  .yd-gc-footer .yd-gc-social-fb {
+    display: none;
+  }
+
+  .yd-barcode-strip {
+    height: 30px;
+    max-width: 165px;
+  }
 }
 
 /* ============================================================
@@ -1129,6 +1250,22 @@ h1, h2, .yd-display-title {
   transform: translateY(0);
 }
 
+@media (max-width: 575.98px) {
+  .yd-toast {
+    top: 1rem;
+    bottom: auto;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -14px);
+    width: min(92vw, 360px);
+    text-align: center;
+  }
+
+  .yd-toast.is-visible {
+    transform: translate(-50%, 0);
+  }
+}
+
 .yd-toast.yd-toast-error {
   background: #991B1B;
 }
@@ -1139,7 +1276,8 @@ h1, h2, .yd-display-title {
 
 /* ============================================================
    IMPRESIÓN CALIBRADA PARA TARJETA DE REGALO EN admin.html
-   Tamaño físico exacto: 176mm × 110mm
+   Se activa únicamente con body.yd-printing-giftcard durante window.print()
+   Tamaño físico exacto: 176mm × 110mm — cero páginas en blanco
    ============================================================ */
 @media print {
   @page {
@@ -1147,46 +1285,98 @@ h1, h2, .yd-display-title {
     margin: 12mm;
   }
 
-  body.yd-admin-print-ready * {
-    visibility: hidden !important;
-  }
-
-  body.yd-admin-print-ready #ydGiftPrintArea,
-  body.yd-admin-print-ready #ydGiftPrintArea * {
-    visibility: visible !important;
-  }
-
-  body.yd-admin-print-ready #ydGiftPrintArea {
-    position: fixed !important;
-    top: 12mm !important;
-    left: 12mm !important;
-    width: 176mm !important;
-    height: 110mm !important;
-    max-width: none !important;
+  body.yd-printing-giftcard {
+    background: #FFFFFF !important;
     margin: 0 !important;
     padding: 0 !important;
-    perspective: none !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
   }
 
-  body.yd-admin-print-ready #ydGiftPrintArea .yd-gc-flipper {
-    transform: none !important;
-    width: 176mm !important;
-    height: 110mm !important;
-    aspect-ratio: auto !important;
-  }
-
-  body.yd-admin-print-ready #ydGiftPrintArea .yd-gc-back {
+  body.yd-printing-giftcard #ydAdminGate,
+  body.yd-printing-giftcard #ydAdminNav,
+  body.yd-printing-giftcard aside,
+  body.yd-printing-giftcard .yd-admin-panel:not(#panelGiftCards),
+  body.yd-printing-giftcard #panelGiftCards > .d-flex,
+  body.yd-printing-giftcard #panelGiftCards .col-xl-5,
+  body.yd-printing-giftcard #panelGiftCards > .yd-admin-panel-card,
+  body.yd-printing-giftcard #ydGiftPreviewHeader,
+  body.yd-printing-giftcard .modal,
+  body.yd-printing-giftcard .modal-backdrop,
+  body.yd-printing-giftcard .yd-toast {
     display: none !important;
   }
 
-  body.yd-admin-print-ready #ydGiftPrintArea .yd-gc-front {
+  body.yd-printing-giftcard .container-fluid,
+  body.yd-printing-giftcard .row,
+  body.yd-printing-giftcard main,
+  body.yd-printing-giftcard .col-xl-7,
+  body.yd-printing-giftcard .yd-admin-panel-card {
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  body.yd-printing-giftcard #ydGiftPrintArea {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 176mm !important;
+    height: 110mm !important;
+    page-break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.yd-printing-giftcard #ydGiftScene {
+    width: 176mm !important;
+    max-width: none !important;
+    height: 110mm !important;
+    margin: 0 !important;
+    perspective: none !important;
+  }
+
+  body.yd-printing-giftcard #ydGiftFlipper {
+    transform: none !important;
+    width: 176mm !important;
+    height: 110mm !important;
+    min-height: 110mm !important;
+    aspect-ratio: auto !important;
+  }
+
+  body.yd-printing-giftcard #ydGiftPrintArea .yd-gc-back {
+    display: none !important;
+  }
+
+  body.yd-printing-giftcard #ydGiftPrintArea .yd-gc-front {
     position: relative !important;
     width: 176mm !important;
     height: 110mm !important;
+    padding: 8mm 10mm !important;
     box-shadow: none !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+
+  body.yd-printing-giftcard #ydGiftPrintArea .yd-gc-title {
+    font-size: 20pt !important;
+  }
+
+  body.yd-printing-giftcard #ydGiftPrintArea .yd-gc-amount-box {
+    font-size: 24pt !important;
+  }
+
+  body.yd-printing-giftcard #ydGiftPrintArea .yd-gc-field-row {
+    font-size: 10pt !important;
+  }
+
+  body.yd-printing-giftcard #ydGiftPrintArea .yd-gc-footer {
+    font-size: 8.5pt !important;
+  }
+
+  body.yd-printing-giftcard #ydGiftPrintArea .yd-gc-social-fb {
+    display: inline !important;
   }
 }
