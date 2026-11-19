@@ -1,0 +1,1049 @@
+/* ============================================================
+   YADEMAR — Motor de Datos Compartido (store-core.js)
+   Arquitectura modular compartida entre:
+     - Vista Cliente  (index.html + client.js)
+     - Vista Admin    (admin.html + admin.js)
+   Persistencia JSON + fallback offline (file://) + localStorage
+   ============================================================ */
+
+(function (global) {
+  'use strict';
+
+  const STORAGE_KEY = 'yademarStoreState_v2';
+  const ADMIN_SESSION_KEY = 'yademarAdminSession_v2';
+
+  const IMG_FALLBACK_SVG =
+    'data:image/svg+xml;charset=UTF-8,' +
+    encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">' +
+        '<rect width="600" height="800" fill="#F8F3EF"/>' +
+        '<rect x="36" y="36" width="528" height="728" rx="18" fill="none" stroke="#E7DCD6" stroke-width="2"/>' +
+        '<text x="300" y="385" text-anchor="middle" font-family="Georgia, serif" font-size="38" font-weight="700" fill="#D90429">Yademar</text>' +
+        '<text x="300" y="425" text-anchor="middle" font-family="sans-serif" font-size="14" letter-spacing="3" fill="#6F6773">BOUTIQUE CHINANDEGA</text>' +
+      '</svg>'
+    );
+
+  const SEASON_LABELS = {
+    verano: 'Verano Chinandega',
+    urbano: 'Oficina & Urbano',
+    eventos: 'Noche & Eventos',
+    navidad: 'Fiestas & Navidad',
+  };
+
+  function deepClone(obj) {
+    return JSON.parse(JSON.stringify(obj));
+  }
+
+  function escapeHtml(str) {
+    return String(str == null ? '' : str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function pad(num, size) {
+    return String(num).padStart(size, '0');
+  }
+
+  function todayISO() {
+    const d = new Date();
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1, 2)}-${pad(d.getDate(), 2)}`;
+  }
+
+  function defaultExpiryISO() {
+    const d = new Date();
+    d.setMonth(d.getMonth() + 6);
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1, 2)}-${pad(d.getDate(), 2)}`;
+  }
+
+  function formatDateDMY(iso) {
+    if (!iso || typeof iso !== 'string') return '30/11/2026';
+    const parts = iso.split('-');
+    if (parts.length !== 3) return iso;
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+  }
+
+  function formatFolio(num) {
+    const clean = Math.max(1, parseInt(num, 10) || 1);
+    return `N°${pad(clean, 4)}`;
+  }
+
+  function parseFolioNumber(folioStr) {
+    const m = String(folioStr || '').match(/(\d+)/);
+    return m ? parseInt(m[1], 10) : 0;
+  }
+
+  function normalizeCode(code) {
+    return String(code || '')
+      .trim()
+      .toUpperCase()
+      .replace(/\s+/g, '')
+      .replace(/^NO\.?/, 'N°')
+      .replace(/^N(?!°)/, 'N°');
+  }
+
+  /**
+   * Genera un patrón determinista de barras (anchos y espacios) para el código de barras de Gift Card.
+   */
+  function generateBarcodeBars(code) {
+    const clean = String(code || 'N°0001').trim();
+    let hash = 2166136261;
+    for (let i = 0; i < clean.length; i++) {
+      hash ^= clean.charCodeAt(i);
+      hash = Math.imul(hash, 16777619);
+    }
+    const bars = [];
+    // Guard bars iniciales
+    bars.push(2, 1, 2, 1);
+    for (let i = 0; i < 34; i++) {
+      hash ^= (hash << 13);
+      hash ^= (hash >>> 17);
+      hash ^= (hash << 5);
+      const val = Math.abs(hash);
+      bars.push((val % 3) + 1);
+    }
+    // Guard bars finales
+    bars.push(2, 1, 2);
+    return bars;
+  }
+
+  let toastTimer = null;
+  function showToast(message, type) {
+    let el = document.getElementById('ydToast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'ydToast';
+      el.className = 'yd-toast';
+      el.setAttribute('role', 'status');
+      el.setAttribute('aria-live', 'polite');
+      document.body.appendChild(el);
+    }
+    el.textContent = message;
+    el.classList.remove('yd-toast-error', 'yd-toast-success');
+    if (type === 'error') el.classList.add('yd-toast-error');
+    if (type === 'success') el.classList.add('yd-toast-success');
+    el.classList.add('is-visible');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      el.classList.remove('is-visible');
+    }, 3200);
+  }
+
+  // Estado compartido en memoria
+  let state = {
+    data: null,
+    currency: 'NIO',
+    activeClientUserId: 'U-CLI-01',
+    cart: [],
+    appliedGiftCard: null,
+    deletedProductIds: [],
+    customProducts: [],
+    editedProducts: {},
+    extraUsers: [],
+  };
+
+  function getFallbackSeed() {
+    if (global.YADEMAR_STORE_FALLBACK) {
+      return deepClone(global.YADEMAR_STORE_FALLBACK);
+    }
+    return {
+      config: {
+        tienda: 'Yademar',
+        handle: '@yademar5',
+        whatsapp: '50589563257',
+        whatsappDisplay: '8956-3257',
+        facebook: 'Yademar Tienda Online',
+        direccion: 'De la trasera del Calvario 2 ½ c. al este, Chinandega 25000',
+        tasaCambio: 36.62,
+        ultimoFolio: 1,
+        heroImagenUrl: IMG_FALLBACK_SVG,
+      },
+      temporadas: [],
+      productos: [],
+      usuarios: [
+        {
+          id: 'U-ADMIN',
+          nombre: 'Administración Yademar',
+          correo: 'admin@yademar.ni',
+          pin: '2026',
+          rol: 'admin',
+          ciudad: 'Chinandega',
+          telefono: '8956-3257',
+          favoritos: [],
+          pedidos: [],
+          giftCards: [],
+        },
+        {
+          id: 'U-CLI-01',
+          nombre: 'Isabella Castro',
+          correo: 'cliente@yademar.ni',
+          pin: '1234',
+          rol: 'cliente',
+          ciudad: 'Chinandega',
+          telefono: '8800-1122',
+          favoritos: [],
+          pedidos: [],
+          giftCards: [],
+        },
+      ],
+    };
+  }
+
+  /**
+   * Fusiona usuarios del seed JSON con usuarios guardados en localStorage.
+   * Los campos de autenticación del JSON (id, correo, pin, rol) son autoritativos
+   * para las cuentas base para evitar bloqueos por caché corrupto.
+   */
+  function mergeUsers(baseUsers, savedUsers) {
+    const baseList = Array.isArray(baseUsers) ? deepClone(baseUsers) : [];
+    const savedList = Array.isArray(savedUsers) ? savedUsers : [];
+    const merged = [];
+
+    baseList.forEach((baseUser) => {
+      const saved = savedList.find(
+        (u) =>
+          u &&
+          (u.id === baseUser.id ||
+            (u.correo &&
+              baseUser.correo &&
+              String(u.correo).toLowerCase() === String(baseUser.correo).toLowerCase()))
+      );
+      if (saved) {
+        merged.push({
+          ...saved,
+          // Credenciales autoritativas desde el JSON
+          id: baseUser.id,
+          correo: baseUser.correo,
+          pin: String(baseUser.pin),
+          rol: baseUser.rol,
+          nombre: saved.nombre || baseUser.nombre,
+          ciudad: saved.ciudad || baseUser.ciudad || 'Chinandega',
+          telefono: saved.telefono || baseUser.telefono || '',
+          favoritos: Array.isArray(saved.favoritos)
+            ? saved.favoritos
+            : Array.isArray(baseUser.favoritos)
+            ? baseUser.favoritos
+            : [],
+          pedidos: Array.isArray(saved.pedidos)
+            ? saved.pedidos
+            : Array.isArray(baseUser.pedidos)
+            ? baseUser.pedidos
+            : [],
+          giftCards:
+            Array.isArray(saved.giftCards) && saved.giftCards.length > 0
+              ? saved.giftCards
+              : Array.isArray(baseUser.giftCards)
+              ? baseUser.giftCards
+              : [],
+        });
+      } else {
+        merged.push({
+          ...baseUser,
+          pin: String(baseUser.pin || ''),
+          favoritos: Array.isArray(baseUser.favoritos) ? baseUser.favoritos : [],
+          pedidos: Array.isArray(baseUser.pedidos) ? baseUser.pedidos : [],
+          giftCards: Array.isArray(baseUser.giftCards) ? baseUser.giftCards : [],
+        });
+      }
+    });
+
+    // Agregar usuarios nuevos creados dinámicamente (que no existen en base)
+    savedList.forEach((saved) => {
+      if (!saved || !saved.correo) return;
+      const exists = merged.some(
+        (u) =>
+          u.id === saved.id ||
+          String(u.correo).toLowerCase() === String(saved.correo).toLowerCase()
+      );
+      if (!exists) {
+        merged.push({
+          ...saved,
+          rol: saved.rol === 'admin' ? 'cliente' : saved.rol || 'cliente',
+          pin: String(saved.pin || '1234'),
+          favoritos: Array.isArray(saved.favoritos) ? saved.favoritos : [],
+          pedidos: Array.isArray(saved.pedidos) ? saved.pedidos : [],
+          giftCards: Array.isArray(saved.giftCards) ? saved.giftCards : [],
+        });
+      }
+    });
+
+    return merged;
+  }
+
+  function mergeProducts(baseProducts, savedOverlay) {
+    const baseList = Array.isArray(baseProducts) ? deepClone(baseProducts) : [];
+    const deleted = new Set(Array.isArray(savedOverlay.deletedProductIds) ? savedOverlay.deletedProductIds : []);
+    const editedMap = savedOverlay.editedProducts && typeof savedOverlay.editedProducts === 'object' ? savedOverlay.editedProducts : {};
+    const customList = Array.isArray(savedOverlay.customProducts) ? deepClone(savedOverlay.customProducts) : [];
+
+    // Si existe una lista completa productosOverride (importación JSON), úsala como base
+    if (Array.isArray(savedOverlay.productosOverride) && savedOverlay.productosOverride.length > 0) {
+      return deepClone(savedOverlay.productosOverride);
+    }
+
+    const result = [];
+    baseList.forEach((prod) => {
+      if (deleted.has(prod.id)) return;
+      if (editedMap[prod.id]) {
+        result.push({ ...prod, ...deepClone(editedMap[prod.id]), id: prod.id });
+      } else {
+        result.push(prod);
+      }
+    });
+
+    customList.forEach((custom) => {
+      if (!custom || !custom.id || deleted.has(custom.id)) return;
+      const idx = result.findIndex((p) => p.id === custom.id);
+      if (idx >= 0) {
+        result[idx] = { ...result[idx], ...custom };
+      } else {
+        result.push(custom);
+      }
+    });
+
+    return result;
+  }
+
+  function readPersistedRaw() {
+    try {
+      const raw = global.localStorage && global.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function persistState() {
+    if (!state.data) return;
+    try {
+      const payload = {
+        version: 2,
+        updatedAt: new Date().toISOString(),
+        currency: state.currency,
+        activeClientUserId: state.activeClientUserId,
+        cart: state.cart,
+        appliedGiftCard: state.appliedGiftCard,
+        ultimoFolio: state.data.config.ultimoFolio,
+        usuarios: state.data.usuarios,
+        productosOverride: state.data.productos,
+        temporadasOverride: state.data.temporadas,
+        deletedProductIds: state.deletedProductIds,
+        customProducts: state.customProducts,
+        editedProducts: state.editedProducts,
+      };
+      if (global.localStorage) {
+        global.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      }
+    } catch (_) {
+      // Ignorar si almacenamiento está lleno o restringido
+    }
+  }
+
+  function getDefaultClientUser() {
+    if (!state.data || !Array.isArray(state.data.usuarios)) return null;
+    return (
+      state.data.usuarios.find((u) => u.id === 'U-CLI-01') ||
+      state.data.usuarios.find((u) => u.rol === 'cliente') ||
+      state.data.usuarios[0] ||
+      null
+    );
+  }
+
+  async function loadBaseJson() {
+    const seed = getFallbackSeed();
+    const isHttp =
+      typeof global.location !== 'undefined' &&
+      (global.location.protocol === 'http:' || global.location.protocol === 'https:');
+    if (isHttp && typeof global.fetch === 'function') {
+      try {
+        const res = await global.fetch('data/store-data.json', { cache: 'no-store' });
+        if (res.ok) {
+          const json = await res.json();
+          if (json && json.config && Array.isArray(json.productos)) {
+            return json;
+          }
+        }
+      } catch (_) {
+        // Usar fallback local si fetch falla
+      }
+    }
+    return seed;
+  }
+
+  async function initStore() {
+    const baseData = await loadBaseJson();
+    const saved = readPersistedRaw();
+
+    const merged = deepClone(baseData);
+    if (!merged.config) merged.config = getFallbackSeed().config;
+    if (!Array.isArray(merged.temporadas)) merged.temporadas = [];
+    if (!Array.isArray(merged.productos)) merged.productos = [];
+    if (!Array.isArray(merged.usuarios)) merged.usuarios = getFallbackSeed().usuarios;
+
+    if (saved && typeof saved === 'object') {
+      merged.usuarios = mergeUsers(merged.usuarios, saved.usuarios);
+      merged.productos = mergeProducts(merged.productos, saved);
+      if (Array.isArray(saved.temporadasOverride) && saved.temporadasOverride.length > 0) {
+        merged.temporadas = deepClone(saved.temporadasOverride);
+      }
+      if (typeof saved.ultimoFolio === 'number' && saved.ultimoFolio > (merged.config.ultimoFolio || 0)) {
+        merged.config.ultimoFolio = saved.ultimoFolio;
+      }
+      state.currency = saved.currency === 'USD' ? 'USD' : 'NIO';
+      state.cart = Array.isArray(saved.cart) ? saved.cart : [];
+      state.appliedGiftCard = saved.appliedGiftCard || null;
+      state.deletedProductIds = Array.isArray(saved.deletedProductIds) ? saved.deletedProductIds : [];
+      state.customProducts = Array.isArray(saved.customProducts) ? saved.customProducts : [];
+      state.editedProducts = saved.editedProducts && typeof saved.editedProducts === 'object' ? saved.editedProducts : {};
+      state.activeClientUserId = saved.activeClientUserId || 'U-CLI-01';
+    } else {
+      merged.usuarios = mergeUsers(merged.usuarios, []);
+      state.currency = 'NIO';
+      state.cart = [];
+      state.appliedGiftCard = null;
+      state.activeClientUserId = 'U-CLI-01';
+    }
+
+    state.data = merged;
+
+    // Asegurar que el usuario cliente activo exista y tenga rol cliente por defecto
+    const clientMatch = state.data.usuarios.find(
+      (u) => u.id === state.activeClientUserId && u.rol === 'cliente'
+    );
+    if (!clientMatch) {
+      const defClient = getDefaultClientUser();
+      state.activeClientUserId = defClient ? defClient.id : null;
+    }
+
+    // Recalcular ultimoFolio con base en todas las gift cards registradas
+    const allCards = getAllGiftCards();
+    const maxFolio = allCards.reduce((max, c) => Math.max(max, parseFolioNumber(c.folio)), 0);
+    if (maxFolio > (state.data.config.ultimoFolio || 0)) {
+      state.data.config.ultimoFolio = maxFolio;
+    }
+
+    return state.data;
+  }
+
+  /**
+   * Autenticación flexible por correo completo, prefijo antes de @ (ej. "admin" o "cliente"),
+   * ID de usuario (ej. "U-ADMIN"), o rol único ("admin" / "cliente").
+   */
+  function authenticate(identifier, pin) {
+    if (!state.data || !Array.isArray(state.data.usuarios)) return null;
+    const rawId = String(identifier || '').trim().toLowerCase();
+    const rawPin = String(pin || '').trim();
+    if (!rawId || !rawPin) return null;
+
+    const users = state.data.usuarios;
+    const matched = users.find((u) => {
+      if (String(u.pin || '').trim() !== rawPin) return false;
+      const email = String(u.correo || '').trim().toLowerCase();
+      const prefix = email.includes('@') ? email.split('@')[0] : email;
+      const uid = String(u.id || '').trim().toLowerCase();
+      const role = String(u.rol || '').trim().toLowerCase();
+      if (rawId === email || rawId === prefix || rawId === uid) return true;
+      if (rawId === role) {
+        const sameRoleCount = users.filter((x) => String(x.rol || '').toLowerCase() === role).length;
+        return sameRoleCount === 1 || role === 'admin';
+      }
+      return false;
+    });
+
+    return matched || null;
+  }
+
+  // ---- Sesión Cliente (index.html) ----
+  function getActiveClientUser() {
+    if (!state.data) return null;
+    return (
+      state.data.usuarios.find((u) => u.id === state.activeClientUserId) ||
+      getDefaultClientUser()
+    );
+  }
+
+  function setActiveClientUser(userId) {
+    if (!state.data) return null;
+    const found = state.data.usuarios.find((u) => u.id === userId);
+    if (found) {
+      state.activeClientUserId = found.id;
+      persistState();
+      return found;
+    }
+    return null;
+  }
+
+  function resetClientToDefault() {
+    const def = getDefaultClientUser();
+    if (def) {
+      state.activeClientUserId = def.id;
+      persistState();
+    }
+    return def;
+  }
+
+  function registerClientUser({ nombre, correo, pin, ciudad, telefono }) {
+    if (!state.data) return { ok: false, error: 'Tienda no inicializada.' };
+    const cleanEmail = String(correo || '').trim().toLowerCase();
+    const cleanName = String(nombre || '').trim();
+    const cleanPin = String(pin || '').trim();
+
+    if (!cleanName || !cleanEmail || !cleanEmail.includes('@') || cleanPin.length < 4) {
+      return { ok: false, error: 'Completa nombre, correo válido y un PIN de al menos 4 dígitos.' };
+    }
+
+    const exists = state.data.usuarios.some(
+      (u) => String(u.correo || '').trim().toLowerCase() === cleanEmail
+    );
+    if (exists) {
+      return { ok: false, error: 'Ya existe una cuenta registrada con ese correo.' };
+    }
+
+    const newUser = {
+      id: `U-CLI-${Date.now().toString().slice(-4)}`,
+      nombre: cleanName,
+      correo: cleanEmail,
+      pin: cleanPin,
+      rol: 'cliente',
+      ciudad: String(ciudad || 'Chinandega').trim(),
+      telefono: String(telefono || '').trim(),
+      favoritos: [],
+      pedidos: [],
+      giftCards: [],
+    };
+
+    state.data.usuarios.push(newUser);
+    state.activeClientUserId = newUser.id;
+    persistState();
+    return { ok: true, user: newUser };
+  }
+
+  // ---- Sesión Administrador (admin.html) ----
+  function getAdminSessionUser() {
+    if (!state.data) return null;
+    try {
+      const savedId = global.localStorage && global.localStorage.getItem(ADMIN_SESSION_KEY);
+      if (!savedId) return null;
+      const found = state.data.usuarios.find((u) => u.id === savedId && u.rol === 'admin');
+      return found || null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function isAdminAuthenticated() {
+    return Boolean(getAdminSessionUser());
+  }
+
+  function loginAdmin(identifier, pin) {
+    const user = authenticate(identifier, pin);
+    if (!user) {
+      return { ok: false, error: 'Usuario o PIN incorrecto. Verifica tus credenciales de administrador.' };
+    }
+    if (user.rol !== 'admin') {
+      return {
+        ok: false,
+        error: 'Esta cuenta tiene rol Cliente. Solo cuentas con rol Administrador pueden acceder al panel.',
+      };
+    }
+    try {
+      if (global.localStorage) {
+        global.localStorage.setItem(ADMIN_SESSION_KEY, user.id);
+      }
+    } catch (_) {
+      // Ignore storage error
+    }
+    return { ok: true, user };
+  }
+
+  function logoutAdmin() {
+    try {
+      if (global.localStorage) {
+        global.localStorage.removeItem(ADMIN_SESSION_KEY);
+      }
+    } catch (_) {
+      // Ignore storage error
+    }
+  }
+
+  // ---- Moneda y Formatos ----
+  function getCurrency() {
+    return state.currency;
+  }
+
+  function setCurrency(curr) {
+    state.currency = curr === 'USD' ? 'USD' : 'NIO';
+    persistState();
+  }
+
+  function formatMoney(nioAmount, overrideCurrency) {
+    const curr = overrideCurrency || state.currency;
+    const rate = (state.data && state.data.config && state.data.config.tasaCambio) || 36.62;
+    const val = Number(nioAmount) || 0;
+    if (curr === 'USD' || curr === 'US$') {
+      const usd = val / rate;
+      return `US$${usd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+    return `C$${Math.round(val).toLocaleString('en-US')}`;
+  }
+
+  function formatRawAmount(amount, currencySymbol) {
+    const val = Number(amount) || 0;
+    if (currencySymbol === 'US$' || currencySymbol === 'USD') {
+      return `US$${val.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+    }
+    return `C$${Math.round(val).toLocaleString('en-US')}`;
+  }
+
+  // ---- Productos (CRUD Admin + Consultas Cliente) ----
+  function getProducts() {
+    return (state.data && state.data.productos) || [];
+  }
+
+  function getProductById(id) {
+    return getProducts().find((p) => p.id === id) || null;
+  }
+
+  function getSeasons() {
+    return (state.data && state.data.temporadas) || [];
+  }
+
+  function getSeasonLabel(seasonId) {
+    const s = getSeasons().find((t) => t.id === seasonId);
+    return (s && s.nombre) || SEASON_LABELS[seasonId] || seasonId || 'Colección';
+  }
+
+  function addOrUpdateProduct(productPayload) {
+    if (!state.data) return { ok: false, error: 'Tienda no inicializada.' };
+    const cleanName = String(productPayload.nombre || '').trim();
+    const cleanPrice = Number(productPayload.precio);
+    if (!cleanName || !Number.isFinite(cleanPrice) || cleanPrice <= 0) {
+      return { ok: false, error: 'Ingresa un nombre válido y un precio mayor a 0.' };
+    }
+
+    const tallasArr = Array.isArray(productPayload.tallas)
+      ? productPayload.tallas.map((t) => String(t).trim()).filter(Boolean)
+      : String(productPayload.tallas || 'S, M, L')
+          .split(',')
+          .map((t) => t.trim())
+          .filter(Boolean);
+
+    const coloresArr =
+      Array.isArray(productPayload.colores) && productPayload.colores.length > 0
+        ? productPayload.colores
+        : [
+            { nombre: 'Negro Couture', hex: '#141216' },
+            { nombre: 'Carmesí Yademar', hex: '#D90429' },
+          ];
+
+    const imgUrl = String(productPayload.imagenUrl || '').trim() || IMG_FALLBACK_SVG;
+    const isEdit = Boolean(productPayload.id && getProductById(productPayload.id));
+
+    let prodId = productPayload.id;
+    if (!isEdit) {
+      const maxNum = state.data.productos.reduce((max, p) => {
+        const m = String(p.id || '').match(/(\d+)$/);
+        return m ? Math.max(max, parseInt(m[1], 10)) : max;
+      }, 12);
+      prodId = `YD-${pad(maxNum + 1, 2)}`;
+    }
+
+    const record = {
+      id: prodId,
+      nombre: cleanName,
+      categoria: productPayload.categoria === 'caballero' ? 'caballero' : 'dama',
+      temporada: productPayload.temporada || 'verano',
+      precio: Math.round(cleanPrice),
+      precioAnterior:
+        productPayload.precioAnterior && Number(productPayload.precioAnterior) > cleanPrice
+          ? Math.round(Number(productPayload.precioAnterior))
+          : undefined,
+      tallas: tallasArr.length > 0 ? tallasArr : ['S', 'M', 'L'],
+      colores: coloresArr,
+      etiqueta: String(productPayload.etiqueta || 'Nuevo').trim(),
+      disponible: productPayload.disponible !== false,
+      descripcion:
+        String(productPayload.descripcion || '').trim() ||
+        'Prenda seleccionada de la colección Yademar Boutique Chinandega.',
+      imagenUrl: imgUrl,
+    };
+
+    if (!record.precioAnterior) delete record.precioAnterior;
+
+    if (isEdit) {
+      const idx = state.data.productos.findIndex((p) => p.id === prodId);
+      if (idx >= 0) state.data.productos[idx] = record;
+      state.editedProducts[prodId] = record;
+    } else {
+      state.data.productos.unshift(record);
+      state.customProducts.push(record);
+    }
+
+    persistState();
+    return { ok: true, product: record, isEdit };
+  }
+
+  function deleteProduct(prodId) {
+    if (!state.data) return false;
+    const before = state.data.productos.length;
+    state.data.productos = state.data.productos.filter((p) => p.id !== prodId);
+    if (state.data.productos.length === before) return false;
+    if (!state.deletedProductIds.includes(prodId)) {
+      state.deletedProductIds.push(prodId);
+    }
+    state.customProducts = state.customProducts.filter((p) => p.id !== prodId);
+    delete state.editedProducts[prodId];
+    persistState();
+    return true;
+  }
+
+  // ---- Favoritos y Bolsa (Vista Cliente) ----
+  function toggleFavorite(prodId) {
+    const user = getActiveClientUser();
+    if (!user) return false;
+    if (!Array.isArray(user.favoritos)) user.favoritos = [];
+    const idx = user.favoritos.indexOf(prodId);
+    let added = false;
+    if (idx >= 0) {
+      user.favoritos.splice(idx, 1);
+    } else {
+      user.favoritos.push(prodId);
+      added = true;
+    }
+    persistState();
+    return added;
+  }
+
+  function getCart() {
+    return state.cart;
+  }
+
+  function addToCart(item) {
+    const key = `${item.id}|${item.talla || ''}|${item.color || ''}`;
+    const existing = state.cart.find((c) => c.key === key);
+    if (existing) {
+      existing.qty += item.qty || 1;
+    } else {
+      state.cart.push({
+        key,
+        id: item.id,
+        nombre: item.nombre,
+        precio: Number(item.precio) || 0,
+        talla: item.talla || 'Única',
+        color: item.color || 'Estándar',
+        imagenUrl: item.imagenUrl || IMG_FALLBACK_SVG,
+        qty: item.qty || 1,
+        esGiftCardSolicitud: Boolean(item.esGiftCardSolicitud),
+      });
+    }
+    persistState();
+    return state.cart;
+  }
+
+  function updateCartQty(key, delta) {
+    const idx = state.cart.findIndex((c) => c.key === key);
+    if (idx < 0) return;
+    state.cart[idx].qty += delta;
+    if (state.cart[idx].qty <= 0) {
+      state.cart.splice(idx, 1);
+    }
+    persistState();
+  }
+
+  function removeFromCart(key) {
+    state.cart = state.cart.filter((c) => c.key !== key);
+    persistState();
+  }
+
+  function clearCart() {
+    state.cart = [];
+    state.appliedGiftCard = null;
+    persistState();
+  }
+
+  function getAppliedGiftCard() {
+    return state.appliedGiftCard;
+  }
+
+  function applyGiftCardCode(codeInput) {
+    const found = findGiftCardByCode(codeInput);
+    if (!found) return { ok: false, error: 'Folio no encontrado en el registro de Yademar.' };
+    state.appliedGiftCard = found;
+    persistState();
+    return { ok: true, card: found };
+  }
+
+  function clearAppliedGiftCard() {
+    state.appliedGiftCard = null;
+    persistState();
+  }
+
+  function recordOrder(orderPayload) {
+    const user = getActiveClientUser();
+    if (!user) return null;
+    if (!Array.isArray(user.pedidos)) user.pedidos = [];
+    const order = {
+      id: `PED-${Date.now().toString().slice(-5)}`,
+      fecha: todayISO(),
+      items: deepClone(orderPayload.items || []),
+      subtotalNio: Math.round(Number(orderPayload.subtotalNio) || 0),
+      descuentoGiftCardNio: Math.round(Number(orderPayload.descuentoGiftCardNio) || 0),
+      giftCardFolio: orderPayload.giftCardFolio || null,
+      totalNio: Math.round(Number(orderPayload.totalNio) || 0),
+      clienteNombre: user.nombre,
+      clienteCorreo: user.correo,
+      estado: 'Enviado por WhatsApp',
+    };
+    user.pedidos.unshift(order);
+    persistState();
+    return order;
+  }
+
+  function getAllOrders() {
+    if (!state.data || !Array.isArray(state.data.usuarios)) return [];
+    const list = [];
+    state.data.usuarios.forEach((u) => {
+      (u.pedidos || []).forEach((p) => {
+        list.push({
+          ...p,
+          clienteNombre: p.clienteNombre || u.nombre,
+          clienteCorreo: p.clienteCorreo || u.correo,
+        });
+      });
+    });
+    return list;
+  }
+
+  // ---- Tarjetas de Regalo (Folios Oficiales) ----
+  function getAllGiftCards() {
+    if (!state.data || !Array.isArray(state.data.usuarios)) return [];
+    const cards = [];
+    state.data.usuarios.forEach((u) => {
+      (u.giftCards || []).forEach((gc) => {
+        cards.push({ ...gc, emitidaPor: u.nombre, ownerId: u.id });
+      });
+    });
+    cards.sort((a, b) => parseFolioNumber(b.folio) - parseFolioNumber(a.folio));
+    return cards;
+  }
+
+  function findGiftCardByCode(codeInput) {
+    const target = normalizeCode(codeInput);
+    if (!target) return null;
+    return getAllGiftCards().find((c) => normalizeCode(c.folio) === target) || null;
+  }
+
+  function getNextFolio() {
+    const current = (state.data && state.data.config && state.data.config.ultimoFolio) || 1;
+    const cards = getAllGiftCards();
+    const maxFromCards = cards.reduce((m, c) => Math.max(m, parseFolioNumber(c.folio)), 0);
+    return formatFolio(Math.max(current, maxFromCards) + 1);
+  }
+
+  function recordGiftCard(cardData) {
+    if (!state.data) return null;
+    const adminUser =
+      getAdminSessionUser() ||
+      state.data.usuarios.find((u) => u.rol === 'admin') ||
+      state.data.usuarios[0];
+    if (!adminUser) return null;
+    if (!Array.isArray(adminUser.giftCards)) adminUser.giftCards = [];
+
+    const folioClean = normalizeCode(cardData.folio || getNextFolio());
+    const entry = {
+      folio: folioClean,
+      monto: Number(cardData.monto) || 1100,
+      moneda: cardData.moneda === 'US$' ? 'US$' : 'C$',
+      para: String(cardData.para || 'Destinatario Especial').trim(),
+      de: String(cardData.de || 'Con cariño').trim(),
+      motivo: String(cardData.motivo || 'DETALLE ESPECIAL').trim().toUpperCase(),
+      validoHasta: cardData.validoHasta || defaultExpiryISO(),
+      tema: cardData.tema || 'crimson',
+      canje: String(cardData.canje || 'Para gastar en la tienda física y Online.').trim(),
+      mensaje: String(cardData.mensaje || '').trim(),
+      fechaEmision: cardData.fechaEmision || todayISO(),
+    };
+
+    const existingIdx = adminUser.giftCards.findIndex(
+      (c) => normalizeCode(c.folio) === folioClean
+    );
+    if (existingIdx >= 0) {
+      adminUser.giftCards[existingIdx] = entry;
+    } else {
+      adminUser.giftCards.unshift(entry);
+    }
+
+    const num = parseFolioNumber(folioClean);
+    if (num > (state.data.config.ultimoFolio || 0)) {
+      state.data.config.ultimoFolio = num;
+    }
+
+    persistState();
+    return entry;
+  }
+
+  function deleteGiftCard(folio) {
+    if (!state.data) return false;
+    const target = normalizeCode(folio);
+    let removed = false;
+    state.data.usuarios.forEach((u) => {
+      if (!Array.isArray(u.giftCards)) return;
+      const before = u.giftCards.length;
+      u.giftCards = u.giftCards.filter((c) => normalizeCode(c.folio) !== target);
+      if (u.giftCards.length < before) removed = true;
+    });
+    if (removed) persistState();
+    return removed;
+  }
+
+  // ---- Exportar / Importar / Reset JSON ----
+  function getExportableJsonObject() {
+    if (!state.data) return null;
+    return deepClone(state.data);
+  }
+
+  function exportJsonDownload() {
+    const obj = getExportableJsonObject();
+    if (!obj) return false;
+    const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'store-data.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    return true;
+  }
+
+  function importJsonObject(jsonObj) {
+    if (!jsonObj || typeof jsonObj !== 'object' || !Array.isArray(jsonObj.productos) || !Array.isArray(jsonObj.usuarios)) {
+      return { ok: false, error: 'El archivo JSON no tiene una estructura válida de Yademar (requiere productos y usuarios).' };
+    }
+    const seed = getFallbackSeed();
+    state.data = {
+      config: { ...seed.config, ...(jsonObj.config || {}) },
+      temporadas: Array.isArray(jsonObj.temporadas) && jsonObj.temporadas.length > 0 ? deepClone(jsonObj.temporadas) : seed.temporadas,
+      productos: deepClone(jsonObj.productos),
+      usuarios: mergeUsers(seed.usuarios, jsonObj.usuarios),
+    };
+    state.deletedProductIds = [];
+    state.customProducts = [];
+    state.editedProducts = {};
+    persistState();
+    return { ok: true, countProducts: state.data.productos.length, countUsers: state.data.usuarios.length };
+  }
+
+  async function resetLocalCache() {
+    try {
+      if (global.localStorage) {
+        global.localStorage.removeItem(STORAGE_KEY);
+      }
+    } catch (_) {
+      // Ignore
+    }
+    state.deletedProductIds = [];
+    state.customProducts = [];
+    state.editedProducts = {};
+    state.cart = [];
+    state.appliedGiftCard = null;
+    await initStore();
+    return state.data;
+  }
+
+  function subscribeExternalSync(callback) {
+    if (typeof global.addEventListener !== 'function') return;
+    global.addEventListener('storage', async (ev) => {
+      if (ev.key === STORAGE_KEY || ev.key === ADMIN_SESSION_KEY) {
+        await initStore();
+        if (typeof callback === 'function') callback(ev.key);
+      }
+    });
+  }
+
+  function getConfig() {
+    return (state.data && state.data.config) || getFallbackSeed().config;
+  }
+
+  function getUsers() {
+    return (state.data && state.data.usuarios) || [];
+  }
+
+  function getWhatsAppUrl(text) {
+    const cfg = getConfig();
+    const phone = cfg.whatsapp || '50589563257';
+    return `https://wa.me/${phone}?text=${encodeURIComponent(text || 'Hola Yademar, deseo hacer una consulta.')}`;
+  }
+
+  global.YademarStore = {
+    STORAGE_KEY,
+    ADMIN_SESSION_KEY,
+    IMG_FALLBACK_SVG,
+    escapeHtml,
+    pad,
+    todayISO,
+    defaultExpiryISO,
+    formatDateDMY,
+    formatFolio,
+    parseFolioNumber,
+    normalizeCode,
+    generateBarcodeBars,
+    showToast,
+    initStore,
+    persistState,
+    authenticate,
+    // Cliente
+    getActiveClientUser,
+    setActiveClientUser,
+    resetClientToDefault,
+    registerClientUser,
+    toggleFavorite,
+    // Admin
+    getAdminSessionUser,
+    isAdminAuthenticated,
+    loginAdmin,
+    logoutAdmin,
+    // Moneda
+    getCurrency,
+    setCurrency,
+    formatMoney,
+    formatRawAmount,
+    // Datos
+    getConfig,
+    getSeasons,
+    getSeasonLabel,
+    getProducts,
+    getProductById,
+    addOrUpdateProduct,
+    deleteProduct,
+    getUsers,
+    // Bolsa & Pedidos
+    getCart,
+    addToCart,
+    updateCartQty,
+    removeFromCart,
+    clearCart,
+    getAppliedGiftCard,
+    applyGiftCardCode,
+    clearAppliedGiftCard,
+    recordOrder,
+    getAllOrders,
+    // Gift Cards
+    getAllGiftCards,
+    findGiftCardByCode,
+    getNextFolio,
+    recordGiftCard,
+    deleteGiftCard,
+    // JSON & Sync
+    getExportableJsonObject,
+    exportJsonDownload,
+    importJsonObject,
+    resetLocalCache,
+    subscribeExternalSync,
+    getWhatsAppUrl,
+  };
+})(typeof window !== 'undefined' ? window : globalThis);

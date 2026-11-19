@@ -3,1064 +3,742 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Yademar — Boutique & Tienda Online en Chinandega, Nicaragua. Colecciones de temporada para dama y caballero, pedidos WhatsApp (8956-3257) y Estudio Generador de Tarjetas de Regalo Couture.">
-  <meta name="keywords" content="Yademar, boutique Chinandega, moda dama caballero, tarjeta de regalo Yademar, yademar5, tienda online Nicaragua">
-  <title>Yademar | Boutique de Temporada &amp; Tarjetas de Regalo | Chinandega</title>
-
+  <title>Yademar — Boutique &amp; Tienda Online | Chinandega</title>
+  <meta name="description" content="Yademar Boutique &amp; Tienda Online en Chinandega. Moda de temporada para dama y caballero, pedidos directos por WhatsApp (8956-3257) y Tarjetas de Regalo oficiales.">
   <link rel="icon" type="image/jpeg" href="logo.jpg">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3.3 & Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Tema Couture Editorial Yademar -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Barra Superior Utilitaria -->
-  <div class="yd-topbar">
-    <div class="yd-container yd-topbar-inner">
-      <div class="yd-topbar-group">
-        <a href="../index.html" class="yd-topbar-link yd-topbar-hub">
-          <i class="bi bi-arrow-left"></i>
-          <span>Portal Hub</span>
+  <!-- Barra de Información Superior -->
+  <div class="yd-topbar py-2">
+    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <div class="d-flex flex-wrap align-items-center gap-3">
+        <span><i class="bi bi-geo-alt-fill text-danger me-1"></i> De la trasera del Calvario 2 ½ c. al este, Chinandega</span>
+        <span class="d-none d-md-inline opacity-50">|</span>
+        <a href="tel:+50589563257" class="yd-phone-link" data-phone="8956-3257">
+          <i class="bi bi-whatsapp text-success me-1"></i> Pedidos: <strong>8956-3257</strong>
         </a>
-        <span class="yd-topbar-link">
-          <i class="bi bi-geo-alt-fill"></i>
-          <span>De la trasera del Calvario 2 ½ c. al este, Chinandega</span>
-        </span>
       </div>
-      <div class="yd-topbar-group">
-        <div class="yd-global-curr" id="ydGlobalCurrToggle" role="group" aria-label="Cambiar moneda del catálogo">
-          <button type="button" class="yd-global-curr-btn active" data-global-curr="C$">C$ NIO</button>
-          <button type="button" class="yd-global-curr-btn" data-global-curr="$">USD $</button>
-        </div>
-        <a href="https://wa.me/50589563257?text=Hola%20Yademar%2C%20deseo%20consultar%20tallas%20y%20disponibilidad" target="_blank" rel="noopener" class="yd-topbar-link">
-          <i class="bi bi-whatsapp"></i>
-          <span>WhatsApp: 8956-3257</span>
+      <div class="d-flex align-items-center gap-3">
+        <a href="https://www.instagram.com/yademar5/" target="_blank" rel="noopener" aria-label="Instagram Yademar">
+          <i class="bi bi-instagram me-1"></i>@yademar5
+        </a>
+        <a href="../index.html" class="opacity-75 d-none d-sm-inline">
+          <i class="bi bi-grid-1x2 me-1"></i>Portal
         </a>
       </div>
     </div>
   </div>
 
-  <!-- Navbar Sticky Única -->
-  <header class="yd-navbar" id="ydNavbar">
-    <div class="yd-container yd-nav-inner">
-      <a href="#inicio" class="yd-brand" aria-label="Inicio Yademar">
-        <img src="logo.jpg" alt="Logo Oficial Yademar" class="yd-brand-logo">
-        <div class="yd-brand-text">
-          <span class="yd-brand-name">YADEMAR</span>
-          <span class="yd-brand-sub">Boutique &amp; Online</span>
-        </div>
-      </a>
-
-      <ul class="yd-nav-menu" id="ydNavMenu">
-        <li><a href="#inicio" class="yd-nav-link active">Inicio</a></li>
-        <li><a href="#temporadas" class="yd-nav-link">Temporadas</a></li>
-        <li><a href="#catalogo" class="yd-nav-link">Catálogo</a></li>
-        <li><a href="#tarjeta-regalo" class="yd-nav-link">Tarjeta de Regalo</a></li>
-        <li><a href="#ubicacion" class="yd-nav-link">Boutique</a></li>
-        <li class="yd-nav-mobile-cta">
-          <a href="#tarjeta-regalo" class="yd-btn yd-btn-primary yd-btn-block">
-            <i class="bi bi-gift-fill"></i> Crear Tarjeta de Regalo
-          </a>
-        </li>
-      </ul>
-
-      <div class="yd-nav-actions">
-        <button type="button" class="yd-icon-pill" id="btnOpenAccount" aria-label="Cuenta de usuario">
-          <i class="bi bi-person-circle"></i>
-          <span class="yd-user-chip-label" id="ydUserBadgeLabel">Mi Cuenta</span>
-        </button>
-        <button type="button" class="yd-icon-pill" id="btnFilterFavNav" aria-label="Ver favoritos">
-          <i class="bi bi-heart-fill text-danger"></i>
-          <span class="yd-badge-count" id="ydFavCount">0</span>
-        </button>
-        <button type="button" class="yd-icon-pill" id="btnOpenBag" aria-label="Abrir bolsa de pedido">
-          <i class="bi bi-bag-fill"></i>
-          <span class="yd-badge-count" id="ydBagCount">0</span>
-        </button>
-        <a href="#tarjeta-regalo" class="yd-btn yd-btn-primary yd-btn-sm yd-nav-cta-desktop">
-          <i class="bi bi-gift-fill"></i>
-          <span>Tarjetas de Regalo</span>
+  <!-- Navbar Principal Bootstrap 5 Sticky -->
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg yd-navbar py-2" id="ydMainNav">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2 me-3" href="#inicio">
+          <img src="logo.jpg" alt="Logo Yademar" class="yd-brand-logo">
+          <span class="d-flex flex-column">
+            <span class="yd-brand-wordmark">Yademar</span>
+            <span class="yd-brand-sub">Boutique &amp; Online</span>
+          </span>
         </a>
-        <button type="button" class="yd-menu-toggle" id="ydMenuToggle" aria-label="Abrir menú">
-          <i class="bi bi-list"></i>
-        </button>
+
+        <!-- Controles rápidos visibles en móvil -->
+        <div class="d-flex align-items-center gap-2 order-lg-3">
+          <div class="yd-currency-switch d-none d-sm-inline-flex" role="group" aria-label="Selector de moneda">
+            <button type="button" class="yd-currency-btn is-active" data-currency="NIO">C$</button>
+            <button type="button" class="yd-currency-btn" data-currency="USD">US$</button>
+          </div>
+
+          <button type="button" class="yd-icon-pill" data-bs-toggle="modal" data-bs-target="#ydAccountModal" id="btnOpenAccount" aria-label="Mi cuenta cliente">
+            <i class="bi bi-person-circle"></i>
+            <span class="d-none d-md-inline" id="navUserLabel">Cliente</span>
+          </button>
+
+          <button type="button" class="yd-icon-pill" data-bs-toggle="offcanvas" data-bs-target="#ydBagOffcanvas" aria-controls="ydBagOffcanvas" id="btnOpenBag" aria-label="Bolsa de compras">
+            <i class="bi bi-bag"></i>
+            <span class="d-none d-xl-inline">Bolsa</span>
+            <span class="yd-bag-badge" id="navBagCount">0</span>
+          </button>
+
+          <button class="navbar-toggler border-0 shadow-none p-1" type="button" data-bs-toggle="collapse" data-bs-target="#ydNavbarCollapse" aria-controls="ydNavbarCollapse" aria-expanded="false" aria-label="Abrir menú">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
+        <!-- Enlaces de navegación -->
+        <div class="collapse navbar-collapse order-lg-2" id="ydNavbarCollapse">
+          <ul class="navbar-nav mx-auto my-2 my-lg-0 gap-lg-1">
+            <li class="nav-item"><a class="nav-link" href="#temporadas">Temporadas</a></li>
+            <li class="nav-item"><a class="nav-link" href="#catalogo">Catálogo</a></li>
+            <li class="nav-item"><a class="nav-link" href="#tarjeta-regalo">Tarjetas de Regalo</a></li>
+            <li class="nav-item"><a class="nav-link" href="#como-comprar">Cómo Comprar</a></li>
+            <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+          </ul>
+          <!-- Selector de moneda en móvil dentro del menú -->
+          <div class="d-flex d-sm-none align-items-center justify-content-between pt-2 pb-1 border-top">
+            <span class="small text-muted fw-semibold">Moneda de precios</span>
+            <div class="yd-currency-switch" role="group" aria-label="Selector de moneda móvil">
+              <button type="button" class="yd-currency-btn is-active" data-currency="NIO">C$</button>
+              <button type="button" class="yd-currency-btn" data-currency="USD">US$</button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </nav>
   </header>
 
-  <!-- Barra Ejecutiva de Administrador (Visible únicamente con rol admin) -->
-  <div class="yd-admin-ribbon" id="ydAdminRibbon" hidden>
-    <div class="yd-container yd-admin-ribbon-inner">
-      <div class="yd-admin-ribbon-title">
-        <i class="bi bi-shield-lock-fill"></i>
-        <span>Modo Administrador Activo &mdash; Control de Catálogo y Emisión Oficial</span>
-      </div>
-      <div class="yd-admin-ribbon-actions">
-        <button type="button" class="yd-btn yd-btn-primary yd-btn-sm" id="btnRibbonAddProd">
-          <i class="bi bi-plus-circle"></i> Nueva Prenda
-        </button>
-        <a href="#tarjeta-regalo" class="yd-btn yd-btn-outline yd-btn-sm">
-          <i class="bi bi-gift-fill"></i> Emitir Gift Card
-        </a>
-        <button type="button" class="yd-btn yd-btn-outline yd-btn-sm" id="btnRibbonExportJson">
-          <i class="bi bi-filetype-json"></i> Exportar JSON
-        </button>
-        <button type="button" class="yd-btn-ghost" style="color:#FFFFFF;" id="btnRibbonLogout">
-          <i class="bi bi-box-arrow-right"></i> Salir
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 1. Hero Editorial Asimétrico -->
-  <section class="yd-hero" id="inicio">
-    <div class="yd-container yd-hero-grid">
-      <div class="yd-hero-content">
-        <span class="yd-kicker">
-          <i class="bi bi-stars"></i> Boutique Física &amp; Online &bull; @yademar5
-        </span>
-        <h1>
-          Moda que Destaca <span class="yd-hero-accent">Tu Estilo</span>, para Ella y para Él.
-        </h1>
-        <p class="yd-hero-lead">
-          Explora nuestras colecciones de temporada en Chinandega, arma tu pedido directo a WhatsApp o solicita una <strong>Tarjeta de Regalo Yademar</strong> personalizada para canje en tienda física u online.
-        </p>
-
-        <div class="yd-hero-ctas">
-          <a href="#catalogo" class="yd-btn yd-btn-primary">
-            <i class="bi bi-bag-heart-fill"></i>
-            <span>Explorar Catálogo</span>
-          </a>
-          <a href="#tarjeta-regalo" class="yd-btn yd-btn-noir">
-            <i class="bi bi-gift-fill"></i>
-            <span>Regalar Gift Card</span>
-          </a>
-        </div>
-
-        <div class="yd-hero-meta">
-          <div class="yd-hero-meta-item">
-            <div class="yd-hero-meta-icon"><i class="bi bi-layers-fill"></i></div>
-            <div>
-              <strong>4 Temporadas Activas</strong>
-              <span>Verano, Urbano, Eventos &amp; Fiestas</span>
+  <main id="inicio">
+    <!-- Hero Editorial Lookbook -->
+    <section class="yd-hero">
+      <div class="container">
+        <div class="row align-items-center g-4 g-lg-5">
+          <div class="col-lg-6">
+            <div class="yd-eyebrow">
+              <i class="bi bi-stars"></i> Moda Dama &amp; Caballero &bull; Chinandega
+            </div>
+            <h1 class="yd-hero-title mb-3">
+              Estilo que se <em>siente</em> en cada temporada.
+            </h1>
+            <p class="yd-section-lead mb-4">
+              Descubre nuestra selección curada de vestidos, conjuntos y sastrería casual para dama y caballero. Reserva tu talla en segundos por WhatsApp o visítanos en tienda física.
+            </p>
+            <div class="d-flex flex-wrap gap-2 gap-sm-3 mb-4">
+              <a href="#catalogo" class="btn btn-yd-primary">
+                Explorar Catálogo <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+              <a href="#tarjeta-regalo" class="btn btn-yd-outline">
+                <i class="bi bi-gift me-1"></i> Solicitar Tarjeta de Regalo
+              </a>
+            </div>
+            <div class="d-flex flex-wrap gap-3 pt-2 border-top">
+              <span class="yd-trust-pill"><i class="bi bi-shop"></i> Tienda física en Chinandega</span>
+              <span class="yd-trust-pill"><i class="bi bi-whatsapp"></i> Atención directa 8956-3257</span>
+              <span class="yd-trust-pill"><i class="bi bi-gift"></i> Canje físico y online</span>
             </div>
           </div>
-          <div class="yd-hero-meta-item">
-            <div class="yd-hero-meta-icon"><i class="bi bi-geo-alt-fill"></i></div>
-            <div>
-              <strong>Boutique en Chinandega</strong>
-              <span>Trasera del Calvario 2 ½ c. este</span>
-            </div>
-          </div>
-          <div class="yd-hero-meta-item">
-            <div class="yd-hero-meta-icon"><i class="bi bi-whatsapp"></i></div>
-            <div>
-              <strong>Pedidos 8956-3257</strong>
-              <span>Retiro en tienda o envío coordinado</span>
+
+          <div class="col-lg-6">
+            <div class="yd-hero-frame mx-auto">
+              <img id="ydHeroImg" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80" alt="Lookbook editorial Yademar Boutique Chinandega" loading="eager">
+              <div class="yd-hero-float d-flex align-items-center justify-content-between gap-3">
+                <div>
+                  <span class="badge text-bg-danger rounded-pill mb-1">Nueva Temporada</span>
+                  <div class="fw-bold text-dark">4 Colecciones Activas</div>
+                  <small class="text-muted">Precios en Córdobas (C$) y Dólares (US$)</small>
+                </div>
+                <a href="#temporadas" class="btn btn-sm btn-yd-dark flex-shrink-0">Ver Looks</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="yd-hero-lookbook">
-        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80" id="ydHeroImg" class="yd-hero-photo" alt="Lookbook Editorial Yademar">
-        <div class="yd-hero-scrim" aria-hidden="true"></div>
-        <div class="yd-hero-crest">
-          <img src="logo.jpg" alt="Yademar Sello Oficial">
-        </div>
-        <div class="yd-hero-caption">
+    <!-- Colecciones de Temporada -->
+    <section class="yd-section yd-section-warm" id="temporadas">
+      <div class="container">
+        <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-3 mb-4 mb-lg-5">
           <div>
-            <small>Edición Chinandega 2026</small>
-            <strong>Curaduría Dama &amp; Caballero</strong>
+            <div class="yd-eyebrow"><i class="bi bi-collection"></i> Curaduría Estacional</div>
+            <h2 class="yd-section-title mb-2">Colecciones de Temporada</h2>
+            <p class="yd-section-lead mb-0">
+              Selecciona una temporada para filtrar el catálogo automáticamente según el clima y la ocasión.
+            </p>
           </div>
-          <button type="button" class="yd-btn yd-btn-primary yd-btn-sm" id="ydHeroSeasonBtn">
-            <span>Ver Novedades</span>
-            <i class="bi bi-arrow-right"></i>
+          <button type="button" class="btn btn-yd-outline align-self-start align-self-md-end" id="btnResetSeason">
+            Ver todas las prendas
           </button>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- 2. Colecciones de Temporada (Dinámico desde JSON) -->
-  <section class="yd-section yd-section-white" id="temporadas">
-    <div class="yd-container">
-      <div class="yd-section-header">
-        <span class="yd-kicker"><i class="bi bi-calendar-heart-fill"></i> Cápsulas de Temporada</span>
-        <h2>Colecciones para Cada Momento</h2>
-        <p>
-          Selecciona una temporada para filtrar nuestro catálogo por clima, ocasión de uso o estilo.
-        </p>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4" id="ydSeasonsGrid">
+          <!-- Renderizado dinámico desde client.js -->
+        </div>
       </div>
+    </section>
 
-      <div class="yd-seasons-grid" id="ydSeasonsGrid">
-        <!-- Renderizado dinámicamente desde data/store-data.json -->
-      </div>
-    </div>
-  </section>
+    <!-- Catálogo Dinámico Vista Cliente -->
+    <section class="yd-section" id="catalogo">
+      <div class="container">
+        <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-3 mb-4">
+          <div>
+            <div class="yd-eyebrow"><i class="bi bi-bag-heart"></i> Boutique en Línea</div>
+            <h2 class="yd-section-title mb-1">Catálogo Disponible</h2>
+            <p class="yd-section-lead mb-0" id="ydCatalogSubtitle">
+              Explora nuestras prendas seleccionadas, revisa tallas disponibles y agrégalas a tu bolsa de pedido.
+            </p>
+          </div>
+          <div class="small text-muted fw-semibold" id="ydCatalogCount">Mostrando prendas...</div>
+        </div>
 
-  <!-- 3. Catálogo Dinámico de Productos (JSON) -->
-  <section class="yd-section yd-section-ivory" id="catalogo">
-    <div class="yd-container">
-      <div class="yd-section-header">
-        <span class="yd-kicker"><i class="bi bi-tags-fill"></i> Catálogo Oficial Yademar</span>
-        <h2>Prendas Seleccionadas</h2>
-        <p>
-          Elige tu talla, guarda tus favoritas y arma tu bolsa de pedido en un clic hacia WhatsApp <strong>8956-3257</strong>.
-        </p>
-      </div>
+        <!-- Barra de Filtros Responsiva Bootstrap 5 -->
+        <div class="yd-filter-bar mb-4">
+          <div class="row g-3 align-items-center">
+            <div class="col-12 col-lg-5">
+              <div class="d-flex flex-wrap gap-2" id="ydCategoryPills" role="group" aria-label="Filtrar por categoría">
+                <button type="button" class="yd-filter-pill is-active" data-cat="todos">Todo</button>
+                <button type="button" class="yd-filter-pill" data-cat="dama">Dama</button>
+                <button type="button" class="yd-filter-pill" data-cat="caballero">Caballero</button>
+                <button type="button" class="yd-filter-pill" data-cat="favoritos">
+                  <i class="bi bi-heart-fill text-danger me-1"></i>Favoritos (<span id="ydFavCount">0</span>)
+                </button>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+              <div class="input-group">
+                <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                <input type="search" class="form-control border-start-0" id="ydSearchInput" placeholder="Buscar vestido, camisa, lino...">
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+              <select class="form-select" id="ydSortSelect" aria-label="Ordenar prendas">
+                <option value="destacados">Orden: Destacados</option>
+                <option value="precio-asc">Precio: Menor a mayor</option>
+                <option value="precio-desc">Precio: Mayor a menor</option>
+                <option value="nombre">Nombre: A - Z</option>
+              </select>
+            </div>
+          </div>
 
-      <div class="yd-catalog-toolbar">
-        <div class="yd-toolbar-top">
-          <div class="yd-pill-group" role="tablist" aria-label="Categorías de catálogo">
-            <button type="button" class="yd-filter-pill active" data-cat-filter="all">Todo</button>
-            <button type="button" class="yd-filter-pill" data-cat-filter="dama">Dama</button>
-            <button type="button" class="yd-filter-pill" data-cat-filter="caballero">Caballero</button>
-            <button type="button" class="yd-filter-pill" data-cat-filter="favoritos">
-              <i class="bi bi-heart-fill text-danger me-1"></i> Favoritos
+          <!-- Etiqueta de temporada activa -->
+          <div class="mt-3 pt-2 border-top d-none align-items-center justify-content-between gap-2" id="ydActiveSeasonBar">
+            <span class="small text-dark">
+              Temporada activa: <strong class="text-danger" id="ydActiveSeasonName">—</strong>
+            </span>
+            <button type="button" class="btn btn-sm btn-link text-decoration-none p-0 text-danger fw-semibold" id="btnClearSeasonFilter">
+              Quitar filtro <i class="bi bi-x-circle"></i>
             </button>
           </div>
+        </div>
 
-          <div class="yd-toolbar-controls">
-            <div class="yd-search-box">
-              <i class="bi bi-search"></i>
-              <input type="text" id="ydSearchInput" placeholder="Buscar prenda, talla o color..." autocomplete="off">
+        <!-- Grid de Productos -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4" id="ydProductsGrid">
+          <!-- Renderizado dinámico desde client.js -->
+        </div>
+
+        <!-- Estado vacío -->
+        <div class="text-center py-5 d-none" id="ydEmptyCatalog">
+          <i class="bi bi-search fs-1 text-muted d-block mb-2"></i>
+          <h3 class="h5 fw-bold">No encontramos prendas con ese filtro</h3>
+          <p class="text-muted small mb-3">Prueba limpiando el buscador o cambiando de categoría o temporada.</p>
+          <button type="button" class="btn btn-yd-outline btn-sm" id="btnClearAllFilters">Restablecer filtros</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Tarjetas de Regalo (SOLO Showcase y Solicitud para Cliente) -->
+    <section class="yd-section yd-section-warm" id="tarjeta-regalo">
+      <div class="container">
+        <div class="row align-items-center g-4 g-lg-5">
+          <!-- Vista previa ilustrativa -->
+          <div class="col-lg-6">
+            <div class="yd-eyebrow"><i class="bi bi-gift-fill"></i> Obsequio Oficial Yademar</div>
+            <h2 class="yd-section-title mb-3">Regala estilo con una Tarjeta de Regalo Yademar</h2>
+            <p class="yd-section-lead mb-4">
+              Elige el monto, el diseño y los datos de tu dedicatoria. Nuestro equipo emite el folio oficial en alta resolución listo para entregar en tienda física o por WhatsApp.
+            </p>
+
+            <!-- Tarjeta Ilustrativa con sello MUESTRA -->
+            <div class="yd-gc-scene yd-gc-theme-crimson mb-3" id="clientSampleCardScene">
+              <div class="yd-gc-flipper">
+                <div class="yd-gc-face yd-gc-front">
+                  <div class="yd-gc-inner-frame"></div>
+                  <div class="yd-gc-sample-stamp">MUESTRA ILUSTRATIVA</div>
+
+                  <div class="d-flex justify-content-between align-items-start gap-2 position-relative" style="z-index:2;">
+                    <div>
+                      <div class="yd-gc-motivo yd-gc-accent" id="sampleMotivo">DETALLE ESPECIAL</div>
+                      <div class="yd-gc-title">TARJETA<br>REGALO</div>
+                    </div>
+                    <div class="yd-gc-logo-badge">
+                      <img src="logo.jpg" alt="Yademar">
+                    </div>
+                  </div>
+
+                  <div class="row g-2 align-items-end my-auto position-relative" style="z-index:2;">
+                    <div class="col-5">
+                      <div class="yd-gc-amount-box" id="sampleAmount">C$1,100</div>
+                      <div class="mt-1" style="font-size:0.65rem; opacity:0.82;">
+                        Válida en tienda física y Online.
+                      </div>
+                    </div>
+                    <div class="col-7 d-flex flex-column gap-1">
+                      <div class="yd-gc-field-row">
+                        <span class="yd-gc-field-label">Para:</span>
+                        <span class="yd-gc-field-val" id="samplePara">Isabella Castro</span>
+                      </div>
+                      <div class="yd-gc-field-row">
+                        <span class="yd-gc-field-label">De:</span>
+                        <span class="yd-gc-field-val" id="sampleDe">Zairy Morales</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="yd-gc-footer">
+                    <span><i class="bi bi-facebook me-1"></i>Yademar Tienda Online</span>
+                    <span><i class="bi bi-instagram me-1"></i>@yademar5</span>
+                    <span><i class="bi bi-whatsapp me-1"></i>8956-3257</span>
+                    <span class="yd-gc-folio-pill">FOLIO OFICIAL</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <select id="ydSortSelect" class="yd-select-pill" aria-label="Ordenar productos">
-              <option value="featured">Destacados</option>
-              <option value="price-asc">Precio: Menor a Mayor</option>
-              <option value="price-desc">Precio: Mayor a Menor</option>
-            </select>
-          </div>
-        </div>
 
-        <div class="yd-toolbar-bottom">
-          <div class="yd-pill-group" id="ydSeasonPills" aria-label="Filtrar por temporada">
-            <!-- Generado dinámicamente desde JSON temporadas -->
-          </div>
-          <span class="yd-catalog-meta" id="ydCatalogCount">Mostrando prendas</span>
-        </div>
-      </div>
-
-      <!-- Barra de Gestión de Catálogo (Solo Admin) -->
-      <div class="yd-catalog-admin-bar" id="ydCatalogAdminBar" hidden>
-        <div>
-          <strong><i class="bi bi-database-fill-gear text-danger me-1"></i> Panel Administrativo de Catálogo</strong>
-          <span>Agrega prendas con enlaces de foto externa, edítalas directamente o exporta tu archivo JSON.</span>
-        </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button type="button" class="yd-btn yd-btn-primary yd-btn-sm" id="btnCatalogAddProd">
-            <i class="bi bi-plus-lg"></i> Agregar Prenda (URL)
-          </button>
-          <button type="button" class="yd-btn yd-btn-noir yd-btn-sm" id="btnCatalogExportJson">
-            <i class="bi bi-filetype-json"></i> Exportar store-data.json
-          </button>
-        </div>
-      </div>
-
-      <div class="yd-product-grid" id="ydProductGrid">
-        <!-- Tarjetas 3:4 cargadas dinámicamente desde JSON -->
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. Sección de Tarjetas de Regalo (Vista Cliente/Pública + Estudio Exclusivo Admin) -->
-  <section class="yd-section yd-section-white" id="tarjeta-regalo">
-    <div class="yd-container">
-      <div class="yd-section-header">
-        <span class="yd-kicker"><i class="bi bi-gift-fill"></i> Obsequios Yademar</span>
-        <h2>Tarjetas de Regalo para Toda Ocasión</h2>
-        <p>
-          El regalo ideal para cumpleaños, aniversarios y celebraciones. Canjeable en nuestra tienda física en Chinandega y en pedidos online vía WhatsApp.
-        </p>
-      </div>
-
-      <!-- A. Vista Pública / Cliente: Muestra Ilustrativa & Solicitud por WhatsApp -->
-      <div class="yd-gift-client-grid" id="ydGiftClientView">
-        <div class="yd-studio-controls">
-          <div class="yd-studio-block">
-            <span class="yd-kicker" style="margin-bottom:8px;"><i class="bi bi-patch-check-fill"></i> Solicitud Directa</span>
-            <h3 style="font-size:1.55rem; margin-bottom:6px;">Regala Moda Sin Equivocarte</h3>
-            <p style="font-size:0.9rem; color:var(--yd-slate);">
-              Indícanos el monto, destinatario y acabado que prefieres. Nuestro equipo confirma tu pago, emite el folio oficial verificado y te envía la tarjeta lista para regalar.
+            <p class="small text-muted text-center mb-0">
+              <i class="bi bi-shield-check text-danger me-1"></i>
+              Las tarjetas oficiales con folio numerado y código de validación son emitidas exclusivamente por administración tras confirmar tu solicitud.
             </p>
           </div>
 
-          <div class="yd-studio-block">
-            <div class="yd-field-label"><span>Acabado Preferido</span></div>
-            <div class="yd-chip-row" id="clientThemePills">
-              <button type="button" class="yd-chip-btn active" data-client-theme="crimson">Carmesí Clásico</button>
-              <button type="button" class="yd-chip-btn" data-client-theme="blush">Rosa Boutique</button>
-              <button type="button" class="yd-chip-btn" data-client-theme="noir">Noir &amp; Oro</button>
-              <button type="button" class="yd-chip-btn" data-client-theme="gold">Champagne Dorado</button>
-            </div>
-          </div>
+          <!-- Formulario de Solicitud Cliente -->
+          <div class="col-lg-6">
+            <div class="yd-info-card p-4">
+              <h3 class="h5 font-display fw-bold mb-1">Solicita tu Tarjeta de Regalo</h3>
+              <p class="small text-muted mb-3">Personaliza tu pedido y envíalo en un toque por WhatsApp o añádelo a tu bolsa.</p>
 
-          <div class="yd-studio-block">
-            <label class="yd-field-label" for="clientGiftAmount">Monto del Regalo (C$)</label>
-            <input type="number" id="clientGiftAmount" class="yd-input" value="1000" min="200" step="50" style="margin-bottom:8px;">
-            <div class="yd-chip-row" id="clientAmountChips">
-              <button type="button" class="yd-chip-btn" data-client-preset="500">C$ 500</button>
-              <button type="button" class="yd-chip-btn active" data-client-preset="1000">C$ 1,000</button>
-              <button type="button" class="yd-chip-btn" data-client-preset="1500">C$ 1,500</button>
-              <button type="button" class="yd-chip-btn" data-client-preset="2000">C$ 2,000</button>
-            </div>
-          </div>
-
-          <div class="yd-studio-block yd-form-row-2">
-            <div>
-              <label class="yd-field-label" for="clientGiftTo">¿Para quién es?</label>
-              <input type="text" id="clientGiftTo" class="yd-input" placeholder="Ej. Isabella Castro" maxlength="38">
-            </div>
-            <div>
-              <label class="yd-field-label" for="clientGiftFrom">¿De parte de quién?</label>
-              <input type="text" id="clientGiftFrom" class="yd-input" placeholder="Tu nombre" maxlength="38">
-            </div>
-          </div>
-
-          <div style="display:flex; flex-direction:column; gap:10px; margin-top:8px;">
-            <button type="button" class="yd-btn yd-btn-wsp yd-btn-block" id="btnClientRequestGiftWsp">
-              <i class="bi bi-whatsapp"></i> Solicitar Tarjeta por WhatsApp (8956-3257)
-            </button>
-            <button type="button" class="yd-btn yd-btn-outline yd-btn-block" id="btnClientAddGiftBag">
-              <i class="bi bi-bag-plus-fill"></i> Agregar Solicitud a mi Bolsa
-            </button>
-          </div>
-
-          <div class="yd-admin-gate-bar">
-            <i class="bi bi-shield-lock-fill text-danger"></i>
-            <button type="button" class="yd-btn-ghost" style="padding:0; text-decoration:underline; text-align:left;" id="btnUnlockGiftAdmin">
-              ¿Eres administrador de Yademar? Inicia sesión para emitir y descargar tarjetas oficiales
-            </button>
-          </div>
-        </div>
-
-        <!-- Muestra Visual Protegida (Solo lectura para visitantes/clientes) -->
-        <div class="yd-preview-surface">
-          <div class="yd-preview-bar">
-            <span class="yd-preview-live-dot">Vista previa ilustrativa</span>
-            <span class="yd-sample-watermark-pill"><i class="bi bi-patch-check me-1"></i> Emisión Oficial en Tienda</span>
-          </div>
-
-          <div class="yd-giftcard-live theme-crimson" id="clientSampleCard" style="position:relative; aspect-ratio:16/10;">
-            <div class="yd-gc-outer-frame" aria-hidden="true"></div>
-            <div class="yd-gc-inner-frame" aria-hidden="true"></div>
-            <span class="yd-gc-corner tl" aria-hidden="true"></span>
-            <span class="yd-gc-corner tr" aria-hidden="true"></span>
-            <span class="yd-gc-corner bl" aria-hidden="true"></span>
-            <span class="yd-gc-corner br" aria-hidden="true"></span>
-
-            <div class="yd-gc-top">
-              <div>
-                <span class="yd-gc-kicker">Boutique Física &amp; Tienda Online</span>
-                <div class="yd-gc-heading">TARJETA DE REGALO</div>
-                <span class="yd-gc-occasion">MUESTRA ILUSTRATIVA</span>
-              </div>
-              <div class="yd-gc-logo-badge">
-                <img src="logo.jpg" alt="Yademar">
-              </div>
-            </div>
-
-            <div class="yd-gc-middle">
-              <div class="yd-gc-amount-clean">
-                <span class="yd-gc-amount-label">Valor Solicitado</span>
-                <span class="yd-gc-amount-value" id="clientSampleAmount">C$ 1,000</span>
-                <span class="yd-gc-redeem">Para gastar en tienda física y Online.</span>
-              </div>
-
-              <div class="yd-gc-details">
-                <div class="yd-gc-row">
-                  <span>Para:</span>
-                  <strong id="clientSampleTo">Persona Especial</strong>
-                </div>
-                <div class="yd-gc-row">
-                  <span>De:</span>
-                  <strong id="clientSampleFrom">Tu Nombre</strong>
-                </div>
-                <div class="yd-gc-row">
-                  <span>Estado:</span>
-                  <strong>Activación en tienda</strong>
-                </div>
-              </div>
-            </div>
-
-            <div class="yd-gc-bottom">
-              <div class="yd-gc-channels">
-                <span><i class="bi bi-facebook"></i> YADEMAR TIENDA ONLINE</span>
-                <span><i class="bi bi-instagram"></i> @yademar5</span>
-                <span><i class="bi bi-whatsapp"></i> 8956-3257</span>
-              </div>
-              <span class="yd-gc-folio">MUESTRA</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- B. Estudio Oficial Generador (EXCLUSIVO ADMIN) -->
-      <div class="yd-gift-studio" id="ydGiftAdminStudio" hidden>
-        <!-- Panel Guiado de 3 Pasos -->
-        <div class="yd-studio-controls">
-          <div class="yd-step-tabs" id="gcStepTabs" role="tablist">
-            <button type="button" class="yd-step-tab active" data-gc-step="1">1. Estilo &amp; Monto</button>
-            <button type="button" class="yd-step-tab" data-gc-step="2">2. Dedicatoria</button>
-            <button type="button" class="yd-step-tab" data-gc-step="3">3. Emisión &amp; Control</button>
-          </div>
-          <div class="yd-progress-track" aria-hidden="true">
-            <div class="yd-progress-fill" id="gcProgressFill"></div>
-          </div>
-
-          <!-- Paso 1: Estilo & Monto -->
-          <div class="yd-step-pane active" data-step-pane="1">
-            <div class="yd-studio-block">
-              <div class="yd-field-label">
-                <span>Acabado Couture</span>
-                <span class="yd-field-hint">4 ediciones con foil metálico</span>
-              </div>
-              <div class="yd-theme-grid" id="gcThemeGrid">
-                <button type="button" class="yd-theme-mini active" data-gc-theme="crimson">
-                  <span class="yd-mini-preview sw-crimson"></span>
-                  <span>Carmesí Clásico</span>
-                </button>
-                <button type="button" class="yd-theme-mini" data-gc-theme="blush">
-                  <span class="yd-mini-preview sw-blush"></span>
-                  <span>Rosa Boutique</span>
-                </button>
-                <button type="button" class="yd-theme-mini" data-gc-theme="noir">
-                  <span class="yd-mini-preview sw-noir"></span>
-                  <span>Noir &amp; Oro</span>
-                </button>
-                <button type="button" class="yd-theme-mini" data-gc-theme="gold">
-                  <span class="yd-mini-preview sw-gold"></span>
-                  <span>Champagne Dorado</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="yd-studio-block">
-              <div class="yd-field-label">
-                <span>Valor a Regalar</span>
-                <span class="yd-field-hint">Córdobas o Dólares</span>
-              </div>
-              <div class="yd-amount-row">
-                <div class="yd-currency-seg" role="group" aria-label="Moneda de tarjeta">
-                  <button type="button" class="yd-curr-btn active" data-gc-curr="C$">C$</button>
-                  <button type="button" class="yd-curr-btn" data-gc-curr="$">$</button>
-                </div>
-                <input type="number" id="gcAmountInput" class="yd-input" value="1100" min="1" step="1" placeholder="Ej. 1100">
-              </div>
-              <div class="yd-chip-row" id="gcAmountChips">
-                <!-- Generado dinámicamente -->
-              </div>
-            </div>
-
-            <div class="yd-step-nav">
-              <span></span>
-              <button type="button" class="yd-btn yd-btn-noir yd-btn-sm" id="gcStepNext">
-                <span>Siguiente: Dedicatoria</span>
-                <i class="bi bi-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-
-          <!-- Paso 2: Dedicatoria -->
-          <div class="yd-step-pane" data-step-pane="2">
-            <div class="yd-studio-block yd-form-row-2">
-              <div>
-                <label class="yd-field-label" for="gcToInput">Para (Destinatario)</label>
-                <input type="text" id="gcToInput" class="yd-input" value="Isabella Castro" maxlength="38">
-              </div>
-              <div>
-                <label class="yd-field-label" for="gcFromInput">De (Quien obsequia)</label>
-                <input type="text" id="gcFromInput" class="yd-input" value="Zairy Morales" maxlength="38">
-              </div>
-            </div>
-
-            <div class="yd-studio-block">
-              <div class="yd-field-label"><span>Etiqueta de Ocasión</span></div>
-              <div class="yd-chip-row" id="gcOccasionPills">
-                <button type="button" class="yd-chip-btn active" data-gc-occasion="DETALLE ESPECIAL">Detalle Especial</button>
-                <button type="button" class="yd-chip-btn" data-gc-occasion="FELIZ CUMPLEAÑOS">Cumpleaños</button>
-                <button type="button" class="yd-chip-btn" data-gc-occasion="FELIZ ANIVERSARIO">Aniversario</button>
-                <button type="button" class="yd-chip-btn" data-gc-occasion="AGRADECIMIENTO">Agradecimiento</button>
-                <button type="button" class="yd-chip-btn" data-gc-occasion="NAVIDAD & FIN DE AÑO">Navidad &amp; Fiestas</button>
-              </div>
-            </div>
-
-            <div class="yd-studio-block">
-              <label class="yd-field-label" for="gcMessageInput">
-                <span>Mensaje Personalizado</span>
-                <span class="yd-field-hint" id="gcCharCount">49 / 70</span>
-              </label>
-              <input type="text" id="gcMessageInput" class="yd-input" maxlength="70" value="Disfruta eligiendo tu outfit favorito en Yademar.">
-            </div>
-
-            <div class="yd-step-nav">
-              <button type="button" class="yd-btn yd-btn-outline yd-btn-sm" data-step-goto="1">
-                <i class="bi bi-arrow-left"></i> Anterior
-              </button>
-              <button type="button" class="yd-btn yd-btn-noir yd-btn-sm" data-step-goto="3">
-                <span>Siguiente: Emisión</span>
-                <i class="bi bi-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-
-          <!-- Paso 3: Emisión & Historial -->
-          <div class="yd-step-pane" data-step-pane="3">
-            <div class="yd-studio-block">
-              <label class="yd-field-label" for="gcRedeemSelect">Modalidad de Canje</label>
-              <select id="gcRedeemSelect" class="yd-input">
-                <option value="Para gastar en la tienda física y Online." selected>Tienda Física y Online</option>
-                <option value="Válida exclusivamente en Tienda Física (Chinandega).">Solo Tienda Física</option>
-                <option value="Válida para pedidos Online vía WhatsApp e Instagram.">Solo Tienda Online</option>
-              </select>
-            </div>
-
-            <div class="yd-studio-block yd-form-row-2">
-              <div>
-                <label class="yd-field-label" for="gcValidInput">Válido hasta</label>
-                <input type="date" id="gcValidInput" class="yd-input" value="2026-11-30">
-                <div class="yd-chip-row" id="gcValidPresets" style="margin-top:8px;">
-                  <button type="button" class="yd-chip-btn" data-valid-days="30">+30 días</button>
-                  <button type="button" class="yd-chip-btn" data-valid-days="90">+90 días</button>
-                  <button type="button" class="yd-chip-btn" data-valid-days="365">+1 año</button>
-                </div>
-              </div>
-              <div>
-                <label class="yd-field-label" for="gcFolioInput">
-                  <span>Folio Verificable</span>
-                  <span class="yd-field-hint" id="gcFolioRoleHint">Auto / Admin</span>
-                </label>
-                <div class="yd-folio-wrap">
-                  <input type="text" id="gcFolioInput" class="yd-input" value="N°0001" maxlength="16">
-                  <button type="button" class="yd-folio-btn" id="btnIncrementFolio" title="Incrementar folio consecutivo">+1</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="yd-history-box">
-              <button type="button" class="yd-history-toggle" id="gcHistoryToggle">
-                <span><i class="bi bi-clock-history me-1 text-danger"></i> Historial de Tarjetas Emitidas (<span id="gcHistoryCount">0</span>)</span>
-                <i class="bi bi-chevron-down"></i>
-              </button>
-              <div class="yd-history-list" id="gcHistoryList" hidden>
-                <!-- Historial JSON / localStorage -->
-              </div>
-            </div>
-
-            <div class="yd-step-nav">
-              <button type="button" class="yd-btn yd-btn-outline yd-btn-sm" data-step-goto="2">
-                <i class="bi bi-arrow-left"></i> Anterior
-              </button>
-              <button type="button" class="yd-btn yd-btn-ghost" data-step-goto="1">
-                Volver al paso 1
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Vista Previa 3D Anverso / Reverso -->
-        <div class="yd-studio-preview-col">
-          <div class="yd-preview-surface">
-            <div class="yd-preview-bar">
-              <span class="yd-preview-live-dot">Edición Couture 1800 &times; 1125 px</span>
-              <div class="yd-face-switch" role="group" aria-label="Cambiar cara de la tarjeta">
-                <button type="button" class="yd-face-btn active" id="btnCardFront">Anverso</button>
-                <button type="button" class="yd-face-btn" id="btnCardBack">Reverso &amp; Validación</button>
-              </div>
-            </div>
-
-            <div class="yd-print-stage">
-              <div class="yd-gc-scene" id="ydGcScene">
-                <div class="yd-gc-flipper" id="ydGcFlipper">
-
-                  <!-- ANVERSO -->
-                  <div class="yd-giftcard-live theme-crimson" id="ydGiftCardPreview">
-                    <div class="yd-gc-outer-frame" aria-hidden="true"></div>
-                    <div class="yd-gc-inner-frame" aria-hidden="true"></div>
-                    <span class="yd-gc-corner tl" aria-hidden="true"></span>
-                    <span class="yd-gc-corner tr" aria-hidden="true"></span>
-                    <span class="yd-gc-corner bl" aria-hidden="true"></span>
-                    <span class="yd-gc-corner br" aria-hidden="true"></span>
-
-                    <div class="yd-gc-top">
-                      <div>
-                        <span class="yd-gc-kicker">Boutique Física &amp; Tienda Online</span>
-                        <div class="yd-gc-heading">TARJETA DE REGALO</div>
-                        <span class="yd-gc-occasion" id="gcPreviewOccasion">DETALLE ESPECIAL</span>
-                      </div>
-                      <div class="yd-gc-logo-badge">
-                        <img src="logo.jpg" id="gcLogoImg" alt="Yademar">
-                      </div>
-                    </div>
-
-                    <div class="yd-gc-middle">
-                      <div class="yd-gc-amount-clean">
-                        <span class="yd-gc-amount-label">Valor Obsequiado</span>
-                        <span class="yd-gc-amount-value" id="gcPreviewAmount">C$ 1,100</span>
-                        <span class="yd-gc-redeem" id="gcPreviewRedeem">Para gastar en la tienda física y Online.</span>
-                      </div>
-
-                      <div class="yd-gc-details">
-                        <div class="yd-gc-row">
-                          <span>Para:</span>
-                          <strong id="gcPreviewTo">Isabella Castro</strong>
-                        </div>
-                        <div class="yd-gc-row">
-                          <span>De:</span>
-                          <strong id="gcPreviewFrom">Zairy Morales</strong>
-                        </div>
-                        <div class="yd-gc-row">
-                          <span>Válido hasta:</span>
-                          <strong id="gcPreviewValid">30/11/2026</strong>
-                        </div>
-                        <div class="yd-gc-note" id="gcPreviewMessage">Disfruta eligiendo tu outfit favorito en Yademar.</div>
-                      </div>
-                    </div>
-
-                    <div class="yd-gc-bottom">
-                      <div class="yd-gc-channels">
-                        <span><i class="bi bi-facebook"></i> YADEMAR TIENDA ONLINE</span>
-                        <span><i class="bi bi-instagram"></i> @yademar5</span>
-                        <span><i class="bi bi-whatsapp"></i> 8956-3257</span>
-                      </div>
-                      <span class="yd-gc-folio" id="gcPreviewFolio">N°0001</span>
-                    </div>
+              <form id="clientGiftRequestForm" class="row g-3">
+                <div class="col-12">
+                  <label class="form-label small fw-semibold mb-1">Monto sugerido</label>
+                  <div class="d-flex flex-wrap gap-2 mb-2" id="samplePresetWrap">
+                    <button type="button" class="yd-filter-pill" data-preset="500">C$500</button>
+                    <button type="button" class="yd-filter-pill is-active" data-preset="1100">C$1,100</button>
+                    <button type="button" class="yd-filter-pill" data-preset="1500">C$1,500</button>
+                    <button type="button" class="yd-filter-pill" data-preset="2500">C$2,500</button>
                   </div>
-
-                  <!-- REVERSO VERIFICABLE -->
-                  <div class="yd-giftcard-back theme-crimson" id="ydGiftCardBack">
-                    <div class="yd-gc-outer-frame" aria-hidden="true"></div>
-                    <div class="yd-gc-inner-frame" aria-hidden="true"></div>
-
-                    <div class="yd-back-head">
-                      <div class="yd-back-brand">
-                        <img src="logo.jpg" id="gcBackLogoImg" alt="Yademar">
-                        <div>
-                          <span class="yd-gc-kicker">Certificado Oficial de Regalo</span>
-                          <strong style="font-family:var(--yd-font-display); font-size:1.05rem;">YADEMAR &bull; CHINANDEGA</strong>
-                        </div>
-                      </div>
-                      <span class="yd-gc-folio" id="gcBackFolio">N°0001</span>
-                    </div>
-
-                    <div class="yd-back-terms">
-                      <ul>
-                        <li>Presenta este certificado digital (PNG) o impreso para canjear en tienda física o vía WhatsApp.</li>
-                        <li>Dirección: De la trasera del Calvario 2 ½ c. al este, Chinandega.</li>
-                        <li>Aplica en prendas de temporada de Dama y Caballero hasta la fecha de vigencia indicada.</li>
-                      </ul>
-                      <div class="yd-back-seal">
-                        <span style="font-size:0.62rem; text-transform:uppercase; letter-spacing:0.1em; display:block;">Valor Certificado</span>
-                        <strong id="gcBackAmount">C$ 1,100</strong>
-                        <small style="font-size:0.65rem;" id="gcBackValid">Vigencia: 30/11/2026</small>
-                      </div>
-                    </div>
-
-                    <div class="yd-back-barcode-row">
-                      <svg class="yd-barcode-svg" id="gcBackBarcode" viewBox="0 0 220 34" aria-hidden="true"></svg>
-                      <span style="font-family:monospace; font-size:0.78rem; font-weight:800; letter-spacing:0.08em;" id="gcBackCode">YDM-0001</span>
-                    </div>
+                  <div class="input-group">
+                    <span class="input-group-text">C$</span>
+                    <input type="number" class="form-control" id="reqGiftAmount" min="200" step="50" value="1100" required>
                   </div>
-
                 </div>
+
+                <div class="col-sm-6">
+                  <label for="reqGiftPara" class="form-label small fw-semibold">Para (destinatario)</label>
+                  <input type="text" class="form-control" id="reqGiftPara" value="Isabella Castro" maxlength="45" required>
+                </div>
+
+                <div class="col-sm-6">
+                  <label for="reqGiftDe" class="form-label small fw-semibold">De (quien obsequia)</label>
+                  <input type="text" class="form-control" id="reqGiftDe" value="Zairy Morales" maxlength="45" required>
+                </div>
+
+                <div class="col-sm-6">
+                  <label for="reqGiftMotivo" class="form-label small fw-semibold">Ocasión</label>
+                  <select class="form-select" id="reqGiftMotivo">
+                    <option value="DETALLE ESPECIAL">Detalle Especial</option>
+                    <option value="FELIZ CUMPLEAÑOS">Feliz Cumpleaños</option>
+                    <option value="FELIZ ANIVERSARIO">Feliz Aniversario</option>
+                    <option value="FELIZ DÍA DE LAS MADRES">Día de las Madres</option>
+                    <option value="FELIZ NAVIDAD">Feliz Navidad</option>
+                  </select>
+                </div>
+
+                <div class="col-sm-6">
+                  <label for="reqGiftTema" class="form-label small fw-semibold">Acabado preferido</label>
+                  <select class="form-select" id="reqGiftTema">
+                    <option value="crimson">Carmesí Couture</option>
+                    <option value="blush">Blush Clásico</option>
+                    <option value="noir">Noir Gala</option>
+                    <option value="gold">Champagne Oro</option>
+                  </select>
+                </div>
+
+                <div class="col-12 d-grid d-sm-flex gap-2 pt-2">
+                  <button type="submit" class="btn btn-yd-whatsapp flex-fill">
+                    <i class="bi bi-whatsapp me-1"></i> Solicitar por WhatsApp
+                  </button>
+                  <button type="button" class="btn btn-yd-dark flex-fill" id="btnAddGiftReqToBag">
+                    <i class="bi bi-bag-plus me-1"></i> Añadir a mi Bolsa
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cómo Comprar -->
+    <section class="yd-section" id="como-comprar">
+      <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 640px;">
+          <div class="yd-eyebrow justify-content-center"><i class="bi bi-check2-circle"></i> Compra Sencilla</div>
+          <h2 class="yd-section-title mb-2">Tu pedido listo en 3 pasos</h2>
+          <p class="yd-section-lead mx-auto mb-0">
+            Atención cálida y personalizada para confirmar tu talla exacta y coordinar retiro o entrega.
+          </p>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="col">
+            <div class="yd-info-card">
+              <div class="yd-step-num">1</div>
+              <h3 class="h5 font-display fw-bold mb-2">Elige tus prendas</h3>
+              <p class="small text-muted mb-0">Explora las 4 temporadas, revisa los detalles en la vista rápida y selecciona tu talla y color favorito.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="yd-info-card">
+              <div class="yd-step-num">2</div>
+              <h3 class="h5 font-display fw-bold mb-2">Confirma por WhatsApp</h3>
+              <p class="small text-muted mb-0">Abre tu bolsa, aplica tu folio de Tarjeta de Regalo si tienes uno y envía tu pedido al <strong>8956-3257</strong>.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="yd-info-card">
+              <div class="yd-step-num">3</div>
+              <h3 class="h5 font-display fw-bold mb-2">Retira o recibe en Chinandega</h3>
+              <p class="yd-section-lead small mb-0">Visítanos de la trasera del Calvario 2 ½ c. al este o coordina entrega directa según tu ubicación.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ubicación y Contacto -->
+    <section class="yd-section yd-section-warm" id="ubicacion">
+      <div class="container">
+        <div class="row g-4 align-items-stretch">
+          <div class="col-lg-5">
+            <div class="yd-info-card d-flex flex-column justify-content-between">
+              <div>
+                <div class="yd-eyebrow"><i class="bi bi-geo-alt-fill"></i> Visítanos</div>
+                <h2 class="yd-section-title mb-3">Tienda Física &amp; Atención Online</h2>
+                <p class="text-muted small mb-4">
+                  Te esperamos en nuestra boutique en Chinandega o escríbenos directamente para consultar tallas, disponibilidad y tarjetas de regalo.
+                </p>
+
+                <ul class="list-unstyled d-flex flex-column gap-3 mb-4">
+                  <li class="d-flex gap-3">
+                    <i class="bi bi-geo-alt-fill text-danger fs-5"></i>
+                    <div>
+                      <div class="fw-bold small">Dirección</div>
+                      <div class="small text-muted">De la trasera del Calvario 2 ½ c. al este, Chinandega 25000</div>
+                    </div>
+                  </li>
+                  <li class="d-flex gap-3">
+                    <i class="bi bi-whatsapp text-success fs-5"></i>
+                    <div>
+                      <div class="fw-bold small">WhatsApp &amp; Pedidos</div>
+                      <a href="https://wa.me/50589563257" target="_blank" rel="noopener" class="small fw-semibold text-decoration-none">+505 8956-3257</a>
+                    </div>
+                  </li>
+                  <li class="d-flex gap-3">
+                    <i class="bi bi-instagram text-danger fs-5"></i>
+                    <div>
+                      <div class="fw-bold small">Instagram</div>
+                      <a href="https://www.instagram.com/yademar5/" target="_blank" rel="noopener" class="small text-decoration-none">@yademar5</a>
+                    </div>
+                  </li>
+                  <li class="d-flex gap-3">
+                    <i class="bi bi-facebook text-primary fs-5"></i>
+                    <div>
+                      <div class="fw-bold small">Facebook</div>
+                      <a href="https://www.facebook.com/Yademar-Tienda-Online-231953607295655" target="_blank" rel="noopener" class="small text-decoration-none">Yademar Tienda Online</a>
+                    </div>
+                  </li>
+                </ul>
               </div>
-            </div>
 
-            <div class="yd-studio-actions">
-              <button type="button" class="yd-btn yd-btn-primary yd-btn-block" id="btnDownloadPng">
-                <i class="bi bi-download"></i>
-                <span>Descargar PNG HD</span>
-              </button>
-              <button type="button" class="yd-btn yd-btn-noir yd-btn-block" id="btnPrintPdf">
-                <i class="bi bi-printer-fill"></i>
-                <span>Imprimir / PDF</span>
-              </button>
-              <button type="button" class="yd-btn yd-btn-outline yd-btn-block" id="btnAddGiftToBag">
-                <i class="bi bi-bag-plus-fill"></i>
-                <span>Agregar a Bolsa</span>
-              </button>
-              <button type="button" class="yd-btn yd-btn-wsp yd-btn-block" id="btnSendWspGift">
-                <i class="bi bi-whatsapp"></i>
-                <span>Activar por WhatsApp</span>
-              </button>
+              <a href="https://wa.me/50589563257?text=Hola%20Yademar%2C%20deseo%20consultar%20disponibilidad%20en%20tienda" target="_blank" rel="noopener" class="btn btn-yd-whatsapp w-100">
+                <i class="bi bi-whatsapp me-1"></i> Escribir al 8956-3257
+              </a>
             </div>
+          </div>
 
-            <div class="yd-studio-reset-row">
-              <span>Cada exportación registra el folio en el historial.</span>
-              <button type="button" class="yd-btn-ghost" id="btnResetGift">
-                <i class="bi bi-arrow-counterclockwise me-1"></i> Restablecer
-              </button>
+          <div class="col-lg-7">
+            <div class="yd-map-wrap">
+              <iframe
+                title="Ubicación Yademar Chinandega"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=Iglesia+El+Calvario+Chinandega+Nicaragua&output=embed">
+              </iframe>
             </div>
           </div>
         </div>
       </div>
-
-      <canvas id="ydGiftCanvas" width="1800" height="1125" style="display:none;" aria-hidden="true"></canvas>
-    </div>
-  </section>
-
-  <!-- 5. Cómo Comprar & Canjear -->
-  <section class="yd-section yd-section-ivory" id="como-comprar">
-    <div class="yd-container">
-      <div class="yd-section-header">
-        <span class="yd-kicker"><i class="bi bi-bag-check-fill"></i> Comprar &amp; Canjear</span>
-        <h2>Así de Simple Estrenas o Regalas en Yademar</h2>
-        <p>Un flujo rápido entre nuestra tienda física en Chinandega y atención personal por WhatsApp.</p>
-      </div>
-
-      <div class="yd-cards-3">
-        <div class="yd-feature-card">
-          <span class="yd-step-num">01</span>
-          <h3>Elige Prendas o Gift Card</h3>
-          <p>Selecciona tus prendas por temporada y talla, o diseña arriba una Tarjeta de Regalo personalizada en 3 pasos.</p>
-        </div>
-        <div class="yd-feature-card">
-          <span class="yd-step-num">02</span>
-          <h3>Confirma en WhatsApp</h3>
-          <p>Envía tu bolsa o folio directo al <strong>8956-3257</strong> para verificar existencias y coordinar pago o apartado.</p>
-        </div>
-        <div class="yd-feature-card">
-          <span class="yd-step-num">03</span>
-          <h3>Retira o Recibe</h3>
-          <p>Pasa a nuestra boutique cerca del Calvario o coordina tu envío. Quien recibe Gift Card la canjea presencial u online.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. Ubicación y Canales Oficiales -->
-  <section class="yd-section yd-section-white" id="ubicacion">
-    <div class="yd-container">
-      <div class="yd-section-header">
-        <span class="yd-kicker"><i class="bi bi-pin-map-fill"></i> Boutique Física &amp; Redes</span>
-        <h2>Visítanos en Chinandega o Escríbenos</h2>
-      </div>
-
-      <div class="yd-location-grid">
-        <div class="yd-location-card">
-          <div>
-            <h3>Yademar &bull; Atención Directa</h3>
-            <p>Consultas de tallas, apartados y activación de Tarjetas de Regalo.</p>
-
-            <ul class="yd-channel-list">
-              <li>
-                <div class="yd-channel-icon"><i class="bi bi-geo-alt-fill"></i></div>
-                <div>
-                  <strong>Dirección Física</strong>
-                  <span>De la trasera del Calvario 2 ½ c. al este, Chinandega 25000</span>
-                </div>
-              </li>
-              <li>
-                <div class="yd-channel-icon"><i class="bi bi-whatsapp"></i></div>
-                <div>
-                  <strong>WhatsApp &amp; Teléfono</strong>
-                  <a href="tel:+50589563257">+505 8956-3257</a>
-                </div>
-              </li>
-              <li>
-                <div class="yd-channel-icon"><i class="bi bi-instagram"></i></div>
-                <div>
-                  <strong>Instagram</strong>
-                  <a href="https://www.instagram.com/yademar5/" target="_blank" rel="noopener">@yademar5</a>
-                </div>
-              </li>
-              <li>
-                <div class="yd-channel-icon"><i class="bi bi-facebook"></i></div>
-                <div>
-                  <strong>Facebook</strong>
-                  <a href="https://www.facebook.com/Yademar-Tienda-Online-231953607295655" target="_blank" rel="noopener">Yademar Tienda Online</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a href="https://wa.me/50589563257?text=Hola%20Yademar%2C%20deseo%20informaci%C3%B3n%20sobre%20prendas%20y%20horarios" target="_blank" rel="noopener" class="yd-btn yd-btn-primary yd-btn-sm">
-              <i class="bi bi-whatsapp"></i> Escribir por WhatsApp
-            </a>
-            <a href="#tarjeta-regalo" class="yd-btn yd-btn-outline yd-btn-sm">
-              <i class="bi bi-gift-fill"></i> Crear Gift Card
-            </a>
-          </div>
-        </div>
-
-        <div class="yd-map-card">
-          <iframe
-            title="Ubicación de Yademar cerca del Calvario, Chinandega"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=Iglesia+El+Calvario+Chinandega+Nicaragua&output=embed">
-          </iframe>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <!-- Footer -->
-  <footer class="yd-footer">
-    <div class="yd-container">
-      <div class="yd-footer-top">
-        <div class="yd-footer-brand">
-          <img src="logo.jpg" alt="Yademar">
-          <div>
-            <strong style="color:#FFFFFF; display:block; font-family:var(--yd-font-display); font-size:1.15rem;">Yademar</strong>
-            <small>Tienda Física &amp; Online &bull; Chinandega, Nicaragua</small>
+  <footer class="yd-footer py-5">
+    <div class="container">
+      <div class="row g-4 align-items-start pb-4 border-bottom border-secondary border-opacity-25">
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <img src="logo.jpg" alt="Yademar" class="yd-brand-logo">
+            <div>
+              <div class="font-display fw-bold fs-4 text-white lh-1">Yademar</div>
+              <small class="text-white-50">Boutique &amp; Tienda Online</small>
+            </div>
           </div>
+          <p class="small text-white-50 mb-0">
+            De la trasera del Calvario 2 ½ c. al este, Chinandega 25000.<br>
+            Pedidos y consultas: +505 8956-3257.
+          </p>
         </div>
-        <div class="yd-footer-links">
-          <a href="#temporadas">Temporadas</a>
-          <a href="#catalogo">Catálogo</a>
-          <a href="#tarjeta-regalo">Tarjeta de Regalo</a>
-          <a href="#ubicacion">Ubicación</a>
-          <a href="#inicio" id="btnFooterAdmin">Acceso Admin</a>
-          <a href="../index.html">Portal Hub</a>
+
+        <div class="col-6 col-lg-3">
+          <div class="fw-bold text-white small text-uppercase mb-2">Navegación</div>
+          <ul class="list-unstyled d-flex flex-column gap-2 small mb-0">
+            <li><a href="#temporadas">Temporadas</a></li>
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#tarjeta-regalo">Tarjetas de Regalo</a></li>
+            <li><a href="#ubicacion">Ubicación</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-lg-3">
+          <div class="fw-bold text-white small text-uppercase mb-2">Redes Oficiales</div>
+          <ul class="list-unstyled d-flex flex-column gap-2 small mb-0">
+            <li><a href="https://www.instagram.com/yademar5/" target="_blank" rel="noopener"><i class="bi bi-instagram me-1"></i> @yademar5</a></li>
+            <li><a href="https://www.facebook.com/Yademar-Tienda-Online-231953607295655" target="_blank" rel="noopener"><i class="bi bi-facebook me-1"></i> Yademar Tienda Online</a></li>
+            <li><a href="https://wa.me/50589563257" target="_blank" rel="noopener"><i class="bi bi-whatsapp me-1"></i> 8956-3257</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2">
+          <div class="fw-bold text-white small text-uppercase mb-2">Accesos</div>
+          <ul class="list-unstyled d-flex flex-column gap-2 small mb-0">
+            <li><a href="admin.html"><i class="bi bi-shield-lock me-1"></i> Panel Administrador</a></li>
+            <li><a href="../index.html"><i class="bi bi-grid-1x2 me-1"></i> Portal Principal</a></li>
+          </ul>
         </div>
       </div>
-      <div class="yd-footer-bottom">
-        <span>&copy; 2026 Yademar (@yademar5). Todos los derechos reservados.</span>
-        <span>De la trasera del Calvario 2 ½ c. al este &bull; WhatsApp 8956-3257</span>
+
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-4 small text-white-50">
+        <span>&copy; 2026 Yademar Boutique Chinandega. Todos los derechos reservados.</span>
+        <span>Vista Cliente &bull; Bootstrap 5</span>
       </div>
     </div>
   </footer>
 
-  <!-- Modal Vista Rápida de Producto -->
-  <div class="yd-modal-backdrop" id="ydQuickViewModal" role="dialog" aria-modal="true" aria-labelledby="qvTitle">
-    <div class="yd-modal-card">
-      <button type="button" class="yd-modal-close" id="btnCloseQuickView" aria-label="Cerrar">&times;</button>
-      <div class="yd-qv-grid">
-        <div class="yd-qv-photo">
-          <img src="" id="qvImg" alt="Producto Yademar">
-        </div>
-        <div class="yd-qv-body">
-          <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-            <span class="yd-kicker" id="qvBadge" style="margin:0;">Nuevo</span>
-            <span style="font-size:0.78rem; font-weight:700; color:var(--yd-slate);" id="qvSeason">Temporada</span>
+  <!-- ============================================================
+       MODAL VISTA RÁPIDA DE PRENDA (Bootstrap 5 Modal)
+       ============================================================ -->
+  <div class="modal fade" id="ydQuickViewModal" tabindex="-1" aria-labelledby="qvTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4 overflow-hidden">
+        <div class="row g-0">
+          <div class="col-md-5 bg-light">
+            <img id="qvImg" src="" alt="" class="w-100 h-100 object-fit-cover" style="min-height: 320px; max-height: 480px;">
           </div>
-          <h3 id="qvTitle" style="font-size:1.65rem;">Producto</h3>
-          <div class="yd-prod-price-row">
-            <span class="yd-prod-price" id="qvPrice" style="font-size:1.25rem;">C$ 0</span>
-            <span class="yd-prod-old-price" id="qvOldPrice"></span>
-          </div>
-          <p id="qvDesc" style="font-size:0.92rem; color:var(--yd-slate);"></p>
-
-          <div>
-            <div class="yd-field-label" style="margin-bottom:6px;"><span>Selecciona Talla</span></div>
-            <div class="yd-size-pills" id="qvSizes"></div>
-          </div>
-
-          <div>
-            <div class="yd-field-label" style="margin-bottom:6px;"><span>Colores Disponibles</span></div>
-            <div class="yd-chip-row" id="qvColors"></div>
-          </div>
-
-          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; padding-top:10px;">
-            <button type="button" class="yd-btn yd-btn-primary" style="flex:1;" id="qvAddBagBtn">
-              <i class="bi bi-bag-plus-fill"></i> Agregar a la Bolsa
-            </button>
-            <button type="button" class="yd-btn yd-btn-outline" id="qvFavBtn" aria-label="Favorito">
-              <i class="bi bi-heart"></i>
-            </button>
-            <a href="#" target="_blank" rel="noopener" class="yd-btn yd-btn-wsp yd-btn-block" id="qvWspBtn">
-              <i class="bi bi-whatsapp"></i> Consultar esta prenda por WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Drawer Deslizable Bolsa de Pedido WhatsApp -->
-  <div class="yd-drawer-backdrop" id="ydBagDrawer" role="dialog" aria-modal="true" aria-label="Bolsa de Pedido">
-    <div class="yd-drawer-panel">
-      <div class="yd-drawer-head">
-        <div>
-          <h3 style="font-size:1.3rem;">Tu Bolsa Yademar</h3>
-          <small style="color:var(--yd-slate);">Confirmación y pago coordinado por WhatsApp</small>
-        </div>
-        <button type="button" class="yd-modal-close" style="position:static;" id="btnCloseBag" aria-label="Cerrar bolsa">&times;</button>
-      </div>
-
-      <div class="yd-drawer-body" id="ydBagItems"></div>
-
-      <div id="ydBagEmpty" style="padding:48px 24px; text-align:center; color:var(--yd-slate); margin:auto;" hidden>
-        <i class="bi bi-bag-heart" style="font-size:2.6rem; color:var(--yd-red);"></i>
-        <h4 style="margin:10px 0 6px; color:var(--yd-noir);">Tu bolsa está vacía</h4>
-        <p style="font-size:0.88rem;">Agrega prendas del catálogo o una Tarjeta de Regalo personalizada.</p>
-      </div>
-
-      <div class="yd-drawer-foot" id="ydBagFooter" hidden>
-        <div class="yd-bag-gift-row">
-          <input type="text" id="bagGiftCodeInput" class="yd-input" placeholder="Folio Gift Card (ej. N°0001)" style="padding:8px 12px; font-size:0.82rem;">
-          <button type="button" class="yd-btn yd-btn-noir yd-btn-sm" id="btnApplyBagGift">Aplicar</button>
-        </div>
-        <div id="bagGiftAppliedInfo" style="font-size:0.76rem; color:#0F5132; font-weight:700; margin-bottom:8px;" hidden></div>
-
-        <div class="yd-summary-line">
-          <span>Subtotal</span>
-          <strong id="ydBagSubtotal">C$ 0</strong>
-        </div>
-        <div class="yd-summary-line" id="ydBagDiscountRow" hidden>
-          <span>Crédito Tarjeta de Regalo</span>
-          <strong id="ydBagDiscountVal" style="color:#0F5132;">- C$ 0</strong>
-        </div>
-        <div class="yd-summary-line is-total">
-          <span>Total Estimado</span>
-          <span id="ydBagTotal">C$ 0</span>
-        </div>
-        <div style="font-size:0.76rem; color:var(--yd-slate); margin-bottom:12px;" id="ydBagUsdApprox"></div>
-
-        <button type="button" class="yd-btn yd-btn-wsp yd-btn-block" id="btnCheckoutWsp" style="margin-bottom:8px;">
-          <i class="bi bi-whatsapp"></i> Finalizar Pedido por WhatsApp
-        </button>
-        <button type="button" class="yd-btn-ghost yd-btn-block" id="btnClearBag">Vaciar bolsa</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Cuenta de Usuario & Gestión JSON -->
-  <div class="yd-modal-backdrop" id="ydAccountModal" role="dialog" aria-modal="true" aria-label="Cuenta de Usuario Yademar">
-    <div class="yd-modal-card is-narrow">
-      <button type="button" class="yd-modal-close" id="btnCloseAccount" aria-label="Cerrar">&times;</button>
-
-      <div id="ydAuthGuestView">
-        <span class="yd-kicker" style="margin-bottom:8px;"><i class="bi bi-person-badge"></i> Acceso Clientes &amp; Tienda</span>
-        <h3 style="font-size:1.5rem; margin-bottom:4px;">Tu Perfil Yademar</h3>
-        <p id="ydAuthSubtitle" style="font-size:0.86rem; color:var(--yd-slate);">Guarda favoritos, consulta tu historial de pedidos o inicia sesión como Administrador.</p>
-
-        <div class="yd-auth-tabs" id="ydAuthTabs">
-          <button type="button" class="yd-filter-pill active" data-auth-tab="login">Iniciar Sesión</button>
-          <button type="button" class="yd-filter-pill" data-auth-tab="register">Crear Cuenta</button>
-        </div>
-
-        <form id="ydLoginForm">
-          <div class="yd-studio-block">
-            <label class="yd-field-label" for="loginEmail">Usuario o correo electrónico</label>
-            <input type="text" id="loginEmail" class="yd-input" placeholder="admin@yademar.ni o admin" autocomplete="username" required>
-          </div>
-          <div class="yd-studio-block">
-            <label class="yd-field-label" for="loginPin">PIN de acceso (4 dígitos)</label>
-            <input type="password" id="loginPin" class="yd-input" placeholder="••••" autocomplete="current-password" required>
-          </div>
-          <div id="ydLoginError" class="yd-form-error" role="alert" hidden></div>
-          <div class="yd-chip-row" style="margin-bottom:16px;">
-            <button type="button" class="yd-chip-btn" data-demo-user="cliente">Acceso Cliente Demo (1234)</button>
-          </div>
-          <button type="submit" class="yd-btn yd-btn-primary yd-btn-block">Entrar a Mi Cuenta</button>
-        </form>
-
-        <form id="ydRegisterForm" hidden>
-          <div class="yd-studio-block">
-            <label class="yd-field-label" for="regName">Nombre completo</label>
-            <input type="text" id="regName" class="yd-input" placeholder="Ej. María José López" required>
-          </div>
-          <div class="yd-studio-block yd-form-row-2">
+          <div class="col-md-7 p-4 d-flex flex-column justify-content-between">
             <div>
-              <label class="yd-field-label" for="regEmail">Correo</label>
-              <input type="email" id="regEmail" class="yd-input" placeholder="tu@correo.com" required>
-            </div>
-            <div>
-              <label class="yd-field-label" for="regPhone">WhatsApp</label>
-              <input type="tel" id="regPhone" class="yd-input" placeholder="8888-8888" required>
-            </div>
-          </div>
-          <div class="yd-studio-block yd-form-row-2">
-            <div>
-              <label class="yd-field-label" for="regCity">Ciudad</label>
-              <input type="text" id="regCity" class="yd-input" value="Chinandega">
-            </div>
-            <div>
-              <label class="yd-field-label" for="regPin">PIN (4 dígitos)</label>
-              <input type="text" id="regPin" class="yd-input" maxlength="6" placeholder="1234" required>
-            </div>
-          </div>
-          <button type="submit" class="yd-btn yd-btn-noir yd-btn-block">Registrarme en Yademar</button>
-        </form>
-      </div>
+              <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                <span class="badge text-bg-dark rounded-pill" id="qvBadge">Temporada</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="small text-uppercase text-muted fw-semibold" id="qvMeta">Dama &bull; Verano</div>
+              <h3 class="h4 font-display fw-bold mt-1 mb-2" id="qvTitle">Nombre de Prenda</h3>
+              <div class="mb-3">
+                <span class="fs-4 fw-bold text-danger" id="qvPrice">C$0</span>
+                <span class="small text-muted text-decoration-line-through ms-2 d-none" id="qvOldPrice"></span>
+              </div>
+              <p class="small text-muted mb-3" id="qvDesc"></p>
 
-      <div id="ydProfileView" hidden>
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding-bottom:14px; border-bottom:1px solid var(--yd-border);">
-          <div style="display:flex; align-items:center; gap:12px;">
-            <div id="profAvatar" style="width:48px; height:48px; border-radius:50%; background:var(--yd-red); color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.1rem;">Y</div>
-            <div>
-              <h3 id="profName" style="font-size:1.25rem;">Usuario</h3>
-              <small id="profEmail" style="color:var(--yd-slate); display:block;"></small>
-              <span class="yd-kicker" id="profRoleBadge" style="margin:4px 0 0; padding:2px 8px; font-size:0.65rem;">Cliente</span>
+              <div class="mb-3">
+                <label class="form-label small fw-bold mb-1">Talla disponible</label>
+                <div class="d-flex flex-wrap gap-2" id="qvSizes"></div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label small fw-bold mb-1">Color: <span class="fw-normal text-muted" id="qvColorName">—</span></label>
+                <div class="d-flex flex-wrap gap-2" id="qvColors"></div>
+              </div>
             </div>
-          </div>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <button type="button" class="yd-btn yd-btn-noir yd-btn-sm" id="btnSwitchAccount">Cambiar a Admin / Otra Cuenta</button>
-            <button type="button" class="yd-btn yd-btn-outline yd-btn-sm" id="btnLogout">Volver a Modo Cliente</button>
-          </div>
-        </div>
 
-        <div class="yd-cards-3" style="margin:16px 0; gap:10px;">
-          <div class="yd-feature-card" style="padding:12px; text-align:center;">
-            <strong id="profFavCount" style="font-size:1.25rem; display:block;">0</strong>
-            <small style="color:var(--yd-slate);">Favoritos</small>
-          </div>
-          <div class="yd-feature-card" style="padding:12px; text-align:center;">
-            <strong id="profOrdersCount" style="font-size:1.25rem; display:block;">0</strong>
-            <small style="color:var(--yd-slate);">Pedidos</small>
-          </div>
-          <div class="yd-feature-card" style="padding:12px; text-align:center;">
-            <strong id="profGiftsCount" style="font-size:1.25rem; display:block;">0</strong>
-            <small style="color:var(--yd-slate);">Gift Cards</small>
-          </div>
-        </div>
-
-        <div id="profRecentList" style="display:flex; flex-direction:column; gap:8px; max-height:160px; overflow-y:auto;"></div>
-
-        <!-- Panel Exclusivo Administrador JSON -->
-        <div class="yd-admin-box" id="ydAdminSection" hidden>
-          <h4 style="margin:0 0 6px; font-size:0.95rem;"><i class="bi bi-database-fill-gear text-danger me-1"></i> Gestión de Catálogo JSON (Admin)</h4>
-          <p style="font-size:0.78rem; color:var(--yd-slate); margin-bottom:12px;">Agrega una prenda con enlace externo de imagen (`imagenUrl`) y exporta `store-data.json` actualizado.</p>
-
-          <form id="adminAddProdForm" style="display:flex; flex-direction:column; gap:8px;">
-            <input type="hidden" id="admProdEditId" value="">
-            <input type="text" id="admProdName" class="yd-input" placeholder="Nombre de la prenda" required>
-            <div class="yd-form-row-2">
-              <select id="admProdCat" class="yd-input">
-                <option value="dama">Dama</option>
-                <option value="caballero">Caballero</option>
-              </select>
-              <select id="admProdSeason" class="yd-input">
-                <option value="verano">Verano Chinandega</option>
-                <option value="urbano">Oficina &amp; Urbano</option>
-                <option value="eventos">Noche &amp; Eventos</option>
-                <option value="navidad">Fiestas &amp; Navidad</option>
-              </select>
-            </div>
-            <div class="yd-form-row-2">
-              <input type="number" id="admProdPrice" class="yd-input" placeholder="Precio C$" min="1" required>
-              <input type="text" id="admProdSizes" class="yd-input" value="S, M, L" placeholder="Tallas (S, M, L)">
-            </div>
-            <input type="text" id="admProdBadge" class="yd-input" value="Nuevo" placeholder="Etiqueta (ej. Nuevo)">
-            <input type="url" id="admProdImgUrl" class="yd-input" placeholder="Enlace HTTPS de la foto (https://...)" required>
-            <input type="text" id="admProdDesc" class="yd-input" placeholder="Descripción corta" required>
-            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;">
-              <button type="submit" class="yd-btn yd-btn-primary yd-btn-sm" id="admFormSubmitBtn" style="flex:1;">+ Agregar al Catálogo</button>
-              <button type="button" class="yd-btn yd-btn-outline yd-btn-sm" id="admCancelEditBtn" hidden>Cancelar Edición</button>
-              <button type="button" class="yd-btn yd-btn-noir yd-btn-sm" id="btnExportStoreJson">
-                <i class="bi bi-filetype-json"></i> Descargar store-data.json
+            <div class="d-grid gap-2 pt-3 border-top">
+              <button type="button" class="btn btn-yd-primary" id="btnQvAddToBag">
+                <i class="bi bi-bag-plus me-1"></i> Agregar a mi Bolsa
               </button>
+              <a href="#" target="_blank" rel="noopener" class="btn btn-yd-outline btn-sm" id="btnQvWhatsApp">
+                <i class="bi bi-whatsapp text-success me-1"></i> Consultar esta prenda por WhatsApp
+              </a>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- WhatsApp Flotante & Toast -->
-  <a href="https://wa.me/50589563257?text=Hola%20Yademar%2C%20deseo%20consultar%20por%20prendas%20o%20tarjetas%20de%20regalo" target="_blank" rel="noopener" class="yd-wsp-float" aria-label="WhatsApp Yademar">
-    <i class="bi bi-whatsapp"></i>
-  </a>
-  <div class="yd-toast" id="ydToast" role="status" aria-live="polite"></div>
+  <!-- ============================================================
+       MODAL CUENTA CLIENTE (Bootstrap 5 Modal)
+       ============================================================ -->
+  <div class="modal fade" id="ydAccountModal" tabindex="-1" aria-labelledby="accModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4">
+        <div class="modal-header border-bottom">
+          <div>
+            <h5 class="modal-title font-display fw-bold" id="accModalTitle">Mi Cuenta Cliente</h5>
+            <small class="text-muted">Favoritos e historial de pedidos en Yademar</small>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
 
-  <script src="logo-data.js"></script>
+        <div class="modal-body">
+          <!-- Perfil Cliente Activo -->
+          <div class="p-3 rounded-3 bg-light border mb-3 d-flex align-items-center justify-content-between gap-2">
+            <div>
+              <span class="badge text-bg-secondary rounded-pill mb-1">Sesión Cliente</span>
+              <div class="fw-bold" id="accActiveName">Isabella Castro</div>
+              <small class="text-muted" id="accActiveEmail">cliente@yademar.ni</small>
+            </div>
+            <div class="text-end small">
+              <div><strong id="accStatFavs">0</strong> favoritos</div>
+              <div><strong id="accStatOrders">0</strong> pedidos</div>
+            </div>
+          </div>
+
+          <!-- Tabs Cliente -->
+          <ul class="nav nav-pills nav-fill mb-3 small" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tabCliOrders" type="button" role="tab">Mis Pedidos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabCliSwitch" type="button" role="tab">Cambiar Cuenta</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabCliRegister" type="button" role="tab">Crear Cuenta</button>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <!-- Historial de Pedidos -->
+            <div class="tab-pane fade show active" id="tabCliOrders" role="tabpanel">
+              <div id="accOrdersList" class="d-flex flex-column gap-2">
+                <!-- Renderizado dinámico -->
+              </div>
+            </div>
+
+            <!-- Iniciar sesión cliente -->
+            <div class="tab-pane fade" id="tabCliSwitch" role="tabpanel">
+              <form id="clientLoginForm" class="d-flex flex-column gap-3">
+                <div>
+                  <label for="cliLoginId" class="form-label small fw-semibold">Correo o usuario</label>
+                  <input type="text" class="form-control" id="cliLoginId" placeholder="cliente@yademar.ni" required>
+                </div>
+                <div>
+                  <label for="cliLoginPin" class="form-label small fw-semibold">PIN de acceso</label>
+                  <input type="password" class="form-control" id="cliLoginPin" placeholder="••••" required>
+                </div>
+                <div class="alert alert-danger py-2 small d-none mb-0" id="cliLoginError"></div>
+                <button type="submit" class="btn btn-yd-dark w-100">Cambiar de perfil</button>
+              </form>
+            </div>
+
+            <!-- Registro nuevo cliente -->
+            <div class="tab-pane fade" id="tabCliRegister" role="tabpanel">
+              <form id="clientRegisterForm" class="row g-2">
+                <div class="col-12">
+                  <label for="regName" class="form-label small fw-semibold">Nombre completo</label>
+                  <input type="text" class="form-control" id="regName" placeholder="Ej. Sofía Mendoza" required>
+                </div>
+                <div class="col-12">
+                  <label for="regEmail" class="form-label small fw-semibold">Correo electrónico</label>
+                  <input type="email" class="form-control" id="regEmail" placeholder="sofia@correo.com" required>
+                </div>
+                <div class="col-6">
+                  <label for="regPhone" class="form-label small fw-semibold">WhatsApp</label>
+                  <input type="tel" class="form-control" id="regPhone" placeholder="8888-0000">
+                </div>
+                <div class="col-6">
+                  <label for="regPin" class="form-label small fw-semibold">PIN (4+ dígitos)</label>
+                  <input type="password" class="form-control" id="regPin" minlength="4" placeholder="1234" required>
+                </div>
+                <div class="col-12">
+                  <div class="alert alert-danger py-2 small d-none mb-0" id="cliRegError"></div>
+                </div>
+                <div class="col-12 pt-1">
+                  <button type="submit" class="btn btn-yd-primary w-100">Crear cuenta cliente</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer bg-light justify-content-between">
+          <small class="text-muted">¿Eres personal de tienda?</small>
+          <a href="admin.html" class="btn btn-sm btn-outline-dark rounded-pill">
+            <i class="bi bi-shield-lock me-1"></i> Ir al Panel Administrador
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       OFFCANVAS BOLSA DE COMPRAS (Bootstrap 5 Offcanvas)
+       ============================================================ -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="ydBagOffcanvas" aria-labelledby="ydBagTitle">
+    <div class="offcanvas-header border-bottom">
+      <div>
+        <h5 class="offcanvas-title font-display fw-bold" id="ydBagTitle">Tu Bolsa Yademar</h5>
+        <small class="text-muted">Pedido directo a WhatsApp 8956-3257</small>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+
+    <div class="offcanvas-body d-flex flex-column">
+      <div id="ydBagItems" class="d-flex flex-column gap-3 flex-grow-1">
+        <!-- Items renderizados por client.js -->
+      </div>
+
+      <!-- Aplicar Folio de Tarjeta de Regalo -->
+      <div class="border-top pt-3 mt-3">
+        <label for="bagGiftCodeInput" class="form-label small fw-semibold mb-1">
+          <i class="bi bi-gift text-danger me-1"></i>¿Tienes una Tarjeta de Regalo oficial?
+        </label>
+        <div class="input-group input-group-sm mb-2">
+          <input type="text" class="form-control" id="bagGiftCodeInput" placeholder="Ej. N°0001">
+          <button class="btn btn-dark" type="button" id="btnApplyBagGift">Validar</button>
+        </div>
+        <div class="small text-success fw-semibold d-none mb-2" id="bagGiftAppliedMsg"></div>
+        <div class="small text-danger d-none mb-2" id="bagGiftErrorMsg"></div>
+
+        <!-- Totales -->
+        <div class="bg-light rounded-3 p-3 border mb-3 small">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="text-muted">Subtotal</span>
+            <strong id="bagSubtotal">C$0</strong>
+          </div>
+          <div class="d-flex justify-content-between mb-1 text-success d-none" id="bagDiscountRow">
+            <span>Crédito Gift Card (<span id="bagDiscountFolio"></span>)</span>
+            <strong id="bagDiscountVal">-C$0</strong>
+          </div>
+          <div class="d-flex justify-content-between pt-2 mt-2 border-top fs-6">
+            <span class="fw-bold">Total estimado</span>
+            <strong class="text-danger" id="bagTotal">C$0</strong>
+          </div>
+        </div>
+
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-yd-whatsapp" id="btnCheckoutWhatsApp">
+            <i class="bi bi-whatsapp me-1"></i> Enviar Pedido por WhatsApp
+          </button>
+          <button type="button" class="btn btn-sm btn-link text-muted text-decoration-none" id="btnClearBag">
+            Vaciar bolsa
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="data/store-fallback.js"></script>
-  <script src="script.js"></script>
+  <script src="store-core.js"></script>
+  <script src="client.js"></script>
 </body>
 </html>

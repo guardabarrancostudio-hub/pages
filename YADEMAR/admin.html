@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Administrador — Yademar Boutique</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/jpeg" href="logo.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3.3 & Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Tema Couture Editorial & Admin Yademar -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="yd-admin-body yd-admin-print-ready">
+
+  <!-- ============================================================
+       PUERTA DE ACCESO ADMINISTRADOR (Visible cuando no hay sesión)
+       ============================================================ -->
+  <section id="ydAdminGate" class="yd-admin-gate">
+    <div class="yd-admin-gate-card">
+      <div class="text-center mb-4">
+        <img src="logo.jpg" alt="Yademar" class="yd-brand-logo mb-3" style="width: 68px; height: 68px;">
+        <div class="yd-eyebrow justify-content-center mb-1">
+          <i class="bi bi-shield-lock-fill"></i> Acceso Restringido
+        </div>
+        <h1 class="h3 font-display fw-bold mb-1">Panel Administrador</h1>
+        <p class="small text-muted mb-0">
+          Gestión de catálogo de prendas, emisión oficial de Tarjetas de Regalo HD y respaldo JSON.
+        </p>
+      </div>
+
+      <form id="adminLoginForm" class="d-flex flex-column gap-3" autocomplete="off">
+        <div>
+          <label for="adminLoginId" class="form-label small fw-semibold">Usuario o correo de administrador</label>
+          <div class="input-group">
+            <span class="input-group-text bg-white"><i class="bi bi-person-badge text-muted"></i></span>
+            <input type="text" class="form-control" id="adminLoginId" placeholder="Ingresa tu correo o usuario" required autofocus>
+          </div>
+        </div>
+
+        <div>
+          <label for="adminLoginPin" class="form-label small fw-semibold">PIN de seguridad</label>
+          <div class="input-group">
+            <span class="input-group-text bg-white"><i class="bi bi-key text-muted"></i></span>
+            <input type="password" class="form-control" id="adminLoginPin" placeholder="Ingresa tu PIN" required>
+          </div>
+        </div>
+
+        <div class="alert alert-danger py-2 small d-none mb-0" id="adminLoginError" role="alert"></div>
+
+        <button type="submit" class="btn btn-yd-primary w-100 py-2">
+          <i class="bi bi-unlock-fill me-1"></i> Iniciar Sesión Administrativa
+        </button>
+      </form>
+
+      <div class="text-center mt-4 pt-3 border-top">
+        <a href="index.html" class="small text-decoration-none fw-semibold text-dark">
+          <i class="bi bi-arrow-left me-1"></i> Volver a la Tienda Cliente
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ESPACIO DE TRABAJO ADMINISTRADOR (Oculto hasta autenticar)
+       ============================================================ -->
+  <div id="ydAdminWorkspace" class="d-none">
+    <!-- Barra Superior Admin -->
+    <nav class="navbar navbar-expand-lg yd-admin-navbar sticky-top py-2" id="ydAdminNav">
+      <div class="container-fluid px-3 px-lg-4">
+        <div class="d-flex align-items-center gap-2">
+          <img src="logo.jpg" alt="Yademar" class="yd-brand-logo" style="width: 38px; height: 38px;">
+          <div>
+            <div class="font-display fw-bold lh-1 fs-5 text-white">Yademar Admin</div>
+            <small class="text-white-50" style="font-size: 0.72rem;" id="adminActiveHeader">Administrador</small>
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap align-items-center gap-2 mt-2 mt-sm-0">
+          <a href="index.html" target="_blank" rel="noopener" class="btn btn-sm btn-outline-light rounded-pill">
+            <i class="bi bi-box-arrow-up-right me-1"></i> <span class="d-none d-sm-inline">Ver Tienda Cliente</span>
+          </a>
+          <button type="button" class="btn btn-sm btn-warning rounded-pill fw-semibold text-dark" id="btnTopExportJson">
+            <i class="bi bi-download me-1"></i> <span class="d-none d-md-inline">Exportar JSON</span>
+          </button>
+          <button type="button" class="btn btn-sm btn-danger rounded-pill" id="btnAdminLogout">
+            <i class="bi bi-box-arrow-right me-1"></i> Salir
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Layout Principal Bootstrap 5 (Sidebar + Contenido) -->
+    <div class="container-fluid px-3 px-lg-4 py-4">
+      <div class="row g-4">
+        <!-- Navegación Lateral / Pills Móvil -->
+        <aside class="col-12 col-lg-3 col-xl-2">
+          <div class="yd-admin-sidebar sticky-lg-top" style="top: 76px;">
+            <div class="small text-uppercase text-muted fw-bold px-2 mb-2 d-none d-lg-block" style="letter-spacing: 0.1em; font-size: 0.7rem;">
+              Módulos
+            </div>
+            <div class="d-flex flex-row flex-lg-column gap-1 overflow-auto pb-1 pb-lg-0" id="adminSidebarNav">
+              <button type="button" class="yd-admin-nav-btn is-active flex-shrink-0" data-panel="panelDashboard">
+                <i class="bi bi-speedometer2"></i> <span>Resumen</span>
+              </button>
+              <button type="button" class="yd-admin-nav-btn flex-shrink-0" data-panel="panelCatalog">
+                <i class="bi bi-tags-fill"></i> <span>Catálogo</span>
+              </button>
+              <button type="button" class="yd-admin-nav-btn flex-shrink-0" data-panel="panelGiftCards">
+                <i class="bi bi-gift-fill"></i> <span>Tarjetas Regalo</span>
+              </button>
+              <button type="button" class="yd-admin-nav-btn flex-shrink-0" data-panel="panelUsersJson">
+                <i class="bi bi-filetype-json"></i> <span>Usuarios &amp; JSON</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Contenido de Paneles -->
+        <main class="col-12 col-lg-9 col-xl-10">
+
+          <!-- ==========================================
+               PANEL 1: RESUMEN / DASHBOARD
+               ========================================== -->
+          <section id="panelDashboard" class="yd-admin-panel">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+              <div>
+                <h2 class="h4 font-display fw-bold mb-0">Resumen Operativo</h2>
+                <small class="text-muted">Estado actual del catálogo, folios de regalo y pedidos registrados.</small>
+              </div>
+              <div class="d-flex flex-wrap gap-2">
+                <button type="button" class="btn btn-sm btn-yd-primary" data-jump-panel="panelCatalog" id="btnDashNewProd">
+                  <i class="bi bi-plus-lg me-1"></i> Nueva Prenda
+                </button>
+                <button type="button" class="btn btn-sm btn-yd-dark" data-jump-panel="panelGiftCards">
+                  <i class="bi bi-gift me-1"></i> Emitir Tarjeta
+                </button>
+              </div>
+            </div>
+
+            <!-- 4 KPIs -->
+            <div class="row row-cols-2 row-cols-xl-4 g-3 mb-4">
+              <div class="col">
+                <div class="yd-kpi-card">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-muted fw-semibold">Prendas Activas</span>
+                    <span class="yd-kpi-icon bg-danger bg-opacity-10 text-danger"><i class="bi bi-bag-heart-fill"></i></span>
+                  </div>
+                  <div class="fs-2 fw-bold lh-1" id="kpiProducts">0</div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="yd-kpi-card">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-muted fw-semibold">Temporadas</span>
+                    <span class="yd-kpi-icon bg-warning bg-opacity-10 text-warning"><i class="bi bi-collection-fill"></i></span>
+                  </div>
+                  <div class="fs-2 fw-bold lh-1" id="kpiSeasons">0</div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="yd-kpi-card">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-muted fw-semibold">Tarjetas Emitidas</span>
+                    <span class="yd-kpi-icon bg-primary bg-opacity-10 text-primary"><i class="bi bi-gift-fill"></i></span>
+                  </div>
+                  <div class="fs-2 fw-bold lh-1" id="kpiGiftCards">0</div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="yd-kpi-card">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-muted fw-semibold">Pedidos Clientes</span>
+                    <span class="yd-kpi-icon bg-success bg-opacity-10 text-success"><i class="bi bi-receipt"></i></span>
+                  </div>
+                  <div class="fs-2 fw-bold lh-1" id="kpiOrders">0</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actividad Reciente -->
+            <div class="row g-4">
+              <div class="col-lg-6">
+                <div class="yd-admin-panel-card h-100">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h6 fw-bold mb-0"><i class="bi bi-gift text-danger me-1"></i> Últimas Tarjetas de Regalo</h3>
+                    <button type="button" class="btn btn-sm btn-link text-decoration-none p-0" data-jump-panel="panelGiftCards">Ver todas</button>
+                  </div>
+                  <div id="dashRecentCards" class="d-flex flex-column gap-2 small"></div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="yd-admin-panel-card h-100">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h6 fw-bold mb-0"><i class="bi bi-bag-check text-success me-1"></i> Pedidos Recientes</h3>
+                    <button type="button" class="btn btn-sm btn-link text-decoration-none p-0" data-jump-panel="panelUsersJson">Ver todos</button>
+                  </div>
+                  <div id="dashRecentOrders" class="d-flex flex-column gap-2 small"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==========================================
+               PANEL 2: GESTIÓN DE CATÁLOGO (CRUD)
+               ========================================== -->
+          <section id="panelCatalog" class="yd-admin-panel d-none">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+              <div>
+                <h2 class="h4 font-display fw-bold mb-0">Gestión de Catálogo</h2>
+                <small class="text-muted">Agrega, edita o elimina prendas con enlaces de fotografías externas. Los cambios se reflejan al instante en la Vista Cliente.</small>
+              </div>
+              <button type="button" class="btn btn-yd-primary btn-sm" id="btnOpenNewProdModal">
+                <i class="bi bi-plus-circle me-1"></i> Agregar Prenda
+              </button>
+            </div>
+
+            <div class="yd-admin-panel-card">
+              <!-- Filtros de tabla -->
+              <div class="row g-2 mb-3">
+                <div class="col-12 col-md-5">
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+                    <input type="search" class="form-control" id="adminProdSearch" placeholder="Buscar por nombre o código YD-...">
+                  </div>
+                </div>
+                <div class="col-6 col-md-4">
+                  <select class="form-select form-select-sm" id="adminProdSeasonFilter">
+                    <option value="todas">Todas las temporadas</option>
+                    <option value="verano">Verano Chinandega</option>
+                    <option value="urbano">Oficina &amp; Urbano</option>
+                    <option value="eventos">Noche &amp; Eventos</option>
+                    <option value="navidad">Fiestas &amp; Navidad</option>
+                  </select>
+                </div>
+                <div class="col-6 col-md-3">
+                  <select class="form-select form-select-sm" id="adminProdCatFilter">
+                    <option value="todas">Todas las categorías</option>
+                    <option value="dama">Dama</option>
+                    <option value="caballero">Caballero</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 small">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Foto</th>
+                      <th>Prenda</th>
+                      <th>Categoría / Temporada</th>
+                      <th>Precio (C$)</th>
+                      <th>Tallas</th>
+                      <th>Estado</th>
+                      <th class="text-end">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminProductsTbody">
+                    <!-- Renderizado dinámico -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==========================================
+               PANEL 3: ESTUDIO COUTURE 3D DE TARJETAS DE REGALO
+               ========================================== -->
+          <section id="panelGiftCards" class="yd-admin-panel d-none">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+              <div>
+                <h2 class="h4 font-display fw-bold mb-0">Estudio Oficial de Tarjetas de Regalo</h2>
+                <small class="text-muted">Genera tarjetas oficiales con folio numerado, vista 3D Anverso/Reverso, descarga PNG HD (1800×1125 px) e impresión calibrada.</small>
+              </div>
+              <button type="button" class="btn btn-sm btn-yd-outline" id="btnNextFolio">
+                <i class="bi bi-hash me-1"></i> Asignar Siguiente Folio
+              </button>
+            </div>
+
+            <div class="row g-4 mb-4">
+              <!-- Formulario 3 Pasos -->
+              <div class="col-xl-5">
+                <div class="yd-admin-panel-card">
+                  <form id="adminGiftForm" class="d-flex flex-column gap-3">
+                    <!-- Paso 1 -->
+                    <div>
+                      <div class="small text-uppercase fw-bold text-danger mb-2">1. Monto, Folio y Vigencia</div>
+                      <div class="d-flex flex-wrap gap-1 mb-2" id="adminGcPresets">
+                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" data-gc-preset="500">500</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" data-gc-preset="1100">1,100</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" data-gc-preset="1500">1,500</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" data-gc-preset="2500">2,500</button>
+                      </div>
+                      <div class="row g-2">
+                        <div class="col-4">
+                          <label for="gcCurrency" class="form-label small fw-semibold mb-1">Moneda</label>
+                          <select class="form-select form-select-sm" id="gcCurrency">
+                            <option value="C$">C$ (NIO)</option>
+                            <option value="US$">US$ (USD)</option>
+                          </select>
+                        </div>
+                        <div class="col-8">
+                          <label for="gcAmount" class="form-label small fw-semibold mb-1">Monto</label>
+                          <input type="number" class="form-control form-control-sm" id="gcAmount" value="1100" min="50" step="10" required>
+                        </div>
+                        <div class="col-6">
+                          <label for="gcFolio" class="form-label small fw-semibold mb-1">Folio oficial</label>
+                          <input type="text" class="form-control form-control-sm fw-bold" id="gcFolio" value="N°0002" required>
+                        </div>
+                        <div class="col-6">
+                          <label for="gcExpiry" class="form-label small fw-semibold mb-1">Válido hasta</label>
+                          <input type="date" class="form-control form-control-sm" id="gcExpiry" required>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr class="my-1">
+
+                    <!-- Paso 2 -->
+                    <div>
+                      <div class="small text-uppercase fw-bold text-danger mb-2">2. Dedicatoria y Condiciones</div>
+                      <div class="row g-2">
+                        <div class="col-sm-6">
+                          <label for="gcPara" class="form-label small fw-semibold mb-1">Para</label>
+                          <input type="text" class="form-control form-control-sm" id="gcPara" value="Isabella Castro" maxlength="42" required>
+                        </div>
+                        <div class="col-sm-6">
+                          <label for="gcDe" class="form-label small fw-semibold mb-1">De</label>
+                          <input type="text" class="form-control form-control-sm" id="gcDe" value="Zairy Morales" maxlength="42" required>
+                        </div>
+                        <div class="col-sm-6">
+                          <label for="gcMotivo" class="form-label small fw-semibold mb-1">Ocasión</label>
+                          <input type="text" class="form-control form-control-sm" id="gcMotivo" value="DETALLE ESPECIAL" maxlength="32">
+                        </div>
+                        <div class="col-sm-6">
+                          <label for="gcCanje" class="form-label small fw-semibold mb-1">Texto de canje</label>
+                          <input type="text" class="form-control form-control-sm" id="gcCanje" value="Para gastar en la tienda física y Online." maxlength="60">
+                        </div>
+                        <div class="col-12">
+                          <label for="gcMessage" class="form-label small fw-semibold mb-1">Nota en el reverso</label>
+                          <textarea class="form-control form-control-sm" id="gcMessage" rows="2" maxlength="120">Disfruta eligiendo tu outfit favorito en Yademar Boutique Chinandega.</textarea>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr class="my-1">
+
+                    <!-- Paso 3 -->
+                    <div>
+                      <div class="small text-uppercase fw-bold text-danger mb-2">3. Acabado Couture</div>
+                      <div class="d-flex flex-wrap gap-2" id="adminGcThemes">
+                        <button type="button" class="yd-theme-swatch-btn is-active" data-gc-theme="crimson">
+                          <span class="yd-theme-dot" style="background:#D90429;"></span> Carmesí
+                        </button>
+                        <button type="button" class="yd-theme-swatch-btn" data-gc-theme="blush">
+                          <span class="yd-theme-dot" style="background:#F4A7CC;"></span> Blush
+                        </button>
+                        <button type="button" class="yd-theme-swatch-btn" data-gc-theme="noir">
+                          <span class="yd-theme-dot" style="background:#141216;"></span> Noir Gala
+                        </button>
+                        <button type="button" class="yd-theme-swatch-btn" data-gc-theme="gold">
+                          <span class="yd-theme-dot" style="background:#C59B47;"></span> Champagne Oro
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Botonera Oficial -->
+                    <div class="d-grid gap-2 pt-2">
+                      <button type="submit" class="btn btn-yd-primary btn-sm py-2" id="btnSaveGiftCard">
+                        <i class="bi bi-check2-circle me-1"></i> Guardar y Registrar Folio Oficial
+                      </button>
+                      <div class="row g-2">
+                        <div class="col-6">
+                          <button type="button" class="btn btn-yd-dark btn-sm w-100" id="btnDownloadPng">
+                            <i class="bi bi-file-earmark-image me-1"></i> PNG HD
+                          </button>
+                        </div>
+                        <div class="col-6">
+                          <button type="button" class="btn btn-yd-outline btn-sm w-100" id="btnPrintGiftCard">
+                            <i class="bi bi-printer me-1"></i> Imprimir / PDF
+                          </button>
+                        </div>
+                      </div>
+                      <button type="button" class="btn btn-yd-whatsapp btn-sm w-100" id="btnShareGiftWsp">
+                        <i class="bi bi-whatsapp me-1"></i> Enviar Notificación por WhatsApp
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Vista Previa 3D Anverso / Reverso -->
+              <div class="col-xl-7">
+                <div class="yd-admin-panel-card sticky-xl-top" style="top: 76px;">
+                  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                    <div>
+                      <div class="fw-bold small">Vista Previa Oficial en Vivo</div>
+                      <small class="text-muted">Proporción física 176×110 mm &bull; Exportación PNG 1800×1125 px</small>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-dark rounded-pill" id="btnFlipGiftCard">
+                      <i class="bi bi-arrow-repeat me-1"></i> Ver Reverso / Anverso
+                    </button>
+                  </div>
+
+                  <!-- Área Imprimible + 3D Scene -->
+                  <div id="ydGiftPrintArea" class="py-2">
+                    <div class="yd-gc-scene yd-gc-theme-crimson" id="ydGiftScene">
+                      <div class="yd-gc-flipper" id="ydGiftFlipper">
+                        <!-- ANVERSO -->
+                        <div class="yd-gc-face yd-gc-front">
+                          <div class="yd-gc-inner-frame"></div>
+
+                          <div class="d-flex justify-content-between align-items-start gap-2 position-relative" style="z-index:2;">
+                            <div>
+                              <div class="yd-gc-motivo yd-gc-accent" id="prevGcMotivo">DETALLE ESPECIAL</div>
+                              <div class="yd-gc-title">TARJETA<br>REGALO</div>
+                            </div>
+                            <div class="yd-gc-logo-badge">
+                              <img src="logo.jpg" alt="Logo Yademar">
+                            </div>
+                          </div>
+
+                          <div class="row g-2 align-items-end my-auto position-relative" style="z-index:2;">
+                            <div class="col-5">
+                              <div class="yd-gc-amount-box" id="prevGcAmount">C$1,100</div>
+                              <div class="mt-1" style="font-size: 0.65rem; line-height: 1.25; opacity: 0.85;" id="prevGcCanje">
+                                Para gastar en la tienda física y Online.
+                              </div>
+                            </div>
+                            <div class="col-7 d-flex flex-column gap-1">
+                              <div class="yd-gc-field-row">
+                                <span class="yd-gc-field-label">Para:</span>
+                                <span class="yd-gc-field-val" id="prevGcPara">Isabella Castro</span>
+                              </div>
+                              <div class="yd-gc-field-row">
+                                <span class="yd-gc-field-label">De:</span>
+                                <span class="yd-gc-field-val" id="prevGcDe">Zairy Morales</span>
+                              </div>
+                              <div class="yd-gc-field-row">
+                                <span class="yd-gc-field-label">Válido hasta:</span>
+                                <span class="yd-gc-field-val" id="prevGcExpiry">30/11/2026</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="yd-gc-footer">
+                            <span><i class="bi bi-facebook me-1"></i>Yademar Tienda Online</span>
+                            <span><i class="bi bi-instagram me-1"></i>@yademar5</span>
+                            <span><i class="bi bi-whatsapp me-1"></i>8956-3257</span>
+                            <span class="yd-gc-folio-pill" id="prevGcFolio">N°0002</span>
+                          </div>
+                        </div>
+
+                        <!-- REVERSO -->
+                        <div class="yd-gc-face yd-gc-back">
+                          <div class="yd-gc-inner-frame"></div>
+
+                          <div class="d-flex justify-content-between align-items-center position-relative" style="z-index:2;">
+                            <div>
+                              <div class="yd-gc-motivo yd-gc-accent">CERTIFICADO OFICIAL YADEMAR</div>
+                              <div class="fw-bold small">Boutique &amp; Tienda Online &bull; Chinandega</div>
+                            </div>
+                            <span class="yd-gc-folio-pill" id="prevGcBackFolio">N°0002</span>
+                          </div>
+
+                          <div class="my-auto py-2 position-relative" style="z-index:2;">
+                            <div class="fst-italic small mb-2" id="prevGcMessage">
+                              Disfruta eligiendo tu outfit favorito en Yademar Boutique Chinandega.
+                            </div>
+                            <div style="font-size: 0.68rem; opacity: 0.82;">
+                              &bull; Presenta este folio en tienda física (De la trasera del Calvario 2 ½ c. al este) o ingrésalo en tu bolsa en línea.<br>
+                              &bull; Válido hasta <strong id="prevGcBackExpiry">30/11/2026</strong>. No canjeable por efectivo.
+                            </div>
+                          </div>
+
+                          <div class="d-flex justify-content-between align-items-end gap-2 position-relative" style="z-index:2;">
+                            <div>
+                              <div class="yd-barcode-strip" id="gcBackBarcode"></div>
+                              <div class="mt-1 fw-bold" style="font-size: 0.65rem; letter-spacing: 0.14em;" id="prevGcBarcodeText">YDM-N°0002</div>
+                            </div>
+                            <div class="text-end" style="font-size: 0.68rem;">
+                              <div class="fw-bold">WhatsApp 8956-3257</div>
+                              <div class="opacity-75">@yademar5</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Canvas oculto para renderizado PNG HD 1800x1125 -->
+                  <canvas id="ydGiftCanvas" width="1800" height="1125" class="d-none"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabla de Folios Emitidos -->
+            <div class="yd-admin-panel-card">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="h6 fw-bold mb-0"><i class="bi bi-card-checklist text-danger me-1"></i> Registro de Folios Emitidos</h3>
+                <small class="text-muted">Haz clic en "Cargar" para re-imprimir o descargar PNG</small>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 small">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Folio</th>
+                      <th>Monto</th>
+                      <th>Para / De</th>
+                      <th>Tema</th>
+                      <th>Vigencia</th>
+                      <th class="text-end">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminGiftCardsTbody">
+                    <!-- Renderizado dinámico -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==========================================
+               PANEL 4: USUARIOS, PEDIDOS & CENTRO JSON
+               ========================================== -->
+          <section id="panelUsersJson" class="yd-admin-panel d-none">
+            <div class="mb-4">
+              <h2 class="h4 font-display fw-bold mb-0">Usuarios, Pedidos &amp; Respaldo JSON</h2>
+              <small class="text-muted">Administra la base de datos local y exporta/importa el archivo <code>store-data.json</code>.</small>
+            </div>
+
+            <!-- Centro JSON -->
+            <div class="yd-admin-panel-card mb-4">
+              <h3 class="h6 fw-bold mb-2"><i class="bi bi-database-gear text-danger me-1"></i> Persistencia JSON (`data/store-data.json`)</h3>
+              <p class="small text-muted mb-3">
+                Exporta la base completa (catálogo, temporadas, usuarios, pedidos y folios de tarjetas) para reemplazar <code>YADEMAR/data/store-data.json</code> en el repositorio, o importa un archivo respaldado.
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <button type="button" class="btn btn-yd-primary btn-sm" id="btnJsonExport">
+                  <i class="bi bi-download me-1"></i> Exportar store-data.json
+                </button>
+                <label class="btn btn-yd-dark btn-sm mb-0" style="cursor:pointer;">
+                  <i class="bi bi-upload me-1"></i> Importar store-data.json
+                  <input type="file" id="inputJsonImport" accept=".json,application/json" class="d-none">
+                </label>
+                <button type="button" class="btn btn-outline-danger btn-sm rounded-pill" id="btnJsonReset">
+                  <i class="bi bi-arrow-counterclockwise me-1"></i> Restablecer caché local
+                </button>
+              </div>
+            </div>
+
+            <div class="row g-4">
+              <div class="col-lg-6">
+                <div class="yd-admin-panel-card h-100">
+                  <h3 class="h6 fw-bold mb-3"><i class="bi bi-people-fill text-dark me-1"></i> Cuentas Registradas</h3>
+                  <div class="table-responsive">
+                    <table class="table table-sm table-hover align-middle mb-0 small">
+                      <thead class="table-light">
+                        <tr>
+                          <th>Usuario</th>
+                          <th>Correo</th>
+                          <th>Rol</th>
+                          <th class="text-end">Fav / Ped</th>
+                        </tr>
+                      </thead>
+                      <tbody id="adminUsersTbody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="yd-admin-panel-card h-100">
+                  <h3 class="h6 fw-bold mb-3"><i class="bi bi-receipt-cutoff text-success me-1"></i> Historial de Pedidos</h3>
+                  <div class="table-responsive">
+                    <table class="table table-sm table-hover align-middle mb-0 small">
+                      <thead class="table-light">
+                        <tr>
+                          <th>ID</th>
+                          <th>Cliente</th>
+                          <th>Fecha</th>
+                          <th class="text-end">Total</th>
+                        </tr>
+                      </thead>
+                      <tbody id="adminOrdersTbody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODAL AGREGAR / EDITAR PRENDA (Bootstrap 5 Modal)
+       ============================================================ -->
+  <div class="modal fade" id="ydAdminProdModal" tabindex="-1" aria-labelledby="prodModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4">
+        <div class="modal-header border-bottom">
+          <h5 class="modal-title font-display fw-bold" id="prodModalTitle">Nueva Prenda</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <form id="adminProdForm">
+          <input type="hidden" id="prodEditId">
+          <div class="modal-body">
+            <div class="row g-3">
+              <!-- Columna izquierda: Vista previa de imagen en vivo -->
+              <div class="col-md-4">
+                <label class="form-label small fw-semibold">Vista previa de foto</label>
+                <div class="yd-img-preview-box mb-2">
+                  <img id="prodImgPreview" src="" alt="Vista previa de prenda">
+                </div>
+                <small class="text-muted d-block" style="font-size: 0.74rem;">
+                  Pega un enlace directo (HTTPS) de imagen externa para mostrar la fotografía sin saturar el repositorio.
+                </small>
+              </div>
+
+              <!-- Columna derecha: Campos del producto -->
+              <div class="col-md-8">
+                <div class="row g-2">
+                  <div class="col-12">
+                    <label for="prodNombre" class="form-label small fw-semibold mb-1">Nombre de la prenda</label>
+                    <input type="text" class="form-control form-control-sm" id="prodNombre" placeholder="Ej. Vestido Midi Lino" required>
+                  </div>
+                  <div class="col-6">
+                    <label for="prodCategoria" class="form-label small fw-semibold mb-1">Categoría</label>
+                    <select class="form-select form-select-sm" id="prodCategoria">
+                      <option value="dama">Dama</option>
+                      <option value="caballero">Caballero</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label for="prodTemporada" class="form-label small fw-semibold mb-1">Temporada</label>
+                    <select class="form-select form-select-sm" id="prodTemporada">
+                      <option value="verano">Verano Chinandega</option>
+                      <option value="urbano">Oficina &amp; Urbano</option>
+                      <option value="eventos">Noche &amp; Eventos</option>
+                      <option value="navidad">Fiestas &amp; Navidad</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label for="prodPrecio" class="form-label small fw-semibold mb-1">Precio (C$)</label>
+                    <input type="number" class="form-control form-control-sm" id="prodPrecio" min="50" step="10" placeholder="1250" required>
+                  </div>
+                  <div class="col-6">
+                    <label for="prodPrecioAnt" class="form-label small fw-semibold mb-1">Precio anterior (opcional)</label>
+                    <input type="number" class="form-control form-control-sm" id="prodPrecioAnt" min="0" step="10" placeholder="1450">
+                  </div>
+                  <div class="col-6">
+                    <label for="prodTallas" class="form-label small fw-semibold mb-1">Tallas (separadas por coma)</label>
+                    <input type="text" class="form-control form-control-sm" id="prodTallas" value="S, M, L">
+                  </div>
+                  <div class="col-6">
+                    <label for="prodEtiqueta" class="form-label small fw-semibold mb-1">Etiqueta</label>
+                    <input type="text" class="form-control form-control-sm" id="prodEtiqueta" value="Nuevo">
+                  </div>
+                  <div class="col-12">
+                    <label for="prodImgUrl" class="form-label small fw-semibold mb-1">URL de imagen externa</label>
+                    <input type="url" class="form-control form-control-sm" id="prodImgUrl" placeholder="https://images.unsplash.com/..." required>
+                  </div>
+                  <div class="col-12">
+                    <label for="prodDesc" class="form-label small fw-semibold mb-1">Descripción</label>
+                    <textarea class="form-control form-control-sm" id="prodDesc" rows="2" placeholder="Detalles de tela, corte y ocasión de uso..."></textarea>
+                  </div>
+                  <div class="col-12 pt-1">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" role="switch" id="prodDisponible" checked>
+                      <label class="form-check-label small fw-semibold" for="prodDisponible">Visible en catálogo cliente</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer border-top">
+            <button type="button" class="btn btn-yd-outline btn-sm" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-yd-primary btn-sm">
+              <i class="bi bi-save me-1"></i> Guardar Prenda
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="logo-data.js"></script>
+  <script src="data/store-fallback.js"></script>
+  <script src="store-core.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
