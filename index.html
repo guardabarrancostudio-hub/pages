@@ -6,8 +6,8 @@
   <title>Portal Digital & Negocios | Ecosistema Web Chinandega, El Viejo & Centroamérica</title>
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Ecosistema digital de proyectos: Guardabarranco Studio (Marketing 360°), Dev Studio (Ingeniería de Software), Construcciones R&S, Taller Don Chungo y Veterinaria La Virgen.">
-  <meta name="keywords" content="portal negocios nicaragua, guardabarranco studio, dev studio, construcciones r&s, taller don chungo, veterinaria la virgen, chinandega, el viejo">
+  <meta name="description" content="Ecosistema digital de proyectos: Portafolio Ing. Luis Enrique Albares Soriano (Consultoría TI y Análisis de Datos), Guardabarranco Studio (Marketing 360°), Dev Studio (Ingeniería de Software), Construcciones R&S, Taller Don Chungo y Veterinaria La Virgen.">
+  <meta name="keywords" content="luis enrique albares soriano, portafolio ingenieria sistemas, consultoria ti nicaragua, portal negocios nicaragua, guardabarranco studio, dev studio, construcciones r&s, taller don chungo, veterinaria la virgen, chinandega, el viejo">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="DEV%20STUDIO/logo.svg">
@@ -35,6 +35,10 @@
       --c-guarda-glow: rgba(0, 168, 150, 0.45);
       --c-dev: #E2E8F0;
       --c-dev-glow: rgba(226, 232, 240, 0.35);
+      --c-luis: #1E3A8A;
+      --c-luis-glow: rgba(30, 58, 138, 0.35);
+      --c-yademar: #D90429;
+      --c-yademar-glow: rgba(217, 4, 41, 0.42);
     }
 
     body {
@@ -295,6 +299,18 @@
       box-shadow: 0 18px 36px var(--c-dev-glow);
     }
 
+    .card-luis:hover {
+      transform: translateY(-6px);
+      border-color: #3B82F6;
+      box-shadow: 0 14px 28px var(--c-luis-glow);
+    }
+
+    .card-yademar:hover {
+      transform: translateY(-8px);
+      border-color: var(--c-yademar);
+      box-shadow: 0 18px 36px var(--c-yademar-glow);
+    }
+
     /* Contenedor de Logo */
     .logo-container-card {
       border-radius: 14px;
@@ -387,6 +403,12 @@
     .btn-dev { background: linear-gradient(180deg, #FFFFFF, #CBD5E1); color: #08090C; border: 1px solid #FFFFFF; font-weight: 800; }
     .btn-dev:hover { background: #FFFFFF; color: #000000; box-shadow: 0 4px 18px rgba(255,255,255,0.3); }
 
+    .btn-luis { background-color: #1E3A8A; color: #FFFFFF; border: 1px solid #1E3A8A; font-weight: 700; }
+    .btn-luis:hover { background-color: #172554; color: #FFFFFF; border-color: #172554; }
+
+    .btn-yademar { background: linear-gradient(135deg, #D90429, #9B0620); color: #FFFFFF; border: none; font-weight: 700; }
+    .btn-yademar:hover { background: linear-gradient(135deg, #B80422, #7E0419); color: #FFFFFF; }
+
     .btn-portal-wsp {
       width: 44px;
       height: 44px;
@@ -407,6 +429,10 @@
       color: #FFFFFF;
       transform: scale(1.05);
       box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+    }
+
+    .hover-white:hover {
+      color: #FFFFFF !important;
     }
 
     /* Estado sin resultados */
@@ -449,7 +475,7 @@
               <i class="bi bi-layers-fill"></i>
             </div>
             <div>
-              <div class="fw-bold fs-6">5 Proyectos</div>
+              <div class="fw-bold fs-6">7 Proyectos</div>
               <small class="text-secondary">Ecosistema Activo</small>
             </div>
           </div>
@@ -499,17 +525,17 @@
         <button class="portal-filter-btn active" data-filter="all" id="btnFilterAll">
           <i class="bi bi-grid-fill"></i>
           <span>Todos</span>
-          <span class="badge-count" id="countAll">5</span>
+          <span class="badge-count" id="countAll">7</span>
         </button>
         <button class="portal-filter-btn" data-filter="corporativo" id="btnFilterCorp">
           <i class="bi bi-stars text-warning"></i>
-          <span>Estudios Digitales & Tech</span>
-          <span class="badge-count" id="countCorp">2</span>
+          <span>Estudios Digitales &amp; Consultoría</span>
+          <span class="badge-count" id="countCorp">3</span>
         </button>
         <button class="portal-filter-btn" data-filter="local" id="btnFilterLocal">
           <i class="bi bi-shop text-success"></i>
-          <span>Negocios de El Viejo</span>
-          <span class="badge-count" id="countLocal">3</span>
+          <span>Negocios Locales (Chinandega &amp; El Viejo)</span>
+          <span class="badge-count" id="countLocal">4</span>
         </button>
       </div>
 
@@ -521,7 +547,58 @@
 
     <!-- GRID DE TARJETAS DE PROYECTOS -->
     <div class="row g-4 justify-content-center mb-5" id="projectsContainer">
-      
+
+      <!-- 0. Portafolio Profesional — Ing. Luis Enrique Albares Soriano -->
+      <div class="col-12 project-card-item animate-fade-in-up stagger-1" data-category="corporativo" data-title="luis enrique albares soriano portafolio profesional ingenieria sistemas unan leon data analysis dra sql server postgresql dotnet flutter kotlin project owner scrum consultoria llamar">
+        <div class="card h-100 p-4 portal-card card-luis" style="border-color: rgba(59, 130, 246, 0.35);">
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-3">
+              <div class="p-3 rounded-3 logo-container-card d-flex align-items-center justify-content-center border" style="height: 140px; background-color: #FFFFFF;">
+                <img src="PROTAFOLIO/logo.svg" alt="Emblema Ing. Luis Enrique Albares Soriano" style="max-height: 105px; max-width: 100%; object-fit: contain;">
+              </div>
+            </div>
+            <div class="col-lg-9">
+              <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                <h4 class="fw-bold text-white mb-0">Ing. Luis Enrique Albares Soriano</h4>
+                <span class="badge bg-primary bg-opacity-25 text-light border border-primary"><i class="bi bi-patch-check-fill me-1"></i> Corporativo Plano &bull; Consultoría</span>
+              </div>
+              <small class="text-warning d-block mb-2 fw-semibold">
+                <i class="bi bi-cpu-fill me-1"></i> Systems Engineer — Data Analysis (DRA) &bull; Performance Advisor &amp; Team Leadership &bull; UNAN-León
+              </small>
+              <p class="small text-secondary mb-3">
+                Presentación profesional para clientes y empresas: experiencia real en <strong>Grupo Coen (División de Agronegocios)</strong> reduciendo retrasos de reportes en &gt;80%, análisis de datos (SQL Server, PostgreSQL, SQLite, QGIS, Excel Avanzado), desarrollo Full Stack (<strong>.NET APIs, Kotlin, Flutter</strong>) y gestión ágil certificada (<strong>Project Owner &amp; Scrum</strong>). Atención directa en El Viejo, Chinandega al <strong>+505 7782-1952</strong>.
+              </p>
+
+              <div class="tech-pills-wrap mb-3">
+                <span class="tech-pill"><i class="bi bi-telephone-fill text-success"></i> +505 7782-1952 (Tigo)</span>
+                <span class="tech-pill"><i class="bi bi-database-fill text-info"></i> SQL Server &amp; PostgreSQL</span>
+                <span class="tech-pill"><i class="bi bi-code-slash text-light"></i> .NET Core &amp; Flutter/Kotlin</span>
+                <span class="tech-pill"><i class="bi bi-kanban text-warning"></i> Project Owner &amp; Scrum</span>
+                <span class="tech-pill"><i class="bi bi-translate text-info"></i> Bilingüe ES / EN &amp; .VCF</span>
+              </div>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="PROTAFOLIO/index.html" class="btn btn-portal btn-luis flex-grow-1">
+                  <span>Ver Portafolio Profesional</span>
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="PROTAFOLIO/cv.html" class="btn btn-outline-info btn-sm d-inline-flex align-items-center gap-2 px-3" style="border-radius:10px;">
+                  <i class="bi bi-file-earmark-pdf-fill text-warning"></i>
+                  <span>Ver Hoja de Vida / CV PDF</span>
+                </a>
+                <a href="tel:+50577821952" class="btn btn-success btn-sm d-inline-flex align-items-center gap-2 px-3" style="border-radius:10px; font-weight:700;">
+                  <i class="bi bi-telephone-outbound-fill"></i>
+                  <span>Llamar</span>
+                </a>
+                <a href="https://wa.me/50577821952?text=Hola%20Ing.%20Luis%20Enrique%20Albares%2C%20vi%20su%20portafolio%20en%20el%20portal%20y%20deseo%20consultar%20por%20un%20proyecto." target="_blank" rel="noopener" class="btn-portal-wsp" title="WhatsApp +505 7782-1952" aria-label="Contactar por WhatsApp al +505 7782-1952">
+                  <i class="bi bi-whatsapp"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- 1. Guardabarranco Studio -->
       <div class="col-lg-6 project-card-item animate-fade-in-up stagger-1" data-category="corporativo" data-title="guardabarranco studio agencia marketing publicidad pauta dron chinandega managua centroamerica catalogo paquetes precios">
         <div class="card h-100 p-4 portal-card card-guarda">
@@ -585,7 +662,7 @@
           </div>
           <small class="text-secondary d-block mb-3"><i class="bi bi-shield-check text-light"></i> Software a Medida &bull; Cloud Architecture &bull; Web & Mobile</small>
           <p class="small text-secondary mb-3">
-            Firma de ingeniería de software a medida. Plataformas SaaS, aplicaciones móviles nativas y APIs de ultra baja latencia. Incluye <strong>catálogo de blueprints de arquitectura</strong>, terminal interactiva con CLI bash y estimador de sprints.
+            Software a medida para negocios: automatización de procesos, apps móviles que funcionan sin internet, sistemas web y APIs. Incluye <strong>catálogo de arquitecturas de referencia</strong>, un caso real (AgroStats), terminal interactiva y estimador de sprints.
           </p>
 
           <div class="tech-pills-wrap">
@@ -593,7 +670,7 @@
             <span class="tech-pill"><i class="bi bi-terminal text-light"></i> CLI Bash Terminal</span>
             <span class="tech-pill"><i class="bi bi-diagram-3 text-warning"></i> Topología Cloud</span>
             <span class="tech-pill"><i class="bi bi-code-slash text-light"></i> .NET 9 & Next.js 15</span>
-            <span class="tech-pill"><i class="bi bi-shield-lock text-success"></i> SOC2 Ready</span>
+            <span class="tech-pill"><i class="bi bi-shield-lock text-success"></i> Buenas prácticas OWASP</span>
           </div>
 
           <div class="p-3 rounded-3 bg-dark border border-secondary mb-4 small">
@@ -748,6 +825,56 @@
         </div>
       </div>
 
+      <!-- 6. Yademar Boutique & Tienda Online -->
+      <div class="col-lg-6 project-card-item animate-fade-in-up stagger-1" data-category="local" data-title="yademar yademar5 tienda ropa boutique vestidos camisas moda dama caballero regalo gift card calvario chinandega">
+        <div class="card h-100 p-4 portal-card card-yademar">
+          <div class="p-2 mb-3 bg-white logo-container-card d-flex align-items-center justify-content-center border" style="height: 120px;">
+            <img src="YADEMAR/logo.jpg" alt="Logo Oficial Yademar" style="max-height: 100px; max-width: 100%; object-fit: contain;">
+          </div>
+          <div class="d-flex align-items-center justify-content-between mb-1">
+            <h4 class="fw-bold text-white mb-0">Yademar</h4>
+            <span class="badge bg-danger bg-opacity-25 text-light border border-danger"><i class="bi bi-gift-fill me-1"></i> Boutique &amp; Gift Cards</span>
+          </div>
+          <small class="text-secondary d-block mb-3"><i class="bi bi-geo-alt-fill text-danger"></i> De la trasera del Calvario 2 ½ c. al este, Chinandega</small>
+          <p class="small text-secondary mb-3">
+            Tienda física y online de moda para dama y caballero (<code>@yademar5</code>). Catálogo JSON dinámico de 4 temporadas (12 prendas con fotos externas), Bolsa WhatsApp (<strong>8956-3257</strong>), perfiles de usuario/admin y estudio 3D de <strong>Tarjetas de Regalo PNG HD / PDF</strong>.
+          </p>
+
+          <div class="tech-pills-wrap">
+            <span class="tech-pill"><i class="bi bi-gift-fill text-warning"></i> Gift Card 3D &amp; Barcode</span>
+            <span class="tech-pill"><i class="bi bi-filetype-json text-info"></i> Catálogo &amp; Usuarios JSON</span>
+            <span class="tech-pill"><i class="bi bi-bag-fill text-danger"></i> Bolsa WhatsApp</span>
+            <span class="tech-pill"><i class="bi bi-shop text-light"></i> 4 Temporadas</span>
+          </div>
+
+          <div class="p-3 rounded-3 bg-dark border border-secondary mb-4 small">
+            <span class="d-block text-secondary text-uppercase fw-bold mb-2">Paleta Couture: Carmesí, Marfil &amp; Champagne Oro</span>
+            <div class="d-flex align-items-center gap-2">
+              <span class="color-dot" style="background:#D90429;" title="Carmesí Yademar"></span>
+              <span class="color-dot" style="background:#FCF9F7;" title="Marfil Seda"></span>
+              <span class="color-dot" style="background:#141216;" title="Noir"></span>
+              <span class="color-dot" style="background:#C59B47;" title="Champagne Oro"></span>
+              <span class="text-white-50 ms-1 small">Carmesí + Marfil + Noir + Oro</span>
+            </div>
+          </div>
+
+          <a href="YADEMAR/index.html#tarjeta-regalo" class="btn btn-outline-danger btn-sm w-100 mb-2 text-white d-flex align-items-center justify-content-center gap-2" style="border-color: rgba(217, 4, 41, 0.55); background: rgba(217, 4, 41, 0.12);">
+            <i class="bi bi-magic text-warning"></i>
+            <span>Ir al Generador de Tarjetas de Regalo</span>
+          </a>
+
+          <div class="card-actions-group">
+            <a href="YADEMAR/index.html" class="btn btn-portal btn-yademar">
+              <span>Visitar Boutique Yademar</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+            <a href="https://wa.me/50589563257?text=Hola%20Yademar%2C%20vi%20su%20tienda%20en%20el%20portal%20y%20deseo%20consultar%20prendas%20o%20tarjetas%20de%20regalo" target="_blank" rel="noopener" class="btn-portal-wsp" title="WhatsApp 8956-3257">
+              <i class="bi bi-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Estado de Búsqueda Vacía -->
@@ -765,6 +892,8 @@
     <!-- Footer del Portal -->
     <footer class="text-center mt-5 text-secondary small animate-fade-in-up" style="animation-delay: 0.4s;">
       <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap mb-2">
+        <a href="PROTAFOLIO/index.html" class="text-secondary text-decoration-none hover-white"><i class="bi bi-person-badge me-1"></i> Portafolio Luis Albares</a>
+        <span>&bull;</span>
         <a href="GUARDABARRANCO%20STUDIO/index.html" class="text-secondary text-decoration-none hover-white"><i class="bi bi-palette me-1"></i> Guardabarranco Studio</a>
         <span>&bull;</span>
         <a href="DEV%20STUDIO/index.html" class="text-secondary text-decoration-none hover-white"><i class="bi bi-cpu me-1"></i> Dev Studio</a>
@@ -774,6 +903,8 @@
         <a href="TALLER%20DON%20CHUNGO/index.html" class="text-secondary text-decoration-none hover-white"><i class="bi bi-wrench me-1"></i> Taller Don Chungo</a>
         <span>&bull;</span>
         <a href="VETERINARIA%20LA%20VIRGEN/index.html" class="text-secondary text-decoration-none hover-white"><i class="bi bi-hospital me-1"></i> Veterinaria La Virgen</a>
+        <span>&bull;</span>
+        <a href="YADEMAR/index.html" class="text-secondary text-decoration-none hover-white"><i class="bi bi-gift me-1"></i> Yademar Boutique</a>
       </div>
       <div>
         El Viejo y Chinandega, Nicaragua &bull; Diseñadas con HTML5, CSS3 Moderno &amp; Bootstrap 5 &bull; 2026

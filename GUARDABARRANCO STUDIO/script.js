@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const navMenu = document.getElementById('navMenu');
 
   if (menuToggle && navMenu) {
+    if (!navMenu.querySelector('.nav-mobile-cta-item')) {
+      const mobileCtaLi = document.createElement('li');
+      mobileCtaLi.className = 'nav-mobile-cta-item';
+      mobileCtaLi.innerHTML = `<a href="#diagnostico" class="btn btn-primary"><i class="bi bi-stars me-1"></i> Diagnóstico Gratis</a>`;
+      navMenu.appendChild(mobileCtaLi);
+    }
+
     menuToggle.addEventListener('click', () => {
       navMenu.classList.toggle('show');
       const icon = menuToggle.querySelector('i');
@@ -111,119 +118,92 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 5. Portafolio - Modal con Casos de Estudio Detallados
+  // 5. Portafolio - Modal con conceptos de campaña (ilustrativos, no son clientes reales)
   const projectModal = document.getElementById('projectModal');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
   const modalProjectTitle = document.getElementById('modalProjectTitle');
   const modalProjectContent = document.getElementById('modalProjectContent');
 
   const caseStudiesData = {
-    'cafe-cordillera': {
-      title: 'Café Cordillera de Dipilto &bull; Branding y Expansión',
-      category: 'Branding, Empaque & Estrategia Regional',
-      client: 'Asociación de Pequeños Caficultores de Nueva Segovia',
-      challenge: 'El café de alta calidad competía como producto a granel sin reconocimiento de marca, perdiendo margen frente a intermediarios.',
-      solution: 'Desarrollamos una identidad visual premium que exalta la fauna nicaragüense (Guardabarranco y orquídeas de montaña), diseñamos bolsas con válvula desgasificadora metalizada y ejecutamos pauta en redes para pedidos en línea y envíos a El Salvador y Managua.',
+    'concepto-cafe': {
+      title: 'Concepto &bull; Café de altura con marca propia',
+      category: 'Branding, Empaque & Pauta',
+      client: 'Concepto ilustrativo: no corresponde a un cliente real',
+      challenge: 'Un café de calidad que se vende a granel compite solo por precio y deja el margen en manos de los intermediarios.',
+      solution: 'Una identidad visual que cuente el origen del café, un empaque con válvula desgasificadora y una campaña en redes que lleve los pedidos directo a WhatsApp.',
       results: [
-        '+340% de incremento en ventas directas al consumidor sin intermediarios.',
-        'Entrada en 14 tiendas especializadas y hoteles boutique en Nicaragua y San Salvador.',
-        'Premio Nacional de Diseño de Empaque Cafetalero 2025.'
+        'Conversaciones y pedidos cerrados por WhatsApp.',
+        'Costo por conversación y valor promedio por pedido.',
+        'Tiendas o puntos de venta nuevos que se sumen al catálogo.'
       ]
     },
-    'agro-pacifico': {
-      title: 'AgroExport del Pacífico &bull; Pauta B2B Regional',
-      category: 'Pauta Digital B2B & Captación Mayorista',
-      client: 'Corporación Agroindustrial del Occidente de Nicaragua',
-      challenge: 'Captar nuevos distribuidores agrícolas en Honduras y El Salvador para su línea de fertilizantes orgánicos y maquinaria ligera.',
-      solution: 'Implementamos campañas hiper-segmentadas en Meta y LinkedIn dirigidas exclusivamente a dueños de fincas, cooperativas e ingenios, conectando a un equipo de ventas bilingüe mediante WhatsApp Business API con catalogación de productos.',
+    'concepto-restaurante': {
+      title: 'Concepto &bull; Restaurante con más mesas y más pedidos',
+      category: 'Pauta Local & Reels',
+      client: 'Concepto ilustrativo: no corresponde a un cliente real',
+      challenge: 'Poca afluencia entre semana y un servicio a domicilio que casi nadie conoce.',
+      solution: 'Videos cortos en formato Reels con la preparación de platos típicos, y pauta geolocalizada en pocos kilómetros a la redonda con botón directo a WhatsApp para pedir.',
       results: [
-        '180 distribuidores mayoristas verificados en 90 días.',
-        'Tasa de conversión de contacto a cotización formal del 38%.',
-        'Contratos comerciales cerrados por más de $420,000 USD en la región CA-4.'
+        'Mensajes y pedidos recibidos por WhatsApp cada semana.',
+        'Costo por mensaje y retorno sobre la inversión en pauta.',
+        'Crecimiento de la comunidad local en redes.'
       ]
     },
-    'ron-volcan': {
-      title: 'Flor del Volcán &bull; Spot Cinematográfico & Dron',
-      category: 'Producción Audiovisual 4K & Comercial',
-      client: 'Destilería Artesanal de Chichigalpa',
-      challenge: 'Lanzar una edición de ron premium añejado en barricas de roble y posicionarlo frente a las marcas industriales consolidadas.',
-      solution: 'Produjimos un spot cinematográfico filmado al amanecer en las faldas del Volcán San Cristóbal, combinando tomas de dron FPV a alta velocidad entre cañaverales con fotografía macro de la gota de destilado y música con marimba tradicional estilizada.',
+    'concepto-clinica': {
+      title: 'Concepto &bull; Clínica con agenda de citas',
+      category: 'Captación por WhatsApp',
+      client: 'Concepto ilustrativo: no corresponde a un cliente real',
+      challenge: 'Consultorios con horarios disponibles y pacientes que no saben que existen.',
+      solution: 'Anuncios educativos sobre prevención que, al tocar el botón, abren un chat de WhatsApp con un mensaje prellenado para agendar con el especialista disponible.',
       results: [
-        '2.4 millones de reproducciones orgánicas en Instagram y TikTok.',
-        'Primer lote de 5,000 botellas agotado durante la primera semana de preventa.',
-        'Viralización nacional e interés de importadores en Costa Rica.'
-      ]
-    },
-    'sabor-pinolero': {
-      title: 'Sabor Pinolero &bull; Pauta Local y Lleno Total',
-      category: 'Pauta Local & Redes Sociales Gastronómicas',
-      client: 'Cadena de Restaurantes Típicos',
-      challenge: 'Baja afluencia de comensales entre semana y poca visibilidad del servicio a domicilio frente a aplicaciones de delivery.',
-      solution: 'Revolucionamos sus redes con videos en formato Reels mostrando la preparación al carbón de cortes tradicionales, nacatamales y refrescos típicos (chicha, cacao, semilla de jícaro), con pauta geo-localizada en un radio de 5 km en Chinandega y León.',
-      results: [
-        'ROAS medido de 5.2x en retorno sobre inversión publicitaria.',
-        'Incremento de ventas a domicilio en un 190% a través de pedidos por WhatsApp.',
-        'Crecimiento de su comunidad de 15,000 a más de 95,000 seguidores locales.'
-      ]
-    },
-    'clinica-lucia': {
-      title: 'Clínica Médica Santa Lucía &bull; Captación Directa',
-      category: 'Pauta Digital en Salud & WhatsApp Ads',
-      client: 'Centro de Especialidades Médicas de Occidente',
-      challenge: 'Nuevos consultorios de ginecología, pediatría y cardiología con capacidad ociosa y citas vacías.',
-      solution: 'Estructuramos un funnel médico de captación con anuncios educativos de prevención en Facebook e Instagram, que al hacer clic abrían un chat de WhatsApp con un mensaje pre-llenado para agendar con el especialista disponible.',
-      results: [
-        '+1,450 citas médicas agendadas en 60 días.',
-        'Costo por lead calificado de tan solo $0.24 USD.',
-        'Ocupación del 92% en consultorios médicos durante todo el trimestre.'
-      ]
-    },
-    'calzado-masaya': {
-      title: 'Masaya Leather Co. &bull; De Taller a Exportación',
-      category: 'Branding, E-Commerce & Exportación Regional',
-      client: 'Taller de Marroquinería Fina Masaya',
-      challenge: 'El calzado de cuero artesanal nicaragüense se vendía a precios bajos en mercados informales sin valor de marca.',
-      solution: 'Construimos la marca desde cero: nombre, logotipo sobrio, fotografía editorial de moda con modelos nicaragüenses y tienda online con envíos rápidos a San José, Costa Rica y Ciudad de Panamá.',
-      results: [
-        'Incremento del ticket promedio de venta en un 280%.',
-        'Más de 650 pares exportados mensualmente a clientes en Costa Rica.',
-        'Reconocimiento en revistas de moda y diseño centroamericano.'
+        'Citas agendadas a partir de los anuncios.',
+        'Costo por paciente interesado.',
+        'Porcentaje de ocupación de la agenda.'
       ]
     }
   };
 
   portfolioCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const projKey = card.dataset.project;
-      const data = caseStudiesData[projKey];
-      if (data) {
-        modalProjectTitle.innerHTML = data.title;
-        modalProjectContent.innerHTML = `
+    // Las tarjetas de proyectos reales son enlaces; solo los conceptos abren el modal
+    if (!card.dataset.project) return;
+
+    const openProject = () => {
+      const data = caseStudiesData[card.dataset.project];
+      if (!data) return;
+      modalProjectTitle.innerHTML = data.title;
+      modalProjectContent.innerHTML = `
           <div style="margin-bottom: 18px;">
             <span class="badge-tag badge-orange" style="margin-bottom: 8px;">${data.category}</span>
-            <p style="font-size: 0.95rem; color: #475569; margin-top: 6px;"><strong>Cliente:</strong> ${data.client}</p>
+            <p style="font-size: 0.95rem; color: #475569; margin-top: 6px;"><strong>Tipo:</strong> ${data.client}</p>
           </div>
           <div style="margin-bottom: 18px;">
             <h5 style="color: var(--c-azul-profundo); font-size: 1.1rem; margin-bottom: 6px;">El Reto:</h5>
             <p style="color: #64748B; font-size: 0.95rem; line-height: 1.6;">${data.challenge}</p>
           </div>
           <div style="margin-bottom: 18px;">
-            <h5 style="color: var(--c-azul-profundo); font-size: 1.1rem; margin-bottom: 6px;">La Solución Creativa:</h5>
+            <h5 style="color: var(--c-azul-profundo); font-size: 1.1rem; margin-bottom: 6px;">Cómo lo plantearíamos:</h5>
             <p style="color: #64748B; font-size: 0.95rem; line-height: 1.6;">${data.solution}</p>
           </div>
           <div style="background: var(--c-fondo-crema); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--c-gris-200); margin-bottom: 24px;">
-            <h5 style="color: var(--c-turquesa-guarda); font-size: 1.1rem; margin-bottom: 10px;"><i class="bi bi-graph-up"></i> Resultados Obtenidos:</h5>
+            <h5 style="color: var(--c-turquesa-guarda); font-size: 1.1rem; margin-bottom: 10px;"><i class="bi bi-graph-up"></i> Qué mediríamos en tu reporte mensual:</h5>
             <ul style="list-style: none; padding: 0;">
               ${data.results.map(r => `<li style="margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; color: var(--c-azul-profundo); font-size: 0.95rem; font-weight: 500;"><i class="bi bi-check-circle-fill text-success"></i> ${r}</li>`).join('')}
             </ul>
           </div>
           <div style="text-align: center;">
-            <a href="https://wa.me/50585574484?text=Hola%20Guardabarranco%20Studio,%20quiero%20un%20proyecto%20similar%20a%20${encodeURIComponent(data.title)}" target="_blank" class="btn btn-whatsapp w-100">
-              <i class="bi bi-whatsapp"></i> Quiero un Proyecto Similar para mi Marca
+            <a href="https://wa.me/50585574484?text=Hola%20Guardabarranco%20Studio,%20quiero%20un%20plan%20similar%20a%20${encodeURIComponent(data.title.replace('&bull;', '-'))}" target="_blank" rel="noopener" class="btn btn-whatsapp w-100">
+              <i class="bi bi-whatsapp"></i> Quiero un Plan Así para mi Negocio
             </a>
           </div>
         `;
-        projectModal.classList.add('show');
+      projectModal.classList.add('show');
+    };
+
+    card.addEventListener('click', openProject);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openProject();
       }
     });
   });
@@ -256,26 +236,43 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnSendQuoteWhatsapp = document.getElementById('btnSendQuoteWhatsapp');
 
   const EXCHANGE_RATE_NIO = 36.62; // Tasa oficial referencial en Nicaragua
+  const calcDurationStep = document.getElementById('calcDurationStep');
+  const calcMilestonesNote = document.getElementById('calcMilestonesNote');
+  const btnSendQuoteEmail = document.getElementById('btnSendQuoteEmail');
 
   function calculateQuote() {
-    let basePrice = 250;
-    let serviceName = 'Pauta Digital & Performance';
+    let serviceVal = 'pyme';
+    let basePrice = 220;
+    let serviceName = 'Plan Impulso Pyme Local';
+    let billingType = 'monthly';
 
     calcServiceRadios.forEach(radio => {
       if (radio.checked) {
+        serviceVal = radio.value;
         basePrice = parseFloat(radio.dataset.price);
         serviceName = radio.dataset.name;
+        billingType = radio.dataset.billing || 'monthly';
       }
     });
 
+    let reachVal = 'local';
     let reachMultiplier = 1.0;
     let reachName = 'Local';
     calcReachRadios.forEach(radio => {
       if (radio.checked) {
+        reachVal = radio.value;
         reachMultiplier = parseFloat(radio.dataset.multiplier);
         reachName = radio.dataset.name;
       }
     });
+
+    // Evitar doble multiplicador cuando el plan base ya contempla escala nacional/regional
+    let effectiveReachMult = reachMultiplier;
+    if (serviceVal === 'expansion') {
+      effectiveReachMult = 1.0;
+    } else if (serviceVal === 'campana360') {
+      effectiveReachMult = reachVal === 'regional' ? 1.45 : 1.0;
+    }
 
     let durationMultiplier = 1.0;
     let durationName = '1 Mes';
@@ -285,6 +282,13 @@ document.addEventListener('DOMContentLoaded', () => {
         durationName = radio.dataset.name;
       }
     });
+
+    const isOneOff = billingType === 'oneoff';
+    const effectiveDurationMult = isOneOff ? 1.0 : durationMultiplier;
+    const durationDisplay = isOneOff ? 'Pago Único (50% / 50%)' : durationName;
+    if (calcDurationStep) {
+      calcDurationStep.classList.toggle('is-disabled-step', isOneOff);
+    }
 
     let extrasTotal = 0;
     let extrasList = [];
@@ -296,13 +300,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Fórmula de estimación comercial
-    const totalUSD = Math.round((basePrice * reachMultiplier * durationMultiplier) + extrasTotal);
+    const totalUSD = Math.round((basePrice * effectiveReachMult * effectiveDurationMult) + extrasTotal);
     const totalNIO = Math.round(totalUSD * EXCHANGE_RATE_NIO);
+    const activeCurr = localStorage.getItem('gbStudioCurrency') || 'USD';
 
     // Actualizar UI
     if (summaryServiceName) summaryServiceName.textContent = serviceName;
     if (summaryReach) summaryReach.textContent = reachName;
-    if (summaryDuration) summaryDuration.textContent = durationName;
+    if (summaryDuration) summaryDuration.textContent = durationDisplay;
 
     if (summaryExtrasRow && summaryExtrasText) {
       if (extrasList.length > 0) {
@@ -313,22 +318,54 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    if (calcTotalUSD) calcTotalUSD.textContent = `$${totalUSD.toLocaleString()} USD`;
-    if (calcTotalNIO) calcTotalNIO.textContent = `Aprox. C$ ${totalNIO.toLocaleString()} Córdobas`;
+    if (calcTotalUSD && calcTotalNIO) {
+      if (activeCurr === 'NIO') {
+        calcTotalUSD.textContent = `C$ ${totalNIO.toLocaleString()} NIO`;
+        calcTotalNIO.textContent = `Equivale a ~$${totalUSD.toLocaleString()} USD`;
+      } else {
+        calcTotalUSD.textContent = `$${totalUSD.toLocaleString()} USD`;
+        calcTotalNIO.textContent = `Aprox. C$ ${totalNIO.toLocaleString()} Córdobas`;
+      }
+    }
 
-    // WhatsApp URL dinámico
+    if (calcMilestonesNote) {
+      if (isOneOff) {
+        const anticipoUsd = Math.round(totalUSD * 0.5);
+        const anticipoNio = Math.round(totalNIO * 0.5);
+        calcMilestonesNote.textContent = activeCurr === 'NIO'
+          ? `Esquema 50 / 50: Inicias con C$ ${anticipoNio.toLocaleString()} NIO (~$${anticipoUsd.toLocaleString()} USD) y 50% contra entrega final.`
+          : `Esquema 50 / 50: Inicias con $${anticipoUsd.toLocaleString()} USD (~C$ ${anticipoNio.toLocaleString()} NIO) y 50% contra entrega final.`;
+      } else {
+        calcMilestonesNote.textContent = 'Facturación mensual sin amarres • Pauta pagada directo en tu cuenta (0% recargo).';
+      }
+    }
+
+    const mobileCalcVal = document.getElementById('gbMobileCalcValue');
+    if (mobileCalcVal) {
+      mobileCalcVal.textContent = activeCurr === 'NIO'
+        ? `C$ ${totalNIO.toLocaleString()} NIO`
+        : `$${totalUSD.toLocaleString()} USD`;
+    }
+
+    // WhatsApp y Correo Corporativo dinámicos
+    const message = `¡Hola Guardabarranco Studio! 👋 He cotizado un plan en su sitio web:\n\n` +
+      `📌 *Servicio:* ${serviceName}\n` +
+      `📍 *Alcance:* ${reachName}\n` +
+      `⏱ *Modalidad:* ${durationDisplay}\n` +
+      (extrasList.length > 0 ? `➕ *Adicionales:* ${extrasList.join(', ')}\n` : '') +
+      `💰 *Inversión Estimada:* $${totalUSD.toLocaleString()} USD (~C$ ${totalNIO.toLocaleString()} NIO)\n\n` +
+      `Quisiera coordinar una llamada para evaluar mi negocio.`;
+
     if (btnSendQuoteWhatsapp) {
-      const message = `¡Hola Guardabarranco Studio! 👋 He cotizado un plan en su sitio web:\n\n` +
-        `📌 *Servicio:* ${serviceName}\n` +
-        `📍 *Alcance:* ${reachName}\n` +
-        `⏱ *Duración:* ${durationName}\n` +
-        (extrasList.length > 0 ? `➕ *Adicionales:* ${extrasList.join(', ')}\n` : '') +
-        `💰 *Inversión Estimada:* $${totalUSD} USD (~C$ ${totalNIO} NIO)\n\n` +
-        `Quisiera coordinar una llamada para evaluar mi negocio.`;
-
       btnSendQuoteWhatsapp.onclick = () => {
-        window.open(`https://wa.me/50585574484?text=${encodeURIComponent(message)}`, '_blank');
+        window.open(`https://wa.me/50585574484?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
       };
+    }
+
+    if (btnSendQuoteEmail) {
+      const emailSubject = `Cotización Web Guardabarranco — ${serviceName}`;
+      const emailBody = message.replace(/\*/g, '');
+      btnSendQuoteEmail.href = `mailto:contacto@guardabarrancostudio.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
     }
   }
 
@@ -337,69 +374,27 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('change', calculateQuote);
   });
 
-  // Calculate initially on load
-  calculateQuote();
-
-  // 7. Testimonios Slider Interactivo
-  const testimonials = [
-    {
-      text: '"Antes gastábamos dinero en hojas volantes y anuncios que nadie miraba. Con Guardabarranco Studio configuramos los anuncios directos a nuestro WhatsApp y en solo un fin de semana tuvimos que contratar dos recepcionistas extra para atender pacientes en Chinandega."',
-      author: 'Dr. Roberto Silva',
-      role: 'Director Médico • Clínica San Lucas, Chinandega',
-      avatar: 'RS'
-    },
-    {
-      text: '"Llevar nuestro café de Dipilto a los mercados de San Salvador y Managua parecía imposible sin un gran presupuesto. El equipo rediseñó nuestro empaque, nos creó un contenido audiovisual de primer mundo y ahora tenemos compradores recurrentes."',
-      author: 'Ing. Elena Morales',
-      role: 'Gerente General • Café Cordillera de Altura',
-      avatar: 'EM'
-    },
-    {
-      text: '"Tienen la calidez de nuestra tierra pero la agilidad y las métricas de una agencia de clase mundial. Cada córdoba invertido con Guardabarranco Studio nos ha retornado con creces en ventas de repuestos y maquinaria agrícola."',
-      author: 'Don Edwin Bermúdez',
-      role: 'Propietario • Agroservicios del Occidente, El Viejo',
-      avatar: 'EB'
-    }
-  ];
-
-  let currentTestimonialIndex = 0;
-  const testimonialText = document.getElementById('testimonialText');
-  const testimonialAuthor = document.getElementById('testimonialAuthor');
-  const testimonialRole = document.getElementById('testimonialRole');
-  const testimonialAvatar = document.getElementById('testimonialAvatar');
-  const dotBtns = document.querySelectorAll('.slider-dots .dot-btn');
-
-  function showTestimonial(index) {
-    if (!testimonialText) return;
-    currentTestimonialIndex = index;
-    const t = testimonials[index];
-
-    testimonialText.style.opacity = '0';
-    setTimeout(() => {
-      testimonialText.textContent = t.text;
-      testimonialAuthor.textContent = t.author;
-      testimonialRole.textContent = t.role;
-      testimonialAvatar.textContent = t.avatar;
-      testimonialText.style.opacity = '1';
-    }, 200);
-
-    dotBtns.forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === index);
-    });
-  }
-
-  dotBtns.forEach(dot => {
-    dot.addEventListener('click', () => {
-      const idx = parseInt(dot.dataset.index, 10);
-      showTestimonial(idx);
+  // Botones "Simular en Cotizador" desde tarjetas del catálogo
+  document.querySelectorAll('[data-preload-quote]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = btn.getAttribute('data-preload-quote');
+      const radio = document.querySelector(`input[name="calcService"][value="${val}"]`);
+      if (radio) {
+        radio.checked = true;
+        calculateQuote();
+        const calcSec = document.getElementById('cotizador');
+        if (calcSec) calcSec.scrollIntoView({ behavior: 'smooth' });
+        if (typeof showGbToast === 'function') {
+          showGbToast(`Paquete "${radio.dataset.name}" cargado en el Cotizador`);
+        }
+      }
     });
   });
 
-  // Auto-play testimonials every 7 seconds
-  setInterval(() => {
-    let nextIndex = (currentTestimonialIndex + 1) % testimonials.length;
-    showTestimonial(nextIndex);
-  }, 7000);
+  // Calculate initially on load
+  calculateQuote();
+
+  // 7. Los testimonios de ejemplo se eliminaron: ahora la sección "Compromisos" no requiere JavaScript.
 
   // 8. FAQ Accordion
   const faqItems = document.querySelectorAll('.faq-item');
@@ -430,48 +425,291 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 9. Contact Form Validation and WhatsApp dispatch
+  // 9. Formulario de contacto: validación en línea y envío directo a WhatsApp
   const contactForm = document.getElementById('contactForm');
   const formFeedback = document.getElementById('formFeedback');
+  const formError = document.getElementById('formError');
+  const formWspFallback = document.getElementById('formWspFallback');
 
   if (contactForm) {
+    const showFormError = (msg, field) => {
+      if (formFeedback) formFeedback.classList.remove('success');
+      if (formError) {
+        formError.textContent = msg;
+        formError.hidden = false;
+      }
+      if (field) {
+        field.setAttribute('aria-invalid', 'true');
+        field.focus();
+      }
+    };
+
+    contactForm.addEventListener('input', (e) => {
+      if (e.target && e.target.removeAttribute) e.target.removeAttribute('aria-invalid');
+      if (formError) formError.hidden = true;
+    });
+
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const nombre = document.getElementById('contactNombre').value.trim();
-      const tel = document.getElementById('contactTel').value.trim();
-      const email = document.getElementById('contactEmail').value.trim();
+      const nombreInput = document.getElementById('contactNombre');
+      const telInput = document.getElementById('contactTel');
+      const emailInput = document.getElementById('contactEmail');
       const interesSelect = document.getElementById('contactInteres');
+      const nombre = nombreInput.value.trim();
+      const tel = telInput.value.trim();
+      const email = emailInput.value.trim();
       const interesText = interesSelect.options[interesSelect.selectedIndex].text;
       const mensaje = document.getElementById('contactMensaje').value.trim();
 
-      if (!nombre || !tel) {
-        alert('Por favor completa al menos tu nombre y número de teléfono/WhatsApp.');
+      if (!nombre) {
+        showFormError('Escribe tu nombre o el de tu empresa.', nombreInput);
+        return;
+      }
+      if (tel.replace(/\D/g, '').length < 8) {
+        showFormError('Escribe un teléfono o WhatsApp válido (mínimo 8 dígitos).', telInput);
+        return;
+      }
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFormError('Revisa tu correo: parece incompleto.', emailInput);
         return;
       }
 
-      // Show success alert
+      const whatsappMsg = [
+        '*Nuevo contacto web - Guardabarranco Studio*',
+        '',
+        `*Nombre:* ${nombre}`,
+        `*Teléfono:* ${tel}`,
+        `*Correo:* ${email || 'No proporcionado'}`,
+        `*Servicio de interés:* ${interesText}`,
+        `*Mensaje:* ${mensaje || 'Deseo coordinar una sesión de diagnóstico'}`
+      ].join('\n');
+      const wspUrl = `https://wa.me/50585574484?text=${encodeURIComponent(whatsappMsg)}`;
+      const formEmailFallback = document.getElementById('formEmailFallback');
+      const emailSubject = `Auditoría Comercial Guardabarranco — ${nombre} (${interesText})`;
+      const emailBody = whatsappMsg.replace(/\*/g, '');
+
+      if (formError) formError.hidden = true;
+      if (formWspFallback) formWspFallback.href = wspUrl;
+      if (formEmailFallback) {
+        formEmailFallback.href = `mailto:contacto@guardabarrancostudio.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      }
       if (formFeedback) {
         formFeedback.classList.add('success');
         formFeedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
 
-      // Auto redirect or prompt WhatsApp send
-      const whatsappMsg = `*NUEVO CONTACTO WEB - GUARDABARRANCO STUDIO*\n\n` +
-        `👤 *Nombre:* ${nombre}\n` +
-        `📱 *Teléfono:* ${tel}\n` +
-        `📧 *Correo:* ${email || 'No proporcionado'}\n` +
-        `🎯 *Servicio de Interés:* ${interesText}\n` +
-        `📝 *Mensaje:* ${mensaje || 'Deseo coordinar una sesión de diagnóstico'}`;
-
-      setTimeout(() => {
-        const openWsp = confirm('¿Deseas enviar este mensaje inmediatamente a un director creativo por WhatsApp?');
-        if (openWsp) {
-          window.open(`https://wa.me/50585574484?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
-        }
-        contactForm.reset();
-      }, 800);
+      // Se abre WhatsApp de inmediato (sin borrar los datos capturados del usuario)
+      window.open(wspUrl, '_blank', 'noopener');
     });
+  }
+
+  // 12. Diagnóstico interactivo en 60 segundos (recomienda un paquete del catálogo)
+  const quizCard = document.getElementById('quizCard');
+  if (quizCard) {
+    const quizStage = document.getElementById('quizStage');
+    const quizBar = document.getElementById('quizBar');
+    const quizStepLabel = document.getElementById('quizStepLabel');
+    const quizQuestion = document.getElementById('quizQuestion');
+    const quizOptions = document.getElementById('quizOptions');
+    const quizBack = document.getElementById('quizBack');
+    const quizResult = document.getElementById('quizResult');
+
+    // Paquetes oficiales del catálogo (mismos precios que las fichas)
+    const quizPlans = {
+      'pyme-local': { name: 'Plan Impulso Pyme Local', price: 220, priceText: '$220 USD / mes', nioText: '~C$ 8,056 NIO / mes' },
+      'marca-nacional': { name: 'Plan Marca Líder Nacional', price: 580, priceText: '$580 USD / mes', nioText: '~C$ 21,239 NIO / mes' },
+      'expansion-ca': { name: 'Plan Expansión Centroamérica B2B', price: 1250, priceText: '$1,250 USD / mes', nioText: '~C$ 45,775 NIO / mes' },
+      'spot-dron': { name: 'Spot Publicitario & Producción Dron 4K', price: 350, priceText: '$350 USD / proyecto', nioText: '~C$ 12,817 NIO / proyecto' },
+      'branding-pack': { name: 'Branding & Packaging Comercial', price: 450, priceText: '$450 USD / proyecto', nioText: '~C$ 16,479 NIO / proyecto' },
+      'web-corp': { name: 'Sitio Web Corporativo & Catálogo Digital', price: 490, priceText: '$490 USD / proyecto', nioText: '~C$ 17,943 NIO / proyecto' },
+      'dev-studio': { name: 'Ingeniería de Software a Medida (Dev Studio)', price: 1450, priceText: 'Desde $1,450 USD (Hitos 40/30/30)', nioText: 'Desde ~C$ 53,099 NIO' }
+    };
+
+    const quizQuestions = [
+      {
+        key: 'rubro',
+        title: '¿A qué se dedica tu negocio?',
+        options: [
+          { v: 'comercio', label: 'Comercio o tienda', icon: 'bi-shop' },
+          { v: 'comida', label: 'Restaurante o comida', icon: 'bi-cup-hot' },
+          { v: 'salud', label: 'Salud, clínica o veterinaria', icon: 'bi-heart-pulse' },
+          { v: 'agro', label: 'Agro, industria o distribución', icon: 'bi-truck' },
+          { v: 'servicios', label: 'Construcción o servicios', icon: 'bi-tools' },
+          { v: 'otro', label: 'Otro rubro', icon: 'bi-grid' }
+        ]
+      },
+      {
+        key: 'alcance',
+        title: '¿Dónde están tus clientes?',
+        options: [
+          { v: 'local', label: 'En mi ciudad o zona (Chinandega, El Viejo, León)', icon: 'bi-geo-alt' },
+          { v: 'nacional', label: 'En toda Nicaragua', icon: 'bi-flag' },
+          { v: 'regional', label: 'En Centroamérica', icon: 'bi-globe-americas' }
+        ]
+      },
+      {
+        key: 'necesidad',
+        title: '¿Qué necesitas más ahora mismo?',
+        options: [
+          { v: 'clientes', label: 'Más clientes escribiéndome por WhatsApp', icon: 'bi-whatsapp' },
+          { v: 'marca', label: 'Una marca, logo o empaque nuevo', icon: 'bi-palette' },
+          { v: 'video', label: 'Video o fotografía con dron profesional', icon: 'bi-camera-reels' },
+          { v: 'web', label: 'Un sitio web o catálogo en línea', icon: 'bi-laptop' },
+          { v: 'software', label: 'Un sistema ERP, inventario o App móvil a medida', icon: 'bi-cpu' }
+        ]
+      },
+      {
+        key: 'presupuesto',
+        title: '¿Cuánto puedes invertir?',
+        options: [
+          { v: '250', max: 250, label: 'Hasta $250', icon: 'bi-cash' },
+          { v: '600', max: 600, label: '$250 a $600', icon: 'bi-cash-stack' },
+          { v: '1300', max: 1300, label: '$600 a $1,300', icon: 'bi-bank' },
+          { v: '2000', max: Infinity, label: 'Más de $1,300', icon: 'bi-gem' },
+          { v: 'flex', max: null, label: 'Prefiero que me asesoren', icon: 'bi-chat-dots' }
+        ]
+      }
+    ];
+
+    let quizStep = 0;
+    let quizAnswers = {};
+
+    const renderQuizStep = () => {
+      const q = quizQuestions[quizStep];
+      quizResult.hidden = true;
+      quizStage.hidden = false;
+      quizStepLabel.textContent = `Pregunta ${quizStep + 1} de ${quizQuestions.length}`;
+      quizQuestion.textContent = q.title;
+      quizBar.style.width = `${(quizStep / quizQuestions.length) * 100}%`;
+      quizBack.hidden = quizStep === 0;
+
+      quizOptions.innerHTML = '';
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'quiz-option' + (quizAnswers[q.key] && quizAnswers[q.key].v === opt.v ? ' selected' : '');
+        btn.innerHTML = `<i class="bi ${opt.icon}"></i><span>${opt.label}</span>`;
+        btn.addEventListener('click', () => {
+          quizAnswers[q.key] = opt;
+          if (quizStep < quizQuestions.length - 1) {
+            quizStep += 1;
+            renderQuizStep();
+          } else {
+            showQuizResult();
+          }
+        });
+        quizOptions.appendChild(btn);
+      });
+
+      // Reinicia la animación de entrada
+      quizStage.classList.remove('quiz-fade');
+      void quizStage.offsetWidth;
+      quizStage.classList.add('quiz-fade');
+    };
+
+    const recommendPlan = () => {
+      const { necesidad, alcance } = quizAnswers;
+      if (necesidad.v === 'software') return 'dev-studio';
+      if (necesidad.v === 'marca') return 'branding-pack';
+      if (necesidad.v === 'video') return 'spot-dron';
+      if (necesidad.v === 'web') return 'web-corp';
+      if (alcance.v === 'local') return 'pyme-local';
+      if (alcance.v === 'nacional') return 'marca-nacional';
+      return 'expansion-ca';
+    };
+
+    const showQuizResult = () => {
+      const key = recommendPlan();
+      const plan = quizPlans[key];
+      const { rubro, alcance, necesidad, presupuesto } = quizAnswers;
+      const activeCurr = localStorage.getItem('gbStudioCurrency') || 'USD';
+      const displayPrice = activeCurr === 'NIO' ? `${plan.nioText} (${plan.priceText})` : `${plan.priceText} (${plan.nioText})`;
+
+      const reasons = [
+        `Pensado para negocios como el tuyo: ${rubro.label.toLowerCase()}.`,
+        `Responde a lo que más necesitas: ${necesidad.label.toLowerCase()}.`
+      ];
+      if (necesidad.v === 'clientes') {
+        reasons[1] = `Responde a tu meta de ${necesidad.label.toLowerCase()}, con cobertura ${alcance.v === 'local' ? 'local' : alcance.v === 'nacional' ? 'nacional' : 'regional'}.`;
+      }
+
+      let budgetNote;
+      if (presupuesto.max === null) {
+        budgetNote = 'Te ayudamos a ajustar el alcance al presupuesto que tengas.';
+      } else if (plan.price > presupuesto.max) {
+        budgetNote = key === 'dev-studio'
+          ? `Si deseas validar antes de invertir en desarrollo completo (${plan.priceText}), puedes iniciar con nuestro Sprint 0 de Prototipo + Presupuesto Cerrado ($190 USD, 100% acreditables en Dev Studio).`
+          : `Para validar retorno antes de este paquete (${plan.priceText}), te recomendamos iniciar con nuestro Sprint Comercial WhatsApp 14 Días ($145 USD — $50 acreditables) o el Plan Impulso Pyme ($220/mes).`;
+      } else {
+        budgetNote = 'Tu presupuesto encaja con este paquete.';
+      }
+
+      const msg = [
+        '*Diagnóstico web - Guardabarranco Studio*',
+        '',
+        `*Rubro:* ${rubro.label}`,
+        `*Clientes:* ${alcance.label}`,
+        `*Necesidad:* ${necesidad.label}`,
+        `*Inversión:* ${presupuesto.label}`,
+        `*Plan recomendado:* ${plan.name} (${plan.priceText})`,
+        '',
+        'Quiero conversar sobre este plan.'
+      ].join('\n');
+      const wspUrl = `https://wa.me/50585574484?text=${encodeURIComponent(msg)}`;
+      const detailBtnText = key === 'dev-studio' ? 'Ir a Dev Studio & Cotizador' : 'Ver detalles del paquete';
+
+      quizBar.style.width = '100%';
+      quizStage.hidden = true;
+      quizResult.innerHTML = `
+        <div class="quiz-result-badge"><i class="bi bi-stars"></i> Tu plan recomendado</div>
+        <h3>${plan.name}</h3>
+        <div class="quiz-result-price">${displayPrice}</div>
+        <ul class="quiz-reasons">
+          ${reasons.map(r => `<li><i class="bi bi-check-circle-fill"></i><span>${r}</span></li>`).join('')}
+          <li><i class="bi bi-info-circle-fill"></i><span>${budgetNote}</span></li>
+        </ul>
+        <div class="quiz-result-actions">
+          <a href="${wspUrl}" target="_blank" rel="noopener" class="btn btn-whatsapp" id="quizSendWsp">
+            <i class="bi bi-whatsapp"></i><span>Enviar mi diagnóstico por WhatsApp</span>
+          </a>
+          <button type="button" class="btn btn-secondary" id="quizViewPlan"><i class="bi bi-card-checklist"></i><span>${detailBtnText}</span></button>
+        </div>
+        <button type="button" class="quiz-back" id="quizRestart"><i class="bi bi-arrow-counterclockwise"></i> Repetir diagnóstico</button>
+      `;
+      quizResult.hidden = false;
+      quizResult.classList.remove('quiz-fade');
+      void quizResult.offsetWidth;
+      quizResult.classList.add('quiz-fade');
+      quizCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      document.getElementById('quizViewPlan').addEventListener('click', () => {
+        if (key === 'dev-studio') {
+          window.location.href = '../DEV%20STUDIO/index.html#estimador';
+          return;
+        }
+        const fichaBtn = document.querySelector(`.btn-ver-ficha[data-ficha="${key}"]`);
+        if (fichaBtn) {
+          fichaBtn.click();
+        } else {
+          window.location.hash = '#catalogo';
+        }
+      });
+      document.getElementById('quizRestart').addEventListener('click', () => {
+        quizStep = 0;
+        quizAnswers = {};
+        renderQuizStep();
+      });
+    };
+
+    quizBack.addEventListener('click', () => {
+      if (quizStep > 0) {
+        quizStep -= 1;
+        renderQuizStep();
+      }
+    });
+
+    renderQuizStep();
   }
 
   // 10. WhatsApp Speed-Dial Widget Trigger
@@ -770,11 +1008,32 @@ document.addEventListener('DOMContentLoaded', () => {
               <a href="https://wa.me/50585574484?text=${encodeURIComponent(data.wspText)}" target="_blank" rel="noopener" class="btn btn-primary flex-grow-1" style="justify-content: center;">
                 <i class="bi bi-whatsapp me-2"></i> Solicitar este Paquete por WhatsApp
               </a>
+              <button type="button" class="btn btn-secondary" id="btnModalPersonalizarCotizador" data-quote-val="${({ 'pyme-local': 'pyme', 'marca-nacional': 'campana360', 'expansion-ca': 'expansion', 'spot-dron': 'audiovisual', 'branding-pack': 'branding', 'web-corp': 'web' })[fichaKey] || 'pyme'}">
+                <i class="bi bi-calculator me-1"></i> Personalizar en Cotizador
+              </button>
               <button type="button" class="btn btn-secondary" id="btnCerrarModalInterno">
                 <i class="bi bi-x-lg me-1"></i> Cerrar
               </button>
             </div>
           `;
+
+          const btnModalPersonalizarCotizador = document.getElementById('btnModalPersonalizarCotizador');
+          if (btnModalPersonalizarCotizador) {
+            btnModalPersonalizarCotizador.addEventListener('click', () => {
+              const quoteVal = btnModalPersonalizarCotizador.getAttribute('data-quote-val');
+              closeModalFn();
+              const targetRadio = document.querySelector(`input[name="calcService"][value="${quoteVal}"]`);
+              if (targetRadio) {
+                targetRadio.checked = true;
+                calculateQuote();
+                const calcSec = document.getElementById('cotizador');
+                if (calcSec) calcSec.scrollIntoView({ behavior: 'smooth' });
+                if (typeof showGbToast === 'function') {
+                  showGbToast(`Paquete "${data.title}" cargado en el Cotizador`);
+                }
+              }
+            });
+          }
 
           // Close button inside modal body
           const btnCerrarModalInterno = document.getElementById('btnCerrarModalInterno');
@@ -813,22 +1072,230 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Dossier PDF Download Action
-  if (btnDescargarPdfCatalogo) {
-    btnDescargarPdfCatalogo.addEventListener('click', () => {
-      const confirmPrint = confirm(
-        'Dossier Corporativo 2026 - Guardabarranco Studio:\n\n' +
-        '¿Deseas abrir la vista de impresión/guardado en PDF ahora?\n' +
-        '(También puedes solicitar que te enviemos el PDF interactivo directamente a tu WhatsApp).'
-      );
+  // ==========================================================================
+  // 13. SPOTLIGHT RADIAL HOVER, TILT 3D, PROGRESO DE LECTURA & CONVERSOR MONEDA
+  // ==========================================================================
+  const spotlightCards = document.querySelectorAll(
+    '.service-card, .catalog-card, .commit-card, .process-card, .pricing-card'
+  );
+  spotlightCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
 
-      if (confirmPrint) {
-        window.print();
-      } else {
-        const wspDossier = 'https://wa.me/50585574484?text=' +
-          encodeURIComponent('Hola Guardabarranco Studio, deseo recibir el Dossier Corporativo 2026 en PDF interactivo.');
-        window.open(wspDossier, '_blank');
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const rx = (((y - cy) / cy) * -3).toFixed(2);
+      const ry = (((x - cx) / cx) * 3).toFixed(2);
+      card.style.setProperty('--rx', `${rx}deg`);
+      card.style.setProperty('--ry', `${ry}deg`);
+      card.classList.add('gb-tilt-active');
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.classList.remove('gb-tilt-active');
+      card.style.setProperty('--rx', '0deg');
+      card.style.setProperty('--ry', '0deg');
+    });
+  });
+
+  // Barra superior de progreso de lectura
+  const gbProgress = document.createElement('div');
+  gbProgress.className = 'gb-scroll-progress no-print';
+  document.body.appendChild(gbProgress);
+
+  // Botón flotante Volver Arriba
+  const gbBackTop = document.createElement('button');
+  gbBackTop.type = 'button';
+  gbBackTop.className = 'gb-back-top-btn no-print';
+  gbBackTop.setAttribute('aria-label', 'Volver al inicio');
+  gbBackTop.title = 'Volver arriba';
+  gbBackTop.innerHTML = '<i class="bi bi-arrow-up"></i>';
+  document.body.appendChild(gbBackTop);
+
+  gbBackTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+    gbProgress.style.width = `${pct}%`;
+    gbBackTop.classList.toggle('visible', scrollTop > 450);
+  }, { passive: true });
+
+  // Toast de confirmación UX
+  const gbToast = document.createElement('div');
+  gbToast.className = 'gb-ux-toast no-print';
+  document.body.appendChild(gbToast);
+  let gbToastTimer = null;
+  function showGbToast(msg) {
+    gbToast.innerHTML = `<i class="bi bi-check-circle-fill text-warning"></i> <span>${msg}</span>`;
+    gbToast.classList.add('show');
+    if (gbToastTimer) clearTimeout(gbToastTimer);
+    gbToastTimer = setTimeout(() => gbToast.classList.remove('show'), 3000);
+  }
+
+  // Selector Global de Moneda (USD ⇄ NIO) en la barra superior + Barra Móvil Cotizador + Tel Desktop
+  const topbarFlex = document.querySelector('.topbar-content .topbar-items:last-child') || document.querySelector('.topbar-flex');
+  if (topbarFlex) {
+    const savedGbCurr = localStorage.getItem('gbStudioCurrency') || 'USD';
+    const currSwitch = document.createElement('div');
+    currSwitch.className = 'gb-currency-switch';
+    currSwitch.id = 'gbCurrencySwitch';
+    currSwitch.title = 'Alternar moneda principal entre Dólares (USD) y Córdobas (NIO)';
+    currSwitch.innerHTML = `
+      <span class="gb-curr-opt ${savedGbCurr === 'USD' ? 'active' : ''}" data-gb-curr="USD">USD $</span>
+      <span class="gb-curr-opt ${savedGbCurr === 'NIO' ? 'active' : ''}" data-gb-curr="NIO">NIO C$</span>
+    `;
+    topbarFlex.appendChild(currSwitch);
+
+    const gbPackagesPrices = [
+      { usd: '$220', nio: 'C$ 8,056', unit: 'USD / mes', unitNio: 'NIO / mes', subNio: 'Aprox. C$ 8,056 NIO / mes (Tasa 36.62)', subUsd: 'Equivalente: $220 USD / mes' },
+      { usd: '$580', nio: 'C$ 21,239', unit: 'USD / mes', unitNio: 'NIO / mes', subNio: 'Aprox. C$ 21,239 NIO / mes (Tasa 36.62)', subUsd: 'Equivalente: $580 USD / mes' },
+      { usd: '$1,250', nio: 'C$ 45,775', unit: 'USD / mes', unitNio: 'NIO / mes', subNio: 'Aprox. C$ 45,775 NIO / mes (Tasa 36.62)', subUsd: 'Equivalente: $1,250 USD / mes' },
+      { usd: '$350', nio: 'C$ 12,817', unit: 'USD / proyecto', unitNio: 'NIO / proyecto', subNio: 'Aprox. C$ 12,817 NIO / proyecto', subUsd: 'Equivalente: $350 USD / proyecto' },
+      { usd: '$450', nio: 'C$ 16,479', unit: 'USD / proyecto', unitNio: 'NIO / proyecto', subNio: 'Aprox. C$ 16,479 NIO / proyecto', subUsd: 'Equivalente: $450 USD / proyecto' },
+      { usd: '$490', nio: 'C$ 17,943', unit: 'USD / proyecto', unitNio: 'NIO / proyecto', subNio: 'Aprox. C$ 17,943 NIO / proyecto', subUsd: 'Equivalente: $490 USD / proyecto' }
+    ];
+
+    function applyGbCurrency(curr) {
+      localStorage.setItem('gbStudioCurrency', curr);
+      currSwitch.querySelectorAll('.gb-curr-opt').forEach(opt => {
+        opt.classList.toggle('active', opt.getAttribute('data-gb-curr') === curr);
+      });
+      const cards = document.querySelectorAll('#catalogGrid .catalog-card');
+      cards.forEach((card, idx) => {
+        const p = gbPackagesPrices[idx];
+        if (!p) return;
+        const mainEl = card.querySelector('.catalog-price-main');
+        const subEl = card.querySelector('.catalog-price-sub');
+        if (mainEl && subEl) {
+          if (curr === 'NIO') {
+            mainEl.innerHTML = `${p.nio} <span class="catalog-price-period">${p.unitNio}</span>`;
+            subEl.textContent = p.subUsd;
+          } else {
+            mainEl.innerHTML = `${p.usd} <span class="catalog-price-period">${p.unit}</span>`;
+            subEl.textContent = p.subNio;
+          }
+          return;
+        }
+        const usdRow = card.querySelector('.price-usd-row');
+        const nioRow = card.querySelector('.price-nio-row');
+        if (usdRow && nioRow) {
+          if (curr === 'NIO') {
+            usdRow.innerHTML = `<span class="price-amount">${p.nio}</span><span class="price-unit">${p.unitNio}</span>`;
+            nioRow.innerHTML = `<i class="bi bi-currency-exchange"></i> ${p.subUsd}`;
+          } else {
+            usdRow.innerHTML = `<span class="price-amount">${p.usd}</span><span class="price-unit">${p.unit}</span>`;
+            nioRow.innerHTML = `<i class="bi bi-currency-exchange"></i> ${p.subNio}`;
+          }
+        }
+      });
+      calculateQuote();
+    }
+
+    currSwitch.addEventListener('click', (e) => {
+      const opt = e.target.closest('.gb-curr-opt');
+      const current = localStorage.getItem('gbStudioCurrency') || 'USD';
+      const next = opt ? opt.getAttribute('data-gb-curr') : (current === 'USD' ? 'NIO' : 'USD');
+      applyGbCurrency(next);
+      showGbToast(next === 'NIO' ? 'Precios principales en Córdobas (C$ NIO)' : 'Precios principales en Dólares ($ USD)');
+    });
+
+    if (savedGbCurr === 'NIO') {
+      applyGbCurrency('NIO');
+    }
+  }
+
+  // Barra móvil contextual dentro de #cotizador (oculta cuando .calc-summary-panel está visible)
+  const cotizadorSec = document.getElementById('cotizador');
+  const calcSummaryBox = cotizadorSec ? cotizadorSec.querySelector('.calc-summary-panel') : null;
+  if (cotizadorSec && calcSummaryBox && 'IntersectionObserver' in window) {
+    const mobileBar = document.createElement('div');
+    mobileBar.className = 'gb-mobile-calc-bar no-print';
+    mobileBar.id = 'gbMobileCalcBar';
+    mobileBar.innerHTML = `
+      <div class="gb-mobile-calc-meta">
+        <span class="gb-mobile-calc-kicker">Inversión estimada</span>
+        <strong class="gb-mobile-calc-val" id="gbMobileCalcValue">$220 USD</strong>
+      </div>
+      <button type="button" class="btn btn-sm btn-accent" id="gbMobileCalcJumpBtn">
+        Ver Resumen <i class="bi bi-arrow-down-short"></i>
+      </button>
+    `;
+    document.body.appendChild(mobileBar);
+
+    const jumpBtn = document.getElementById('gbMobileCalcJumpBtn');
+    if (jumpBtn) {
+      jumpBtn.addEventListener('click', () => {
+        calcSummaryBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    calculateQuote();
+
+    let cotizadorVisible = false;
+    let summaryVisible = false;
+    const syncGbBar = () => {
+      mobileBar.classList.toggle('is-visible', cotizadorVisible && !summaryVisible);
+    };
+
+    const cotizadorObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.target === cotizadorSec) cotizadorVisible = entry.isIntersecting;
+          if (entry.target === calcSummaryBox) summaryVisible = entry.isIntersecting;
+        });
+        syncGbBar();
+      },
+      { threshold: 0.08 }
+    );
+    cotizadorObserver.observe(cotizadorSec);
+    cotizadorObserver.observe(calcSummaryBox);
+  }
+
+  // Copiar teléfono en escritorio al hacer clic en enlaces tel: (sin romper marcador móvil)
+  document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const isDesktopFine = window.innerWidth >= 992 && window.matchMedia('(pointer: fine)').matches;
+      if (isDesktopFine && navigator.clipboard && navigator.clipboard.writeText) {
+        e.preventDefault();
+        const rawPhone = link.getAttribute('href').replace('tel:', '').trim();
+        navigator.clipboard.writeText(rawPhone).then(() => {
+          showGbToast(`Teléfono copiado (${rawPhone}). Disponible por llamada o WhatsApp.`);
+        }).catch(() => {
+          window.location.href = link.getAttribute('href');
+        });
       }
     });
+  });
+
+  const revealItems = document.querySelectorAll(
+    '.service-card, .catalog-card, .pricing-card, .process-card, .commit-card, .portfolio-card, .about-card'
+  );
+  if ('IntersectionObserver' in window && revealItems.length > 0) {
+    revealItems.forEach((el, idx) => {
+      el.classList.add('reveal-on-scroll');
+      el.style.transitionDelay = `${(idx % 3) * 60}ms`;
+    });
+
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -35px 0px' }
+    );
+
+    revealItems.forEach(el => revealObserver.observe(el));
   }
 });

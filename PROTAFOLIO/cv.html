@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Ejecutivo | Luis Enrique Albares Soriano — Systems Engineer &amp; Data Analyst (DRA)</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --ink: #0F172A;
+      --slate: #334155;
+      --muted: #64748B;
+      --accent: #1E3A8A;
+      --border: #E2E8F0;
+      --border-strong: #CBD5E1;
+      --bg-page: #F1F5F9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--ink);
+      line-height: 1.5;
+      padding: 24px 16px 60px;
+    }
+
+    .toolbar {
+      max-width: 900px;
+      margin: 0 auto 20px;
+      background-color: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--ink);
+    }
+
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .t-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid var(--border-strong);
+      background-color: #FFFFFF;
+      color: var(--slate);
+      font-family: inherit;
+      transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    }
+
+    .t-btn:hover {
+      background-color: #F8FAFC;
+      border-color: #94A3B8;
+      color: var(--ink);
+    }
+
+    .t-btn.primary {
+      background-color: #1E3A8A;
+      border-color: #1E3A8A;
+      color: #FFFFFF;
+    }
+
+    .t-btn.primary:hover {
+      background-color: #172554;
+      border-color: #172554;
+      color: #FFFFFF;
+    }
+
+    .t-btn.call {
+      background-color: #15803D;
+      border-color: #15803D;
+      color: #FFFFFF;
+    }
+
+    .t-btn.call:hover {
+      background-color: #166534;
+      border-color: #166534;
+      color: #FFFFFF;
+    }
+
+    .cv-sheet {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 44px 48px;
+    }
+
+    .cv-header {
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cv-name {
+      font-family: inherit;
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .cv-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    .cv-contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px 20px;
+      font-size: 0.82rem;
+      color: var(--slate);
+      margin-top: 12px;
+    }
+
+    .cv-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      word-break: break-word;
+    }
+
+    .cv-contact-item i { color: var(--accent); flex-shrink: 0; }
+    .cv-contact-item a { color: var(--ink); text-decoration: none; font-weight: 500; }
+
+    .cv-section { margin-bottom: 20px; }
+
+    .cv-section-title {
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 5px;
+      margin-bottom: 12px;
+    }
+
+    .cv-summary {
+      font-size: 0.9rem;
+      color: var(--slate);
+    }
+
+    .cv-grid-2 {
+      display: grid;
+      grid-template-columns: 1.35fr 0.95fr;
+      gap: 28px;
+    }
+
+    .exp-block { margin-bottom: 16px; }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .exp-role { font-weight: 700; font-size: 0.96rem; color: var(--ink); }
+    .exp-date { font-variant-numeric: tabular-nums; font-size: 0.78rem; color: var(--accent); font-weight: 600; }
+    .exp-company { font-size: 0.85rem; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+
+    .cv-ul {
+      padding-left: 18px;
+      font-size: 0.86rem;
+      color: var(--slate);
+    }
+
+    .cv-ul li { margin-bottom: 5px; }
+
+    .proj-item { margin-bottom: 11px; font-size: 0.86rem; color: var(--slate); }
+    .proj-item strong { color: var(--ink); }
+
+    .skill-row { margin-bottom: 9px; font-size: 0.84rem; color: var(--slate); }
+    .skill-row strong { display: block; color: var(--ink); font-size: 0.85rem; }
+
+    .plain-list { list-style: none; font-size: 0.84rem; color: var(--slate); }
+    .plain-list li {
+      padding: 4px 0;
+      border-bottom: 1px dashed var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .ux-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      background-color: #0F172A;
+      color: #FFFFFF;
+      border-radius: 6px;
+      padding: 10px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      align-items: center;
+      gap: 8px;
+      transition: opacity 0.2s ease;
+    }
+
+    .ux-toast.show { opacity: 1; }
+
+    @media (max-width: 768px) {
+      .cv-sheet { padding: 24px 20px; }
+      .cv-contact-grid, .cv-grid-2 { grid-template-columns: 1fr; }
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    @page {
+      size: letter;
+      margin: 10mm 12mm;
+    }
+
+    @media print {
+      body {
+        background: #FFFFFF;
+        padding: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .toolbar, .ux-toast { display: none !important; }
+      .cv-sheet {
+        border: none;
+        max-width: 100%;
+        padding: 0;
+        border-radius: 0;
+      }
+      .cv-grid-2 {
+        grid-template-columns: 1.35fr 0.95fr !important;
+      }
+      .exp-block, .proj-item, .cv-section {
+        break-inside: avoid;
+      }
+      a { color: var(--ink); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Interactive Toolbar (hidden on print) -->
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <a href="index.html" class="t-btn">
+        <i class="bi bi-arrow-left"></i>
+        <span data-es="Volver al Portafolio" data-en="Back to Portfolio">Volver al Portafolio</span>
+      </a>
+      <a href="tel:+50577821952" class="t-btn call">
+        <i class="bi bi-telephone-fill"></i>
+        <span>+505 7782-1952</span>
+      </a>
+      <a href="https://wa.me/50577821952?text=Hola%20Ing.%20Luis%20Enrique%20Albares%2C%20vi%20su%20CV%20ejecutivo%20y%20deseo%20contactarlo." target="_blank" rel="noopener" class="t-btn">
+        <i class="bi bi-whatsapp"></i>
+        <span>WhatsApp</span>
+      </a>
+    </div>
+
+    <div class="toolbar-group">
+      <button type="button" class="t-btn" id="btnToggleLang">
+        <i class="bi bi-translate"></i>
+        <span id="langBadgeText">ES ⇄ EN</span>
+      </button>
+      <button type="button" class="t-btn" id="btnDownloadVcfTop">
+        <i class="bi bi-person-vcard"></i>
+        <span data-es="Guardar .VCF" data-en="Save .VCF">Guardar .VCF</span>
+      </button>
+      <button type="button" class="t-btn primary" onclick="window.print()">
+        <i class="bi bi-printer-fill"></i>
+        <span data-es="Imprimir / Guardar PDF" data-en="Print / Save PDF">Imprimir / Guardar PDF</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Printable Executive CV Sheet -->
+  <article class="cv-sheet">
+    <header class="cv-header">
+      <div style="flex:1;">
+        <h1 class="cv-name">Luis Enrique Albares Soriano</h1>
+        <div class="cv-title" data-es="Ingeniero en Sistemas — Análisis de Datos (DRA) | Asesor de Rendimiento &amp; Liderazgo de Equipos" data-en="Systems Engineer — Data Analysis (DRA) | Performance Advisor &amp; Team Leadership">
+          Ingeniero en Sistemas — Análisis de Datos (DRA) | Asesor de Rendimiento &amp; Liderazgo de Equipos
+        </div>
+
+        <div class="cv-contact-grid">
+          <div class="cv-contact-item"><i class="bi bi-geo-alt-fill"></i> <span data-es="El Viejo, Chinandega, Nicaragua (F. Nac.: 23/06/2004)" data-en="El Viejo, Chinandega, Nicaragua (DOB: 23/06/2004)">El Viejo, Chinandega, Nicaragua (F. Nac.: 23/06/2004)</span></div>
+          <div class="cv-contact-item"><i class="bi bi-telephone-fill"></i> <a href="tel:+50577821952">+505 7782-1952 (Tigo)</a></div>
+          <div class="cv-contact-item"><i class="bi bi-envelope-fill"></i> <a href="mailto:luisenrriquealvaressori@gmail.com">luisenrriquealvaressori@gmail.com</a></div>
+          <div class="cv-contact-item"><i class="bi bi-linkedin"></i> <a href="https://www.linkedin.com/in/luis-enrrique-albares-soriano-55396628b" target="_blank" rel="noopener">linkedin.com/in/luis-enrrique-albares-soriano-55396628b</a></div>
+          <div class="cv-contact-item"><i class="bi bi-github"></i> <a href="https://github.com/luisenrriquealvaressori-cmyk" target="_blank" rel="noopener">github.com/luisenrriquealvaressori-cmyk</a></div>
+          <div class="cv-contact-item"><i class="bi bi-facebook"></i> <a href="https://www.facebook.com/luisenrique.albaressoriano" target="_blank" rel="noopener">facebook.com/luisenrique.albaressoriano</a></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Summary -->
+    <section class="cv-section">
+      <h2 class="cv-section-title" data-es="Resumen Profesional" data-en="Professional Summary">Resumen Profesional</h2>
+      <p class="cv-summary" data-es="Ingeniero en Sistemas con 1 año de experiencia profesional especializado en Análisis de Datos (DRA), administración de bases de datos relacionales (SQL Server, PostgreSQL, SQLite) y mejora del rendimiento operativo. Certificado como Project Owner y practicante Scrum con habilidades en planificación multifuncional, resolución analítica de problemas y coordinación de equipos. Dominio en Excel Avanzado, sistemas Full Stack (.NET APIs, Kotlin, Flutter), Cloud DevOps / Linux y reportes ejecutivos en Canva." data-en="Systems Engineer with 1 year of professional experience specializing in Data Analysis (DRA), relational database administration (SQL Server, PostgreSQL, SQLite), and operational performance improvement. Certified Project Owner and Scrum practitioner skilled in cross-functional planning, analytical troubleshooting, and team coordination. Proficient in Advanced Excel, Full Stack systems (.NET APIs, Kotlin, Flutter), Cloud DevOps / Linux, and executive reporting in Canva.">
+        Ingeniero en Sistemas con 1 año de experiencia profesional especializado en Análisis de Datos (DRA), administración de bases de datos relacionales (SQL Server, PostgreSQL, SQLite) y mejora del rendimiento operativo. Certificado como Project Owner y practicante Scrum con habilidades en planificación multifuncional, resolución analítica de problemas y coordinación de equipos. Dominio en Excel Avanzado, sistemas Full Stack (.NET APIs, Kotlin, Flutter), Cloud DevOps / Linux y reportes ejecutivos en Canva.
+      </p>
+    </section>
+
+    <div class="cv-grid-2">
+      <!-- Left Column: Experience & Projects & Education -->
+      <div>
+        <section class="cv-section">
+          <h2 class="cv-section-title" data-es="Experiencia Profesional" data-en="Professional Experience">Experiencia Profesional</h2>
+
+          <div class="exp-block">
+            <div class="exp-header">
+              <span class="exp-role" data-es="Desarrollador Full Stack y Analista de Datos (Freelance)" data-en="Full Stack Developer &amp; Data Analyst (Freelance)">Desarrollador Full Stack y Analista de Datos (Freelance)</span>
+              <span class="exp-date" data-es="Actualidad (1 Año)" data-en="Present (1 Year)">Actualidad (1 Año)</span>
+            </div>
+            <div class="exp-company" data-es="Independiente y Grupo Coen — División de Agronegocios | Chinandega, Nicaragua" data-en="Self-Employed &amp; Grupo Coen — Agribusiness Division | Chinandega, Nicaragua">Independiente y Grupo Coen — División de Agronegocios | Chinandega, Nicaragua</div>
+            <ul class="cv-ul">
+              <li data-es="Colaboré con el equipo de TI para analizar, formular y planificar una plataforma logística y de datos campo-oficina en tiempo real para la División de Agronegocios, reduciendo las demoras en reportes diarios en más de un 80%." data-en="Collaborated with the IT team to analyze, formulate, and plan a real-time field-to-office logistics and data platform for the Agribusiness Division, cutting daily reporting delays by over 80%.">
+                Colaboré con el equipo de TI para analizar, formular y planificar una plataforma logística y de datos campo-oficina en tiempo real para la División de Agronegocios, reduciendo las demoras en reportes diarios en más de un 80%.
+              </li>
+              <li data-es="Administré y analicé bases de datos relacionales (SQL Server, PostgreSQL, SQLite) para entregar análisis de datos operativos, métricas de rendimiento y reportes ejecutivos visuales en Excel Avanzado y Canva." data-en="Managed and analyzed relational databases (SQL Server, PostgreSQL, SQLite) to deliver operational data analysis, performance metrics, and visual executive reports in Advanced Excel and Canva.">
+                Administré y analicé bases de datos relacionales (SQL Server, PostgreSQL, SQLite) para entregar análisis de datos operativos, métricas de rendimiento y reportes ejecutivos visuales en Excel Avanzado y Canva.
+              </li>
+              <li data-es="Construí y desplegué aplicaciones Full Stack web (.NET REST APIs) y móviles (Kotlin, Flutter) aprovechando flujos de trabajo asistidos por IA, prácticas Cloud DevOps y servidores Linux." data-en="Built and deployed Full Stack web (.NET REST APIs) and mobile (Kotlin, Flutter) applications leveraging AI-assisted workflows, Cloud DevOps practices, and Linux servers.">
+                Construí y desplegué aplicaciones Full Stack web (.NET REST APIs) y móviles (Kotlin, Flutter) aprovechando flujos de trabajo asistidos por IA, prácticas Cloud DevOps y servidores Linux.
+              </li>
+            </ul>
+          </div>
+
+          <div class="exp-block">
+            <div class="exp-header">
+              <span class="exp-role" data-es="Ejecutivo de Ventas (Sales Executive)" data-en="Sales Executive">Ejecutivo de Ventas (Sales Executive)</span>
+              <span class="exp-date" data-es="Período Vacacional (2 Meses)" data-en="Vacation Period (2 Months)">Período Vacacional (2 Meses)</span>
+            </div>
+            <div class="exp-company">Claro | Nicaragua</div>
+            <ul class="cv-ul">
+              <li data-es="Gestioné operaciones de ventas retail y consultas de clientes en un entorno rápido orientado a metas, fortaleciendo la comunicación activa, resolución de cuentas y desempeño en servicio." data-en="Managed retail sales operations and customer inquiries in a fast-paced, target-driven environment, strengthening active communication, account resolution, and service performance.">
+                Gestioné operaciones de ventas retail y consultas de clientes en un entorno rápido orientado a metas, fortaleciendo la comunicación activa, resolución de cuentas y desempeño en servicio.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="cv-section">
+          <h2 class="cv-section-title" data-es="Proyectos Analíticos y Técnicos" data-en="Analytical &amp; Technical Projects">Proyectos Analíticos y Técnicos</h2>
+          <div class="proj-item">
+            <strong data-es="Suite de Operaciones y Métricas en Campo (AgroStats / PorciCore):" data-en="Field Operations &amp; Metrics Suite (AgroStats / PorciCore):">Suite de Operaciones y Métricas en Campo (AgroStats / PorciCore):</strong>
+            <span data-es="Apps offline-first en Kotlin y Flutter (SQLite) integradas con .NET Web API, SQL Server y PostgreSQL para consolidar asistencia, mano de obra e inventario." data-en="Offline-first Kotlin and Flutter (SQLite) apps integrated with .NET Web API, SQL Server, and PostgreSQL to consolidate attendance, labor, and inventory metrics.">
+              Apps offline-first en Kotlin y Flutter (SQLite) integradas con .NET Web API, SQL Server y PostgreSQL para consolidar asistencia, mano de obra e inventario.
+            </span>
+          </div>
+          <div class="proj-item">
+            <strong data-es="Gestor de Inventario Multiplataforma:" data-en="Cross-Platform Inventory Manager:">Gestor de Inventario Multiplataforma:</strong>
+            <span data-es="Suite móvil (Flutter) y web conectada vía APIs para sincronizar inventario en tiempo real y datos logísticos entre múltiples almacenes." data-en="Mobile (Flutter) and web suite connected via APIs to synchronize real-time stock and logistics data across multiple warehouses.">
+              Suite móvil (Flutter) y web conectada vía APIs para sincronizar inventario en tiempo real y datos logísticos entre múltiples almacenes.
+            </span>
+          </div>
+          <div class="proj-item">
+            <strong data-es="Tablero Interno con Inteligencia Artificial:" data-en="AI-Enhanced Internal Dashboard:">Tablero Interno con Inteligencia Artificial:</strong>
+            <span data-es="Sistema centralizado de monitoreo con análisis predictivo con IA sobre registros de salud del sistema para mantenimiento proactivo." data-en="Centralized monitoring system incorporating predictive AI data analysis on system health logs to drive proactive maintenance.">
+              Sistema centralizado de monitoreo con análisis predictivo con IA sobre registros de salud del sistema para mantenimiento proactivo.
+            </span>
+          </div>
+        </section>
+
+        <section class="cv-section">
+          <h2 class="cv-section-title" data-es="Educación" data-en="Education">Educación</h2>
+          <div class="exp-role" data-es="Ingeniería en Sistemas de Información" data-en="Bachelor of Science in Systems Engineering">Ingeniería en Sistemas de Información</div>
+          <div class="exp-company" data-es="Universidad Nacional Autónoma de Nicaragua (UNAN-León)" data-en="National Autonomous University of Nicaragua (UNAN-León)">Universidad Nacional Autónoma de Nicaragua (UNAN-León)</div>
+        </section>
+      </div>
+
+      <!-- Right Column: Skills, Certifications, Achievements -->
+      <div>
+        <section class="cv-section">
+          <h2 class="cv-section-title" data-es="Habilidades Principales" data-en="Core Skills">Habilidades Principales</h2>
+
+          <div class="skill-row">
+            <strong data-es="Análisis de Datos y Bases de Datos" data-en="Data Analysis &amp; DBs">Análisis de Datos y Bases de Datos</strong>
+            <span data-es="Análisis de Datos (DRA), SQL Server, PostgreSQL, SQLite, Excel Avanzado, QGIS." data-en="Data Analysis (DRA), SQL Server, PostgreSQL, SQLite, Advanced Excel, QGIS.">Análisis de Datos (DRA), SQL Server, PostgreSQL, SQLite, Excel Avanzado, QGIS.</span>
+          </div>
+          <div class="skill-row">
+            <strong data-es="Liderazgo y Rendimiento" data-en="Leadership &amp; Performance">Liderazgo y Rendimiento</strong>
+            <span data-es="Project Owner, Scrum, Seguimiento de Rendimiento, Coordinación de Equipos, Canva." data-en="Project Owner, Scrum, Performance Tracking, Team Coordination, Canva.">Project Owner, Scrum, Seguimiento de Rendimiento, Coordinación de Equipos, Canva.</span>
+          </div>
+          <div class="skill-row">
+            <strong data-es="Desarrollo Web y Backend" data-en="Web &amp; Backend">Desarrollo Web y Backend</strong>
+            .NET, ASP.NET Core, C#, RESTful APIs.
+          </div>
+          <div class="skill-row">
+            <strong data-es="Desarrollo Móvil" data-en="Mobile Development">Desarrollo Móvil</strong>
+            <span data-es="Kotlin, Flutter (Nativo y Multiplataforma)." data-en="Kotlin, Flutter (Native &amp; Cross-Platform).">Kotlin, Flutter (Nativo y Multiplataforma).</span>
+          </div>
+          <div class="skill-row">
+            <strong data-es="DevOps, Nube e IA" data-en="DevOps &amp; AI">DevOps, Nube e IA</strong>
+            <span data-es="Despliegue Cloud, Servidores Linux, Docker, Git, Flujos Asistidos por IA." data-en="Cloud Deployment, Linux Servers, Docker, Git, AI-Assisted Workflows.">Despliegue Cloud, Servidores Linux, Docker, Git, Flujos Asistidos por IA.</span>
+          </div>
+        </section>
+
+        <section class="cv-section">
+          <h2 class="cv-section-title" data-es="Certificaciones" data-en="Certifications">Certificaciones</h2>
+          <ul class="plain-list">
+            <li><span data-es="Certificación Project Owner" data-en="Project Owner Certification">Certificación Project Owner</span></li>
+            <li><span data-es="Metodología Scrum con Diseño UX" data-en="Scrum Methodology with UX Design">Metodología Scrum con Diseño UX</span></li>
+            <li><span data-es="Git y Control de Versiones" data-en="Git &amp; Version Control">Git y Control de Versiones</span></li>
+            <li><span data-es="Excel Avanzado" data-en="Advanced Excel">Excel Avanzado</span></li>
+            <li><span data-es="Curso de Atención Prehospitalaria" data-en="Pre-Hospital Care Course">Curso de Atención Prehospitalaria</span></li>
+            <li><span data-es="Inglés (Competencia A1–B2)" data-en="English (A1–B2 Proficient)">Inglés (Competencia A1–B2)</span></li>
+          </ul>
+        </section>
+
+        <section class="cv-section">
+          <h2 class="cv-section-title" data-es="Logros" data-en="Achievements">Logros</h2>
+          <ul class="plain-list">
+            <li><span>Rally Nacional 2026</span><strong data-es="Participante" data-en="Participant">Participante</strong></li>
+            <li><span>Hackathon 2026</span><strong data-es="Participante" data-en="Participant">Participante</strong></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </article>
+
+  <div class="ux-toast" id="uxToast" style="display:none;"></div>
+  <script src="script.js"></script>
+</body>
+</html>

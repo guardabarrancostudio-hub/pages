@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soluciones de Software por Industria | 8 Sectores Económicos — Dev Studio</title>
+  <meta name="description" content="Descubre cómo el software a medida de Dev Studio transforma 8 industrias clave en Nicaragua y Centroamérica: Agroindustria, Construcción, Distribución Mayorista, Talleres y Repuestos, Clínicas y Veterinarias, Logística CA-4, Manufactura y Finanzas.">
+  <meta name="theme-color" content="#08090C">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+
+  <div class="tech-grid-bg"></div>
+  <div class="ambient-light-orb orb-silver-1"></div>
+  <div class="ambient-light-orb orb-silver-2"></div>
+
+  <!-- Top Utility & Telemetry Bar -->
+  <div class="telemetry-bar">
+    <div class="container telemetry-content">
+      <div class="telemetry-node">
+        <a href="../index.html" class="telemetry-hub-link">
+          <i class="bi bi-grid-fill"></i>
+          <span>PORTAL HUB</span>
+        </a>
+        <span class="telemetry-sep">&bull;</span>
+        <span class="live-indicator-dot"></span>
+        <span>VERTICALES INDUSTRIALES &bull; 8 SECTORES ECONÓMICOS</span>
+      </div>
+      <div class="telemetry-utils-slot"></div>
+    </div>
+  </div>
+
+  <!-- Header & Navbar Principal -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand" aria-label="Dev Studio Inicio">
+        <img src="logo.svg" alt="Dev Studio Logo" class="nav-logo-img">
+      </a>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html" class="nav-link">Inicio</a></li>
+        <li><a href="soluciones-software.html" class="nav-link">Soluciones</a></li>
+        <li><a href="industrias.html" class="nav-link active">Industrias</a></li>
+        <li><a href="impacto-roi.html" class="nav-link">Impacto &amp; ROI</a></li>
+        <li><a href="blueprints.html" class="nav-link">Blueprints</a></li>
+        <li><a href="index.html#estimador" class="nav-link">Calculadora</a></li>
+        <li><a href="index.html#contacto" class="nav-link">Contacto</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="index.html#estimador" class="btn btn-silver">
+          <i class="bi bi-cpu"></i>
+          <span>Cotizar Proyecto</span>
+        </a>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir navegación">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero de Subpágina -->
+  <section class="subpage-hero">
+    <div class="container">
+      <div class="breadcrumb-tech">
+        <a href="index.html">Dev Studio</a>
+        <span>/</span>
+        <span>Industrias &amp; Sectores Económicos</span>
+      </div>
+
+      <div style="max-width: 880px;">
+        <div class="badge-system mb-3">
+          <span class="live-indicator-dot"></span>
+          <span>INGENIERÍA POR SECTOR &bull; NICARAGUA Y REGIÓN CA-4</span>
+        </div>
+        <h1 style="font-size: clamp(2.1rem, 4vw, 3.3rem); color: #FFFFFF; margin-bottom: 16px;">
+          Software Diseñado para Donde Realmente Se Gana o Se Pierde <span class="text-chrome">Tu Rentabilidad</span>
+        </h1>
+        <p style="font-size: 1.08rem; color: var(--silver-mid); line-height: 1.65; margin-bottom: 0;">
+          Administrar una finca cañera sin señal en Chinandega exige reglas muy distintas a las de una constructora, una distribuidora rutera o una clínica. Elige tu rubro y mira cómo blindamos tu operación.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barra Fija de Salto Rápido (Sticky Jump Bar) -->
+  <nav class="sticky-subpage-nav no-print" aria-label="Índice rápido de industrias">
+    <div class="container sticky-subpage-inner">
+      <a href="#sec-agro" class="subpage-jump-pill active"><i class="bi bi-tree"></i> 01. Agroindustria</a>
+      <a href="#sec-construccion" class="subpage-jump-pill"><i class="bi bi-cone-striped"></i> 02. Construcción</a>
+      <a href="#sec-distribucion" class="subpage-jump-pill"><i class="bi bi-box-seam"></i> 03. Distribución</a>
+      <a href="#sec-talleres" class="subpage-jump-pill"><i class="bi bi-wrench-adjustable"></i> 04. Talleres &amp; Flotas</a>
+      <a href="#sec-salud" class="subpage-jump-pill"><i class="bi bi-heart-pulse"></i> 05. Salud &amp; Vet</a>
+      <a href="#sec-logistica" class="subpage-jump-pill"><i class="bi bi-truck"></i> 06. Logística CA-4</a>
+      <a href="#sec-manufactura" class="subpage-jump-pill"><i class="bi bi-cpu"></i> 07. Manufactura</a>
+      <a href="#sec-finanzas" class="subpage-jump-pill"><i class="bi bi-bank"></i> 08. Cooperativas &amp; Retail</a>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO DE LAS 8 INDUSTRIAS -->
+  <main class="section">
+    <div class="container">
+
+      <!-- SECTOR 1: AGROINDUSTRIA -->
+      <article id="sec-agro" class="industry-spotlight-card" style="margin-bottom: 38px;">
+        <div class="industry-spotlight-grid">
+          <div>
+            <span class="badge-system mb-2">SECTOR 01 // AGROINDUSTRIA, INGENIOS, BENEFICIOS &amp; FINCAS</span>
+            <h2 style="color: #FFFFFF; font-size: 1.8rem; margin-bottom: 10px;">
+              Agroindustria y Fincas: Cierra Planillas en Horas y Conoce tu Costo Exacto por Manzana
+            </h2>
+            <p style="color: var(--silver-mid); font-size: 0.95rem; line-height: 1.65;">
+              Nicaragua y Centroamérica descansan sobre una potente base agroindustrial (caña de azúcar, café, maní, plátano, banano, ajonjolí, cacao, camarón y ganadería bovina). Sin embargo, el 80% de los datos nacen en el campo, donde no hay internet estable y donde las libretas de papel provocan fugas millonarias.
+            </p>
+            <div class="industry-pains-solutions">
+              <div class="ind-box-pain">
+                <h5><i class="bi bi-x-octagon-fill me-1"></i> Problemas Frecuentes en el Sector</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-x-circle text-danger"></i> Apuntadores anotando tareas y asistencia en cuadernos que llegan viernes por la tarde a planilla.</li>
+                  <li><i class="bi bi-x-circle text-danger"></i> Robo o sobre-aplicación de fertilizantes, herbicidas y combustible de tractores.</li>
+                  <li><i class="bi bi-x-circle text-danger"></i> Falta de conexión entre los tickets de báscula de cosecha y la liquidación de contratistas/colonos.</li>
+                </ul>
+              </div>
+              <div class="ind-box-sol">
+                <h5><i class="bi bi-check-circle-fill me-1"></i> Solución de Ingeniería Dev Studio</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Apps Móviles Offline-First (Caso Real: AgroStats):</strong> captura de labores por lote, asistencia con lector de barras/QR y fotos sin internet.</li>
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Bodega Agrícola:</strong> descargo de insumos por receta agronómica e historial de aplicaciones por manzana.</li>
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Consolidación Web:</strong> sincronización en .NET 9 hacia SQL Server y PostgreSQL con reportes gerenciales por cultivo.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="industry-arch-panel">
+            <span class="font-mono text-cyan" style="font-size: 0.75rem;">MÓDULOS AGROINDUSTRIALES</span>
+            <h4 style="color: #FFFFFF; font-size: 1.15rem; margin: 8px 0 14px;">Del Surco al Estado Financiero</h4>
+            <div class="sw-module-pills mb-3">
+              <span class="sw-module-pill">Mapeo de Fincas, Bloques y Lotes</span>
+              <span class="sw-module-pill">Tareo y Planilla de Campo Offline</span>
+              <span class="sw-module-pill">Control de Maquinaria y Horómetros</span>
+              <span class="sw-module-pill">Báscula Camionera y Destare</span>
+              <span class="sw-module-pill">Liquidación de Contratistas</span>
+              <span class="sw-module-pill">Trazabilidad de Exportación</span>
+            </div>
+            <a href="index.html#casos" class="btn btn-secondary w-100 mb-2">
+              <i class="bi bi-patch-check me-1"></i> Ver AgroStats en Operación
+            </a>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20blindar%20mi%20operaci%C3%B3n%20agroindustrial" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Blindar Mi Operación Agrícola
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- SECTOR 2: CONSTRUCCIÓN E INGENIERÍA CIVIL -->
+      <article id="sec-construccion" class="industry-spotlight-card" style="margin-bottom: 38px;">
+        <div class="industry-spotlight-grid">
+          <div>
+            <span class="badge-system mb-2">SECTOR 02 // CONSTRUCCIÓN, INGENIERÍA CIVIL &amp; URBANIZADORAS</span>
+            <h2 style="color: #FFFFFF; font-size: 1.8rem; margin-bottom: 10px;">
+              Constructoras y Obras: Que el Presupuesto No Se Agote Antes de Entregar la Llave
+            </h2>
+            <p style="color: var(--silver-mid); font-size: 0.95rem; line-height: 1.65;">
+              En construcción, un error de cálculo en los costos unitarios o el descontrol en la bodega de proyecto puede borrar toda la utilidad de una licitación. Diseñamos plataformas que conectan al ingeniero residente en campo con la oficina central.
+            </p>
+            <div class="industry-pains-solutions">
+              <div class="ind-box-pain">
+                <h5><i class="bi bi-x-octagon-fill me-1"></i> Problemas Frecuentes en el Sector</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-x-circle text-danger"></i> El presupuesto financiero se agota al 80% cuando la obra física apenas lleva el 55% de avance.</li>
+                  <li><i class="bi bi-x-circle text-danger"></i> Pérdida de bolsas de cemento, varillas de hierro y herramientas eléctricas en las bodegas temporales.</li>
+                  <li><i class="bi bi-x-circle text-danger"></i> Avalúos de subcontratistas calculados en hojas de Excel sueltas sin historial de retenciones.</li>
+                </ul>
+              </div>
+              <div class="ind-box-sol">
+                <h5><i class="bi bi-check-circle-fill me-1"></i> Solución de Ingeniería Dev Studio</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Control de Presupuesto APU:</strong> alerta automática cuando una etapa de obra intenta requisar más material del presupuestado.</li>
+                  <li><i class="bi bi-check2 text-green"></i> <strong>App de Bitácora de Obra:</strong> el ingeniero residente sube avances diarios con fotos geolocalizadas y solicita materiales desde el sitio.</li>
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Portales Comerciales de Obra (Caso Real: Construcciones R&amp;S):</strong> catálogo de modelos constructivos, planificador interactivo de proyecto y cotización directa a WhatsApp.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="industry-arch-panel">
+            <span class="font-mono text-cyan" style="font-size: 0.75rem;">MÓDULOS PARA CONSTRUCTORAS</span>
+            <h4 style="color: #FFFFFF; font-size: 1.15rem; margin: 8px 0 14px;">Control Físico vs. Financiero</h4>
+            <div class="sw-module-pills mb-3">
+              <span class="sw-module-pill">Costos Unitarios (APU) y Etapas</span>
+              <span class="sw-module-pill">Requisición y Orden de Compra</span>
+              <span class="sw-module-pill">Bodega de Obra y Resguardo de Equipos</span>
+              <span class="sw-module-pill">Avalúos y Retenciones a Subcontratos</span>
+              <span class="sw-module-pill">Planilla por Destajo / Día</span>
+              <span class="sw-module-pill">Control de Flota Amarilla</span>
+            </div>
+            <a href="../CONSTRUCTORA%20RS/index.html" target="_blank" class="btn btn-secondary w-100 mb-2">
+              <i class="bi bi-box-arrow-up-right me-1"></i> Ver Caso Real: Construcciones R&amp;S
+            </a>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20controlar%20costos%20y%20obras%20en%20mi%20Constructora" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Controlar Costos de Mis Obras
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- SECTOR 3: DISTRIBUCIÓN MAYORISTA -->
+      <article id="sec-distribucion" class="industry-spotlight-card" style="margin-bottom: 38px;">
+        <div class="industry-spotlight-grid">
+          <div>
+            <span class="badge-system mb-2">SECTOR 03 // DISTRIBUCIÓN MAYORISTA, FERRETERÍAS &amp; CONSUMO MASIVO</span>
+            <h2 style="color: #FFFFFF; font-size: 1.8rem; margin-bottom: 10px;">
+              Importadoras, Ferreterías y Rutas: Vende con Stock Real y Elimina el Jineteo de Efectivo
+            </h2>
+            <p style="color: var(--silver-mid); font-size: 0.95rem; line-height: 1.65;">
+              Para empresas con cientos o miles de artículos en catálogo, vendedores en los departamentos y camiones de reparto diario. Sincronizamos la toma del pedido en la pulpería, ferretería o supermercado con el alistamiento en bodega y el cobro.
+            </p>
+            <div class="industry-pains-solutions">
+              <div class="ind-box-pain">
+                <h5><i class="bi bi-x-octagon-fill me-1"></i> Problemas Frecuentes en el Sector</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-x-circle text-danger"></i> Pedidos enviados por audios o textos de WhatsApp que se digitan mal o se facturan con precio incorrecto.</li>
+                  <li><i class="bi bi-x-circle text-danger"></i> Desconocimiento del costo real puesto en bodega al prorratear fletes marítimos, seguros e impuestos de aduana.</li>
+                  <li><i class="bi bi-x-circle text-danger"></i> Jineteo de efectivo en cobros de ruta por no emitir recibo numerado en el momento del pago.</li>
+                </ul>
+              </div>
+              <div class="ind-box-sol">
+                <h5><i class="bi bi-check-circle-fill me-1"></i> Solución de Ingeniería Dev Studio</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-check2 text-green"></i> <strong>App de Preventa y Cobro Móvil:</strong> muestra existencias reales, aplica escalas de descuento/bonificados y bloquea pedidos si el cliente tiene facturas vencidas.</li>
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Liquidación de Importaciones:</strong> prorrateo exacto de pólizas aduaneras para conocer el margen real por artículo.</li>
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Despacho por Ruta:</strong> consolidado de carga por camión y liquidación de choferes al regresar a bodega.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="industry-arch-panel">
+            <span class="font-mono text-cyan" style="font-size: 0.75rem;">MÓDULOS PARA DISTRIBUIDORAS</span>
+            <h4 style="color: #FFFFFF; font-size: 1.15rem; margin: 8px 0 14px;">Velocidad Comercial &amp; Caja</h4>
+            <div class="sw-module-pills mb-3">
+              <span class="sw-module-pill">Preventa y Autoventa Móvil</span>
+              <span class="sw-module-pill">Multi-Bodega y Traslados</span>
+              <span class="sw-module-pill">Listas de Precios y Bonificaciones</span>
+              <span class="sw-module-pill">Cuentas por Cobrar y Antigüedad</span>
+              <span class="sw-module-pill">Recibos Bluetooth en Ruta</span>
+              <span class="sw-module-pill">Facturación Fiscal DGI</span>
+            </div>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20ordenar%20rutas%20e%20inventarios%20en%20mi%20Distribuidora" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Ordenar Mis Rutas e Inventarios
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- SECTOR 4: TALLERES AUTOMOTRICES Y REPUESTOS -->
+      <article id="sec-talleres" class="industry-spotlight-card" style="margin-bottom: 38px;">
+        <div class="industry-spotlight-grid">
+          <div>
+            <span class="badge-system mb-2">SECTOR 04 // TALLERES AUTOMOTRICES, ENDEREZADO Y PINTURA &amp; REPUESTOS</span>
+            <h2 style="color: #FFFFFF; font-size: 1.8rem; margin-bottom: 10px;">
+              Talleres y Repuestos: Cero Materiales Olvidados sin Facturar y Clientes que Regresan
+            </h2>
+            <p style="color: var(--silver-mid); font-size: 0.95rem; line-height: 1.65;">
+              Un taller moderno gana por la rotación de sus bahías y el control estricto de los materiales y repuestos consumidos en cada vehículo. Digitalizamos la operación desde que el auto cruza el portón hasta la entrega final.
+            </p>
+            <div class="industry-pains-solutions">
+              <div class="ind-box-pain">
+                <h5><i class="bi bi-x-octagon-fill me-1"></i> Problemas Frecuentes en el Sector</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-x-circle text-danger"></i> Pintura, lijas, aceites y repuestos que se usan en un vehículo pero se olvida cobrarlos en la factura final.</li>
+                  <li><i class="bi bi-x-circle text-danger"></i> Clientes que preguntan el estado de su vehículo y nadie tiene respuesta inmediata.</li>
+                  <li><i class="bi bi-x-circle text-danger"></i> Pérdida de clientes recurrentes por no avisarles cuándo les toca su próximo cambio de aceite o mantenimiento.</li>
+                </ul>
+              </div>
+              <div class="ind-box-sol">
+                <h5><i class="bi bi-check-circle-fill me-1"></i> Solución de Ingeniería Dev Studio</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Orden de Trabajo Digital:</strong> hoja de recepción en tablet con fotos de rayones/golpes previos, nivel de combustible y firma del cliente.</li>
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Control de Materiales por Vehículo:</strong> bodega solo entrega repuestos o pintura vinculados a una Orden de Trabajo activa.</li>
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Captación Digital Automotriz (Caso Real: Taller Don Chungo):</strong> buscador rápido por marca/cilindraje, checklist técnico de 15 puntos y reserva de bahía por WhatsApp.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="industry-arch-panel">
+            <span class="font-mono text-cyan" style="font-size: 0.75rem;">MÓDULOS AUTOMOTRICES</span>
+            <h4 style="color: #FFFFFF; font-size: 1.15rem; margin: 8px 0 14px;">Control Total por Placa y Bahía</h4>
+            <div class="sw-module-pills mb-3">
+              <span class="sw-module-pill">Inspección Visual de Ingreso</span>
+              <span class="sw-module-pill">Presupuesto y Aprobación en Línea</span>
+              <span class="sw-module-pill">Descargo de Repuestos y Pintura</span>
+              <span class="sw-module-pill">Comisiones de Mecánicos / Pintores</span>
+              <span class="sw-module-pill">Historial Clínico por Placa/VIN</span>
+              <span class="sw-module-pill">Recordatorios Automáticos WhatsApp</span>
+            </div>
+            <a href="../TALLER%20DON%20CHUNGO/index.html" target="_blank" class="btn btn-secondary w-100 mb-2">
+              <i class="bi bi-box-arrow-up-right me-1"></i> Ver Caso Real: Taller Don Chungo
+            </a>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20digitalizar%20mi%20Taller%20y%20bodega%20de%20repuestos" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Digitalizar Mi Taller y Bodega
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- SECTOR 5: SALUD, CLÍNICAS Y VETERINARIAS -->
+      <article id="sec-salud" class="industry-spotlight-card" style="margin-bottom: 38px;">
+        <div class="industry-spotlight-grid">
+          <div>
+            <span class="badge-system mb-2">SECTOR 05 // SALUD, CLÍNICAS MÉDICAS, LABORATORIOS &amp; VETERINARIAS</span>
+            <h2 style="color: #FFFFFF; font-size: 1.8rem; margin-bottom: 10px;">
+              Clínicas, Farmacias y Veterinarias: Agenda Llena y Cero Pérdidas por Medicamento Vencido
+            </h2>
+            <p style="color: var(--silver-mid); font-size: 0.95rem; line-height: 1.65;">
+              En servicios médicos y veterinarios, la confianza del paciente o propietario depende del orden clínico, la puntualidad de sus citas y el seguimiento oportuno de vacunas, tratamientos y exámenes de laboratorio.
+            </p>
+            <div class="industry-pains-solutions">
+              <div class="ind-box-pain">
+                <h5><i class="bi bi-x-octagon-fill me-1"></i> Problemas Frecuentes en el Sector</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-x-circle text-danger"></i> Fichas médicas en papel que se extravían y obligan a preguntar todo de nuevo al paciente.</li>
+                  <li><i class="bi bi-x-circle text-danger"></i> Pérdidas económicas por vacunas, antibióticos o reactivos que se vencen sin alerta previa.</li>
+                  <li><i class="bi bi-x-circle text-danger"></i> Pacientes o dueños de mascotas que olvidan sus refuerzos de vacunación o controles anuales.</li>
+                </ul>
+              </div>
+              <div class="ind-box-sol">
+                <h5><i class="bi bi-check-circle-fill me-1"></i> Solución de Ingeniería Dev Studio</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Expediente Clínico / Mascota en Nube:</strong> acceso en 1 segundo a peso, alergias, cirugías previas, radiografías y recetas.</li>
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Motor de Recordatorios WhatsApp:</strong> avisa automáticamente 48 horas antes de cada cita, vacuna o desparasitación.</li>
+                  <li><i class="bi bi-check2 text-green"></i> <strong>Portal de Atención y Citas (Caso Real: Veterinaria La Virgen):</strong> presentación clara de especialidades, cirugías y visitas a fincas conectada directo al WhatsApp del médico.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="industry-arch-panel">
+            <span class="font-mono text-cyan" style="font-size: 0.75rem;">MÓDULOS CLÍNICOS &amp; VETERINARIOS</span>
+            <h4 style="color: #FFFFFF; font-size: 1.15rem; margin: 8px 0 14px;">Atención Médica &amp; Control de Farmacia</h4>
+            <div class="sw-module-pills mb-3">
+              <span class="sw-module-pill">Expediente Clínico / Tarjeta de Vacunas</span>
+              <span class="sw-module-pill">Agenda por Médico y Consultorio</span>
+              <span class="sw-module-pill">Recetario Digital PDF / WhatsApp</span>
+              <span class="sw-module-pill">Farmacia FEFO (Alerta de Vencimiento)</span>
+              <span class="sw-module-pill">Hospitalización y Peluquería/Estética</span>
+              <span class="sw-module-pill">Caja y Honorarios Médicos</span>
+            </div>
+            <a href="../VETERINARIA%20LA%20VIRGEN/index.html" target="_blank" class="btn btn-secondary w-100 mb-2">
+              <i class="bi bi-box-arrow-up-right me-1"></i> Ver Caso Real: Veterinaria La Virgen
+            </a>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20ordenar%20mi%20Cl%C3%ADnica%20/%20Veterinaria%20y%20farmacia" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Ordenar Mi Clínica y Farmacia
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- SECTORES 6, 7 Y 8 -->
+      <div class="impact-pillars-grid" style="margin-bottom: 20px;">
+        <!-- Sector 6 -->
+        <article id="sec-logistica" class="sw-type-card">
+          <div>
+            <div class="sw-type-top">
+              <div class="sw-type-icon"><i class="bi bi-truck-front-fill"></i></div>
+              <span class="sw-type-code">SECTOR 06 // LOGÍSTICA &amp; ADUANAS</span>
+            </div>
+            <h3>Transporte de Carga Pesada, Aduanas &amp; Operadores CA-4</h3>
+            <p>
+              Para flotas que mueven contenedores desde Puerto Corinto, Cortés o Acajutla hacia toda Centroamérica. Controla órdenes de viaje, anticipos de gastos de choferes, rendimiento de diésel por ruta, kardex de llantas y estatus aduanero en tiempo real.
+            </p>
+            <div class="sw-anatomy-box">
+              <div class="sw-anatomy-title">Módulos Clave:</div>
+              <div class="sw-module-pills">
+                <span class="sw-module-pill">Liquidación de Viajes y Viáticos</span>
+                <span class="sw-module-pill">Control de Galonaje y GPS</span>
+                <span class="sw-module-pill">Tracking Web para Importadores</span>
+                <span class="sw-module-pill">Rentabilidad por Cabezal</span>
+              </div>
+            </div>
+          </div>
+          <div class="sw-type-footer">
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20cotizar%20software%20para%20Transporte%20y%20Log%C3%ADstica" target="_blank" rel="noopener" class="btn btn-sm btn-silver w-100">Cotizar Software de Logística</a>
+          </div>
+        </article>
+
+        <!-- Sector 7 -->
+        <article id="sec-manufactura" class="sw-type-card">
+          <div>
+            <div class="sw-type-top">
+              <div class="sw-type-icon"><i class="bi bi-gear-wide-connected"></i></div>
+              <span class="sw-type-code">SECTOR 07 // MANUFACTURA &amp; PLANTAS</span>
+            </div>
+            <h3>Plantas Procesadoras, Agroindustria, Lácteos &amp; Manufactura</h3>
+            <p>
+              Controla el piso de planta: fórmulas y recetas estándar (BOM), órdenes de producción por tanda, control de merma de materia prima, trazabilidad de lotes de inocuidad (HACCP) y monitoreo IoT de cuartos fríos y básculas.
+            </p>
+            <div class="sw-anatomy-box">
+              <div class="sw-anatomy-title">Módulos Clave:</div>
+              <div class="sw-module-pills">
+                <span class="sw-module-pill">Recetas BOM y Costeo por Lote</span>
+                <span class="sw-module-pill">Control de Mermas en Línea</span>
+                <span class="sw-module-pill">Trazabilidad de Materias Primas</span>
+                <span class="sw-module-pill">Sensores IoT Cuartos Fríos</span>
+              </div>
+            </div>
+          </div>
+          <div class="sw-type-footer">
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20cotizar%20software%20para%20Planta%20de%20Producci%C3%B3n%20/%20Manufactura" target="_blank" rel="noopener" class="btn btn-sm btn-silver w-100">Cotizar Software de Planta</a>
+          </div>
+        </article>
+
+        <!-- Sector 8 -->
+        <article id="sec-finanzas" class="sw-type-card">
+          <div>
+            <div class="sw-type-top">
+              <div class="sw-type-icon"><i class="bi bi-bank2"></i></div>
+              <span class="sw-type-code">SECTOR 08 // FINANZAS &amp; RETAIL</span>
+            </div>
+            <h3>Microfinancieras, Cooperativas de Ahorro y Crédito &amp; Retail</h3>
+            <p>
+              Sistemas financieros de alta seguridad para originación de créditos en campo, tablas de amortización sobre saldos, cobro diario con impresora portátil Bluetooth, así como cadenas de tiendas retail con POS multi-sucursal y e-commerce.
+            </p>
+            <div class="sw-anatomy-box">
+              <div class="sw-anatomy-title">Módulos Clave:</div>
+              <div class="sw-module-pills">
+                <span class="sw-module-pill">Cartera de Crédito y Mora</span>
+                <span class="sw-module-pill">App de Colectores en Calle</span>
+                <span class="sw-module-pill">POS Multi-Tienda Sincronizado</span>
+                <span class="sw-module-pill">Auditoría Criptográfica</span>
+              </div>
+            </div>
+          </div>
+          <div class="sw-type-footer">
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20cotizar%20software%20para%20Cooperativa%20/%20Financiera%20/%20Retail" target="_blank" rel="noopener" class="btn btn-sm btn-silver w-100">Cotizar Software Financiero / Retail</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Callout hacia Impacto & ROI -->
+      <div class="dev-dossier-banner" style="margin-top: 40px;">
+        <div class="dev-dossier-icon">
+          <i class="bi bi-graph-up-arrow"></i>
+        </div>
+        <div class="dev-dossier-info">
+          <h4>¿Cómo se traduce este software en ahorro real de dinero y retorno de inversión?</h4>
+          <p>
+            Revisa nuestro análisis financiero de <strong>Costo Total de Propiedad (TCO a 3 años)</strong>, las 10 señales de que tu empresa ya superó el Excel y nuestra calculadora interactiva de ROI.
+          </p>
+        </div>
+        <div class="dev-dossier-btns">
+          <a href="impacto-roi.html" class="btn btn-silver">
+            <i class="bi bi-graph-up-arrow me-1"></i> Ver Guía de Impacto &amp; ROI
+          </a>
+          <a href="index.html#estimador" class="btn btn-secondary">
+            <i class="bi bi-calculator me-1"></i> Cotizar mi Proyecto
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="logo.svg" alt="Dev Studio Logo" style="height: 44px; margin-bottom: 18px;">
+          <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
+            Firma de ingeniería de software a medida, arquitectura cloud distribuida y modernización de sistemas de misión crítica.
+          </p>
+          <div class="badge-system mb-3">
+            <span class="live-indicator-dot"></span>
+            <span>CÓDIGO LIMPIO &bull; PROPIEDAD TUYA</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Mapa del Sitio Web</h5>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="bi bi-house-door me-1"></i> Inicio &bull; Portal Principal</a></li>
+            <li><a href="soluciones-software.html"><i class="bi bi-layers me-1"></i> Enciclopedia: Tipos de Software</a></li>
+            <li><a href="industrias.html"><i class="bi bi-buildings me-1"></i> Soluciones por Industria (8 Sectores)</a></li>
+            <li><a href="impacto-roi.html"><i class="bi bi-graph-up-arrow me-1"></i> ¿Cómo Ayuda el Software? &amp; ROI</a></li>
+            <li><a href="blueprints.html"><i class="bi bi-file-earmark-code me-1"></i> Dossier de Blueprints &amp; SLA</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Sectores Destacados</h5>
+          <ul class="footer-links">
+            <li><a href="#sec-agro"><i class="bi bi-tree me-1"></i> Agroindustria &amp; Fincas</a></li>
+            <li><a href="#sec-construccion"><i class="bi bi-cone-striped me-1"></i> Construcción &amp; Obras</a></li>
+            <li><a href="#sec-distribucion"><i class="bi bi-box-seam me-1"></i> Distribución Mayorista</a></li>
+            <li><a href="#sec-talleres"><i class="bi bi-wrench me-1"></i> Talleres &amp; Repuestos</a></li>
+            <li><a href="#sec-salud"><i class="bi bi-heart-pulse me-1"></i> Salud &amp; Veterinarias</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Agencia Creativa Aliada</h5>
+          <p style="font-size: 0.88rem; margin-bottom: 14px; color: var(--silver-mid);">
+            ¿Necesitas branding, estrategia publicitaria o pauta de marketing masiva?
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="../GUARDABARRANCO%20STUDIO/index.html" class="btn btn-outline-silver" style="font-size: 0.82rem; padding: 8px 14px;">
+              <i class="bi bi-gem"></i>
+              <span>Conoce Guardabarranco Studio</span>
+            </a>
+            <a href="../index.html" class="btn btn-outline-silver" style="font-size: 0.82rem; padding: 8px 14px;">
+              <i class="bi bi-grid-fill"></i>
+              <span>Portal Hub Ecosistema (5 Sitios)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Dev Studio Engineering. Todos los derechos reservados.</div>
+        <div><a href="#" style="color: var(--silver-mid);"><i class="bi bi-arrow-up-circle me-1"></i>Volver arriba</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tipos de Software Empresarial | Enciclopedia de Soluciones — Dev Studio</title>
+  <meta name="description" content="Conoce a fondo los 8 tipos de software empresarial que diseña y desarrolla Dev Studio: Sistemas ERP y Facturación DGI, CRM y Preventa en Ruta, Apps Offline-First, WMS Logística, SaaS Multi-Tenant, Sistemas Clínicos HIS, POS Omnicanal e Inteligencia Artificial.">
+  <meta name="theme-color" content="#08090C">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+
+  <div class="tech-grid-bg"></div>
+  <div class="ambient-light-orb orb-silver-1"></div>
+  <div class="ambient-light-orb orb-silver-2"></div>
+
+  <!-- Top Utility & Telemetry Bar -->
+  <div class="telemetry-bar">
+    <div class="container telemetry-content">
+      <div class="telemetry-node">
+        <a href="../index.html" class="telemetry-hub-link">
+          <i class="bi bi-grid-fill"></i>
+          <span>PORTAL HUB</span>
+        </a>
+        <span class="telemetry-sep">&bull;</span>
+        <span class="live-indicator-dot"></span>
+        <span>ENCICLOPEDIA TÉCNICA &bull; 8 FAMILIAS DE SOFTWARE EMPRESARIAL</span>
+      </div>
+      <div class="telemetry-utils-slot"></div>
+    </div>
+  </div>
+
+  <!-- Header & Navbar Principal -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand" aria-label="Dev Studio Inicio">
+        <img src="logo.svg" alt="Dev Studio Logo" class="nav-logo-img">
+      </a>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html" class="nav-link">Inicio</a></li>
+        <li><a href="soluciones-software.html" class="nav-link active">Soluciones</a></li>
+        <li><a href="industrias.html" class="nav-link">Industrias</a></li>
+        <li><a href="impacto-roi.html" class="nav-link">Impacto &amp; ROI</a></li>
+        <li><a href="blueprints.html" class="nav-link">Blueprints</a></li>
+        <li><a href="index.html#estimador" class="nav-link">Calculadora</a></li>
+        <li><a href="index.html#contacto" class="nav-link">Contacto</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="index.html#estimador" class="btn btn-silver">
+          <i class="bi bi-cpu"></i>
+          <span>Cotizar Proyecto</span>
+        </a>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir navegación">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero de Subpágina -->
+  <section class="subpage-hero">
+    <div class="container">
+      <div class="breadcrumb-tech">
+        <a href="index.html">Dev Studio</a>
+        <span>/</span>
+        <span>Tipos de Software Empresarial</span>
+      </div>
+
+      <div style="max-width: 860px;">
+        <div class="badge-system mb-3">
+          <span class="live-indicator-dot"></span>
+          <span>GUÍA EJECUTIVA PARA DUEÑOS Y GERENTES &bull; CERO TECNICISMOS</span>
+        </div>
+        <h1 style="font-size: clamp(2.1rem, 4vw, 3.3rem); color: #FFFFFF; margin-bottom: 16px;">
+          ¿Qué Sistema Necesita Tu Empresa para <span class="text-chrome">Crecer sin Perder el Control</span>?
+        </h1>
+        <p style="font-size: 1.08rem; color: var(--silver-mid); line-height: 1.65; margin-bottom: 0;">
+          No necesitas ser informático para invertir bien. Identifica en 2 minutos qué plataforma resuelve tu urgencia actual: cuadrar bodegas e impuestos, controlar rutas de venta u operar en campo sin señal.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barra Fija de Salto Rápido (Sticky Jump Bar) -->
+  <nav class="sticky-subpage-nav no-print" aria-label="Índice rápido de familias de software">
+    <div class="container sticky-subpage-inner">
+      <a href="#sw-erp" class="subpage-jump-pill active">01. ERP &amp; DGI</a>
+      <a href="#sw-crm" class="subpage-jump-pill">02. CRM &amp; Rutas</a>
+      <a href="#sw-offline" class="subpage-jump-pill">03. Apps Offline</a>
+      <a href="#sw-wms" class="subpage-jump-pill">04. WMS &amp; Flotas</a>
+      <a href="#sw-saas" class="subpage-jump-pill">05. SaaS &amp; B2B</a>
+      <a href="#sw-his" class="subpage-jump-pill">06. Clínicas &amp; Vet</a>
+      <a href="#sw-pos" class="subpage-jump-pill">07. POS &amp; Web</a>
+      <a href="#sw-ai" class="subpage-jump-pill">08. BI, IoT &amp; IA</a>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO PROFUNDO: LAS 8 FAMILIAS DE SOFTWARE -->
+  <main class="section">
+    <div class="container">
+
+      <!-- 01. ERP -->
+      <article id="sw-erp" class="industry-spotlight-card" style="margin-bottom: 40px;">
+        <div class="industry-spotlight-grid">
+          <div>
+            <span class="badge-system mb-2">FAMILIA 01 // ENTERPRISE RESOURCE PLANNING (ERP)</span>
+            <h2 style="color: #FFFFFF; font-size: 1.85rem; margin-bottom: 12px;">
+              Sistemas ERP: Inventario, Facturación DGI y Contabilidad Bimoneda en Un Solo Lugar
+            </h2>
+            <p style="color: var(--silver-mid); font-size: 0.96rem; line-height: 1.65;">
+              <strong>¿Qué es?</strong> Es el sistema nervioso central de una empresa. Unifica en una sola base de datos relacional todas las áreas administrativas y operativas: compras, importaciones, inventarios multi-sucursal, facturación, cuentas por cobrar, cuentas por pagar, bancos, planilla y contabilidad general.
+            </p>
+
+            <div class="industry-pains-solutions">
+              <div class="ind-box-pain">
+                <h5><i class="bi bi-question-circle-fill me-1"></i> ¿Cuándo lo necesita tu empresa?</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-exclamation-circle text-danger"></i> Cuando manejas inventario en un Excel, facturación en otro programa y contabilidad por separado.</li>
+                  <li><i class="bi bi-exclamation-circle text-danger"></i> Cuando necesitas operar simultáneamente en Córdobas (NIO) y Dólares (USD) con deslizamiento cambiario exacto.</li>
+                  <li><i class="bi bi-exclamation-circle text-danger"></i> Cuando tardas más de 5 días en cerrar el mes contable o preparar declaraciones de la DGI.</li>
+                </ul>
+              </div>
+              <div class="ind-box-sol">
+                <h5><i class="bi bi-gear-fill me-1"></i> ¿Cómo ayuda día a día?</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-check2 text-green"></i> Cada factura emitida rebaja automáticamente el kardex, alimenta cuentas por cobrar y genera la partida contable.</li>
+                  <li><i class="bi bi-check2 text-green"></i> Calcula automáticamente retenciones en la fuente (IR 2%, 10%), IVA 15% y formatos de reporte fiscal DGI.</li>
+                  <li><i class="bi bi-check2 text-green"></i> Audita quién autorizó cada descuento, anulación o ajuste de bodega con huella digital de usuario.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="industry-arch-panel">
+            <span class="font-mono text-cyan" style="font-size: 0.75rem;">ESPECIFICACIÓN TÉCNICA ERP</span>
+            <h4 style="color: #FFFFFF; font-size: 1.15rem; margin: 8px 0 14px;">Cero Doble Digitación Entre Áreas</h4>
+            <div class="sw-module-pills mb-3">
+              <span class="sw-module-pill">Catálogo Maestro de Artículos</span>
+              <span class="sw-module-pill">Costeo PEPS y Costo Promedio</span>
+              <span class="sw-module-pill">Liquidación de Pólizas de Importación</span>
+              <span class="sw-module-pill">Facturación Crédito / Contado</span>
+              <span class="sw-module-pill">Conciliación Bancaria NIO/USD</span>
+              <span class="sw-module-pill">Nómina INSS Patronal/Laboral e IR</span>
+              <span class="sw-module-pill">Balance General y Estado de Resultados</span>
+            </div>
+            <div style="font-size: 0.84rem; color: var(--silver-mid); border-top: 1px solid var(--silver-border); padding-top: 12px; margin-bottom: 16px;">
+              <strong>Stack Base:</strong> .NET 9 C# Web API &bull; PostgreSQL 16 ACID &bull; React / Next.js &bull; Docker
+            </div>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20cotizar%20un%20Sistema%20ERP%20a%20medida" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Cotizar Mi ERP y Ordenar Finanzas
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 02. CRM & SFA -->
+      <article id="sw-crm" class="industry-spotlight-card" style="margin-bottom: 40px;">
+        <div class="industry-spotlight-grid">
+          <div>
+            <span class="badge-system mb-2">FAMILIA 02 // CRM &amp; SALES FORCE AUTOMATION (SFA)</span>
+            <h2 style="color: #FFFFFF; font-size: 1.85rem; margin-bottom: 12px;">
+              CRM y Preventa Móvil: Multiplica tus Ventas de Calle y Asegura Cada Cobro
+            </h2>
+            <p style="color: var(--silver-mid); font-size: 0.96rem; line-height: 1.65;">
+              <strong>¿Qué es?</strong> Es el sistema diseñado para multiplicar las ventas y ordenar la gestión de clientes. Combina un panel web para supervisores comerciales con una aplicación móvil para vendedores de calle, preventistas y cobradores.
+            </p>
+
+            <div class="industry-pains-solutions">
+              <div class="ind-box-pain">
+                <h5><i class="bi bi-question-circle-fill me-1"></i> ¿Cuándo lo necesita tu empresa?</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-exclamation-circle text-danger"></i> Cuando si un vendedor se retira de la empresa, se lleva el historial y los contactos en su WhatsApp personal.</li>
+                  <li><i class="bi bi-exclamation-circle text-danger"></i> Cuando los vendedores toman pedidos en ruta y en bodega ya no había existencia de ese producto.</li>
+                  <li><i class="bi bi-exclamation-circle text-danger"></i> Cuando no sabes si el vendedor realmente visitó a los clientes de su ruta del día.</li>
+                </ul>
+              </div>
+              <div class="ind-box-sol">
+                <h5><i class="bi bi-gear-fill me-1"></i> ¿Cómo ayuda día a día?</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-check2 text-green"></i> Registra cada check-in de visita con coordenadas GPS y motivo de compra o no-compra.</li>
+                  <li><i class="bi bi-check2 text-green"></i> Reserva automáticamente el stock en bodega en el instante en que el vendedor confirma el pedido.</li>
+                  <li><i class="bi bi-check2 text-green"></i> Permite registrar abonos en efectivo/transferencia e imprimir recibo oficial en impresora portátil Bluetooth.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="industry-arch-panel">
+            <span class="font-mono text-cyan" style="font-size: 0.75rem;">ESPECIFICACIÓN TÉCNICA CRM / SFA</span>
+            <h4 style="color: #FFFFFF; font-size: 1.15rem; margin: 8px 0 14px;">Motor Comercial &amp; Rutas</h4>
+            <div class="sw-module-pills mb-3">
+              <span class="sw-module-pill">Pipeline de Oportunidades B2B</span>
+              <span class="sw-module-pill">Cotizador PDF Instantáneo</span>
+              <span class="sw-module-pill">Frecuencias de Visita y Rutas GPS</span>
+              <span class="sw-module-pill">Catálogo Móvil con Precios por Escala</span>
+              <span class="sw-module-pill">Impresión Térmica Bluetooth ESC/POS</span>
+              <span class="sw-module-pill">Cálculo de Comisiones por Cobro/Venta</span>
+            </div>
+            <div style="font-size: 0.84rem; color: var(--silver-mid); border-top: 1px solid var(--silver-border); padding-top: 12px; margin-bottom: 16px;">
+              <strong>Stack Base:</strong> Flutter Mobile + .NET / NestJS API + PostGIS Geolocation
+            </div>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20cotizar%20un%20CRM%20y%20App%20de%20Preventa%20en%20Ruta" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Controlar Mis Vendedores y Rutas
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 03. OFFLINE-FIRST -->
+      <article id="sw-offline" class="industry-spotlight-card" style="margin-bottom: 40px;">
+        <div class="industry-spotlight-grid">
+          <div>
+            <span class="badge-system mb-2">FAMILIA 03 // OFFLINE-FIRST FIELD APPLICATIONS</span>
+            <h2 style="color: #FFFFFF; font-size: 1.85rem; margin-bottom: 12px;">
+              Apps de Campo Sin Internet: Del Surco o la Obra a tu Oficina sin Libretas de Papel
+            </h2>
+            <p style="color: var(--silver-mid); font-size: 0.96rem; line-height: 1.65;">
+              <strong>¿Qué es?</strong> A diferencia de las apps convencionales que se quedan cargando cuando se cae la señal, una arquitectura <em>Offline-First</em> lleva una base de datos relacional completa (SQLite / Drift) dentro del teléfono o tablet. El usuario trabaja durante todo el día sin internet y sincroniza por paquetes comprimidos al detectar red.
+            </p>
+
+            <div class="industry-pains-solutions">
+              <div class="ind-box-pain">
+                <h5><i class="bi bi-question-circle-fill me-1"></i> ¿Cuándo lo necesita tu empresa?</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-exclamation-circle text-danger"></i> Cuando tienes operaciones en fincas agrícolas, proyectos de construcción, minas o carreteras sin señal 4G.</li>
+                  <li><i class="bi bi-exclamation-circle text-danger"></i> Cuando necesitas evidencia fotográfica con coordenadas GPS y hora real no manipulable.</li>
+                  <li><i class="bi bi-exclamation-circle text-danger"></i> Cuando el papel mojado o las libretas de apuntadores generan pérdidas y retrasos de planilla.</li>
+                </ul>
+              </div>
+              <div class="ind-box-sol">
+                <h5><i class="bi bi-gear-fill me-1"></i> ¿Cómo ayuda día a día?</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-check2 text-green"></i> Descarga catálogos de empleados, lotes, labores y tarifas antes de salir a campo.</li>
+                  <li><i class="bi bi-check2 text-green"></i> Escanea códigos de barras o carnets QR con la cámara del teléfono en milisegundos.</li>
+                  <li><i class="bi bi-check2 text-green"></i> Sincronización blindada: ningún registro se pierde ni se duplica aunque la señal se corte a mitad del envío.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="industry-arch-panel">
+            <span class="font-mono text-cyan" style="font-size: 0.75rem;">CASO PROBADO: ARQUITECTURA AGROSTATS</span>
+            <h4 style="color: #FFFFFF; font-size: 1.15rem; margin: 8px 0 14px;">Motor Delta Sync Bidireccional</h4>
+            <div class="sw-module-pills mb-3">
+              <span class="sw-module-pill">SQLite Cifrado en Dispositivo</span>
+              <span class="sw-module-pill">Guardado Local Instantáneo</span>
+              <span class="sw-module-pill">Envío Rápido con Señal Débil</span>
+              <span class="sw-module-pill">Verificación Anti-Duplicados</span>
+              <span class="sw-module-pill">Captura de Firma en Pantalla</span>
+              <span class="sw-module-pill">Modo Android Rugged / Tablets</span>
+            </div>
+            <div style="font-size: 0.84rem; color: var(--silver-mid); border-top: 1px solid var(--silver-border); padding-top: 12px; margin-bottom: 16px;">
+              <strong>Stack Base:</strong> Flutter 3.x (Dart) &bull; Drift SQLite &bull; .NET 9 Sync API &bull; JWT
+            </div>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20cotizar%20una%20App%20M%C3%B3vil%20Offline-First%20para%20campo" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Cotizar App para Zonas sin Señal
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 04. WMS & SCM -->
+      <article id="sw-wms" class="industry-spotlight-card" style="margin-bottom: 40px;">
+        <div class="industry-spotlight-grid">
+          <div>
+            <span class="badge-system mb-2">FAMILIA 04 // WMS, SUPPLY CHAIN &amp; FLEET MANAGEMENT</span>
+            <h2 style="color: #FFFFFF; font-size: 1.85rem; margin-bottom: 12px;">
+              Bodegas (WMS) y Flotas: Despachos sin Errores y Control Real de Diésel y Llantas
+            </h2>
+            <p style="color: var(--silver-mid); font-size: 0.96rem; line-height: 1.65;">
+              <strong>¿Qué es?</strong> Software especializado para centros de distribución, bodegas fiscales, empresas de transporte pesado y distribuidoras con flota propia. Controla desde la ubicación exacta de cada tarima en bodega hasta el consumo de diésel por kilómetro de cada camión.
+            </p>
+
+            <div class="industry-pains-solutions">
+              <div class="ind-box-pain">
+                <h5><i class="bi bi-question-circle-fill me-1"></i> ¿Cuándo lo necesita tu empresa?</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-exclamation-circle text-danger"></i> Cuando los bodegueros despachan producto equivocado o no respetan el orden de vencimiento (FEFO).</li>
+                  <li><i class="bi bi-exclamation-circle text-danger"></i> Cuando el gasto de combustible, llantas y repuestos de tus camiones reduce tu utilidad sin explicación clara.</li>
+                  <li><i class="bi bi-exclamation-circle text-danger"></i> Cuando necesitas trazabilidad de importaciones y contenedores en aduanas (Corinto, Peñas Blancas, Guasaule).</li>
+                </ul>
+              </div>
+              <div class="ind-box-sol">
+                <h5><i class="bi bi-gear-fill me-1"></i> ¿Cómo ayuda día a día?</h5>
+                <ul class="ind-list">
+                  <li><i class="bi bi-check2 text-green"></i> Verificación con terminal portátil (Handheld / celular) del código de barras antes de cerrar cada caja o camión.</li>
+                  <li><i class="bi bi-check2 text-green"></i> Liquidación de viajes con rendimiento km/galón, bitácora de llantas por numeración de serie y alertas de cambio de aceite.</li>
+                  <li><i class="bi bi-check2 text-green"></i> Prueba de entrega digital (POD) con foto de factura firmada al entregar al cliente.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="industry-arch-panel">
+            <span class="font-mono text-cyan" style="font-size: 0.75rem;">ESPECIFICACIÓN TÉCNICA WMS / TMS</span>
+            <h4 style="color: #FFFFFF; font-size: 1.15rem; margin: 8px 0 14px;">Trazabilidad Bodega a Destino</h4>
+            <div class="sw-module-pills mb-3">
+              <span class="sw-module-pill">Mapa de Bodega (Pasillo/Rack/Nivel)</span>
+              <span class="sw-module-pill">Control de Lotes y Vencimientos FEFO</span>
+              <span class="sw-module-pill">Consolidación de Carga por Camión</span>
+              <span class="sw-module-pill">Liquidación de Viáticos y Diésel</span>
+              <span class="sw-module-pill">Mantenimiento Preventivo de Flota</span>
+              <span class="sw-module-pill">Portal Web de Tracking de Carga</span>
+            </div>
+            <div style="font-size: 0.84rem; color: var(--silver-mid); border-top: 1px solid var(--silver-border); padding-top: 12px; margin-bottom: 16px;">
+              <strong>Stack Base:</strong> .NET 9 / Go &bull; PostgreSQL &bull; Handheld Android / Flutter
+            </div>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20cotizar%20un%20sistema%20WMS%20de%20Bodega%20y%20Flotas" target="_blank" rel="noopener" class="btn btn-silver w-100">
+              <i class="bi bi-whatsapp me-1"></i> Blindar Mi Bodega y Camiones
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 05 a 08 en Grid Detallado -->
+      <div class="sw-taxonomy-grid">
+        <!-- 05. SaaS -->
+        <article id="sw-saas" class="sw-type-card">
+          <div>
+            <div class="sw-type-top">
+              <div class="sw-type-icon"><i class="bi bi-cloud-check-fill"></i></div>
+              <span class="sw-type-code">FAMILIA 05 // SAAS &amp; B2B PORTALS</span>
+            </div>
+            <h3>Portales Mayoristas 24/7 &amp; Plataformas de Suscripción Propia</h3>
+            <p>
+              Ideal si deseas lanzar tu propio producto tecnológico de suscripción mensual o si quieres darle a tus clientes corporativos un portal privado donde hagan pedidos mayoristas, descarguen facturas fiscales y consulten sus estados de cuenta sin llamar por teléfono.
+            </p>
+            <div class="sw-anatomy-box">
+              <div class="sw-anatomy-title">Capacidades Clave:</div>
+              <div class="sw-module-pills">
+                <span class="sw-module-pill">Datos Privados por Empresa Cliente</span>
+                <span class="sw-module-pill">Suscripciones y Cobro con Tarjeta</span>
+                <span class="sw-module-pill">Precios Personalizados por Cliente B2B</span>
+                <span class="sw-module-pill">Panel Super-Admin de Métricas MRR</span>
+              </div>
+            </div>
+          </div>
+          <div class="sw-type-footer">
+            <span><strong>Retorno:</strong> Atención 24/7 sin aumentar personal de atención al cliente</span>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20cotizar%20una%20Plataforma%20SaaS%20o%20Portal%20B2B" target="_blank" rel="noopener" class="btn btn-sm btn-silver">Cotizar SaaS / Portal</a>
+          </div>
+        </article>
+
+        <!-- 06. HIS Clínico -->
+        <article id="sw-his" class="sw-type-card">
+          <div>
+            <div class="sw-type-top">
+              <div class="sw-type-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+              <span class="sw-type-code">FAMILIA 06 // HEALTHCARE &amp; VET HIS</span>
+            </div>
+            <h3>Sistemas Hospitalarios (HIS), Clínicas, Laboratorios &amp; Veterinarias</h3>
+            <p>
+              Organiza la atención médica o veterinaria de principio a fin: desde la cita agendada en línea con recordatorio automático por WhatsApp, pasando por el expediente clínico, recetas y estudios de laboratorio, hasta el descargo automático de insumos de farmacia y cobro en caja.
+            </p>
+            <div class="sw-anatomy-box">
+              <div class="sw-anatomy-title">Capacidades Clave:</div>
+              <div class="sw-module-pills">
+                <span class="sw-module-pill">Historia Clínica y Odontograma / Vet</span>
+                <span class="sw-module-pill">Resultados de Laboratorio con QR</span>
+                <span class="sw-module-pill">Farmacia por Lote y Caducidad</span>
+                <span class="sw-module-pill">Comisiones por Médico / Especialista</span>
+              </div>
+            </div>
+          </div>
+          <div class="sw-type-footer">
+            <span><strong>Retorno:</strong> Cero pérdida de expedientes y control total de insumos médicos</span>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20cotizar%20un%20Sistema%20Cl%C3%ADnico%20/%20Veterinario" target="_blank" rel="noopener" class="btn btn-sm btn-silver">Cotizar Sistema Clínico</a>
+          </div>
+        </article>
+
+        <!-- 07. POS & E-Commerce -->
+        <article id="sw-pos" class="sw-type-card">
+          <div>
+            <div class="sw-type-top">
+              <div class="sw-type-icon"><i class="bi bi-shop-window"></i></div>
+              <span class="sw-type-code">FAMILIA 07 // POS &amp; HEADLESS COMMERCE</span>
+            </div>
+            <h3>POS Punto de Venta Multi-Sucursal &amp; E-Commerce Omnicanal</h3>
+            <p>
+              Diseñado para comercios de alto tráfico de caja: facturación en segundos con lector láser, manejo de combos y promociones, arqueo de caja ciego (efectivo NIO/USD, POS BAC/Banpro/Lafise, transferencias) sincronizado con tu tienda online.
+            </p>
+            <div class="sw-anatomy-box">
+              <div class="sw-anatomy-title">Capacidades Clave:</div>
+              <div class="sw-module-pills">
+                <span class="sw-module-pill">Facturación Rápida Touch / Teclado</span>
+                <span class="sw-module-pill">Cortes de Caja Z y Arqueo Ciego</span>
+                <span class="sw-module-pill">Catálogo Web Conectado al Stock Real</span>
+                <span class="sw-module-pill">Pedidos Directos a WhatsApp</span>
+              </div>
+            </div>
+          </div>
+          <div class="sw-type-footer">
+            <span><strong>Retorno:</strong> Cuadres de caja exactos y ventas en línea sincronizadas</span>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20cotizar%20un%20Sistema%20POS%20y%20E-Commerce" target="_blank" rel="noopener" class="btn btn-sm btn-silver">Cotizar POS / E-Commerce</a>
+          </div>
+        </article>
+
+        <!-- 08. BI, IoT & AI -->
+        <article id="sw-ai" class="sw-type-card">
+          <div>
+            <div class="sw-type-top">
+              <div class="sw-type-icon"><i class="bi bi-robot"></i></div>
+              <span class="sw-type-code">FAMILIA 08 // BI, TELEMETRY &amp; ENTERPRISE AI</span>
+            </div>
+            <h3>Business Intelligence (BI), Telemetría IoT &amp; Copilotos de IA</h3>
+            <p>
+              Conectamos tus bases de datos y equipos industriales para darte superpoderes analíticos: tableros gerenciales en vivo, lectura automática de básculas y sensores de temperatura (MQTT), y asistentes de IA privados que responden preguntas sobre tus ventas e inventarios.
+            </p>
+            <div class="sw-anatomy-box">
+              <div class="sw-anatomy-title">Capacidades Clave:</div>
+              <div class="sw-module-pills">
+                <span class="sw-module-pill">Dashboards Financieros en Tiempo Real</span>
+                <span class="sw-module-pill">Integración con Básculas RS-232 / TCP</span>
+                <span class="sw-module-pill">Sensores Cuartos Fríos y Calderas</span>
+                <span class="sw-module-pill">Asistente IA Privado Entrenado con Tus Ventas</span>
+              </div>
+            </div>
+          </div>
+          <div class="sw-type-footer">
+            <span><strong>Retorno:</strong> Prevención de fallos industriales y decisiones en segundos</span>
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20cotizar%20un%20proyecto%20de%20BI,%20IoT%20o%20Inteligencia%20Artificial" target="_blank" rel="noopener" class="btn btn-sm btn-silver">Cotizar BI / IoT / IA</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Callout Final hacia Industrias y Calculadora -->
+      <div class="dev-dossier-banner" style="margin-top: 50px;">
+        <div class="dev-dossier-icon">
+          <i class="bi bi-buildings"></i>
+        </div>
+        <div class="dev-dossier-info">
+          <h4>¿No estás seguro de qué módulo implementar primero para recuperar tu inversión rápido?</h4>
+          <p>
+            Revisa cómo aplicamos cada sistema en tu sector económico o simula tu presupuesto por etapas ahora mismo.
+          </p>
+        </div>
+        <div class="dev-dossier-btns">
+          <a href="industrias.html" class="btn btn-silver">
+            <i class="bi bi-buildings-fill me-1"></i> Ver Mi Sector Industrial
+          </a>
+          <a href="index.html#estimador" class="btn btn-secondary">
+            <i class="bi bi-calculator me-1"></i> Simular Mi Inversión Ahora
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="logo.svg" alt="Dev Studio Logo" style="height: 44px; margin-bottom: 18px;">
+          <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
+            Firma de ingeniería de software a medida, arquitectura cloud distribuida y modernización de sistemas de misión crítica.
+          </p>
+          <div class="badge-system mb-3">
+            <span class="live-indicator-dot"></span>
+            <span>CÓDIGO LIMPIO &bull; PROPIEDAD TUYA</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Mapa del Sitio Web</h5>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="bi bi-house-door me-1"></i> Inicio &bull; Portal Principal</a></li>
+            <li><a href="soluciones-software.html"><i class="bi bi-layers me-1"></i> Enciclopedia: Tipos de Software</a></li>
+            <li><a href="industrias.html"><i class="bi bi-buildings me-1"></i> Soluciones por Industria (8 Sectores)</a></li>
+            <li><a href="impacto-roi.html"><i class="bi bi-graph-up-arrow me-1"></i> ¿Cómo Ayuda el Software? &amp; ROI</a></li>
+            <li><a href="blueprints.html"><i class="bi bi-file-earmark-code me-1"></i> Dossier de Blueprints &amp; SLA</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Tipos de Software</h5>
+          <ul class="footer-links">
+            <li><a href="#sw-erp"><i class="bi bi-building-gear me-1"></i> ERP &amp; Facturación DGI</a></li>
+            <li><a href="#sw-crm"><i class="bi bi-people me-1"></i> CRM &amp; Preventa Móvil</a></li>
+            <li><a href="#sw-offline"><i class="bi bi-wifi-off me-1"></i> Apps Offline-First</a></li>
+            <li><a href="#sw-wms"><i class="bi bi-truck me-1"></i> WMS Bodegas &amp; Flotas</a></li>
+            <li><a href="#sw-his"><i class="bi bi-heart-pulse me-1"></i> Sistemas Clínicos &amp; Vet</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Agencia Creativa Aliada</h5>
+          <p style="font-size: 0.88rem; margin-bottom: 14px; color: var(--silver-mid);">
+            ¿Necesitas branding, estrategia publicitaria o pauta de marketing masiva?
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="../GUARDABARRANCO%20STUDIO/index.html" class="btn btn-outline-silver" style="font-size: 0.82rem; padding: 8px 14px;">
+              <i class="bi bi-gem"></i>
+              <span>Conoce Guardabarranco Studio</span>
+            </a>
+            <a href="../index.html" class="btn btn-outline-silver" style="font-size: 0.82rem; padding: 8px 14px;">
+              <i class="bi bi-grid-fill"></i>
+              <span>Portal Hub Ecosistema (5 Sitios)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Dev Studio Engineering. Todos los derechos reservados.</div>
+        <div><a href="#" style="color: var(--silver-mid);"><i class="bi bi-arrow-up-circle me-1"></i>Volver arriba</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

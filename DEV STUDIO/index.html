@@ -6,9 +6,36 @@
   <title>Dev Studio | Ingeniería de Software a Medida & Arquitectura Cloud</title>
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Dev Studio es una firma de ingeniería de software a medida. Diseñamos plataformas web de alto rendimiento, aplicaciones móviles, APIs distribuidas y arquitecturas cloud para líderes empresariales.">
+  <meta name="description" content="Dev Studio es una firma de ingeniería de software a medida. Diseñamos sistemas ERP con DGI, aplicaciones móviles offline-first, plataformas web y arquitecturas cloud para empresas.">
   <meta name="keywords" content="desarrollo de software a medida, arquitectura cloud, consultoria de software, aplicaciones moviles flutter, microservicios dotnet nodejs, desarrollo enterprise">
   <meta name="author" content="Dev Studio Engineering">
+  <meta name="theme-color" content="#08090C">
+  <link rel="canonical" href="https://guardabarrancostudio-hub.github.io/pages/DEV%20STUDIO/index.html">
+
+  <!-- Open Graph / Vista previa al compartir por WhatsApp y redes -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_NI">
+  <meta property="og:site_name" content="Dev Studio">
+  <meta property="og:title" content="Dev Studio | Software a Medida, Apps sin Conexión y Plataformas en la Nube">
+  <meta property="og:description" content="Sistemas, apps y plataformas a medida para empresas de Nicaragua y Centroamérica. Sprints de 2 semanas con demo, código y propiedad intelectual 100% tuyos.">
+  <meta property="og:url" content="https://guardabarrancostudio-hub.github.io/pages/DEV%20STUDIO/index.html">
+  <meta property="og:image" content="https://guardabarrancostudio-hub.github.io/pages/DEV%20STUDIO/assets/blueprints/saas-platform.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Datos estructurados para buscadores -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Dev Studio",
+    "description": "Ingeniería de software a medida: sistemas empresariales, aplicaciones móviles y plataformas en la nube.",
+    "url": "https://guardabarrancostudio-hub.github.io/pages/DEV%20STUDIO/index.html",
+    "telephone": "+50585574484",
+    "image": "https://guardabarrancostudio-hub.github.io/pages/DEV%20STUDIO/assets/blueprints/saas-platform.jpg",
+    "address": { "@type": "PostalAddress", "addressCountry": "NI" },
+    "areaServed": ["Nicaragua", "Centroamérica"]
+  }
+  </script>
 
   <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,52 +53,51 @@
 </head>
 <body>
 
+  <!-- Barra Superior de Progreso de Lectura -->
+  <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+
   <!-- Ambient Light Orbs & Grid -->
   <div class="tech-grid-bg"></div>
   <div class="ambient-light-orb orb-silver-1"></div>
   <div class="ambient-light-orb orb-silver-2"></div>
 
-  <!-- Telemetry Bar -->
+  <!-- Top Utility & Telemetry Bar (Unificada y Limpia) -->
   <div class="telemetry-bar">
     <div class="container telemetry-content">
       <div class="telemetry-node">
+        <a href="../index.html" class="telemetry-hub-link">
+          <i class="bi bi-grid-fill"></i>
+          <span>PORTAL HUB</span>
+        </a>
+        <span class="telemetry-sep">&bull;</span>
         <span class="live-indicator-dot"></span>
-        <span>SYSTEM STATUS: ALL ENGINES OPERATIONAL</span>
+        <span>AVANCES REALES CADA 14 DÍAS &bull; $0 LICENCIAS POR USUARIO &bull; 100% PROPIEDAD DE TU EMPRESA</span>
       </div>
-      <div class="telemetry-node">
-        <i class="bi bi-speedometer2 text-silver"></i>
-        <span>LATENCY: 14ms &bull; SLA: 99.99% UPTIME</span>
-      </div>
-      <div class="telemetry-node">
-        <i class="bi bi-shield-lock text-silver"></i>
-        <span>SECURITY: SOC2 COMPLIANT &bull; ZERO TECH DEBT</span>
-      </div>
+      <div class="telemetry-utils-slot"></div>
     </div>
   </div>
 
-  <!-- Header & Navbar -->
+  <!-- Header & Navbar Principal (Jerarquía Única sin Sub-Barras Redundantes) -->
   <header class="navbar" id="navbar">
     <div class="container nav-container">
-      <a href="#inicio" class="nav-brand" aria-label="Dev Studio Inicio">
+      <a href="index.html" class="nav-brand" aria-label="Dev Studio Inicio">
         <img src="logo.svg" alt="Dev Studio Logo" class="nav-logo-img">
       </a>
 
       <ul class="nav-menu" id="navMenu">
-        <li><a href="#inicio" class="nav-link active">Inicio</a></li>
-        <li><a href="#capacidades" class="nav-link">Capacidades</a></li>
-        <li><a href="#stack" class="nav-link">Stack</a></li>
-        <li><a href="#catalogo" class="nav-link">Catálogo</a></li>
-        <li><a href="#estimador" class="nav-link">Estimador</a></li>
-        <li><a href="#metodologia" class="nav-link">Metodología</a></li>
-        <li><a href="#casos" class="nav-link">Casos de Estudio</a></li>
-        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="index.html" class="nav-link active">Inicio</a></li>
+        <li><a href="soluciones-software.html" class="nav-link">Soluciones</a></li>
+        <li><a href="industrias.html" class="nav-link">Industrias</a></li>
+        <li><a href="impacto-roi.html" class="nav-link">Impacto &amp; ROI</a></li>
+        <li><a href="blueprints.html" class="nav-link">Blueprints</a></li>
+        <li><a href="#estimador" class="nav-link">Calculadora</a></li>
         <li><a href="#contacto" class="nav-link">Contacto</a></li>
       </ul>
 
       <div class="nav-actions">
         <a href="#estimador" class="btn btn-silver" id="navBtnEstimador">
           <i class="bi bi-cpu"></i>
-          <span>Estimar Arquitectura</span>
+          <span>Calcular Mi Sistema</span>
         </a>
       </div>
 
@@ -81,55 +107,55 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- 1. HERO EJECUTIVO -->
   <section class="hero" id="inicio">
     <div class="container">
       <div class="hero-grid">
         <div class="hero-content">
           <div class="badge-system mb-3">
             <span class="live-indicator-dot"></span>
-            <span>ENTERPRISE SOFTWARE ENGINEERING &bull; v4.2</span>
+            <span>SOFTWARE EMPRESARIAL A MEDIDA &bull; NICARAGUA Y CENTROAMÉRICA</span>
           </div>
 
           <h1>
-            Ingeniería de Software a Medida para Empresas que <span class="text-chrome">no Aceptan Límites</span>.
+            Frena las Fugas de Dinero y <span class="text-chrome">Controla Toda tu Empresa</span> en Tiempo Real.
           </h1>
 
           <p class="hero-lead">
-            Construimos sistemas empresariales de misión crítica, aplicaciones móviles de alto rendimiento y arquitecturas cloud distribuidas. Diseñado con código limpio, cero deuda técnica y con propiedad intelectual 100% tuya.
+            Construimos el sistema exacto para tu operación: facturación DGI e inventario blindado, apps que funcionan sin internet en campo y tu utilidad al día en el celular. Entregas cada 14 días y $0 cobros por usuario.
           </p>
 
           <div class="hero-cta-group">
             <a href="#estimador" class="btn btn-silver" id="heroBtnEstimate">
               <i class="bi bi-calculator"></i>
-              <span>Calculadora de Sprints</span>
+              <span>Cotizar Mi Sistema en 1 Minuto</span>
             </a>
-            <a href="#stack" class="btn btn-outline-silver" id="heroBtnStack">
-              <i class="bi bi-layers-half"></i>
-              <span>Ver Ecosistema Tech</span>
+            <a href="#tipos-software" class="btn btn-outline-silver" id="heroBtnStack">
+              <i class="bi bi-compass"></i>
+              <span>Ver Qué Sistema Necesito</span>
             </a>
-            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20agendar%20una%20sesi%C3%B3n%20t%C3%A9cnica%20de%20descubrimiento" target="_blank" class="btn btn-whatsapp-tech" id="heroBtnWsp">
+            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio%2C%20quiero%20solicitar%20un%20diagn%C3%B3stico%20operativo%20gratuito%20para%20mi%20empresa" target="_blank" rel="noopener" class="btn btn-whatsapp-tech" id="heroBtnWsp">
               <i class="bi bi-whatsapp"></i>
-              <span>Hablar con Solution Architect</span>
+              <span>Pedir Diagnóstico Operativo Gratis</span>
             </a>
           </div>
 
           <div class="hero-metrics">
             <div class="metric-item">
-              <div class="metric-val">99.99%</div>
-              <div class="metric-label">SLA Disponibilidad</div>
+              <div class="metric-val">14 días</div>
+              <div class="metric-label">Avances Funcionando</div>
             </div>
             <div class="metric-item">
-              <div class="metric-val">0%</div>
-              <div class="metric-label">Deuda Técnica</div>
+              <div class="metric-val">&lt; 24h</div>
+              <div class="metric-label">Propuesta y Presupuesto</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-val">$0 / mes</div>
+              <div class="metric-label">Licencias por Usuario</div>
             </div>
             <div class="metric-item">
               <div class="metric-val">100%</div>
-              <div class="metric-label">Propiedad Intelectual</div>
-            </div>
-            <div class="metric-item">
-              <div class="metric-val">>85%</div>
-              <div class="metric-label">Test Coverage</div>
+              <div class="metric-label">Tuyo bajo Contrato NDA</div>
             </div>
           </div>
         </div>
@@ -143,32 +169,30 @@
                 <span class="t-dot t-dot-yellow"></span>
                 <span class="t-dot t-dot-green"></span>
               </div>
-              <div class="terminal-title">devstudio@enterprise-cluster:~#</div>
-              <div style="font-size: 0.75rem; color: var(--silver-dark);">bash v5.2</div>
+              <div class="terminal-title">devstudio@enterprise-node:~#</div>
+              <div style="font-size: 0.75rem; color: var(--silver-dark);">CLI v5.2</div>
             </div>
             <div class="terminal-body" id="terminalOutput">
-              <div class="terminal-line t-silver">// Initializing Dev Studio Core Architecture Node...</div>
+              <div class="terminal-line t-silver">// Dev Studio Architecture Console Ready</div>
               <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd">devstudio verify --architecture enterprise</span></div>
-              <div class="terminal-line t-success">[OK] Clean Architecture & Domain-Driven Design (DDD) verified.</div>
-              <div class="terminal-line t-info">[INFO] Microservices Gateway: 12 nodes listening on TLS 1.3</div>
-              <div class="terminal-line t-success">[OK] Cloud Providers: AWS / Azure / GCP hybrid connectivity active.</div>
-              <div class="terminal-line t-silver">[TIP] Escribe <span style="color:#FFF; font-weight:700;">help</span>, <span style="color:#FFF; font-weight:700;">stack</span>, <span style="color:#FFF; font-weight:700;">status</span>, o <span style="color:#FFF; font-weight:700;">quote</span> para interactuar.</div>
+              <div class="terminal-line t-success">[OK] Clean Architecture &amp; Domain-Driven Design (DDD).</div>
+              <div class="terminal-line t-info">[INFO] Offline-First SQLite Engine + .NET 9 Cloud Sync.</div>
+              <div class="terminal-line t-success">[OK] 100% Source Code &amp; IP Ownership Guaranteed.</div>
+              <div class="terminal-line t-silver">[TIP] Usa los atajos inferiores o escribe <span style="color:#FFF; font-weight:700;">help</span>.</div>
             </div>
             <div class="terminal-input-row" style="padding: 10px 16px; background: #0A0D13; border-top: 1px solid rgba(255,255,255,0.06);">
               <span class="t-prompt" style="color: #38BDF8;">devstudio&gt;</span>
-              <input type="text" id="terminalInput" class="terminal-input" placeholder="Escribe un comando (ej: stack, quote, help)..." autocomplete="off" spellcheck="false">
+              <input type="text" id="terminalInput" class="terminal-input" placeholder="Escribe un comando (help, types, stack, quote)..." autocomplete="off" spellcheck="false">
             </div>
             <div class="terminal-suggestions">
               <span style="font-size:0.75rem;color:var(--silver-dark);line-height:24px;">Atajos:</span>
               <button type="button" class="term-chip" data-cmd="help">help</button>
+              <button type="button" class="term-chip" data-cmd="types">soluciones</button>
+              <button type="button" class="term-chip" data-cmd="industries">industrias</button>
               <button type="button" class="term-chip" data-cmd="stack">stack</button>
-              <button type="button" class="term-chip" data-cmd="status">status</button>
-              <button type="button" class="term-chip" data-cmd="security">security</button>
-              <button type="button" class="term-chip" data-cmd="hub">hub</button>
-              <button type="button" class="term-chip" data-cmd="cases">cases</button>
-              <button type="button" class="term-chip" data-cmd="services">services</button>
-              <button type="button" class="term-chip" data-cmd="quote">quote</button>
-              <button type="button" class="term-chip" data-cmd="clear">clear</button>
+              <button type="button" class="term-chip" data-cmd="cases">agrostats</button>
+              <button type="button" class="term-chip" data-cmd="quote">cotizar</button>
+              <button type="button" class="term-chip" data-cmd="clear">limpiar</button>
             </div>
           </div>
         </div>
@@ -176,1230 +200,1227 @@
     </div>
   </section>
 
-  <!-- Capacidades de Ingeniería (Servicios Core) -->
-  <section class="section" id="capacidades">
+  <!-- Cinta Única de Estándares de Ingeniería -->
+  <div class="standards-ribbon" aria-label="Estándares de Ingeniería">
+    <div class="container standards-ribbon-inner">
+      <div class="standards-label">
+        <i class="bi bi-cpu-fill text-cyan"></i>
+        <span>ESTÁNDARES:</span>
+      </div>
+      <div class="standards-pills">
+        <span class="standard-pill"><i class="bi bi-wifi-off"></i> Operación 100% sin Internet</span>
+        <span class="standard-pill"><i class="bi bi-file-earmark-check-fill"></i> Listo para Normativa DGI (IR/IVA)</span>
+        <span class="standard-pill"><i class="bi bi-shield-lock-fill"></i> Blindaje Anti-Fraude por Cargo</span>
+        <span class="standard-pill"><i class="bi bi-currency-exchange"></i> Contabilidad Bimoneda (NIO/USD)</span>
+        <span class="standard-pill"><i class="bi bi-code-square"></i> 100% Código Propiedad Tuya</span>
+        <span class="standard-pill"><i class="bi bi-key-fill"></i> $0 Licencias Mensuales por Usuario</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. INGENIERÍA EN TIEMPO REAL (BENTO SHOWCASE) -->
+  <section class="section" id="bento-interactivo">
     <div class="container">
       <div class="section-header">
-        <span class="badge-system">CORE COMPETENCIES</span>
-        <h2>Capacidades de Ingeniería de Software</h2>
+        <span class="badge-system"><i class="bi bi-stars text-cyan me-1"></i> CONTROL OPERATIVO EN TIEMPO REAL</span>
+        <h2>Cinco Fugas Operativas que Cerramos Desde el Primer Mes</h2>
         <p>
-          No adaptamos plantillas genéricas. Diseñamos sistemas hechos a la medida exacta de tus reglas de negocio y metas de escala.
+          Software hecho para cómo se trabaja realmente en la región: cuadres fiscales exactos, cuadrillas en zonas sin señal y control gerencial desde tu teléfono.
         </p>
       </div>
 
-      <div class="services-grid">
-        <!-- Servicio 1 -->
-        <div class="service-card">
-          <div class="service-num">01 / ENTERPRISE CORE</div>
-          <h3>Software Empresarial & Plataformas Core</h3>
-          <p>
-            Desarrollo de ERP, CRM, sistemas de gestión logística, facturación electrónica y portales de proveedores de alto volumen construidos para operar 24/7 sin fallos.
-          </p>
-          <ul class="service-specs">
-            <li><i class="bi bi-chevron-right"></i> Domain-Driven Design (DDD)</li>
-            <li><i class="bi bi-chevron-right"></i> Reglas de negocio desacopladas</li>
-            <li><i class="bi bi-chevron-right"></i> Auditoría y trazabilidad transaccional</li>
-          </ul>
-        </div>
+      <div class="bento-live-grid">
+        <!-- Bento Card 1: ERP & DGI Live Stream (Span 6) -->
+        <article class="bento-live-card bento-wide">
+          <div>
+            <div class="live-ui-stage">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                <span class="font-mono text-cyan" style="font-size:0.7rem;"><span class="live-indicator-dot"></span> MOTOR CONTABLE &amp; DGI</span>
+                <span class="font-mono text-silver" style="font-size:0.7rem;" id="bentoErpClock">SYNC: 12ms</span>
+              </div>
+              <div class="live-tx-stream" id="bentoTxStream">
+                <div class="live-tx-row">
+                  <span><i class="bi bi-receipt text-cyan me-1"></i> FAC-009481 &bull; IVA 15% + IR 2%</span>
+                  <span class="tx-status-ok">DGI OK &bull; C$ 42,600</span>
+                </div>
+                <div class="live-tx-row">
+                  <span><i class="bi bi-box-seam text-cyan me-1"></i> KARDEX PEPS &bull; Bodega Central</span>
+                  <span class="tx-status-ok">AUDITADO &bull; -24 UND</span>
+                </div>
+                <div class="live-tx-row">
+                  <span><i class="bi bi-bank text-cyan me-1"></i> PARTIDA #8842 &bull; Bimoneda NIO/USD</span>
+                  <span class="tx-status-ok">BALANCEADO &bull; $1,163.30</span>
+                </div>
+              </div>
+            </div>
+            <span class="service-num">01 // NÚCLEO FINANCIERO &amp; BODEGA</span>
+            <h3 style="color:#FFFFFF;font-size:1.3rem;margin-bottom:8px;">Facturación DGI, Bodegas y Contabilidad sin Doble Digitación</h3>
+            <p style="color:var(--silver-mid);font-size:0.9rem;line-height:1.55;margin:0;">
+              Cada factura descarga inventario multi-bodega, calcula retenciones de ley y actualiza tus estados financieros bimoneda (NIO/USD) sin doble digitación.
+            </p>
+          </div>
+        </article>
 
-        <!-- Servicio 2 -->
-        <div class="service-card">
-          <div class="service-num">02 / MOBILE & WEB</div>
-          <h3>Aplicaciones Móviles & Web Apps de Alto Desempeño</h3>
-          <p>
-            Apps nativas (iOS / Android) y multiplataforma con Flutter / React Native, acompañadas de frontends web ultrarrápidos con Next.js y TypeScript de grado bancario.
-          </p>
-          <ul class="service-specs">
-            <li><i class="bi bi-chevron-right"></i> Arquitecturas offline-first</li>
-            <li><i class="bi bi-chevron-right"></i> Biometría y cifrado local seguro</li>
-            <li><i class="bi bi-chevron-right"></i> Experiencia de usuario (UI/UX) de lujo</li>
-          </ul>
-        </div>
+        <!-- Bento Card 2: Offline-First Delta Sync Pipeline (Span 6) -->
+        <article class="bento-live-card bento-wide">
+          <div>
+            <div class="live-ui-stage">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <span class="font-mono text-cyan" style="font-size:0.7rem;"><i class="bi bi-wifi-off me-1"></i> MOTOR DELTA SYNC // CAMPO SIN SEÑAL</span>
+                <span class="tx-status-ok" id="bentoSyncBadge">OUTBOX: 100% ACK</span>
+              </div>
+              <div class="sync-pipeline-vis">
+                <div class="sync-node-box">
+                  <i class="bi bi-phone-flip"></i>
+                  <span>SQLite Móvil</span>
+                  <small style="font-size:0.65rem;color:var(--silver-mid);">Finca / Ruta Offline</small>
+                </div>
+                <div class="sync-beam-track">
+                  <div class="sync-beam-packet"></div>
+                </div>
+                <div class="sync-node-box">
+                  <i class="bi bi-hdd-network-fill" style="color:var(--laser-green);"></i>
+                  <span>API .NET 9</span>
+                  <small style="font-size:0.65rem;color:var(--silver-mid);">Servidor Central</small>
+                </div>
+              </div>
+              <div style="text-align:center;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--silver-mid);">
+                Cero registros perdidos ni duplicados aunque se corte la señal en pleno envío
+              </div>
+            </div>
+            <span class="service-num">02 // CONTINUIDAD EN CAMPO</span>
+            <h3 style="color:#FFFFFF;font-size:1.3rem;margin-bottom:8px;">Captura en Fincas, Rutas y Obras Donde No Hay Señal</h3>
+            <p style="color:var(--silver-mid);font-size:0.9rem;line-height:1.55;margin:0;">
+              Tus equipos en fincas, proyectos viales o rutas de distribución trabajan sin internet. El teléfono guarda todo en memoria local blindada y sincroniza al detectar red.
+            </p>
+          </div>
+        </article>
 
-        <!-- Servicio 3 -->
-        <div class="service-card">
-          <div class="service-num">03 / CLOUD & APIS</div>
-          <h3>Arquitectura Cloud, Microservicios & APIs</h3>
-          <p>
-            Diseño de APIs REST y GraphQL de ultra baja latencia, colas de mensajería asíncronas (Kafka / RabbitMQ) y orquestación con Kubernetes en AWS, Azure o Google Cloud.
-          </p>
-          <ul class="service-specs">
-            <li><i class="bi bi-chevron-right"></i> Autoscaling horizontal elástico</li>
-            <li><i class="bi bi-chevron-right"></i> Gateway API con rate limiting</li>
-            <li><i class="bi bi-chevron-right"></i> Infraestructura como Código (Terraform)</li>
-          </ul>
-        </div>
+        <!-- Bento Card 3: Cloud Throughput Equalizer (Span 4) -->
+        <article class="bento-live-card">
+          <div>
+            <div class="live-ui-stage">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <span class="font-mono text-cyan" style="font-size:0.7rem;">RENDIMIENTO API</span>
+                <span class="font-mono" style="font-size:0.75rem;color:var(--laser-green);">P99: 11.4ms</span>
+              </div>
+              <div class="k8s-bars-wrap">
+                <div class="k8s-bar"></div>
+                <div class="k8s-bar"></div>
+                <div class="k8s-bar"></div>
+                <div class="k8s-bar"></div>
+                <div class="k8s-bar"></div>
+                <div class="k8s-bar"></div>
+                <div class="k8s-bar"></div>
+                <div class="k8s-bar"></div>
+                <div class="k8s-bar"></div>
+                <div class="k8s-bar"></div>
+              </div>
+            </div>
+            <span class="service-num">03 // ALTA DISPONIBILIDAD</span>
+            <h3 style="color:#FFFFFF;font-size:1.18rem;margin-bottom:8px;">Cero Caídas en Quincena y Horas Pico</h3>
+            <p style="color:var(--silver-mid);font-size:0.86rem;line-height:1.55;margin:0;">
+              Factura en múltiples sucursales a la vez y cierra planillas pesadas en segundos, sin pantallas congeladas ni filas en mostrador.
+            </p>
+          </div>
+        </article>
 
-        <!-- Servicio 4 -->
-        <div class="service-card">
-          <div class="service-num">04 / REFACTORING</div>
-          <h3>Modernización de Legacy & Migración a la Nube</h3>
-          <p>
-            Desmantelamos monolitos lentos y obsoletos aplicando patrones como Strangler Fig, migrando tu base de datos y lógica crítica sin detener las operaciones de tu negocio.
-          </p>
-          <ul class="service-specs">
-            <li><i class="bi bi-chevron-right"></i> Migración con Zero-Downtime</li>
-            <li><i class="bi bi-chevron-right"></i> Limpieza profunda de código spaguetti</li>
-            <li><i class="bi bi-chevron-right"></i> Reducción de costos de infraestructura hasta 60%</li>
-          </ul>
-        </div>
+        <!-- Bento Card 4: Zero-Trust Cryptographic Scanner (Span 4) -->
+        <article class="bento-live-card">
+          <div>
+            <div class="live-ui-stage">
+              <div class="zero-trust-scanner">
+                <div class="scanner-ring-box">
+                  <div class="scanner-ring-inner">
+                    <i class="bi bi-shield-lock-fill"></i>
+                  </div>
+                </div>
+                <div>
+                  <div class="font-mono text-cyan" style="font-size:0.72rem;">DEFENSE-IN-DEPTH</div>
+                  <div style="color:#FFFFFF;font-weight:700;font-size:0.9rem;margin:3px 0;">AES-256 &amp; TLS 1.3</div>
+                  <div class="font-mono" style="font-size:0.7rem;color:var(--laser-green);">Permisos + Bitácora</div>
+                </div>
+              </div>
+            </div>
+            <span class="service-num">04 // BLINDAJE INTERNO</span>
+            <h3 style="color:#FFFFFF;font-size:1.18rem;margin-bottom:8px;">Freno Total a Descuentos y Ajustes No Autorizados</h3>
+            <p style="color:var(--silver-mid);font-size:0.86rem;line-height:1.55;margin:0;">
+              Cada cargo ve solo lo que le compete. Queda huella imborrable de quién creó, anuló o tocó cada córdoba e inventario.
+            </p>
+          </div>
+        </article>
 
-        <!-- Servicio 5 -->
-        <div class="service-card">
-          <div class="service-num">05 / SECURITY & QA</div>
-          <h3>Auditoría de Código, QA Automatizado & Seguridad</h3>
-          <p>
-            Pruebas unitarias, de integración, pruebas de carga (k6) y escaneo de vulnerabilidades conforme a estándares OWASP Top 10 y preparación para certificaciones de seguridad.
-          </p>
-          <ul class="service-specs">
-            <li><i class="bi bi-chevron-right"></i> CI/CD con análisis estático (SonarQube)</li>
-            <li><i class="bi bi-chevron-right"></i> Penetration Testing ético</li>
-            <li><i class="bi bi-chevron-right"></i> Cifrado AES-256 en tránsito y reposo</li>
-          </ul>
-        </div>
+        <!-- Bento Card 5: AI Copilot & Executive BI (Span 4) -->
+        <article class="bento-live-card">
+          <div>
+            <div class="live-ui-stage">
+              <div style="background:rgba(56,189,248,0.07);border:1px solid rgba(56,189,248,0.25);border-radius:6px;padding:8px 10px;margin-bottom:8px;font-size:0.74rem;color:var(--silver-light);">
+                <i class="bi bi-person-workspace text-cyan me-1"></i> <strong>Gerencia:</strong> "¿Qué ruta dejó mayor margen hoy?"
+              </div>
+              <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3);border-radius:6px;padding:8px 10px;font-size:0.74rem;color:#FFFFFF;font-family:'JetBrains Mono',monospace;">
+                <i class="bi bi-robot text-green me-1"></i> Ruta Occidente #02: <strong>+31.8% margen</strong> (C$ 184,200).
+              </div>
+            </div>
+            <span class="service-num">05 // INTELIGENCIA DIRECTIVA</span>
+            <h3 style="color:#FFFFFF;font-size:1.18rem;margin-bottom:8px;">Tu Ganancia Real en el Celular, las 24 Horas</h3>
+            <p style="color:var(--silver-mid);font-size:0.86rem;line-height:1.55;margin:0;">
+              Recibe alertas automáticas en WhatsApp ante bajas de margen o facturas vencidas y consulta tus ventas en segundos desde cualquier lugar.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-        <!-- Servicio 6 -->
-        <div class="service-card">
-          <div class="service-num">06 / SQUADS & AGILITY</div>
-          <h3>Dedicated Engineering Squads (Staff Augmentation)</h3>
-          <p>
-            Equipos dedicados de ingenieros de software senior (Tech Leads, Backend, Frontend, DevOps y QA) integrados directamente a tus sprints bajo metodologías ágiles Scrum/Kanban.
-          </p>
-          <ul class="service-specs">
-            <li><i class="bi bi-chevron-right"></i> Ingenieros 100% bilingües / zona horaria alineada</li>
-            <li><i class="bi bi-chevron-right"></i> Onboarding técnico en menos de 5 días</li>
-            <li><i class="bi bi-chevron-right"></i> Flexibilidad de escalamiento mensual</li>
-          </ul>
+  <!-- 3. SOLUCIONES DE SOFTWARE A MEDIDA (RESUMEN EJECUTIVO) -->
+  <section class="section section-alt" id="tipos-software">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system"><i class="bi bi-compass-fill text-cyan me-1"></i> SOLUCIONES A MEDIDA</span>
+        <h2>¿Cuál es la Urgencia #1 de tu Operación Hoy?</h2>
+        <p>
+          Elige el área que necesitas ordenar primero y cárgala en el cotizador para ver plazos e inversión estimada al instante.
+        </p>
+      </div>
+
+      <!-- 4 Tarjetas Ejecutivas de Soluciones (Limpias y Concisas) -->
+      <div class="sw-taxonomy-grid">
+        <article class="sw-type-card">
+          <div>
+            <div class="sw-type-top">
+              <div class="sw-type-icon"><i class="bi bi-building-gear"></i></div>
+              <span class="sw-type-code">01 &bull; ERP, WMS &amp; FINANZAS</span>
+            </div>
+            <h3>Sistemas ERP, Bodegas (WMS) &amp; Facturación DGI</h3>
+            <p>
+              Unifica compras, kardex multi-bodega por lote/vencimiento, facturación con retenciones IR/IVA, cuentas por cobrar, planilla INSS y contabilidad bimoneda (NIO/USD).
+            </p>
+            <div class="sw-module-pills">
+              <span class="sw-module-pill">Facturación DGI</span>
+              <span class="sw-module-pill">Kardex Multi-Sucursal</span>
+              <span class="sw-module-pill">Contabilidad NIO/USD</span>
+              <span class="sw-module-pill">Control de Flotas</span>
+            </div>
+          </div>
+          <div class="sw-type-footer">
+            <button type="button" class="btn-link-calc" data-preload-calc="erp">
+              <i class="bi bi-sliders"></i> Simular Precio y Tiempo
+            </button>
+            <a href="soluciones-software.html#sw-erp" class="text-cyan font-mono" style="font-size: 0.8rem;">Ficha técnica &rarr;</a>
+          </div>
+        </article>
+
+        <article class="sw-type-card">
+          <div>
+            <div class="sw-type-top">
+              <div class="sw-type-icon"><i class="bi bi-wifi-off"></i></div>
+              <span class="sw-type-code">02 &bull; APPS MÓVILES &amp; CAMPO</span>
+            </div>
+            <h3>Apps Móviles Offline-First &amp; Preventa en Ruta</h3>
+            <p>
+              Aplicaciones iOS y Android para supervisores agrícolas, ingenieros de obra y vendedores ruteros. Operan al 100% sin internet y sincronizan al reconectar.
+            </p>
+            <div class="sw-module-pills">
+              <span class="sw-module-pill">Sin Internet en Campo</span>
+              <span class="sw-module-pill">Tareo y Cosecha</span>
+              <span class="sw-module-pill">Preventa GPS</span>
+              <span class="sw-module-pill">Impresión Bluetooth</span>
+            </div>
+          </div>
+          <div class="sw-type-footer">
+            <button type="button" class="btn-link-calc" data-preload-calc="mobile">
+              <i class="bi bi-sliders"></i> Simular Precio y Tiempo
+            </button>
+            <a href="soluciones-software.html#sw-offline" class="text-cyan font-mono" style="font-size: 0.8rem;">Ficha técnica &rarr;</a>
+          </div>
+        </article>
+
+        <article class="sw-type-card">
+          <div>
+            <div class="sw-type-top">
+              <div class="sw-type-icon"><i class="bi bi-shop-window"></i></div>
+              <span class="sw-type-code">03 &bull; POS, WEB &amp; CLÍNICAS</span>
+            </div>
+            <h3>POS Multi-Sucursal, Portales SaaS &amp; Sistemas Clínicos</h3>
+            <p>
+              Puntos de venta rápidos con arqueo ciego, tiendas e-commerce conectadas a bancos locales, portales B2B de autogestión y expedientes clínicos o veterinarios.
+            </p>
+            <div class="sw-module-pills">
+              <span class="sw-module-pill">POS &amp; Arqueo Ciego</span>
+              <span class="sw-module-pill">Tienda Web Sincronizada</span>
+              <span class="sw-module-pill">Expediente Clínico / Vet</span>
+              <span class="sw-module-pill">Alertas WhatsApp</span>
+            </div>
+          </div>
+          <div class="sw-type-footer">
+            <button type="button" class="btn-link-calc" data-preload-calc="pos">
+              <i class="bi bi-sliders"></i> Simular Precio y Tiempo
+            </button>
+            <a href="soluciones-software.html#sw-pos" class="text-cyan font-mono" style="font-size: 0.8rem;">Ficha técnica &rarr;</a>
+          </div>
+        </article>
+
+        <article class="sw-type-card">
+          <div>
+            <div class="sw-type-top">
+              <div class="sw-type-icon"><i class="bi bi-robot"></i></div>
+              <span class="sw-type-code">04 &bull; DATA, IOT &amp; IA</span>
+            </div>
+            <h3>Business Intelligence (BI), Telemetría IoT &amp; Copilotos IA</h3>
+            <p>
+              Tableros gerenciales en tiempo real, integración con básculas camioneras y sensores industriales, y asistentes de IA entrenados con los datos privados de tu empresa.
+            </p>
+            <div class="sw-module-pills">
+              <span class="sw-module-pill">Dashboards Ejecutivos</span>
+              <span class="sw-module-pill">Sensores &amp; Básculas</span>
+              <span class="sw-module-pill">Copiloto IA Privado</span>
+              <span class="sw-module-pill">Reportes Gerenciales</span>
+            </div>
+          </div>
+          <div class="sw-type-footer">
+            <button type="button" class="btn-link-calc" data-preload-calc="suite">
+              <i class="bi bi-sliders"></i> Simular Precio y Tiempo
+            </button>
+            <a href="soluciones-software.html#sw-ai" class="text-cyan font-mono" style="font-size: 0.8rem;">Ficha técnica &rarr;</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Callout de Profundización hacia Subpáginas Dedicadas -->
+      <div class="section-bridge-bar">
+        <div class="section-bridge-text">
+          <strong>¿Cuánto dinero te cuesta hoy seguir operando en Excel y cuadernos?</strong>
+          <span>Calcula en 60 segundos el ahorro anual de tu empresa o revisa a fondo nuestras 8 familias de sistemas.</span>
+        </div>
+        <div class="section-bridge-actions">
+          <a href="soluciones-software.html" class="btn btn-sm btn-silver">
+            <i class="bi bi-layers-fill"></i> Explorar los 8 Sistemas
+          </a>
+          <a href="impacto-roi.html" class="btn btn-sm btn-outline-silver">
+            <i class="bi bi-graph-up-arrow"></i> Calcular Mi Ahorro (ROI)
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Interactive System Architecture Canvas (Topology Map) -->
-  <section class="section" id="arquitectura">
+  <!-- 4. SOLUCIONES POR INDUSTRIA (SELECTOR INTERACTIVO LIMPIO) -->
+  <section class="section" id="industrias">
     <div class="container">
       <div class="section-header">
-        <span class="badge-system"><i class="bi bi-diagram-2 text-silver me-1"></i> TOPOLOGY & LIVE ARCHITECTURE</span>
-        <h2>Arquitectura de Sistemas & Flujo Distribuido</h2>
-        <p>Haz clic en cualquier nodo para inspeccionar los protocolos de comunicación, latencia y tolerancia a fallos en tiempo real.</p>
+        <span class="badge-system"><i class="bi bi-buildings-fill text-cyan me-1"></i> VERTICALES ECONÓMICAS</span>
+        <h2>Hablamos el Idioma de tu Rubro, No Solo de Programación</h2>
+        <p>
+          Selecciona tu industria para ver qué fugas de inventario, tiempo y efectivo eliminamos en negocios como el tuyo.
+        </p>
       </div>
 
-      <div class="topology-box-master">
-        <div class="topology-grid">
-          
-          <!-- Canvas de Nodos -->
-          <div class="arch-map-canvas">
-            
-            <!-- Layer 1: Clients -->
-            <div class="arch-layer">
-              <div class="arch-layer-label">
-                <i class="bi bi-phone"></i> 01. CAPA DE CLIENTES & CONSUMIDORES
-              </div>
-              <div class="arch-nodes-row">
-                <div class="arch-node-card active" data-node="clients">
-                  <div class="arch-node-icon"><i class="bi bi-display"></i></div>
-                  <div class="arch-node-info">
-                    <h5>Web & Mobile Apps</h5>
-                    <small>Next.js 15 &bull; Flutter iOS/Android</small>
-                  </div>
-                </div>
-                <div class="arch-node-card" data-node="external-api">
-                  <div class="arch-node-icon"><i class="bi bi-arrow-left-right"></i></div>
-                  <div class="arch-node-info">
-                    <h5>Integraciones B2B</h5>
-                    <small>Webhooks & REST APIs</small>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <!-- Pestañas Interactivas de Industrias -->
+      <div class="industry-tabs-bar" role="tablist" aria-label="Selector de Industrias">
+        <button type="button" class="industry-tab-btn active" data-industry="agro">
+          <i class="bi bi-tree-fill"></i> Agroindustria
+        </button>
+        <button type="button" class="industry-tab-btn" data-industry="construccion">
+          <i class="bi bi-cone-striped"></i> Construcción
+        </button>
+        <button type="button" class="industry-tab-btn" data-industry="distribucion">
+          <i class="bi bi-box-seam-fill"></i> Distribución
+        </button>
+        <button type="button" class="industry-tab-btn" data-industry="talleres">
+          <i class="bi bi-wrench-adjustable-circle-fill"></i> Talleres &amp; Flotas
+        </button>
+        <button type="button" class="industry-tab-btn" data-industry="salud">
+          <i class="bi bi-hospital-fill"></i> Salud &amp; Veterinarias
+        </button>
+        <button type="button" class="industry-tab-btn" data-industry="logistica">
+          <i class="bi bi-truck-front-fill"></i> Logística CA-4
+        </button>
+        <button type="button" class="industry-tab-btn" data-industry="manufactura">
+          <i class="bi bi-gear-wide-connected"></i> Manufactura
+        </button>
+        <button type="button" class="industry-tab-btn" data-industry="finanzas">
+          <i class="bi bi-bank2"></i> Finanzas &amp; Retail
+        </button>
+      </div>
 
-            <!-- Layer 2: Gateway & Edge -->
-            <div class="arch-layer">
-              <div class="arch-layer-label">
-                <i class="bi bi-shield-check"></i> 02. EDGE, WAF & API GATEWAY
-              </div>
-              <div class="arch-nodes-row">
-                <div class="arch-node-card" data-node="gateway">
-                  <div class="arch-node-icon"><i class="bi bi-hdd-network"></i></div>
-                  <div class="arch-node-info">
-                    <h5>Cloudflare WAF / Gateway</h5>
-                    <small>TLS 1.3 &bull; Rate Limiting &bull; DDoS Shield</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Layer 3: Services Engine -->
-            <div class="arch-layer">
-              <div class="arch-layer-label">
-                <i class="bi bi-cpu"></i> 03. CLUSTER DE MICROSERVICIOS (KUBERNETES)
-              </div>
-              <div class="arch-nodes-row">
-                <div class="arch-node-card" data-node="dotnet-core">
-                  <div class="arch-node-icon"><i class="bi bi-microsoft"></i></div>
-                  <div class="arch-node-info">
-                    <h5>.NET 9 Core Engine</h5>
-                    <small>CQRS &bull; Clean Architecture</small>
-                  </div>
-                </div>
-                <div class="arch-node-card" data-node="go-service">
-                  <div class="arch-node-icon"><i class="bi bi-lightning-charge"></i></div>
-                  <div class="arch-node-info">
-                    <h5>Go Event Worker</h5>
-                    <small>High Concurrency &bull; 2ms latency</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Layer 4: Storage & Messaging -->
-            <div class="arch-layer" style="margin-bottom: 0;">
-              <div class="arch-layer-label">
-                <i class="bi bi-database"></i> 04. PERSISTENCIA & EVENT BUS
-              </div>
-              <div class="arch-nodes-row">
-                <div class="arch-node-card" data-node="redis">
-                  <div class="arch-node-icon"><i class="bi bi-lightning"></i></div>
-                  <div class="arch-node-info">
-                    <h5>Redis Cluster</h5>
-                    <small>Sub-millisecond Cache</small>
-                  </div>
-                </div>
-                <div class="arch-node-card" data-node="postgres">
-                  <div class="arch-node-icon"><i class="bi bi-database-check"></i></div>
-                  <div class="arch-node-info">
-                    <h5>PostgreSQL Sharded</h5>
-                    <small>ACID &bull; Multi-AZ Replicas</small>
-                  </div>
-                </div>
-                <div class="arch-node-card" data-node="kafka">
-                  <div class="arch-node-icon"><i class="bi bi-send-check"></i></div>
-                  <div class="arch-node-info">
-                    <h5>Kafka Stream</h5>
-                    <small>Event-Driven Architecture</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Panel de Telemetría del Nodo Seleccionado -->
-          <div class="arch-telemetry-panel">
-            <span class="badge-system mb-2" id="telemetryBadge">INSPECTOR DE NODO</span>
-            <h4 id="telemetryNodeTitle">Web & Mobile Apps</h4>
-            <p id="telemetryNodeDesc" style="color: var(--silver-mid); font-size: 0.9rem; line-height: 1.5;">
-              Capa de presentación moderna con Next.js 15 y Flutter compilado en código nativo (ARM64). Renderizado por servidor y consumo de APIs bajo GraphQL y gRPC.
+      <!-- Panel Dinámico de Industria Seleccionada -->
+      <div class="industry-spotlight-card" id="industrySpotlightCard" style="margin-bottom: 0;">
+        <div class="industry-spotlight-grid">
+          <div>
+            <span class="badge-system mb-2" id="indBadge">SECTOR 01 // AGROINDUSTRIA &amp; PRODUCCIÓN AGRÍCOLA</span>
+            <h3 id="indTitle" style="color: #FFFFFF; font-size: 1.65rem; margin-bottom: 10px;">
+              Agroindustria, Ingenios, Beneficios &amp; Fincas Productoras
+            </h3>
+            <p id="indDesc" style="color: var(--silver-mid); font-size: 0.94rem; line-height: 1.6;">
+              Especializado para operaciones de caña de azúcar, maní, café, plátano, banano, camarón, palma africana y ganadería en zonas rurales sin cobertura celular. Control total desde el surco y la cuadrilla hasta la báscula industrial y la exportación.
             </p>
 
-            <ul class="telemetry-spec-list">
-              <li>
-                <span>Protocolo:</span>
-                <strong id="telemetryProto">HTTPS / HTTP3 / gRPC</strong>
-              </li>
-              <li>
-                <span>Latencia Estimada:</span>
-                <strong id="telemetryLatency" style="color: #34D399;">~14ms P99</strong>
-              </li>
-              <li>
-                <span>Tolerancia a Fallos:</span>
-                <strong id="telemetryFailover">DNS Georredundante</strong>
-              </li>
-              <li>
-                <span>Cifrado:</span>
-                <strong id="telemetryCrypto">TLS 1.3 Strict</strong>
-              </li>
-            </ul>
-
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--silver-border); border-radius: var(--radius-xs); padding: 12px; margin-top: auto;">
-              <small class="font-mono text-silver" style="font-size: 0.76rem;">STATUS: NODE SYNCHRONIZED &bull; ZERO DRIFT</small>
+            <div class="industry-pains-solutions">
+              <div class="ind-box-pain">
+                <h5><i class="bi bi-exclamation-triangle-fill me-1"></i> Dolores que Eliminamos</h5>
+                <ul class="ind-list" id="indPainsList">
+                  <li><i class="bi bi-x-circle text-danger"></i> Planillas de campo apuntadas a mano con errores y retrasos de hasta 8 días.</li>
+                  <li><i class="bi bi-x-circle text-danger"></i> Pérdida de agroquímicos, fertilizantes y diésel sin trazabilidad por lote.</li>
+                  <li><i class="bi bi-x-circle text-danger"></i> Desconocimiento del costo real de producción por manzana o hectárea hasta fin de zafra.</li>
+                </ul>
+              </div>
+              <div class="ind-box-sol">
+                <h5><i class="bi bi-check-circle-fill me-1"></i> Cómo Ayuda Nuestro Software</h5>
+                <ul class="ind-list" id="indSolutionsList">
+                  <li><i class="bi bi-check2 text-green"></i> App Móvil Offline-First (como AgroStats) para capturar asistencia, labores, maquinaria y cosecha sin señal.</li>
+                  <li><i class="bi bi-check2 text-green"></i> Control de bodega agrícola por lote de cultivo y orden de aplicación técnica.</li>
+                  <li><i class="bi bi-check2 text-green"></i> Integración con básculas camioneras y tableros web de rendimiento por finca y contratista.</li>
+                </ul>
+              </div>
             </div>
           </div>
 
+          <div class="industry-arch-panel">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <span class="font-mono text-cyan" style="font-size: 0.76rem;">ARQUITECTURA RECOMENDADA</span>
+              <span class="badge-tag badge-dark">100% Adaptable</span>
+            </div>
+            <h4 id="indStackTitle" style="color: #FFFFFF; font-size: 1.12rem; margin-bottom: 12px;">
+              Ecosistema Campo + Cloud (.NET 9 + Flutter + SQLite)
+            </h4>
+
+            <div class="sw-module-pills mb-3" id="indModulesPills">
+              <span class="sw-module-pill">App Móvil Offline SQLite</span>
+              <span class="sw-module-pill">Control de Lotes y Cultivos</span>
+              <span class="sw-module-pill">Tareo y Planilla de Campo</span>
+              <span class="sw-module-pill">Control de Maquinaria y Combustible</span>
+              <span class="sw-module-pill">Cosecha y Tickets de Báscula</span>
+              <span class="sw-module-pill">API Sincronización Delta</span>
+            </div>
+
+            <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 18px;">
+              <div class="font-mono text-silver" style="font-size: 0.72rem; text-transform: uppercase;">Impacto Típico en la Industria:</div>
+              <div id="indImpactMetric" style="font-size: 0.9rem; color: #FFFFFF; font-weight: 700; margin-top: 4px;">
+                Reducción del 70% en tiempo de cierre de planilla agrícola y trazabilidad del 100% de labores por lote.
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20solicitar%20un%20diagn%C3%B3stico%20gratis%20para%20mi%20rubro" id="indWspBtn" target="_blank" rel="noopener" class="btn btn-silver w-100">
+                <i class="bi bi-whatsapp me-1"></i> Pedir Diagnóstico Gratis para Mi Rubro
+              </a>
+              <a href="industrias.html" class="btn btn-secondary w-100">
+                <i class="bi bi-buildings me-1"></i> Ver Guía Completa de las 8 Industrias
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Stack Tecnológico & Ecosistema -->
-  <section class="section" id="stack" style="background: #090B10; border-top: 1px solid var(--silver-border); border-bottom: 1px solid var(--silver-border);">
+  <!-- 5. BLUEPRINTS ARQUITECTÓNICOS & CASO REAL AGROSTATS -->
+  <section class="section section-alt" id="catalogo">
     <div class="container">
       <div class="section-header">
-        <span class="badge-system">MODERN TECH MATRIX</span>
-        <h2>Stack Tecnológico & Ecosistema</h2>
+        <span class="badge-system"><i class="bi bi-cpu-fill text-cyan me-1"></i> MÓDULOS PROBADOS &bull; ENTREGA ACELERADA</span>
+        <h2>Sistemas Base con Precios Claros (Adaptados 100% a tus Reglas)</h2>
         <p>
-          Seleccionamos las herramientas más sólidas, probadas y mantenibles del mercado para garantizar longevidad y velocidad a tu plataforma.
+          Ahorra meses de desarrollo partiendo de nuestras bases ya probadas en producción. Las moldeamos a tu flujo exacto y el sistema queda 100% en propiedad de tu empresa.
+        </p>
+      </div>
+
+      <!-- Oferta Quick-Start: Sprint 0 Sin Riesgo -->
+      <div class="sprint-zero-banner">
+        <div class="sprint-zero-info">
+          <span class="badge-system mb-2"><i class="bi bi-shield-check text-green me-1"></i> OFERTA DE ENTRADA SIN RIESGO &bull; SPRINT 0</span>
+          <h3>Prototipo Navegable + Arquitectura + Presupuesto Cerrado en 7 Días — $190 USD</h3>
+          <p>
+            ¿Dudas antes de invertir en un desarrollo completo? Levantamos tus procesos bajo contrato NDA, diseñamos pantallas reales de tu sistema, definimos la base de datos y te entregamos costo cerrado. <strong>El 100% ($190) se acredita como abono</strong> si decides construir con nosotros.
+          </p>
+        </div>
+        <div class="sprint-zero-cta">
+          <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio%2C%20quiero%20reservar%20el%20Sprint%200%20(%24190%20USD%20acreditables)%20para%20ver%20el%20prototipo%20y%20presupuesto%20de%20mi%20sistema." target="_blank" rel="noopener" class="btn btn-silver">
+            <i class="bi bi-rocket-takeoff-fill"></i>
+            <span>Reservar Sprint 0 ($190 Acreditables)</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Filtros Interactivos de Blueprints -->
+      <div class="dev-catalog-tabs" role="tablist" aria-label="Categorías de arquitecturas de software">
+        <button type="button" class="dev-catalog-tab-btn active" data-dev-cat="all">Todos (6)</button>
+        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="enterprise">ERP &amp; Industria</button>
+        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="saas">Plataformas SaaS</button>
+        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="mobile">Apps Offline-First</button>
+        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="apis">Conexión / APIs</button>
+        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="web">Tiendas &amp; Web</button>
+      </div>
+
+      <!-- Grid de Blueprints (Tarjetas Compactas y Comparativas) -->
+      <div class="dev-catalog-grid" id="devCatalogGrid">
+
+        <!-- Blueprint 1: ERP Cloud Core -->
+        <div class="dev-catalog-card" data-dev-item="enterprise">
+          <div class="dev-blueprint-thumb">
+            <img src="assets/blueprints/erp-core.jpg" alt="ERP Cloud Core & Facturación DGI" loading="lazy">
+            <span class="thumb-tag"><i class="bi bi-hdd-stack text-cyan me-1"></i> DGI + Kardex</span>
+          </div>
+          <div class="dev-blueprint-meta-row">
+            <div class="dev-blueprint-badge badge-cyan"><i class="bi bi-building-gear me-1"></i> Core Empresarial</div>
+            <span class="dev-blueprint-time"><i class="bi bi-clock me-1"></i> 3-4 sem</span>
+          </div>
+          <h3 class="dev-blueprint-title">ERP Cloud Core &amp; Facturación DGI</h3>
+          <p class="dev-blueprint-desc">
+            Facturación con normativa fiscal DGI Nicaragua, kardex multi-bodega, cuentas por cobrar, bancos y contabilidad bimoneda.
+          </p>
+          <div class="dev-blueprint-pricing">
+            <div class="dev-price-main">$1,850 <span class="dev-price-period">USD base</span></div>
+            <div class="dev-price-sub">~C$ 67,747 NIO &bull; Hitos 40/30/30</div>
+          </div>
+          <ul class="dev-blueprint-features">
+            <li><i class="bi bi-check-circle-fill"></i> Retenciones IR/IVA y reportes tributarios DGI</li>
+            <li><i class="bi bi-check-circle-fill"></i> Kardex multi-sucursal PEPS y costo promedio</li>
+            <li><i class="bi bi-check-circle-fill"></i> Permisos por cargo y bitácora anti-fraude</li>
+          </ul>
+          <div class="dev-blueprint-actions">
+            <button type="button" class="btn btn-secondary btn-ver-blueprint" data-dev-ficha="erp-core">
+              <i class="bi bi-eye me-1"></i> Ver Qué Incluye
+            </button>
+            <button type="button" class="btn btn-silver" data-preload-calc="erp">
+              <i class="bi bi-sliders me-1"></i> Cotizar
+            </button>
+          </div>
+        </div>
+
+        <!-- Blueprint 2: Portal Mayorista B2B & Plataforma SaaS -->
+        <div class="dev-catalog-card" data-dev-item="saas">
+          <div class="dev-blueprint-thumb">
+            <img src="assets/blueprints/saas-platform.jpg" alt="Portal Mayorista B2B y Plataforma por Suscripción" loading="lazy">
+            <span class="thumb-tag"><i class="bi bi-cloud-check text-green me-1"></i> Portal B2B</span>
+          </div>
+          <div class="dev-blueprint-meta-row">
+            <div class="dev-blueprint-badge badge-green"><i class="bi bi-cloud-arrow-up-fill me-1"></i> Escalabilidad Cloud</div>
+            <span class="dev-blueprint-time"><i class="bi bi-clock me-1"></i> 6-8 sem</span>
+          </div>
+          <h3 class="dev-blueprint-title">Portal Mayorista B2B &amp; Plataforma por Suscripción</h3>
+          <p class="dev-blueprint-desc">
+            Arquitectura lista para comercializar software por suscripción o portales B2B con datos privados por empresa cliente y cobros automáticos.
+          </p>
+          <div class="dev-blueprint-pricing">
+            <div class="dev-price-main">$3,200 <span class="dev-price-period">USD base</span></div>
+            <div class="dev-price-sub">~C$ 117,184 NIO &bull; Hitos 40/30/30</div>
+          </div>
+          <ul class="dev-blueprint-features">
+            <li><i class="bi bi-check-circle-fill"></i> Cuentas y precios privados aislados por cliente corporativo</li>
+            <li><i class="bi bi-check-circle-fill"></i> Suscripciones y pasarelas regionales / Stripe</li>
+            <li><i class="bi bi-check-circle-fill"></i> Acceso seguro por empresa y panel gerencial central</li>
+          </ul>
+          <div class="dev-blueprint-actions">
+            <button type="button" class="btn btn-secondary btn-ver-blueprint" data-dev-ficha="saas-platform">
+              <i class="bi bi-eye me-1"></i> Ver Qué Incluye
+            </button>
+            <button type="button" class="btn btn-silver" data-preload-calc="suite">
+              <i class="bi bi-sliders me-1"></i> Cotizar
+            </button>
+          </div>
+        </div>
+
+        <!-- Blueprint 3: App Móvil Offline-First -->
+        <div class="dev-catalog-card" data-dev-item="mobile">
+          <div class="dev-blueprint-thumb">
+            <img src="assets/blueprints/app-mobile.jpg" alt="App Móvil Offline-First de Campo" loading="lazy">
+            <span class="thumb-tag"><i class="bi bi-phone text-cyan me-1"></i> Sin Internet</span>
+          </div>
+          <div class="dev-blueprint-meta-row">
+            <div class="dev-blueprint-badge badge-cyan"><i class="bi bi-phone-flip me-1"></i> iOS + Android</div>
+            <span class="dev-blueprint-time"><i class="bi bi-clock me-1"></i> 4-6 sem</span>
+          </div>
+          <h3 class="dev-blueprint-title">App Móvil Sin Conexión para Campo y Rutas</h3>
+          <p class="dev-blueprint-desc">
+            App móvil para supervisores agrícolas, ingenieros de obra o vendedores ruteros. Opera al 100% sin señal y sincroniza al reconectar.
+          </p>
+          <div class="dev-blueprint-pricing">
+            <div class="dev-price-main">$2,450 <span class="dev-price-period">USD base</span></div>
+            <div class="dev-price-sub">~C$ 89,719 NIO &bull; Hitos 40/30/30</div>
+          </div>
+          <ul class="dev-blueprint-features">
+            <li><i class="bi bi-check-circle-fill"></i> Guardado local blindado con sincronización automática</li>
+            <li><i class="bi bi-check-circle-fill"></i> GPS en ruta, evidencia fotográfica y código QR/Barras</li>
+            <li><i class="bi bi-check-circle-fill"></i> Impresión térmica Bluetooth de recibos en sitio</li>
+          </ul>
+          <div class="dev-blueprint-actions">
+            <button type="button" class="btn btn-secondary btn-ver-blueprint" data-dev-ficha="app-mobile">
+              <i class="bi bi-eye me-1"></i> Ver Qué Incluye
+            </button>
+            <button type="button" class="btn btn-silver" data-preload-calc="mobile">
+              <i class="bi bi-sliders me-1"></i> Cotizar
+            </button>
+          </div>
+        </div>
+
+        <!-- Blueprint 4: Conexión Automática Entre Sistemas -->
+        <div class="dev-catalog-card" data-dev-item="apis">
+          <div class="dev-blueprint-thumb">
+            <img src="assets/blueprints/api-gateway.jpg" alt="Conexión Automática Entre Sistemas y APIs" loading="lazy">
+            <span class="thumb-tag"><i class="bi bi-lightning-charge text-green me-1"></i> Integración</span>
+          </div>
+          <div class="dev-blueprint-meta-row">
+            <div class="dev-blueprint-badge badge-green"><i class="bi bi-hdd-rack me-1"></i> Cero Redigitación</div>
+            <span class="dev-blueprint-time"><i class="bi bi-clock me-1"></i> 3-5 sem</span>
+          </div>
+          <h3 class="dev-blueprint-title">Conexión Automática Entre Tus Sistemas Actuales (APIs)</h3>
+          <p class="dev-blueprint-desc">
+            Hacemos que tu contabilidad actual, bancos, básculas y apps móviles se sincronicen solos, eliminando errores humanos por redigitar.
+          </p>
+          <div class="dev-blueprint-pricing">
+            <div class="dev-price-main">$2,100 <span class="dev-price-period">USD base</span></div>
+            <div class="dev-price-sub">~C$ 76,902 NIO &bull; Hitos 40/30/30</div>
+          </div>
+          <ul class="dev-blueprint-features">
+            <li><i class="bi bi-check-circle-fill"></i> Conexión rápida entre ERP legados y canales web/móvil</li>
+            <li><i class="bi bi-check-circle-fill"></i> Tráfico encriptado con control estricto de accesos</li>
+            <li><i class="bi bi-check-circle-fill"></i> Monitoreo en vivo para evitar caídas y cuellos de botella</li>
+          </ul>
+          <div class="dev-blueprint-actions">
+            <button type="button" class="btn btn-secondary btn-ver-blueprint" data-dev-ficha="api-gateway">
+              <i class="bi bi-eye me-1"></i> Ver Qué Incluye
+            </button>
+            <button type="button" class="btn btn-silver" data-preload-calc="suite">
+              <i class="bi bi-sliders me-1"></i> Cotizar
+            </button>
+          </div>
+        </div>
+
+        <!-- Blueprint 5: Tienda Online Conectada a Bodega -->
+        <div class="dev-catalog-card" data-dev-item="web">
+          <div class="dev-blueprint-thumb">
+            <img src="assets/blueprints/web-transaccional.jpg" alt="Tienda Online Conectada a Bodega y WhatsApp" loading="lazy">
+            <span class="thumb-tag"><i class="bi bi-cart4 text-cyan me-1"></i> Ventas 24/7</span>
+          </div>
+          <div class="dev-blueprint-meta-row">
+            <div class="dev-blueprint-badge badge-cyan"><i class="bi bi-cart4 me-1"></i> Carga Sub-Segundo</div>
+            <span class="dev-blueprint-time"><i class="bi bi-clock me-1"></i> 2-3 sem</span>
+          </div>
+          <h3 class="dev-blueprint-title">Tienda Online Conectada a Bodega &amp; WhatsApp</h3>
+          <p class="dev-blueprint-desc">
+            Tienda digital y portal transaccional ultrarrápido con inventario en tiempo real, pasarelas bancarias locales y pedidos directos a WhatsApp.
+          </p>
+          <div class="dev-blueprint-pricing">
+            <div class="dev-price-main">$980 <span class="dev-price-period">USD base</span></div>
+            <div class="dev-price-sub">~C$ 35,888 NIO &bull; Hitos 40/30/30</div>
+          </div>
+          <ul class="dev-blueprint-features">
+            <li><i class="bi bi-check-circle-fill"></i> Abre en menos de 1 segundo para no perder compradores móviles</li>
+            <li><i class="bi bi-check-circle-fill"></i> Cobros locales BAC/PixelPay y alertas a WhatsApp</li>
+            <li><i class="bi bi-check-circle-fill"></i> Panel sencillo de productos, precios y existencias</li>
+          </ul>
+          <div class="dev-blueprint-actions">
+            <button type="button" class="btn btn-secondary btn-ver-blueprint" data-dev-ficha="web-transaccional">
+              <i class="bi bi-eye me-1"></i> Ver Qué Incluye
+            </button>
+            <button type="button" class="btn btn-silver" data-preload-calc="pos">
+              <i class="bi bi-sliders me-1"></i> Cotizar
+            </button>
+          </div>
+        </div>
+
+        <!-- Blueprint 6: Telemetría IoT & Control Industrial -->
+        <div class="dev-catalog-card" data-dev-item="enterprise">
+          <div class="dev-blueprint-thumb">
+            <img src="assets/blueprints/iot-industrial.jpg" alt="Telemetría IoT & Control Industrial" loading="lazy">
+            <span class="thumb-tag"><i class="bi bi-broadcast text-green me-1"></i> Alertas 24/7</span>
+          </div>
+          <div class="dev-blueprint-meta-row">
+            <div class="dev-blueprint-badge badge-green"><i class="bi bi-broadcast-pin me-1"></i> Industria &amp; Agro</div>
+            <span class="dev-blueprint-time"><i class="bi bi-clock me-1"></i> 4-6 sem</span>
+          </div>
+          <h3 class="dev-blueprint-title">Telemetría IoT &amp; Control Industrial</h3>
+          <p class="dev-blueprint-desc">
+            Supervisión automática de cuartos fríos, básculas camioneras, nivel de diésel, temperatura y flotas GPS para plantas y agroindustrias.
+          </p>
+          <div class="dev-blueprint-pricing">
+            <div class="dev-price-main">$2,800 <span class="dev-price-period">USD base</span></div>
+            <div class="dev-price-sub">~C$ 102,536 NIO &bull; Hitos 40/30/30</div>
+          </div>
+          <ul class="dev-blueprint-features">
+            <li><i class="bi bi-check-circle-fill"></i> Lectura continua directa desde sensores y básculas</li>
+            <li><i class="bi bi-check-circle-fill"></i> Alertas inmediatas en WhatsApp ante anomalías o robos</li>
+            <li><i class="bi bi-check-circle-fill"></i> Historial de rendimiento y consumo eléctrico por turno</li>
+          </ul>
+          <div class="dev-blueprint-actions">
+            <button type="button" class="btn btn-secondary btn-ver-blueprint" data-dev-ficha="iot-industrial">
+              <i class="bi bi-eye me-1"></i> Ver Qué Incluye
+            </button>
+            <button type="button" class="btn btn-silver" data-preload-calc="suite">
+              <i class="bi bi-sliders me-1"></i> Cotizar
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Caso de Estudio Real Integrado: AgroStats con Narrativa Comercial Reto -> Solución -> Resultado -->
+      <div id="casos" style="margin-top: 64px;">
+        <div class="case-featured">
+          <div class="case-featured-main">
+            <span class="badge-system mb-2"><i class="bi bi-patch-check-fill text-cyan me-1"></i> CASO REAL EN OPERACIÓN AGRÍCOLA &bull; CERO PÉRDIDA DE DATOS</span>
+            <h3 style="margin-top: 8px;">AgroStats: Del Apunte en Papel sin Señal al Control Exacto de Planilla y Cosecha</h3>
+            <p>
+              Diseñado para operaciones agrícolas reales en zonas sin cobertura celular, eliminando el desfase entre lo que ocurre en los lotes y lo que recibe gerencia.
+            </p>
+
+            <ul class="case-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>El Reto en Campo:</strong> Cuadrillas, labores de cultivo, inventario de cintas y viajes de cosecha en lotes sin señal 4G que retrasaban cierres y exponían a errores manuales.</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>La Solución Implementada:</strong> App móvil sin conexión para supervisores en finca conectada mediante sincronización blindada a los catálogos del ERP central y panel web gerencial.</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>El Resultado de Negocio:</strong> 0% de registros perdidos en campo, auditoría semanal exacta de cintas y viajes recibidos, y exportación directa a planilla sin redigitar.</span></li>
+            </ul>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 22px;">
+              <div class="case-arch-tags" style="margin: 0;">
+                <span class="arch-tag">App Sin Señal</span>
+                <span class="arch-tag">SQLite Blindado</span>
+                <span class="arch-tag">Integración ERP</span>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <button type="button" class="btn btn-sm btn-silver" data-preload-calc="mobile">
+                  <i class="bi bi-sliders me-1"></i> Cotizar Sistema Similar
+                </button>
+                <a href="blueprints.html" class="btn btn-sm btn-outline-silver">
+                  <i class="bi bi-file-earmark-code me-1"></i> Ver Blueprints &amp; SLA
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Simulador Visual Interactivo de AgroStats (App Móvil vs Panel Web) -->
+          <div class="agro-preview-box">
+            <div class="agro-preview-tabs" role="tablist" aria-label="Vistas del ecosistema AgroStats">
+              <button type="button" class="agro-tab-btn active" data-agro-tab="mobile">
+                <i class="bi bi-phone-fill"></i> 1. App Móvil en Finca (Offline)
+              </button>
+              <button type="button" class="agro-tab-btn" data-agro-tab="web">
+                <i class="bi bi-pc-display-horizontal"></i> 2. Panel Web Cosecha &amp; Cintas
+              </button>
+            </div>
+
+            <!-- Vista 1: App Móvil en Finca (Sin Señal) -->
+            <div class="agro-screen-panel active" id="agroTabMobile">
+              <div class="agro-mock-header">
+                <div>
+                  <span class="agro-mock-kicker">REGISTRO DE LABORES DE MANO DE OBRA</span>
+                  <strong>Finca Ceylan Agrosa</strong>
+                </div>
+                <span class="agro-status-pill offline"><i class="bi bi-wifi-off"></i> SQLite Offline</span>
+              </div>
+
+              <div class="agro-mock-item">
+                <div class="agro-mock-row">
+                  <span class="agro-mock-label"><i class="bi bi-geo-alt-fill text-cyan"></i> Lote Seleccionado</span>
+                  <span class="font-mono text-green" style="font-size: 0.72rem;">5.76 Ha &bull; Activo</span>
+                </div>
+                <div class="agro-mock-val">Cable 12 R2024 Mtto <small>(Cód. CC: 3R24CD012)</small></div>
+              </div>
+
+              <div class="agro-mock-item">
+                <div class="agro-mock-row">
+                  <span class="agro-mock-label"><i class="bi bi-briefcase-fill text-cyan"></i> Labor Madre / Sub-Labor</span>
+                  <span class="font-mono text-silver" style="font-size: 0.72rem;">18 Empleados</span>
+                </div>
+                <div class="agro-mock-val">P0810 - Deshoje de Saneamiento &amp; Encinte</div>
+              </div>
+
+              <div class="agro-mock-kpis">
+                <div class="agro-kpi-mini">
+                  <small>Cola Outbox Local</small>
+                  <strong class="text-cyan">24 Registros</strong>
+                </div>
+                <div class="agro-kpi-mini">
+                  <small>Pérdida de Datos</small>
+                  <strong class="text-green">0.0% (Blindado)</strong>
+                </div>
+              </div>
+
+              <div class="agro-mock-footer">
+                <span><i class="bi bi-arrow-repeat text-cyan"></i> Delta Sync automático al detectar 4G / Wi-Fi</span>
+                <span class="font-mono text-green">ACK 100%</span>
+              </div>
+            </div>
+
+            <!-- Vista 2: Panel Web Administrativo de Cosecha & Cintas -->
+            <div class="agro-screen-panel" id="agroTabWeb">
+              <div class="agro-mock-header">
+                <div>
+                  <span class="agro-mock-kicker">PANEL GERENCIAL &bull; CONTROL DE COSECHA</span>
+                  <strong>Proceso #72 &mdash; Venta Local y Adelanto</strong>
+                </div>
+                <span class="agro-status-pill online"><i class="bi bi-check2-circle"></i> 100% Liquidado</span>
+              </div>
+
+              <div class="agro-mock-kpis three-cols">
+                <div class="agro-kpi-mini">
+                  <small>Total Cosechado</small>
+                  <strong class="text-light">8,229 <span style="font-size:0.68rem; color:var(--silver-mid);">racimos</span></strong>
+                </div>
+                <div class="agro-kpi-mini">
+                  <small>Viajes Recibidos</small>
+                  <strong class="text-cyan">232 Viajes</strong>
+                </div>
+                <div class="agro-kpi-mini">
+                  <small>En Patio</small>
+                  <strong class="text-green">0 Pendientes</strong>
+                </div>
+              </div>
+
+              <div class="agro-mock-item">
+                <div class="agro-mock-row">
+                  <span class="agro-mock-label"><i class="bi bi-palette-fill text-cyan"></i> Inventario Semanal de Cintas (Sem 44–45)</span>
+                  <span class="font-mono text-green" style="font-size: 0.72rem;">Auditado</span>
+                </div>
+                <div class="agro-ribbon-pills">
+                  <span class="ribbon-pill"><i class="bi bi-circle-fill" style="color:#EF4444;"></i> Roja: 3,299</span>
+                  <span class="ribbon-pill"><i class="bi bi-circle-fill" style="color:#22C55E;"></i> Verde: 3,498</span>
+                  <span class="ribbon-pill"><i class="bi bi-circle-fill" style="color:#EAB308;"></i> Amarilla: 3,756</span>
+                  <span class="ribbon-pill"><i class="bi bi-circle-fill" style="color:#A855F7;"></i> Morada: 2,241</span>
+                </div>
+              </div>
+
+              <div class="agro-mock-footer">
+                <span><i class="bi bi-file-earmark-spreadsheet text-green"></i> Exportación directa a Planilla ERP &amp; Excel</span>
+                <span class="font-mono text-cyan">PostgreSQL + SQL Server</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Puente de Sinergia Comercial Cruzada con Guardabarranco Studio -->
+      <div class="section-bridge-bar" style="margin-top: 28px;">
+        <div class="section-bridge-text">
+          <strong>¿Necesitas un Sitio Web Corporativo ligero desde $490 USD, Branding o campañas de Meta/Google Ads y Dron 4K?</strong>
+          <span>Nuestra división creativa <strong>Guardabarranco Studio</strong> posiciona tu marca y llena de clientes la plataforma que construimos juntos.</span>
+        </div>
+        <div class="section-bridge-actions">
+          <a href="../GUARDABARRANCO%20STUDIO/index.html" class="btn btn-sm btn-silver">
+            <i class="bi bi-gem"></i> Conocer Guardabarranco Studio &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="stack">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-system">TECH MATRIX &amp; LIFECYCLE</span>
+        <h2>Stack Tecnológico y Metodología de Entrega</h2>
+        <p>
+          Trabajamos con tecnologías de respaldo corporativo y un proceso transparente en 5 etapas para entregar a tiempo y sin deuda técnica.
         </p>
       </div>
 
       <!-- Pestañas de Filtro Tecnológico -->
       <div class="stack-tabs">
-        <button class="stack-tab-btn active" data-stack="all">Todos los Componentes</button>
-        <button class="stack-tab-btn" data-stack="backend">Backend & APIs</button>
-        <button class="stack-tab-btn" data-stack="frontend">Frontend & UI</button>
-        <button class="stack-tab-btn" data-stack="mobile">Móvil Nativo & Cross</button>
-        <button class="stack-tab-btn" data-stack="cloud">Cloud & DevOps</button>
-        <button class="stack-tab-btn" data-stack="data">Bases de Datos & IA</button>
+        <button class="stack-tab-btn active" data-stack="all">Todos</button>
+        <button class="stack-tab-btn" data-stack="backend">Backend &amp; APIs</button>
+        <button class="stack-tab-btn" data-stack="frontend">Frontend Web</button>
+        <button class="stack-tab-btn" data-stack="mobile">Móvil Offline</button>
+        <button class="stack-tab-btn" data-stack="data">Bases de Datos &amp; Cloud</button>
       </div>
 
       <div class="stack-grid" id="stackGrid">
-        
-        <!-- .NET 9 -->
         <div class="stack-item-card" data-cat="backend">
           <div class="stack-icon-box"><i class="bi bi-microsoft"></i></div>
           <h4>.NET 9 / C#</h4>
-          <p>Rendimiento extremo, tipado estricto y robustez enterprise para APIs de misión crítica.</p>
-          <span class="stack-tag-badge">Backend Enterprise</span>
+          <p>APIs empresariales de alto rendimiento, tipado estricto y Clean Architecture.</p>
+          <span class="stack-tag-badge">Backend Core</span>
         </div>
 
-        <!-- Node / NestJS -->
         <div class="stack-item-card" data-cat="backend">
           <div class="stack-icon-box"><i class="bi bi-terminal"></i></div>
-          <h4>Node.js & NestJS</h4>
-          <p>Microservicios asíncronos y arquitecturas orientadas a eventos en TypeScript.</p>
-          <span class="stack-tag-badge">High Concurrency</span>
+          <h4>Node.js, NestJS &amp; Go</h4>
+          <p>Microservicios asíncronos, WebSockets en tiempo real y workers de baja latencia.</p>
+          <span class="stack-tag-badge">Concurrencia</span>
         </div>
 
-        <!-- Python FastAPI -->
-        <div class="stack-item-card" data-cat="backend data">
-          <div class="stack-icon-box"><i class="bi bi-code-slash"></i></div>
-          <h4>Python & FastAPI</h4>
-          <p>Servicios de procesamiento de datos, machine learning e integración con LLMs/AI.</p>
-          <span class="stack-tag-badge">Data & AI Backend</span>
-        </div>
-
-        <!-- Next.js / React -->
         <div class="stack-item-card" data-cat="frontend">
           <div class="stack-icon-box"><i class="bi bi-window-fullscreen"></i></div>
-          <h4>Next.js & React 19</h4>
-          <p>Server-side rendering, hidratación instantánea y arquitectura web moderna.</p>
-          <span class="stack-tag-badge">Frontend Moderno</span>
+          <h4>React 19 &amp; Next.js</h4>
+          <p>Paneles administrativos rápidos, SSR y portales web B2B con TypeScript.</p>
+          <span class="stack-tag-badge">Frontend Web</span>
         </div>
 
-        <!-- TypeScript -->
-        <div class="stack-item-card" data-cat="frontend backend">
-          <div class="stack-icon-box"><i class="bi bi-filetype-tsx"></i></div>
-          <h4>TypeScript</h4>
-          <p>Seguridad de tipos de extremo a extremo, autocompletado y cero errores en runtime.</p>
-          <span class="stack-tag-badge">Type Safety</span>
-        </div>
-
-        <!-- Flutter -->
         <div class="stack-item-card" data-cat="mobile">
-          <div class="stack-icon-box"><i class="bi bi-phone"></i></div>
-          <h4>Flutter & Dart</h4>
-          <p>Aplicaciones móviles iOS y Android nativas compuestas desde una sola base de código.</p>
-          <span class="stack-tag-badge">Mobile Cross-Platform</span>
+          <div class="stack-icon-box"><i class="bi bi-phone-flip"></i></div>
+          <h4>Flutter (iOS &amp; Android)</h4>
+          <p>Apps nativas compiladas en ARM64 con motor local SQLite/Drift para operar sin señal.</p>
+          <span class="stack-tag-badge">Móvil Offline-First</span>
         </div>
 
-        <!-- AWS & Azure -->
-        <div class="stack-item-card" data-cat="cloud">
-          <div class="stack-icon-box"><i class="bi bi-cloud-check"></i></div>
-          <h4>AWS & Microsoft Azure</h4>
-          <p>Infraestructura elástica global, ECS, Lambda, AKS y redes virtuales privadas seguras.</p>
-          <span class="stack-tag-badge">Cloud Architecture</span>
+        <div class="stack-item-card" data-cat="data">
+          <div class="stack-icon-box"><i class="bi bi-database-check"></i></div>
+          <h4>PostgreSQL &amp; SQL Server</h4>
+          <p>Motores relacionales ACID con integridad transaccional, particionamiento y réplicas.</p>
+          <span class="stack-tag-badge">Persistencia ACID</span>
         </div>
 
-        <!-- Docker & Kubernetes -->
-        <div class="stack-item-card" data-cat="cloud">
+        <div class="stack-item-card" data-cat="data">
           <div class="stack-icon-box"><i class="bi bi-boxes"></i></div>
-          <h4>Docker & Kubernetes</h4>
-          <p>Contenedores inmutables, orquestación distribuida y despliegues sin tiempo muerto.</p>
-          <span class="stack-tag-badge">DevOps & CI/CD</span>
+          <h4>Docker, Linux &amp; Cloud</h4>
+          <p>Despliegues reproducibles en AWS, DigitalOcean, GCP o servidores locales en planta.</p>
+          <span class="stack-tag-badge">DevOps &amp; Infra</span>
         </div>
 
-        <!-- PostgreSQL -->
         <div class="stack-item-card" data-cat="data">
-          <div class="stack-icon-box"><i class="bi bi-database"></i></div>
-          <h4>PostgreSQL & PostGIS</h4>
-          <p>Base de datos relacional estándar de la industria, transacciones ACID y extensiones geo.</p>
-          <span class="stack-tag-badge">Relational Core</span>
+          <div class="stack-icon-box"><i class="bi bi-lightning-charge"></i></div>
+          <h4>Redis &amp; TimescaleDB</h4>
+          <p>Caché en memoria sub-milisegundo y series temporales para telemetría IoT.</p>
+          <span class="stack-tag-badge">Real-Time Data</span>
         </div>
 
-        <!-- Redis -->
-        <div class="stack-item-card" data-cat="data">
-          <div class="stack-icon-box"><i class="bi bi-lightning"></i></div>
-          <h4>Redis In-Memory</h4>
-          <p>Caché distribuida de ultra baja latencia, rate limiting y sesiones compartidas.</p>
-          <span class="stack-tag-badge">Sub-millisecond</span>
-        </div>
-
-        <!-- AI Integrations -->
-        <div class="stack-item-card" data-cat="data">
+        <div class="stack-item-card" data-cat="backend data">
           <div class="stack-icon-box"><i class="bi bi-robot"></i></div>
-          <h4>AI & RAG Pipelines</h4>
-          <p>Integración de modelos Gemini/OpenAI, embeddings vectoriales y agentes autónomos.</p>
-          <span class="stack-tag-badge">Intelligent Apps</span>
+          <h4>Python, FastAPI &amp; IA</h4>
+          <p>Pipelines analíticos, automatización y copilotos empresariales con RAG privado.</p>
+          <span class="stack-tag-badge">Data &amp; AI</span>
         </div>
+      </div>
 
-        <!-- GitOps & Terraform -->
-        <div class="stack-item-card" data-cat="cloud">
-          <div class="stack-icon-box"><i class="bi bi-git"></i></div>
-          <h4>Terraform & GitHub CI/CD</h4>
-          <p>Infraestructura reproducible versionada en código con auditoría criptográfica.</p>
-          <span class="stack-tag-badge">Infrastructure as Code</span>
+      <!-- Metodología en 5 Pasos (Integrada Limpiamente) -->
+      <div id="metodologia" style="margin-top: 64px;">
+        <div class="blueprint-steps-grid">
+          <div class="blueprint-card">
+            <div class="blueprint-num">01</div>
+            <h4>Discovery &amp; Alcance</h4>
+            <p>Levantamiento de procesos, modelo de base de datos y definición exacta de entregables bajo NDA.</p>
+          </div>
+
+          <div class="blueprint-card">
+            <div class="blueprint-num">02</div>
+            <h4>Prototipo UI/UX</h4>
+            <p>Diseño de pantallas intuitivas validadas con tu equipo antes de escribir código de producción.</p>
+          </div>
+
+          <div class="blueprint-card">
+            <div class="blueprint-num">03</div>
+            <h4>Sprints de 2 Semanas</h4>
+            <p>Avances funcionales auditables cada 14 días en un servidor de pruebas real (Staging).</p>
+          </div>
+
+          <div class="blueprint-card">
+            <div class="blueprint-num">04</div>
+            <h4>QA &amp; Seguridad</h4>
+            <p>Pruebas de carga, validación de cálculos contables/DGI y blindaje de permisos por rol.</p>
+          </div>
+
+          <div class="blueprint-card">
+            <div class="blueprint-num">05</div>
+            <h4>Puesta en Marcha</h4>
+            <p>Despliegue en producción, capacitación a tus usuarios y entrega del 100% del código fuente.</p>
+          </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- SECCIÓN CATÁLOGO DE SOLUCIONES & ARQUITECTURAS 2026 -->
-  <section class="section" id="catalogo" style="background: #08090C; border-top: 1px solid var(--silver-border);">
+  <!-- 7. CONFIGURADOR INTELIGENTE DE PROYECTO & SPRINTS -->
+  <section class="section section-alt" id="estimador">
     <div class="container">
       <div class="section-header">
-        <span class="badge-system"><i class="bi bi-boxes me-1"></i> PRODUCTION-READY BLUEPRINTS</span>
-        <h2>Catálogo de Soluciones & Arquitecturas</h2>
+        <span class="badge-system"><i class="bi bi-sliders text-cyan me-1"></i> CALCULADORA EJECUTIVA DE INVERSIÓN</span>
+        <h2>Calcula la Inversión y Plazo de Tu Sistema en 3 Clics</h2>
         <p>
-          Modelos de sistemas y arquitecturas de software probadas en producción. Diseñadas para empresas de Nicaragua y la región centroamericana que exigen alta concurrencia, seguridad SOC2, código limpio y propiedad intelectual 100% transferida.
-        </p>
-      </div>
-
-      <!-- Filtros de Categoría -->
-      <div class="dev-catalog-filters">
-        <button type="button" class="dev-catalog-tab-btn active" data-dev-cat="all">
-          <i class="bi bi-grid-fill"></i>
-          <span>Todos los Blueprints (6)</span>
-        </button>
-        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="enterprise">
-          <i class="bi bi-building-gear"></i>
-          <span>Enterprise & ERP</span>
-        </button>
-        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="saas">
-          <i class="bi bi-cloud-check-fill"></i>
-          <span>SaaS Multi-Tenant</span>
-        </button>
-        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="mobile">
-          <i class="bi bi-phone"></i>
-          <span>Apps Móviles</span>
-        </button>
-        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="apis">
-          <i class="bi bi-hdd-network"></i>
-          <span>APIs & Microservicios</span>
-        </button>
-        <button type="button" class="dev-catalog-tab-btn" data-dev-cat="web">
-          <i class="bi bi-browser-chrome"></i>
-          <span>Web & Transaccional</span>
-        </button>
-      </div>
-
-      <!-- Grid de Soluciones -->
-      <div class="dev-catalog-grid" id="devCatalogGrid">
-
-        <!-- Blueprint 1: ERP Cloud Core Nicaragua -->
-        <div class="dev-catalog-card dev-catalog-card-featured" data-dev-item="enterprise">
-          <div class="dev-blueprint-thumb">
-            <img src="assets/blueprints/erp-core.jpg" alt="ERP Cloud Core & Facturación DGI" loading="lazy">
-            <span class="thumb-tag"><i class="bi bi-shield-check text-cyan me-1"></i> SOC2 / DGI</span>
-          </div>
-          <div class="dev-blueprint-badge badge-cyan"><i class="bi bi-check2-circle me-1"></i> Core Empresarial Nicaragua</div>
-          <h3 class="dev-blueprint-title">ERP Cloud Core & Facturación DGI</h3>
-          <p class="dev-blueprint-desc">
-            Sistema integral modular de gestión empresarial: facturación electrónica con normativas de la DGI de Nicaragua, multi-bodega, cuentas por cobrar, bancos y reportería financiera.
-          </p>
-          <div class="dev-blueprint-tags">
-            <span class="dev-blueprint-tag">.NET 9 C#</span>
-            <span class="dev-blueprint-tag">PostgreSQL 16</span>
-            <span class="dev-blueprint-tag">React / TypeScript</span>
-            <span class="dev-blueprint-tag">Docker</span>
-          </div>
-          <div class="dev-blueprint-pricing">
-            <div class="dev-price-main">$1,850 <span class="dev-price-period">USD base</span></div>
-            <div class="dev-price-sub">Aprox. C$ 67,747 NIO &bull; Despliegue en 3-4 semanas</div>
-          </div>
-          <ul class="dev-blueprint-features">
-            <li><i class="bi bi-check-circle-fill"></i> Módulo DGI: Retenciones IR, IVA y pie de imprenta fiscal</li>
-            <li><i class="bi bi-check-circle-fill"></i> Inventario Multi-Sucursal con kardex PEPS/Promedio</li>
-            <li><i class="bi bi-check-circle-fill"></i> Control de permisos por rol (RBAC) y auditoría total</li>
-            <li><i class="bi bi-check-circle-fill"></i> API abierta para conectar a CRM y tiendas online</li>
-          </ul>
-          <div class="dev-blueprint-actions">
-            <button type="button" class="btn btn-secondary w-100 btn-ver-blueprint" data-dev-ficha="erp-core">
-              <i class="bi bi-cpu me-1"></i> Ver Ficha Técnica Arquitectónica
-            </button>
-            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20el%20Blueprint%20ERP%20Cloud%20Core%20Nicaragua%20($1,850%20USD)" target="_blank" rel="noopener" class="btn btn-silver w-100">
-              <i class="bi bi-whatsapp me-1"></i> Cotizar este Blueprint
-            </a>
-          </div>
-        </div>
-
-        <!-- Blueprint 2: Plataforma SaaS Multi-Tenant Cloud-Native -->
-        <div class="dev-catalog-card" data-dev-item="saas">
-          <div class="dev-blueprint-thumb">
-            <img src="assets/blueprints/saas-platform.jpg" alt="Plataforma SaaS B2B Multi-Tenant" loading="lazy">
-            <span class="thumb-tag"><i class="bi bi-cloud-check text-green me-1"></i> Multi-Tenant</span>
-          </div>
-          <div class="dev-blueprint-badge badge-green"><i class="bi bi-cloud-arrow-up-fill me-1"></i> Escalabilidad Global</div>
-          <h3 class="dev-blueprint-title">Plataforma SaaS B2B Multi-Tenant</h3>
-          <p class="dev-blueprint-desc">
-            Arquitectura moderna lista para comercializar software por suscripción: particionamiento de bases de datos por inquilino, cobros recurrentes y panel de super-administrador.
-          </p>
-          <div class="dev-blueprint-tags">
-            <span class="dev-blueprint-tag">NestJS / Node</span>
-            <span class="dev-blueprint-tag">Next.js 14 App Router</span>
-            <span class="dev-blueprint-tag">Stripe / PixelPay</span>
-            <span class="dev-blueprint-tag">AWS ECS</span>
-          </div>
-          <div class="dev-blueprint-pricing">
-            <div class="dev-price-main">$3,200 <span class="dev-price-period">USD base</span></div>
-            <div class="dev-price-sub">Aprox. C$ 117,184 NIO &bull; Despliegue en 6-8 semanas</div>
-          </div>
-          <ul class="dev-blueprint-features">
-            <li><i class="bi bi-check-circle-fill"></i> Aislamiento estricto de datos con Schema-per-tenant</li>
-            <li><i class="bi bi-check-circle-fill"></i> Facturación recurrente y pasarelas centroamericanas</li>
-            <li><i class="bi bi-check-circle-fill"></i> Autenticación OAuth2 / JWT con 2FA biométrico</li>
-            <li><i class="bi bi-check-circle-fill"></i> Webhooks entrantes y salientes para integraciones</li>
-          </ul>
-          <div class="dev-blueprint-actions">
-            <button type="button" class="btn btn-secondary w-100 btn-ver-blueprint" data-dev-ficha="saas-platform">
-              <i class="bi bi-cpu me-1"></i> Ver Ficha Técnica Arquitectónica
-            </button>
-            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20el%20Blueprint%20SaaS%20Multi-Tenant%20($3,200%20USD)" target="_blank" rel="noopener" class="btn btn-silver w-100">
-              <i class="bi bi-whatsapp me-1"></i> Cotizar este Blueprint
-            </a>
-          </div>
-        </div>
-
-        <!-- Blueprint 3: App Móvil Offline-First (Flutter / React Native) -->
-        <div class="dev-catalog-card" data-dev-item="mobile">
-          <div class="dev-blueprint-thumb">
-            <img src="assets/blueprints/app-mobile.jpg" alt="App Móvil Offline-First de Campo" loading="lazy">
-            <span class="thumb-tag"><i class="bi bi-phone text-cyan me-1"></i> Flutter Offline</span>
-          </div>
-          <div class="dev-blueprint-badge badge-cyan"><i class="bi bi-phone-flip me-1"></i> iOS + Android Nativo</div>
-          <h3 class="dev-blueprint-title">App Móvil Offline-First de Campo</h3>
-          <p class="dev-blueprint-desc">
-            Aplicación móvil robusta para equipos de ventas, supervisores de obra o técnicos en campo. Funciona al 100% sin conexión a internet y sincroniza al detectar señal.
-          </p>
-          <div class="dev-blueprint-tags">
-            <span class="dev-blueprint-tag">Flutter 3.x</span>
-            <span class="dev-blueprint-tag">SQLite / Drift</span>
-            <span class="dev-blueprint-tag">Node / Go API</span>
-            <span class="dev-blueprint-tag">Firebase Push</span>
-          </div>
-          <div class="dev-blueprint-pricing">
-            <div class="dev-price-main">$2,450 <span class="dev-price-period">USD base</span></div>
-            <div class="dev-price-sub">Aprox. C$ 89,719 NIO &bull; Despliegue en 4-6 semanas</div>
-          </div>
-          <ul class="dev-blueprint-features">
-            <li><i class="bi bi-check-circle-fill"></i> Base de datos local encriptada con sincronización bidireccional</li>
-            <li><i class="bi bi-check-circle-fill"></i> Geolocalización GPS en segundo plano y captura de firmas</li>
-            <li><i class="bi bi-check-circle-fill"></i> Publicación y aprobación garantizada en App Store & Play Store</li>
-            <li><i class="bi bi-check-circle-fill"></i> Impresión térmica bluetooth de comprobantes y recibos</li>
-          </ul>
-          <div class="dev-blueprint-actions">
-            <button type="button" class="btn btn-secondary w-100 btn-ver-blueprint" data-dev-ficha="app-mobile">
-              <i class="bi bi-cpu me-1"></i> Ver Ficha Técnica Arquitectónica
-            </button>
-            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20el%20Blueprint%20App%20M%C3%B3vil%20Offline-First%20($2,450%20USD)" target="_blank" rel="noopener" class="btn btn-silver w-100">
-              <i class="bi bi-whatsapp me-1"></i> Cotizar este Blueprint
-            </a>
-          </div>
-        </div>
-
-        <!-- Blueprint 4: Enterprise API Gateway & Microservicios -->
-        <div class="dev-catalog-card" data-dev-item="apis">
-          <div class="dev-blueprint-thumb">
-            <img src="assets/blueprints/api-gateway.jpg" alt="API Gateway & Microservicios" loading="lazy">
-            <span class="thumb-tag"><i class="bi bi-lightning-charge text-green me-1"></i> 18k req/s</span>
-          </div>
-          <div class="dev-blueprint-badge badge-green"><i class="bi bi-hdd-rack me-1"></i> Ultra Concurrencia</div>
-          <h3 class="dev-blueprint-title">API Gateway & Microservicios</h3>
-          <p class="dev-blueprint-desc">
-            Orquestación de alto rendimiento capaz de procesar +15,000 req/sec: balanceo de carga, rate limiting, caché distribuida con Redis y telemetría Prometheus.
-          </p>
-          <div class="dev-blueprint-tags">
-            <span class="dev-blueprint-tag">Golang / Rust</span>
-            <span class="dev-blueprint-tag">Redis Cluster</span>
-            <span class="dev-blueprint-tag">Docker / K8s</span>
-            <span class="dev-blueprint-tag">Prometheus</span>
-          </div>
-          <div class="dev-blueprint-pricing">
-            <div class="dev-price-main">$2,100 <span class="dev-price-period">USD base</span></div>
-            <div class="dev-price-sub">Aprox. C$ 76,902 NIO &bull; Despliegue en 3-5 semanas</div>
-          </div>
-          <ul class="dev-blueprint-features">
-            <li><i class="bi bi-check-circle-fill"></i> Latencia sub-15ms con compilación nativa en Go/Rust</li>
-            <li><i class="bi bi-check-circle-fill"></i> Autenticación centralizada JWT / mTLS / API Keys</li>
-            <li><i class="bi bi-check-circle-fill"></i> Circuit breaker y auto-recuperación ante fallos</li>
-            <li><i class="bi bi-check-circle-fill"></i> Documentación interactiva Swagger / OpenAPI 3.1</li>
-          </ul>
-          <div class="dev-blueprint-actions">
-            <button type="button" class="btn btn-secondary w-100 btn-ver-blueprint" data-dev-ficha="api-gateway">
-              <i class="bi bi-cpu me-1"></i> Ver Ficha Técnica Arquitectónica
-            </button>
-            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20el%20Blueprint%20API%20Gateway%20($2,100%20USD)" target="_blank" rel="noopener" class="btn btn-silver w-100">
-              <i class="bi bi-whatsapp me-1"></i> Cotizar este Blueprint
-            </a>
-          </div>
-        </div>
-
-        <!-- Blueprint 5: Portal Web Transaccional & Headless Commerce -->
-        <div class="dev-catalog-card" data-dev-item="web">
-          <div class="dev-blueprint-thumb">
-            <img src="assets/blueprints/web-transaccional.jpg" alt="E-Commerce Headless & Portal Web" loading="lazy">
-            <span class="thumb-tag"><i class="bi bi-cart4 text-cyan me-1"></i> Headless Edge</span>
-          </div>
-          <div class="dev-blueprint-badge badge-cyan"><i class="bi bi-cart4 me-1"></i> PageSpeed 99/100</div>
-          <h3 class="dev-blueprint-title">E-Commerce Headless & Portal Web</h3>
-          <p class="dev-blueprint-desc">
-            Tienda digital y portal corporativo de carga instantánea en conexiones celulares de Nicaragua. Carrito desacoplado, pasarelas BAC/Banpro y panel de gestión.
-          </p>
-          <div class="dev-blueprint-tags">
-            <span class="dev-blueprint-tag">Next.js 14</span>
-            <span class="dev-blueprint-tag">Tailwind / Vanilla CSS</span>
-            <span class="dev-blueprint-tag">BAC / Banpro API</span>
-            <span class="dev-blueprint-tag">Edge Cloudflare</span>
-          </div>
-          <div class="dev-blueprint-pricing">
-            <div class="dev-price-main">$980 <span class="dev-price-period">USD base</span></div>
-            <div class="dev-price-sub">Aprox. C$ 35,888 NIO &bull; Despliegue en 2-3 semanas</div>
-          </div>
-          <ul class="dev-blueprint-features">
-            <li><i class="bi bi-check-circle-fill"></i> Carga sub-segundo con Server-Side Rendering (SSR)</li>
-            <li><i class="bi bi-check-circle-fill"></i> Integración directa con pasarelas de pago de Nicaragua</li>
-            <li><i class="bi bi-check-circle-fill"></i> Checkout con notificación automática a WhatsApp y correo</li>
-            <li><i class="bi bi-check-circle-fill"></i> Panel de control intuitivo para agregar productos y stock</li>
-          </ul>
-          <div class="dev-blueprint-actions">
-            <button type="button" class="btn btn-secondary w-100 btn-ver-blueprint" data-dev-ficha="web-transaccional">
-              <i class="bi bi-cpu me-1"></i> Ver Ficha Técnica Arquitectónica
-            </button>
-            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20el%20Blueprint%20E-Commerce%20Headless%20($980%20USD)" target="_blank" rel="noopener" class="btn btn-silver w-100">
-              <i class="bi bi-whatsapp me-1"></i> Cotizar este Blueprint
-            </a>
-          </div>
-        </div>
-
-        <!-- Blueprint 6: Plataforma IoT Telemetría & Monitoreo Industrial -->
-        <div class="dev-catalog-card" data-dev-item="enterprise">
-          <div class="dev-blueprint-thumb">
-            <img src="assets/blueprints/iot-industrial.jpg" alt="Telemetría IoT & Control Industrial" loading="lazy">
-            <span class="thumb-tag"><i class="bi bi-broadcast text-green me-1"></i> MQTT Live</span>
-          </div>
-          <div class="dev-blueprint-badge badge-green"><i class="bi bi-broadcast-pin me-1"></i> Industria & Agro</div>
-          <h3 class="dev-blueprint-title">Telemetría IoT & Control Industrial</h3>
-          <p class="dev-blueprint-desc">
-            Captura masiva y visualización en tiempo real de variables físicas (temperatura, flujo, nivel, consumo energético, GPS de maquinaria) para agroindustrias y plantas de Occidente.
-          </p>
-          <div class="dev-blueprint-tags">
-            <span class="dev-blueprint-tag">MQTT / WebSockets</span>
-            <span class="dev-blueprint-tag">TimescaleDB</span>
-            <span class="dev-blueprint-tag">Golang / Python</span>
-            <span class="dev-blueprint-tag">Grafana / React</span>
-          </div>
-          <div class="dev-blueprint-pricing">
-            <div class="dev-price-main">$2,800 <span class="dev-price-period">USD base</span></div>
-            <div class="dev-price-sub">Aprox. C$ 102,536 NIO &bull; Despliegue en 4-6 semanas</div>
-          </div>
-          <ul class="dev-blueprint-features">
-            <li><i class="bi bi-check-circle-fill"></i> Ingesta masiva con broker MQTT optimizado para bajo ancho de banda</li>
-            <li><i class="bi bi-check-circle-fill"></i> Alertas automáticas por WhatsApp / Telegram ante valores críticos</li>
-            <li><i class="bi bi-check-circle-fill"></i> Tableros de monitoreo en tiempo real con WebSockets</li>
-            <li><i class="bi bi-check-circle-fill"></i> Históricos de series de tiempo para mantenimiento predictivo</li>
-          </ul>
-          <div class="dev-blueprint-actions">
-            <button type="button" class="btn btn-secondary w-100 btn-ver-blueprint" data-dev-ficha="iot-industrial">
-              <i class="bi bi-cpu me-1"></i> Ver Ficha Técnica Arquitectónica
-            </button>
-            <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20el%20Blueprint%20IoT%20Telemetr%C3%ADa%20($2,800%20USD)" target="_blank" rel="noopener" class="btn btn-silver w-100">
-              <i class="bi bi-whatsapp me-1"></i> Cotizar este Blueprint
-            </a>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Dossier Callout Banner Dev Studio -->
-      <div class="dev-dossier-banner">
-        <div class="dev-dossier-icon">
-          <i class="bi bi-file-earmark-code"></i>
-        </div>
-        <div class="dev-dossier-info">
-          <h4>¿Requieres presentar las especificaciones a tu CTO o Equipo de TI?</h4>
-          <p>
-            Descarga nuestro <strong>Dossier de Arquitectura & SLA 2026</strong> en formato PDF interactivo con diagramas de bloques, estándares de seguridad SOC 2, contratos de confidencialidad y matrices de rendimiento.
-          </p>
-        </div>
-        <div class="dev-dossier-btns">
-          <a href="blueprints.html" class="btn btn-silver" id="btnDescargarDossierDev" target="_blank">
-            <i class="bi bi-file-earmark-code-fill me-1"></i> Abrir Catálogo de Blueprints & SLA
-          </a>
-          <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20recibir%20el%20Dossier%20T%C3%A9cnico%20de%20Arquitectura%20en%20PDF" target="_blank" rel="noopener" class="btn btn-secondary">
-            <i class="bi bi-whatsapp me-1"></i> Solicitar por WhatsApp
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CALCULADORA INTERACTIVA DE ALCANCE Y ARQUITECTURA -->
-  <section class="section" id="estimador">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge-system">PROJECT SCOPE & BUDGET ESTIMATOR</span>
-        <h2>Calculadora de Arquitectura & Sprints</h2>
-        <p>
-          Configura los parámetros clave de tu sistema de software para proyectar de forma inmediata los sprints requeridos, la arquitectura recomendada y el rango de inversión orientativo.
+          Selecciona el tipo de solución, el tamaño de tu operación y los módulos opcionales para obtener al instante tu propuesta base, plazos de entrega e hitos de pago en USD y Córdobas (NIO).
         </p>
       </div>
 
       <div class="calc-box-master">
         <div class="calc-grid">
-          
-          <!-- Controles de Configuración Técnica -->
+          <!-- Controles de Configuración Técnica en 3 Pasos -->
           <div class="calc-inputs-col">
-            
-            <!-- Parámetro 1: Tipo de Plataforma -->
+            <!-- Paso 1: Tipo de Solución (6 Opciones Unificadas) -->
             <div class="calc-field-group">
               <div class="calc-field-label">
                 <span class="tech-step-idx">01</span>
-                <span>Tipo de Plataforma o Producto</span>
+                <span>Selecciona tu Prioridad o Tipo de Sistema</span>
               </div>
               <div class="calc-pill-options">
                 <label class="calc-label-radio">
-                  <input type="radio" name="techType" value="web" data-weeks="4" data-price="2800" data-name="Plataforma Web SaaS / Portal B2B" checked>
+                  <input type="radio" name="techType" value="erp" data-weeks="4" data-price="1850" data-name="ERP Cloud Core & Facturación DGI" checked>
                   <div class="calc-option-tile">
-                    <h5>Plataforma Web Empresarial</h5>
-                    <small>SaaS B2B, portal corporativo, panel administrativo con React/Next</small>
+                    <h5><i class="bi bi-building-gear text-cyan me-1"></i> Sistema ERP, Bodegas &amp; DGI</h5>
+                    <small>Kardex multi-sucursal, compras, CxC/CxP y contabilidad NIO/USD</small>
                   </div>
                 </label>
 
                 <label class="calc-label-radio">
-                  <input type="radio" name="techType" value="mobile" data-weeks="6" data-price="3600" data-name="App Móvil Nativa / Multiplataforma">
+                  <input type="radio" name="techType" value="mobile" data-weeks="5" data-price="2450" data-name="App Móvil Offline-First + API Sync">
                   <div class="calc-option-tile">
-                    <h5>App Móvil iOS & Android</h5>
-                    <small>Desarrollo cross-platform en Flutter con backend y API REST</small>
+                    <h5><i class="bi bi-wifi-off text-cyan me-1"></i> App Móvil Offline-First (Campo/Obra)</h5>
+                    <small>Captura en fincas u obras sin señal con SQLite local y Delta Sync</small>
                   </div>
                 </label>
 
                 <label class="calc-label-radio">
-                  <input type="radio" name="techType" value="api" data-weeks="5" data-price="3200" data-name="Arquitectura de Microservicios & APIs">
+                  <input type="radio" name="techType" value="rutas" data-weeks="5" data-price="2250" data-name="CRM Preventa en Ruta, Flotas & Cobranza">
                   <div class="calc-option-tile">
-                    <h5>Core de APIs & Microservicios</h5>
-                    <small>Backend distribuido, colas de eventos y base de datos de alta escala</small>
+                    <h5><i class="bi bi-truck text-cyan me-1"></i> CRM Preventa en Ruta &amp; Flotas</h5>
+                    <small>Vendedores GPS, límite de crédito e impresión Bluetooth en sitio</small>
                   </div>
                 </label>
 
                 <label class="calc-label-radio">
-                  <input type="radio" name="techType" value="suite" data-weeks="9" data-price="6200" data-name="Ecosistema Completo (Web + Mobile + Cloud Core)">
+                  <input type="radio" name="techType" value="pos" data-weeks="3" data-price="1450" data-name="POS Multi-Sucursal & E-Commerce">
                   <div class="calc-option-tile">
-                    <h5>Ecosistema Completo 360°</h5>
-                    <small>Web admin + Apps móviles + Backend escalable + DevOps pipeline</small>
+                    <h5><i class="bi bi-shop-window text-cyan me-1"></i> POS Rápido &amp; E-Commerce</h5>
+                    <small>Facturación mostrador, arqueo ciego y tienda web sincronizada</small>
+                  </div>
+                </label>
+
+                <label class="calc-label-radio">
+                  <input type="radio" name="techType" value="clinica" data-weeks="4" data-price="1650" data-name="Plataforma Clínica (HIS), Vet o Taller">
+                  <div class="calc-option-tile">
+                    <h5><i class="bi bi-heart-pulse text-cyan me-1"></i> Sistema Clínico, Vet o Taller</h5>
+                    <small>Expedientes digitales, citas por WhatsApp, farmacia o repuestos</small>
+                  </div>
+                </label>
+
+                <label class="calc-label-radio">
+                  <input type="radio" name="techType" value="suite" data-weeks="7" data-price="3800" data-name="Ecosistema 360° (Web + App + BI/IA)">
+                  <div class="calc-option-tile">
+                    <h5><i class="bi bi-robot text-cyan me-1"></i> Ecosistema 360°, BI &amp; Copiloto IA</h5>
+                    <small>Plataforma central + Apps móviles + Tableros gerenciales e IA</small>
                   </div>
                 </label>
               </div>
             </div>
 
-            <!-- Parámetro 2: Nivel de Escala y Concurrencia -->
+            <!-- Paso 2: Nivel de Escala (3 Columnas Limpias) -->
             <div class="calc-field-group">
               <div class="calc-field-label">
                 <span class="tech-step-idx">02</span>
-                <span>Nivel de Escala & Concurrencia Prevista</span>
+                <span>Tamaño de tu Operación</span>
               </div>
-              <div class="calc-pill-options">
+              <div class="calc-pill-options calc-scale-grid">
                 <label class="calc-label-radio">
-                  <input type="radio" name="techScale" value="mvp" data-multiplier="1.0" data-name="MVP Inicial / Validación Comercial" checked>
+                  <input type="radio" name="techScale" value="mvp" data-multiplier="1.0" data-name="1 Sede / PyME (1-10 usuarios)" checked>
                   <div class="calc-option-tile">
-                    <h5>Fase Inicial (MVP)</h5>
-                    <small>Hasta 10,000 usuarios activos, arquitectura monolito modular</small>
+                    <h5>1 Sede / PyME</h5>
+                    <small>1 a 10 usuarios activos</small>
                   </div>
                 </label>
 
                 <label class="calc-label-radio">
-                  <input type="radio" name="techScale" value="growth" data-multiplier="1.4" data-name="Crecimiento / 50k Usuarios">
+                  <input type="radio" name="techScale" value="growth" data-multiplier="1.35" data-name="Multi-Sucursal / Rutas (10-40 usuarios)">
                   <div class="calc-option-tile">
-                    <h5>Escala Media (Growth)</h5>
-                    <small>Hasta 50,000 usuarios, caché Redis y réplicas de lectura de BD</small>
+                    <h5>Multi-Sucursal / Rutas</h5>
+                    <small>10 a 40 usuarios o cuadrillas</small>
                   </div>
                 </label>
 
-                <label class="calc-label-radio" style="grid-column: span 2;">
-                  <input type="radio" name="techScale" value="enterprise" data-multiplier="1.85" data-name="Enterprise Scale (+100k Usuarios / Multi-Region)">
+                <label class="calc-label-radio">
+                  <input type="radio" name="techScale" value="enterprise" data-multiplier="1.8" data-name="Corporativo / Multi-Empresa (+40 usuarios)">
                   <div class="calc-option-tile">
-                    <h5>Escala Enterprise (+100k transacciones)</h5>
-                    <small>Kubernetes georredundante, colas Kafka, observabilidad Datadog y SLA 99.99%</small>
+                    <h5>Corporativo / Regional</h5>
+                    <small>Múltiples empresas / rubros</small>
                   </div>
                 </label>
               </div>
             </div>
 
-            <!-- Parámetro 3: Módulos Críticos Requeridos (Checkboxes) -->
-            <div class="calc-field-group">
+            <!-- Paso 3: Módulos Adicionales (Checkboxes) -->
+            <div class="calc-field-group" style="margin-bottom: 0;">
               <div class="calc-field-label">
                 <span class="tech-step-idx">03</span>
-                <span>Módulos de Arquitectura Específicos (Opcional)</span>
+                <span>Módulos Especializados Adicionales (Opcional)</span>
               </div>
               <div style="display: flex; flex-direction: column; gap: 10px;">
                 <label class="calc-label-radio">
-                  <input type="checkbox" name="techModule" value="auth" data-weeks="1" data-price="600" data-name="Autenticación SSO / OAuth2 / Biometría">
+                  <input type="checkbox" name="techModule" value="auth" data-weeks="1" data-price="600" data-name="Blindaje Anti-Fraude, Permisos por Cargo & Auditoría">
                   <div class="calc-option-tile" style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                      <h5 style="margin:0;">Autenticación Empresarial & SSO (OAuth2 / SAML / Biometría)</h5>
-                      <small>Seguridad de sesiones, 2FA, tokens JWT con rotación segura</small>
+                      <h5 style="margin:0;">Blindaje Anti-Fraude, Permisos por Cargo y Auditoría Total</h5>
+                      <small>Permisos por módulo, sucursal y bitácora inmutable de anulaciones</small>
                     </div>
-                    <span class="font-mono text-silver" style="font-size: 0.85rem;">+$600 USD</span>
+                    <span class="font-mono text-cyan" style="font-size: 0.82rem; white-space: nowrap; margin-left: 12px;">+$600 USD</span>
                   </div>
                 </label>
 
                 <label class="calc-label-radio">
-                  <input type="checkbox" name="techModule" value="payments" data-weeks="1" data-price="800" data-name="Integración Pasarelas de Pago Multi-Moneda">
+                  <input type="checkbox" name="techModule" value="payments" data-weeks="1" data-price="800" data-name="Facturación DGI / Pasarelas Bancarias">
                   <div class="calc-option-tile" style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                      <h5 style="margin:0;">Pasarela de Pagos & Facturación Automática (Stripe / BAC / PayPal)</h5>
-                      <small>Suscripciones recurrentes, webhooks de conciliación y facturación</small>
+                      <h5 style="margin:0;">Módulo Fiscal DGI / Pasarelas Bancarias (BAC / Stripe)</h5>
+                      <small>Retenciones IR/IVA, anexos tributarios o cobros en línea</small>
                     </div>
-                    <span class="font-mono text-silver" style="font-size: 0.85rem;">+$800 USD</span>
+                    <span class="font-mono text-cyan" style="font-size: 0.82rem; white-space: nowrap; margin-left: 12px;">+$800 USD</span>
                   </div>
                 </label>
 
                 <label class="calc-label-radio">
-                  <input type="checkbox" name="techModule" value="ai" data-weeks="2" data-price="1200" data-name="Módulo IA / LLM RAG Copilot">
+                  <input type="checkbox" name="techModule" value="ai" data-weeks="2" data-price="1200" data-name="Dashboards BI & Alertas WhatsApp con IA">
                   <div class="calc-option-tile" style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                      <h5 style="margin:0;">Módulo de Inteligencia Artificial (Copiloto LLM / RAG / Búsqueda Semántica)</h5>
-                      <small>Consultas inteligentes sobre base de conocimiento de la empresa</small>
+                      <h5 style="margin:0;">Tableros Ejecutivos BI &amp; Alertas en WhatsApp con IA</h5>
+                      <small>Consultas gerenciales en lenguaje natural y reportes automáticos</small>
                     </div>
-                    <span class="font-mono text-silver" style="font-size: 0.85rem;">+$1,200 USD</span>
+                    <span class="font-mono text-cyan" style="font-size: 0.82rem; white-space: nowrap; margin-left: 12px;">+$1,200 USD</span>
+                  </div>
+                </label>
+
+                <label class="calc-label-radio">
+                  <input type="checkbox" name="techModule" value="launch" data-weeks="1" data-price="350" data-name="Kit Lanzamiento Comercial (Guardabarranco Studio)">
+                  <div class="calc-option-tile" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <h5 style="margin:0;"><i class="bi bi-gem text-cyan me-1"></i> Kit de Lanzamiento Comercial (vía Guardabarranco Studio)</h5>
+                      <small>Branding, foto/dron 4K o campaña inicial de pauta para atraer clientes</small>
+                    </div>
+                    <span class="font-mono text-cyan" style="font-size: 0.82rem; white-space: nowrap; margin-left: 12px;">+$350 USD</span>
                   </div>
                 </label>
               </div>
             </div>
-
           </div>
 
           <!-- Salida de la Especificación de Arquitectura -->
           <div class="calc-output-spec">
             <div class="spec-header">
-              <h4>Blueprint Técnico</h4>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h4>Blueprint Recomendado</h4>
+                <span class="badge-tag badge-dark">100% Código Tuyo</span>
+              </div>
               <small class="font-mono" style="color: var(--silver-dark);">SPEC ID: DEV-ARC-2026</small>
             </div>
 
             <ul class="spec-list">
               <li>
-                <span>Arquitectura Base:</span>
-                <strong id="specPlatformName">Plataforma Web SaaS</strong>
+                <span>Solución Base:</span>
+                <strong id="specPlatformName">ERP Cloud Core &amp; Facturación DGI</strong>
               </li>
               <li>
                 <span>Nivel de Escala:</span>
-                <strong id="specScaleName">MVP Inicial</strong>
+                <strong id="specScaleName">1 Sede / PyME (1-10 usuarios)</strong>
               </li>
               <li>
-                <span>Stack Recomendado:</span>
-                <strong id="specStack">.NET 9 + React + Postgres</strong>
+                <span>Stack Principal:</span>
+                <strong id="specStack">.NET 9 C# + PostgreSQL 16 + React</strong>
               </li>
               <li id="specModulesRow" style="display: none;">
                 <span>Módulos Extra:</span>
                 <strong id="specModulesText">Ninguno</strong>
               </li>
               <li>
-                <span>Propiedad Intelectual:</span>
-                <strong style="color: #34D399;">100% Transferida</strong>
+                <span>Licencias Mensuales:</span>
+                <strong style="color: #34D399;">$0 / Sin cobro por usuario</strong>
               </li>
             </ul>
 
+            <div class="sw-module-pills mb-3" id="specPillsContainer">
+              <span class="sw-module-pill">Kardex Multi-Bodega</span>
+              <span class="sw-module-pill">Retenciones IR/IVA DGI</span>
+              <span class="sw-module-pill">Contabilidad NIO/USD</span>
+            </div>
+
             <div class="spec-totals">
-              <span class="font-mono" style="font-size: 0.78rem; text-transform: uppercase; color: var(--silver-dark); display: block; margin-bottom: 4px;">Plazo de Ejecución:</span>
-              <div class="spec-sprints" id="specDurationText">4 - 5 Semanas</div>
-              <div class="spec-investment" id="specInvestmentText">Inversión: $2,800 - $3,500 USD</div>
+              <span class="font-mono" style="font-size: 0.76rem; text-transform: uppercase; color: var(--silver-dark); display: block; margin-bottom: 4px;">Plazo Estimado de Entrega:</span>
+              <div class="spec-sprints" id="specDurationText">4 - 5 Semanas (~3 Sprints)</div>
+              <div class="spec-investment" id="specInvestmentText">Inversión: $1,850 - $2,300 USD</div>
+              <div class="spec-milestones-note" id="specMilestonesText">
+                Pago Seguro por Hitos (40/30/30): Inicias con ~$740 USD &bull; Pagas el resto contra demos probadas
+              </div>
+              <div class="spec-roi-anchor">
+                <i class="bi bi-graph-up-arrow text-green"></i>
+                <span>Costo de no automatizar: ~$1,500+/mes en fugas o licencias SaaS. Retorno típico: 2–4 meses.</span>
+              </div>
             </div>
 
             <button type="button" class="btn btn-silver w-100" id="btnExportSpecWsp">
-              <i class="bi bi-file-earmark-code"></i>
-              <span>Solicitar Arquitectura a Asesor</span>
+              <i class="bi bi-whatsapp"></i>
+              <span>Recibir Propuesta Formal + Diagnóstico Gratis</span>
             </button>
-            <small style="text-align: center; margin-top: 12px; color: var(--silver-dark); font-size: 0.78rem; line-height: 1.4;">
-              *Estimación basada en sprints ágiles de 2 semanas con QA automatizado y entrega continua de código.
-            </small>
+
+            <a href="#" class="spec-email-alt-link" id="btnExportSpecEmail">
+              <i class="bi bi-envelope-paper"></i> ¿Estás en computadora sin WhatsApp? Enviar cotización por correo
+            </a>
+
+            <div class="spec-guarantees-strip">
+              <span><i class="bi bi-check-circle-fill text-green"></i> 6 Meses de Garantía + Capacitación</span>
+              <span><i class="bi bi-check-circle-fill text-green"></i> Factura Fiscal DGI &bull; Contrato + NDA</span>
+              <span><i class="bi bi-check-circle-fill text-green"></i> 100% Código Tuyo desde el Sprint 1</span>
+            </div>
           </div>
-
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Metodología: The Dev Studio Blueprint -->
-  <section class="section" id="metodologia">
+  <!-- 8. FAQ & CONTACTO TÉCNICO DIRECTO -->
+  <section class="section" id="contacto">
     <div class="container">
-      <div class="section-header">
-        <span class="badge-system">ENGINEERING LIFECYCLE</span>
-        <h2>The Dev Studio Blueprint</h2>
-        <p>Un proceso estructurado para erradicar la incertidumbre técnica y garantizar entregas predecibles en tiempo y costo.</p>
-      </div>
-
-      <div class="blueprint-steps-grid">
-        <div class="blueprint-card">
-          <div class="blueprint-num">01</div>
-          <h4>Discovery & System Blueprint</h4>
-          <p>Definición de modelo de dominio, diagramas C4 de arquitectura, elección de stack y desglose granular de requerimientos.</p>
+      <!-- Preguntas Frecuentes Compactas -->
+      <div id="faq" style="margin-bottom: 72px;">
+        <div class="section-header" style="margin-bottom: 36px;">
+          <span class="badge-system">PREGUNTAS FRECUENTES</span>
+          <h2>Respuestas Claras Antes de Iniciar</h2>
         </div>
 
-        <div class="blueprint-card">
-          <div class="blueprint-num">02</div>
-          <h4>UI/UX Prototyping</h4>
-          <p>Diseño de interfaces en alta fidelidad en Figma con componentes modulares, flujos de usuario y validación de interacciones.</p>
-        </div>
-
-        <div class="blueprint-card">
-          <div class="blueprint-num">03</div>
-          <h4>Agile Sprints & CI/CD</h4>
-          <p>Desarrollo iterativo en sprints quincenales. Código desplegado automáticamente en entornos de Staging para revisión del cliente.</p>
-        </div>
-
-        <div class="blueprint-card">
-          <div class="blueprint-num">04</div>
-          <h4>Automated QA & Security</h4>
-          <p>Pruebas unitarias, de integración y estrés (k6), análisis estático de vulnerabilidades y verificación con lineamientos OWASP.</p>
-        </div>
-
-        <div class="blueprint-card">
-          <div class="blueprint-num">05</div>
-          <h4>Zero-Downtime Launch</h4>
-          <p>Puesta en producción mediante pipelines Blue/Green o Canary, monitoreo de métricas APM en tiempo real y soporte con SLA 24/7.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Comparativa: Dev Studio vs Otras Opciones -->
-  <section class="section" id="comparativa" style="border-top: 1px solid var(--silver-border);">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge-system"><i class="bi bi-shield-check text-silver me-1"></i> INDUSTRY COMPARISON</span>
-        <h2>¿Por Qué Líderes Eligen Dev Studio?</h2>
-        <p>Una comparación transparente de garantías contractuales, estándares de código y soporte técnico.</p>
-      </div>
-
-      <div class="comp-table-wrap">
-        <table class="comp-table">
-          <thead>
-            <tr>
-              <th>Criterio Técnico / Legal</th>
-              <th class="col-highlight">
-                <i class="bi bi-cpu-fill text-light me-1"></i> Dev Studio Engineering
-              </th>
-              <th>Fábricas de Software Tradicionales</th>
-              <th>Desarrolladores Freelancers</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Propiedad Intelectual & Código</strong></td>
-              <td class="col-highlight">
-                <div class="check-pass"><i class="bi bi-check-circle-fill"></i> 100% Tuya desde el Día 1 (NDA)</div>
-              </td>
-              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Licenciamiento cautivo / costos extra</div></td>
-              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Disperso sin garantías legales</div></td>
-            </tr>
-            <tr>
-              <td><strong>Deuda Técnica & Arquitectura</strong></td>
-              <td class="col-highlight">
-                <div class="check-pass"><i class="bi bi-check-circle-fill"></i> 0% Garantizado con Clean Architecture</div>
-              </td>
-              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Media/Alta (código difícil de mantener)</div></td>
-              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Crítica (reescritura obligada al año)</div></td>
-            </tr>
-            <tr>
-              <td><strong>Pruebas & Cobertura de QA</strong></td>
-              <td class="col-highlight">
-                <div class="check-pass"><i class="bi bi-check-circle-fill"></i> >85% Cobertura Automatizada (Unit/E2E)</div>
-              </td>
-              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Pruebas manuales ocasionales</div></td>
-              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Inexistentes o sin documentar</div></td>
-            </tr>
-            <tr>
-              <td><strong>SLA de Disponibilidad Contractual</strong></td>
-              <td class="col-highlight">
-                <div class="check-pass"><i class="bi bi-check-circle-fill"></i> Hasta 99.99% con penalizaciones</div>
-              </td>
-              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> "Mejor esfuerzo" sin penalización</div></td>
-              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Sin garantías de tiempo de respuesta</div></td>
-            </tr>
-            <tr>
-              <td><strong>Seguridad & Auditoría Continua</strong></td>
-              <td class="col-highlight">
-                <div class="check-pass"><i class="bi bi-check-circle-fill"></i> OWASP Top 10 + Escaneo SonarQube</div>
-              </td>
-              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Seguridad básica perimetral</div></td>
-              <td><div class="check-fail"><i class="bi bi-dash-circle"></i> Vulnerable a inyecciones y fugas</div></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- Interactive Code Architecture Showcase -->
-  <section class="section" id="codigo" style="background: #090B10; border-top: 1px solid var(--silver-border);">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge-system"><i class="bi bi-code-square text-silver me-1"></i> CODE CRAFTSMANSHIP</span>
-        <h2>Estándares de Código de Grado Enterprise</h2>
-        <p>Escribe menos, escala más. Echa un vistazo a la limpieza arquitectónica con la que construimos cada microservicio y componente.</p>
-      </div>
-
-      <div class="code-showcase-box">
-        <div class="code-viewer-bar">
-          <div class="code-tabs-nav">
-            <button type="button" class="code-tab-btn active" data-tab="csharp">
-              <i class="bi bi-microsoft me-1"></i> OrderAggregate.cs (.NET 9)
+        <div class="faq-box">
+          <div class="faq-entry">
+            <button class="faq-trigger">
+              <span>¿Quién es el dueño legal del código fuente y la base de datos?</span>
+              <i class="bi bi-chevron-down"></i>
             </button>
-            <button type="button" class="code-tab-btn" data-tab="typescript">
-              <i class="bi bi-filetype-tsx me-1"></i> api-route.ts (Next.js 15)
+            <div class="faq-body">
+              <p>
+                Tú eres el dueño absoluto al 100%. Todo el código fuente en repositorios privados (GitHub/GitLab), esquemas de bases de datos y documentación pertenecen a tu empresa bajo contrato y acuerdo de confidencialidad (NDA), sin cobros eternos por usuario.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-entry">
+            <button class="faq-trigger">
+              <span>¿Cómo funcionan los pagos y las entregas del proyecto?</span>
+              <i class="bi bi-chevron-down"></i>
             </button>
-            <button type="button" class="code-tab-btn" data-tab="terraform">
-              <i class="bi bi-cloud-arrow-up me-1"></i> cluster.tf (Terraform)
+            <div class="faq-body">
+              <p>
+                Cero anticipos a ciegas. Trabajamos bajo un esquema claro de 3 hitos verificados: <strong>40% al iniciar</strong> (con prototipo validado), <strong>30% contra demo funcional en servidor de pruebas (Staging)</strong> a mitad de proyecto y <strong>30% contra entrega en producción</strong>, código fuente y capacitación. Aceptamos transferencia bancaria local (BAC, LAFISE, Banpro, ACH).
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-entry">
+            <button class="faq-trigger">
+              <span>¿El software funciona si se va el internet en la finca, ruta o sucursal?</span>
+              <i class="bi bi-chevron-down"></i>
             </button>
+            <div class="faq-body">
+              <p>
+                Sí. Nuestras aplicaciones móviles de campo y preventa utilizan bases de datos locales encriptadas (SQLite / Drift). El personal registra operaciones normalmente sin cobertura y el sistema sincroniza todo en segundo plano al detectar red.
+              </p>
+            </div>
           </div>
-          <button type="button" class="code-copy-btn" id="btnCopyCode">
-            <i class="bi bi-clipboard"></i>
-            <span id="copyBtnText">Copiar Código</span>
-          </button>
+
+          <div class="faq-entry">
+            <button class="faq-trigger">
+              <span>¿Brindan garantía, capacitación y soporte después del lanzamiento?</span>
+              <i class="bi bi-chevron-down"></i>
+            </button>
+            <div class="faq-body">
+              <p>
+                Todos nuestros desarrollos incluyen capacitación para tu personal, manuales operativos, 6 meses de garantía técnica sobre el código entregado y planes opcionales de soporte evolutivo y monitoreo.
+              </p>
+            </div>
+          </div>
         </div>
-
-        <pre class="code-pre-block" id="codePreBlock"><code>// .NET 9 Clean Architecture Domain Entity with CQRS
-namespace DevStudio.Core.Domain.Orders;
-
-public sealed class OrderAggregate : AggregateRoot&lt;OrderId&gt;
-{
-    private readonly List&lt;OrderItem&gt; _items = new();
-    public IReadOnlyCollection&lt;OrderItem&gt; Items =&gt; _items.AsReadOnly();
-    public Money TotalAmount =&gt; _items.Aggregate(Money.Zero, (acc, item) =&gt; acc + item.Subtotal);
-
-    public Result&lt;OrderConfirmation&gt; ConfirmPayment(TransactionToken token, IPaymentGateway gateway)
-    {
-        if (Status != OrderStatus.Pending)
-            return Result.Failure&lt;OrderConfirmation&gt;(OrderErrors.InvalidTransition);
-
-        var capture = gateway.Capture(token, TotalAmount);
-        if (!capture.IsSuccess)
-            return Result.Failure&lt;OrderConfirmation&gt;(capture.Error);
-
-        Status = OrderStatus.Paid;
-        RaiseDomainEvent(new OrderPaidDomainEvent(Id, DateTime.UtcNow));
-        return Result.Success(new OrderConfirmation(Id, capture.AuthCode));
-    }
-}</code></pre>
       </div>
-    </div>
-  </section>
 
-  <!-- Casos de Estudio de Ingeniería -->
-  <section class="section" id="casos" style="background: #08090C; border-top: 1px solid var(--silver-border); border-bottom: 1px solid var(--silver-border);">
-    <div class="container">
+      <!-- Formulario de Descubrimiento Técnico (RFP) -->
       <div class="section-header">
-        <span class="badge-system">PROVEN ARCHITECTURES</span>
-        <h2>Casos de Estudio de Ingeniería</h2>
-        <p>Soluciones técnicas que procesan millones de datos y transacciones sin interrupción.</p>
-      </div>
-
-      <div class="case-study-grid">
-        
-        <!-- Caso 1: FinEdge Core -->
-        <div class="case-card">
-          <div class="case-card-header">
-            <span class="badge-system"><i class="bi bi-bank"></i> FINTECH CORE</span>
-            <span class="font-mono text-silver" style="font-size: 0.8rem;">PROCESAMIENTO DISTRIBUIDO</span>
-          </div>
-          <h3>FinEdge Core &bull; Motor Transaccional de Microfinanzas</h3>
-          <p style="color: var(--silver-mid); font-size: 0.94rem; line-height: 1.6;">
-            Arquitectura de microservicios en .NET 9 con CQRS y Event Sourcing para conciliar más de 50,000 préstamos y desembolsos diarios con contabilidad bancaria automatizada en tiempo real.
-          </p>
-          <div class="case-metric-highlight">50k req/sec &bull; 0 fallos</div>
-          <div class="case-arch-tags">
-            <span class="arch-tag">.NET 9</span>
-            <span class="arch-tag">PostgreSQL</span>
-            <span class="arch-tag">Kafka</span>
-            <span class="arch-tag">Docker / K8s</span>
-          </div>
-        </div>
-
-        <!-- Caso 2: LogiTrack Cloud -->
-        <div class="case-card">
-          <div class="case-card-header">
-            <span class="badge-system"><i class="bi bi-truck"></i> IOT & TELEMÁTICA</span>
-            <span class="font-mono text-silver" style="font-size: 0.8rem;">TELEMETRÍA EN VIVO</span>
-          </div>
-          <h3>LogiTrack Cloud &bull; Telemetría Satelital para Flota Pesada</h3>
-          <p style="color: var(--silver-mid); font-size: 0.94rem; line-height: 1.6;">
-            Plataforma IoT conectada a más de 850 unidades de transporte de carga en Centroamérica, procesando datos de sensores de combustible, temperatura de furgón y geocercas en milisegundos.
-          </p>
-          <div class="case-metric-highlight">18ms Latencia de Sensores</div>
-          <div class="case-arch-tags">
-            <span class="arch-tag">Go (Golang)</span>
-            <span class="arch-tag">MQTT</span>
-            <span class="arch-tag">TimescaleDB</span>
-            <span class="arch-tag">Mapbox GL</span>
-          </div>
-        </div>
-
-        <!-- Caso 3: HealthSync EMR -->
-        <div class="case-card">
-          <div class="case-card-header">
-            <span class="badge-system"><i class="bi bi-hospital"></i> HEALTHCARE</span>
-            <span class="font-mono text-silver" style="font-size: 0.8rem;">CUMPLIMIENTO HIPAA</span>
-          </div>
-          <h3>HealthSync EMR &bull; Expediente Clínico Hospitalario Seguro</h3>
-          <p style="color: var(--silver-mid); font-size: 0.94rem; line-height: 1.6;">
-            Sistema de registro médico interoperable con soporte para estándares FHIR / HL7, cifrado a nivel de campo en base de datos y portal de telemedicina con videollamada WebRTC encriptada.
-          </p>
-          <div class="case-metric-highlight">100% Cifrado AES-256</div>
-          <div class="case-arch-tags">
-            <span class="arch-tag">Node / NestJS</span>
-            <span class="arch-tag">React 19</span>
-            <span class="arch-tag">WebRTC</span>
-            <span class="arch-tag">AWS KMS</span>
-          </div>
-        </div>
-
-        <!-- Caso 4: AgroStream Analytics -->
-        <div class="case-card">
-          <div class="case-card-header">
-            <span class="badge-system"><i class="bi bi-cpu-fill"></i> AGROTECH AI</span>
-            <span class="font-mono text-silver" style="font-size: 0.8rem;">PREDICCIÓN CLIMÁTICA</span>
-          </div>
-          <h3>AgroStream &bull; Monitoreo Satelital de Cultivos y Cosechas</h3>
-          <p style="color: var(--silver-mid); font-size: 0.94rem; line-height: 1.6;">
-            Ingesta de imágenes multiespectrales satelitales (Sentinel-2) procesadas con redes neuronales convolucionales para alertar sobre estrés hídrico y plagas en fincas de caña y café.
-          </p>
-          <div class="case-metric-highlight">+94% Precisión en Cosecha</div>
-          <div class="case-arch-tags">
-            <span class="arch-tag">Python FastAPI</span>
-            <span class="arch-tag">PyTorch</span>
-            <span class="arch-tag">GCP BigQuery</span>
-            <span class="arch-tag">Flutter Mobile</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Security & Enterprise Compliance Seals -->
-  <section class="section" id="seguridad" style="background: #090B10; border-top: 1px solid var(--silver-border); border-bottom: 1px solid var(--silver-border);">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge-system"><i class="bi bi-shield-lock-fill text-silver me-1"></i> COMPLIANCE & SECURITY POSTURE</span>
-        <h2>Certificaciones & Blindaje de Seguridad</h2>
-        <p>Construido conforme a los más estrictos estándares internacionales de gobernanza de datos y ciberseguridad.</p>
-      </div>
-
-      <div class="security-seals-grid">
-        <div class="seal-card">
-          <div class="seal-icon-box"><i class="bi bi-patch-check-fill text-light"></i></div>
-          <h5>SOC 2 Type II</h5>
-          <small>Procesos auditados</small>
-        </div>
-
-        <div class="seal-card">
-          <div class="seal-icon-box"><i class="bi bi-shield-slash-fill text-light"></i></div>
-          <h5>OWASP Top 10</h5>
-          <small>Zero Vulnerability</small>
-        </div>
-
-        <div class="seal-card">
-          <div class="seal-icon-box"><i class="bi bi-file-earmark-lock-fill text-light"></i></div>
-          <h5>ISO/IEC 27001</h5>
-          <small>Gobernanza Cripto</small>
-        </div>
-
-        <div class="seal-card">
-          <div class="seal-icon-box"><i class="bi bi-heart-pulse-fill text-light"></i></div>
-          <h5>HIPAA Ready</h5>
-          <small>Datos Médicos Cifrados</small>
-        </div>
-
-        <div class="seal-card">
-          <div class="seal-icon-box"><i class="bi bi-key-fill text-light"></i></div>
-          <h5>AES-256 GCM</h5>
-          <small>Cifrado en Tránsito y Reposo</small>
-        </div>
-
-        <div class="seal-card">
-          <div class="seal-icon-box"><i class="bi bi-activity text-light"></i></div>
-          <h5>99.99% SLA</h5>
-          <small>Garantía Contractual</small>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Accordion -->
-  <section class="section" id="faq">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge-system">TECHNICAL FAQ</span>
-        <h2>Preguntas Frecuentes Técnicas</h2>
-        <p>Respuestas claras y directas a las preguntas que todo CTO y líder empresarial se hace.</p>
-      </div>
-
-      <div class="faq-box">
-        <div class="faq-entry">
-          <button class="faq-trigger">
-            <span>¿Quién es el dueño legal del código fuente y los derechos de propiedad intelectual?</span>
-            <i class="bi bi-chevron-down"></i>
-          </button>
-          <div class="faq-body">
-            <p>
-              Tú eres el dueño absoluto al 100%. Toda la propiedad intelectual, código fuente en repositorios privados (GitHub/GitLab), documentación de arquitectura, esquemas de bases de datos y patentes pertenecen exclusivamente a tu empresa desde el primer día bajo contrato legal y acuerdo de confidencialidad (NDA).
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-entry">
-          <button class="faq-trigger">
-            <span>¿Cómo garantizan que el software sea escalable y no requiera ser reescrito después?</span>
-            <i class="bi bi-chevron-down"></i>
-          </button>
-          <div class="faq-body">
-            <p>
-              Diseñamos aplicando Clean Architecture y Domain-Driven Design (DDD). Esto significa que la lógica de negocio está totalmente separada de la base de datos o el framework web. Si en el futuro necesitas cambiar de base de datos relacional a NoSQL o escalar a microservicios, el núcleo del software permanece intacto sin necesidad de reescribir la plataforma.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-entry">
-          <button class="faq-trigger">
-            <span>¿Cuál es el esquema de entregas y control del proyecto?</span>
-            <i class="bi bi-chevron-down"></i>
-          </button>
-          <div class="faq-body">
-            <p>
-              Trabajamos con sprints ágiles de dos semanas. Al finalizar cada sprint, te mostramos una demo funcional ejecutándose en un entorno de pruebas real (Staging) y tienes acceso total al tablero de tareas (Jira / Linear) para auditar el avance diario.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-entry">
-          <button class="faq-trigger">
-            <span>¿Ofrecen soporte continuo y acuerdos de nivel de servicio (SLA) después del lanzamiento?</span>
-            <i class="bi bi-chevron-down"></i>
-          </button>
-          <div class="faq-body">
-            <p>
-              Sí. Brindamos contratos de soporte técnico con SLA garantizado (hasta 99.99% de disponibilidad), monitoreo proactivo 24/7 con alertas automáticas (PagerDuty / Datadog), copias de seguridad georredundantes y mantenimiento preventivo continuo.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RFP / Contacto Técnico -->
-  <section class="section" id="contacto" style="background: #090B10; border-top: 1px solid var(--silver-border);">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge-system">INITIATE DISCOVERY</span>
-        <h2>Agenda una Sesión Técnica de Descubrimiento</h2>
-        <p>Cuéntanos tus requerimientos. Un Solution Architect senior evaluará la viabilidad y diseñará tu propuesta técnica en menos de 24 horas.</p>
+        <span class="badge-system">SESIÓN DE DIAGNÓSTICO GRATUITA &bull; PROTEGIDA CON NDA</span>
+        <h2>Solicita tu Auditoría de Fugas Operativas y Hoja de Ruta sin Costo</h2>
+        <p>En una sesión de 30 minutos detectamos qué cuellos de botella frenan tu rentabilidad y te entregamos en &lt;24h el mapa de solución, plazos y presupuesto cerrado.</p>
       </div>
 
       <div class="rfp-grid">
         <div class="rfp-info-box">
           <h3>Dev Studio Engineering</h3>
           <p>
-            Firma especializada en desarrollo de software a medida, arquitectura de sistemas y modernización tecnológica de alto impacto.
+            Ingeniería de software a medida, aplicaciones offline-first y sistemas empresariales diseñados para escalar con orden.
           </p>
 
           <ul class="rfp-points">
@@ -1407,53 +1428,46 @@ public sealed class OrderAggregate : AggregateRoot&lt;OrderId&gt;
               <i class="bi bi-shield-check"></i>
               <div>
                 <strong>Acuerdo de Confidencialidad (NDA)</strong>
-                <span>Firmamos NDA previo a la revisión de requerimientos confidenciales.</span>
+                <span>Protegemos tus reglas de negocio e información operativa desde la primera reunión.</span>
               </div>
             </li>
             <li>
               <i class="bi bi-terminal-split"></i>
               <div>
-                <strong>Reunión Directa con Arquitecto</strong>
-                <span>Hablas directamente con ingenieros de software, no con comerciales sin experiencia técnica.</span>
+                <strong>Trato Directo con Ingenieros</strong>
+                <span>Analizamos tu caso directamente con arquitectos de software, sin intermediarios comerciales.</span>
               </div>
             </li>
             <li>
               <i class="bi bi-clock-history"></i>
               <div>
-                <strong>Estimación en 24 Horas</strong>
-                <span>Entregamos especificación inicial, tiempos por sprint y arquitectura recomendada.</span>
+                <strong>Propuesta en &lt; 24 Horas</strong>
+                <span>Recibe alcance por etapas, tiempos estimados y presupuesto transparente en USD y NIO.</span>
               </div>
             </li>
             <li>
-              <i class="bi bi-envelope-at"></i>
+              <i class="bi bi-whatsapp"></i>
               <div>
-                <strong>Canal Seguro de Comunicación</strong>
-                <span class="font-mono">engineering@devstudio.com &bull; +505 8557 4484</span>
+                <strong>Atención Directa</strong>
+                <span class="font-mono">WhatsApp &bull; +505 8557 4484</span>
               </div>
             </li>
           </ul>
-
-          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--silver-border); border-radius: var(--radius-sm); padding: 18px;">
-            <div class="font-mono text-silver" style="font-size: 0.8rem; margin-bottom: 4px;">PGP FINGERPRINT:</div>
-            <div class="font-mono" style="font-size: 0.75rem; color: var(--silver-mid); word-break: break-all;">
-              4E8A 91C2 0B3F 7D6E 5A1C  84F0 3E2B 9D7A 1C5F 2B8E
-            </div>
-          </div>
         </div>
 
         <div class="rfp-form-box">
-          <h4 style="font-size: 1.3rem; margin-bottom: 20px;">Solicitud de Propuesta Técnica (RFP)</h4>
+          <h4 style="font-size: 1.3rem; margin-bottom: 20px;">Reserva tu Diagnóstico + Presupuesto en Menos de 24h</h4>
 
-          <form id="rfpForm">
+          <form id="rfpForm" novalidate>
             <div class="form-group">
-              <label class="form-label" for="rfpNombre">Nombre del Contacto & Empresa *</label>
-              <input type="text" id="rfpNombre" class="form-control" placeholder="Ej. Ing. Martín Rivas / Banco Pacífico" required>
+              <label class="form-label" for="rfpNombre">Nombre del Contacto &amp; Empresa *</label>
+              <input type="text" id="rfpNombre" class="form-control" placeholder="Ej. Ing. Martín Rivas / Agroservicios del Norte" required>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-row-2">
               <div class="form-group">
-                <label class="form-label" for="rfpEmail">Correo Corporativo *</label>
-                <input type="email" id="rfpEmail" class="form-control" placeholder="mrivas@empresa.com" required>
+                <label class="form-label" for="rfpEmail">Correo Electrónico</label>
+                <input type="email" id="rfpEmail" class="form-control" placeholder="mrivas@empresa.com">
               </div>
               <div class="form-group">
                 <label class="form-label" for="rfpTel">Teléfono / WhatsApp *</label>
@@ -1462,29 +1476,34 @@ public sealed class OrderAggregate : AggregateRoot&lt;OrderId&gt;
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="rfpTipo">Tipo de Proyecto Requerido</label>
+              <label class="form-label" for="rfpTipo">Tipo de Sistema Requerido</label>
               <select id="rfpTipo" class="form-control" style="background:#090B10; color:#FFF;">
-                <option value="saas">Plataforma Web SaaS / Portal Corporativo</option>
-                <option value="mobile">Aplicación Móvil iOS / Android</option>
-                <option value="api">Arquitectura de Microservicios & APIs</option>
-                <option value="legacy">Modernización de Sistema Legacy</option>
-                <option value="squad">Squad de Ingeniería Dedicado</option>
+                <option value="erp">Sistema ERP / Inventario / Facturación DGI</option>
+                <option value="mobile">App Móvil Offline-First (Campo / Rutas)</option>
+                <option value="saas">Plataforma Web / POS / E-Commerce</option>
+                <option value="api">Integración de Sistemas / BI / IA</option>
+                <option value="custom">Otro Proyecto a Medida</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="rfpDescripcion">Descripción del Problema o Requerimiento Técnico</label>
-              <textarea id="rfpDescripcion" class="form-control" placeholder="Describe brevemente qué debe resolver el sistema, número estimado de usuarios o tecnologías existentes..."></textarea>
+              <label class="form-label" for="rfpDescripcion">¿Qué proceso deseas mejorar o automatizar?</label>
+              <textarea id="rfpDescripcion" class="form-control" placeholder="Describe brevemente tu operación, usuarios aproximados o el problema principal a resolver..."></textarea>
             </div>
 
             <button type="submit" class="btn btn-silver w-100" id="btnSubmitRfp">
-              <i class="bi bi-send"></i>
-              <span>Enviar Especificación a Arquitectura</span>
+              <i class="bi bi-whatsapp"></i>
+              <span>Obtener Mi Diagnóstico y Cotización Gratis</span>
             </button>
 
-            <div class="rfp-feedback-msg" id="rfpFeedback">
+            <div class="form-error-msg" id="rfpError" role="alert" hidden></div>
+
+            <div class="rfp-feedback-msg" id="rfpFeedback" role="status">
               <i class="bi bi-check-circle-fill"></i>
-              <span>Especificación técnica recibida. Un Solution Architect senior se pondrá en contacto contigo en las próximas 4 horas hábiles.</span>
+              <span>
+                Listo. Abrimos WhatsApp con tu solicitud sin borrar tus datos.
+                Si estás en PC sin WhatsApp, <a href="#" id="rfpWspFallback" target="_blank" rel="noopener"><strong>abre aquí en web</strong></a> o <a href="#" id="rfpEmailFallback"><strong>envíalo por Correo Corporativo</strong></a>.
+              </span>
             </div>
           </form>
         </div>
@@ -1492,62 +1511,58 @@ public sealed class OrderAggregate : AggregateRoot&lt;OrderId&gt;
     </div>
   </section>
 
-  <!-- Footer Monocromático de Alta Fidelidad -->
+  <!-- Footer Corporativo -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <img src="logo.svg" alt="Dev Studio Logo" style="height: 44px; margin-bottom: 18px;">
-          <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
-            Firma de ingeniería de software a medida, arquitectura cloud distribuida y modernización de sistemas de misión crítica.
+          <img src="logo.svg" alt="Dev Studio Logo" style="height: 42px; margin-bottom: 16px;">
+          <p style="font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px;">
+            Firma de ingeniería de software a medida, aplicaciones móviles offline-first y arquitectura cloud para empresas.
           </p>
           <div class="badge-system mb-3">
             <span class="live-indicator-dot"></span>
-            <span>PROPRIETARY SOURCE CODE ENGINE</span>
-          </div>
-          <!-- Canales Oficiales para Developers -->
-          <div class="footer-social-links">
-            <a href="https://github.com" target="_blank" rel="noopener" class="dev-social-btn" aria-label="GitHub"><i class="bi bi-github"></i></a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener" class="dev-social-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-            <a href="https://discord.com" target="_blank" rel="noopener" class="dev-social-btn" aria-label="Discord"><i class="bi bi-discord"></i></a>
-            <a href="https://telegram.org" target="_blank" rel="noopener" class="dev-social-btn" aria-label="Telegram"><i class="bi bi-telegram"></i></a>
-            <a href="https://wa.me/50585574484" target="_blank" rel="noopener" class="dev-social-btn" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+            <span>CÓDIGO LIMPIO &bull; 100% TU IP</span>
           </div>
         </div>
 
         <div class="footer-col">
-          <h5>Capacidades</h5>
+          <h5>Navegación</h5>
           <ul class="footer-links">
-            <li><a href="#capacidades"><i class="bi bi-terminal me-1"></i> Sistemas Core Enterprise</a></li>
-            <li><a href="#capacidades"><i class="bi bi-browser-chrome me-1"></i> Desarrollo Web & SaaS</a></li>
-            <li><a href="#capacidades"><i class="bi bi-phone me-1"></i> Apps Móviles Nativas</a></li>
-            <li><a href="#capacidades"><i class="bi bi-hdd-network me-1"></i> APIs & Microservicios</a></li>
-            <li><a href="#capacidades"><i class="bi bi-shield-check me-1"></i> Auditoría de Seguridad</a></li>
-            <li><a href="#capacidades"><i class="bi bi-people me-1"></i> Staff Augmentation</a></li>
+            <li><a href="index.html"><i class="bi bi-house-door me-1"></i> Inicio</a></li>
+            <li><a href="soluciones-software.html"><i class="bi bi-layers me-1"></i> Soluciones (8 Familias)</a></li>
+            <li><a href="industrias.html"><i class="bi bi-buildings me-1"></i> Industrias (8 Sectores)</a></li>
+            <li><a href="impacto-roi.html"><i class="bi bi-graph-up-arrow me-1"></i> Impacto Operativo &amp; ROI</a></li>
+            <li><a href="blueprints.html"><i class="bi bi-file-earmark-code me-1"></i> Dossier Blueprints &amp; SLA</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
-          <h5>Stack Tecnológico</h5>
+          <h5>Sistemas Destacados</h5>
           <ul class="footer-links">
-            <li><a href="#stack"><i class="bi bi-code-slash me-1"></i> .NET 9 / C#</a></li>
-            <li><a href="#stack"><i class="bi bi-lightning-charge me-1"></i> React 19 & Next.js</a></li>
-            <li><a href="#stack"><i class="bi bi-phone-flip me-1"></i> Flutter & Dart</a></li>
-            <li><a href="#stack"><i class="bi bi-boxes me-1"></i> Docker & Kubernetes</a></li>
-            <li><a href="#stack"><i class="bi bi-database me-1"></i> PostgreSQL & Redis</a></li>
-            <li><a href="#stack"><i class="bi bi-cpu me-1"></i> AI & Vector Embeddings</a></li>
+            <li><a href="soluciones-software.html#sw-erp"><i class="bi bi-building-gear me-1"></i> ERP &amp; Facturación DGI</a></li>
+            <li><a href="soluciones-software.html#sw-offline"><i class="bi bi-wifi-off me-1"></i> Apps Móviles Offline-First</a></li>
+            <li><a href="soluciones-software.html#sw-crm"><i class="bi bi-truck me-1"></i> CRM &amp; Preventa en Ruta</a></li>
+            <li><a href="soluciones-software.html#sw-his"><i class="bi bi-heart-pulse me-1"></i> Clínicas &amp; Veterinarias</a></li>
+            <li><a href="soluciones-software.html#sw-ai"><i class="bi bi-robot me-1"></i> BI, IoT &amp; Copilotos IA</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
-          <h5>Agencia Creativa Aliada</h5>
-          <p style="font-size: 0.88rem; margin-bottom: 14px; color: var(--silver-mid);">
-            ¿Necesitas branding, estrategia publicitaria o pauta de marketing masiva?
+          <h5>Ecosistema Aliado</h5>
+          <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--silver-mid);">
+            ¿Buscas branding, producción audiovisual con dron 4K o marketing digital?
           </p>
-          <a href="../GUARDABARRANCO%20STUDIO/index.html" class="btn btn-outline-silver" style="font-size: 0.82rem; padding: 8px 14px;">
-            <i class="bi bi-gem"></i>
-            <span>Conoce Guardabarranco Studio</span>
-          </a>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="../GUARDABARRANCO%20STUDIO/index.html" class="btn btn-outline-silver" style="font-size: 0.82rem; padding: 8px 14px;">
+              <i class="bi bi-gem"></i>
+              <span>Guardabarranco Studio</span>
+            </a>
+            <a href="../index.html" class="btn btn-outline-silver" style="font-size: 0.82rem; padding: 8px 14px;">
+              <i class="bi bi-grid-fill"></i>
+              <span>Portal Hub Ecosistema</span>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -1555,9 +1570,8 @@ public sealed class OrderAggregate : AggregateRoot&lt;OrderId&gt;
         <div>
           &copy; 2026 Dev Studio Engineering. Todos los derechos reservados.
         </div>
-        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
-          <a href="#inicio" style="color: var(--silver-mid);">Security Disclosure</a>
-          <a href="#inicio" style="color: var(--silver-mid);">Service Level Agreement (SLA)</a>
+        <div>
+          <a href="#inicio" style="color: var(--silver-mid);"><i class="bi bi-arrow-up-circle me-1"></i>Volver arriba</a>
         </div>
       </div>
     </div>
@@ -1573,16 +1587,55 @@ public sealed class OrderAggregate : AggregateRoot&lt;OrderId&gt;
         </div>
         <button type="button" class="dev-modal-close" id="closeDevCatalogModal" aria-label="Cerrar modal">&times;</button>
       </div>
-      <div class="dev-modal-body" id="devModalContent">
-        <!-- Renderizado dinámicamente con JavaScript -->
+      <div class="dev-modal-body" id="devModalContent"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Engineering Speed-Dial Widget -->
+  <div class="tech-widget-box" id="devTechWidget">
+    <div class="tech-widget-header">
+      <div class="tech-widget-avatar">
+        <i class="bi bi-cpu-fill"></i>
+      </div>
+      <div class="tech-widget-info">
+        <h5>Dev Studio Engineering Desk</h5>
+        <small><span class="live-indicator-dot" style="width:6px;height:6px;"></span> Arquitectos en línea &bull; NDA activo</small>
+      </div>
+      <button type="button" id="closeDevTechWidget" style="background:none;border:none;color:var(--silver-mid);font-size:1.3rem;margin-left:auto;cursor:pointer;line-height:1;" aria-label="Cerrar panel">&times;</button>
+    </div>
+    <div class="tech-widget-body">
+      <div class="tech-widget-msg">
+        ¿Qué área de tu empresa necesitas blindar o agilizar hoy? Habla directo con un Arquitecto:
+      </div>
+      <div class="tech-widget-options">
+        <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20evaluar%20un%20sistema%20ERP%20o%20Core%20Empresarial%20a%20medida" target="_blank" rel="noopener" class="tech-widget-btn">
+          <i class="bi bi-building-gear"></i>
+          <span>Sistema ERP / Facturación DGI</span>
+        </a>
+        <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20me%20interesa%20desarrollar%20una%20App%20M%C3%B3vil%20Offline-First%20(iOS/Android)" target="_blank" rel="noopener" class="tech-widget-btn">
+          <i class="bi bi-phone-flip"></i>
+          <span>App Móvil Offline-First (Campo/Rutas)</span>
+        </a>
+        <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20quiero%20cotizar%20una%20Plataforma%20Web%20SaaS%20o%20Portal%20Transaccional" target="_blank" rel="noopener" class="tech-widget-btn">
+          <i class="bi bi-cloud-check"></i>
+          <span>Tienda Web / Portal B2B</span>
+        </a>
+        <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20deseo%20agendar%20mi%20Diagn%C3%B3stico%20Gratis%20de%2030%20min%20bajo%20NDA" target="_blank" rel="noopener" class="tech-widget-btn">
+          <i class="bi bi-shield-lock"></i>
+          <span>Agendar Diagnóstico Gratis de 30 min (NDA)</span>
+        </a>
+        <a href="../GUARDABARRANCO%20STUDIO/index.html" class="tech-widget-btn">
+          <i class="bi bi-gem"></i>
+          <span>Web Corporativa, Marca o Pauta (Guardabarranco Studio)</span>
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- Floating Tech WhatsApp FAB -->
-  <a href="https://wa.me/50585574484?text=Hola%20Dev%20Studio,%20vi%20su%20p%C3%A1gina%20web%20y%20deseo%20evaluar%20un%20proyecto%20de%20software" class="tech-fab-wsp" target="_blank" aria-label="Contacto Técnico Directo">
+  <!-- Floating Tech WhatsApp FAB Trigger -->
+  <button type="button" class="tech-fab-wsp" id="devFabTrigger" aria-label="Abrir consola de contacto técnico" style="cursor:pointer;">
     <i class="bi bi-whatsapp"></i>
-  </a>
+  </button>
 
   <!-- Script Principal -->
   <script src="script.js"></script>
