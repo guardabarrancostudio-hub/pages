@@ -13,6 +13,7 @@
 
   const STORAGE_KEY = 'yademarStoreState_v2';
   const ADMIN_SESSION_KEY = 'yademarAdminSession_v2';
+  const ADMIN_HANDOFF_KEY = 'yademarAdminHandoff_v1';
 
   const IMG_FALLBACK_SVG =
     'data:image/svg+xml;charset=UTF-8,' +
@@ -195,7 +196,9 @@
   let state = {
     data: null,
     currency: 'NIO',
-    activeClientUserId: 'U-CLI-01',
+    // Sesiones estrictamente en memoria por carga de página (pide validación en cada acceso/recarga)
+    activeClientUserId: null,
+    activeAdminUserId: null,
     cart: [],
     appliedGiftCard: null,
     deletedProductIds: [],
@@ -393,10 +396,9 @@
     if (!state.data) return;
     try {
       const payload = {
-        version: 3,
+        version: 4,
         updatedAt: new Date().toISOString(),
         currency: state.currency,
-        activeClientUserId: state.activeClientUserId,
         cart: state.cart,
         appliedGiftCard: state.appliedGiftCard,
         ultimoFolio: state.data.config.ultimoFolio,
@@ -471,24 +473,33 @@
       state.deletedProductIds = Array.isArray(saved.deletedProductIds) ? saved.deletedProductIds : [];
       state.customProducts = Array.isArray(saved.customProducts) ? saved.customProducts : [];
       state.editedProducts = saved.editedProducts && typeof saved.editedProducts === 'object' ? saved.editedProducts : {};
-      state.activeClientUserId = saved.activeClientUserId || 'U-CLI-01';
     } else {
       merged.usuarios = mergeUsers(merged.usuarios, []);
       merged.productos = merged.productos.map(normalizeProduct);
       state.currency = 'NIO';
       state.cart = [];
       state.appliedGiftCard = null;
-      state.activeClientUserId = 'U-CLI-01';
+    }
+
+    // Limpiar cualquier sesión persistida antigua para exigir validación en cada visita
+    try {
+      if (global.localStorage) global.localStorage.removeItem(ADMIN_SESSION_KEY);
+    } catch (_) {
+      // Ignore
     }
 
     state.data = merged;
 
-    const clientMatch = state.data.usuarios.find(
-      (u) => u.id === state.activeClientUserId && u.rol === 'cliente'
-    );
-    if (!clientMatch) {
-      const defClient = getDefaultClientUser();
-      state.activeClientUserId = defClient ? defClient.id : null;
+    // Verificar que las sesiones en memoria (si ya se validaron en esta pestaña) sigan existiendo
+    if (state.activeClientUserId) {
+      const stillExists = state.data.usuarios.some((u) => u.id === state.activeClientUserId);
+      if (!stillExists) state.activeClientUserId = null;
+    }
+    if (state.activeAdminUserId) {
+      const stillAdmin = state.data.usuarios.some(
+        (u) => u.id === state.activeAdminUserId && u.rol === 'admin'
+      );
+      if (!stillAdmin) state.activeAdminUserId = null;
     }
 
     const allCards = getAllGiftCards();
@@ -524,13 +535,31 @@
     return matched || null;
   }
 
-  // ---- Sesión y CRUD Clientes ----
+  // ---- Sesión y CRUD Clientes (validación obligatoria por carga) ----
   function getActiveClientUser() {
-    if (!state.data) return null;
-    return (
-      state.data.usuarios.find((u) => u.id === state.activeClientUserId) ||
-      getDefaultClientUser()
-    );
+    if (!state.data || !state.activeClientUserId) return null;
+    return state.data.usuarios.find((u) => u.id === state.activeClientUserId) || null;
+  }
+
+  function isClientAuthenticated() {
+    return Boolean(getActiveClientUser());
+  }
+
+  function loginClient(identifier, pin) {
+    const user = authenticate(identifier, pin);
+    if (!user) {
+      return { ok: false, error: 'Usuario o PIN incorrecto. Verifica tus credenciales.' };
+    }
+    if (user.rol === 'admin') {
+      createAdminHandoff(user.id);
+      return { ok: true, isAdmin: true, user };
+    }
+    state.activeClientUserId = user.id;
+    return { ok: true, isAdmin: false, user };
+  }
+
+  function logoutClient() {
+    state.activeClientUserId = null;
   }
 
   function getUserById(userId) {
@@ -543,19 +572,14 @@
     const found = state.data.usuarios.find((u) => u.id === userId);
     if (found) {
       state.activeClientUserId = found.id;
-      persistState();
       return found;
     }
     return null;
   }
 
   function resetClientToDefault() {
-    const def = getDefaultClientUser();
-    if (def) {
-      state.activeClientUserId = def.id;
-      persistState();
-    }
-    return def;
+    state.activeClientUserId = null;
+    return null;
   }
 
   function registerClientUser({ nombre, correo, pin, ciudad, direccion, telefono }, options) {
@@ -678,16 +702,48 @@
     return { ok: true };
   }
 
-  // ---- Sesión Administrador ----
-  function getAdminSessionUser() {
+  // ---- Sesión Administrador (en memoria por carga + handoff de un solo uso) ----
+  function createAdminHandoff(userId) {
+    try {
+      if (global.sessionStorage) {
+        global.sessionStorage.setItem(
+          ADMIN_HANDOFF_KEY,
+          JSON.stringify({ userId, ts: Date.now() })
+        );
+      }
+    } catch (_) {
+      // Ignore
+    }
+  }
+
+  function consumeAdminHandoff() {
     if (!state.data) return null;
     try {
-      const savedId = global.localStorage && global.localStorage.getItem(ADMIN_SESSION_KEY);
-      if (!savedId) return null;
-      return state.data.usuarios.find((u) => u.id === savedId && u.rol === 'admin') || null;
+      if (!global.sessionStorage) return null;
+      const raw = global.sessionStorage.getItem(ADMIN_HANDOFF_KEY);
+      global.sessionStorage.removeItem(ADMIN_HANDOFF_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed || !parsed.userId || Date.now() - Number(parsed.ts || 0) > 15000) {
+        return null;
+      }
+      const admin = state.data.usuarios.find((u) => u.id === parsed.userId && u.rol === 'admin');
+      if (admin) {
+        state.activeAdminUserId = admin.id;
+        return admin;
+      }
+      return null;
     } catch (_) {
       return null;
     }
+  }
+
+  function getAdminSessionUser() {
+    if (!state.data || !state.activeAdminUserId) return null;
+    return (
+      state.data.usuarios.find((u) => u.id === state.activeAdminUserId && u.rol === 'admin') ||
+      null
+    );
   }
 
   function isAdminAuthenticated() {
@@ -705,21 +761,14 @@
         error: 'Esta cuenta tiene rol Cliente. Solo cuentas con rol Administrador pueden acceder al panel.',
       };
     }
-    try {
-      if (global.localStorage) {
-        global.localStorage.setItem(ADMIN_SESSION_KEY, user.id);
-      }
-    } catch (_) {
-      // Ignore
-    }
+    state.activeAdminUserId = user.id;
     return { ok: true, user };
   }
 
   function logoutAdmin() {
+    state.activeAdminUserId = null;
     try {
-      if (global.localStorage) {
-        global.localStorage.removeItem(ADMIN_SESSION_KEY);
-      }
+      if (global.sessionStorage) global.sessionStorage.removeItem(ADMIN_HANDOFF_KEY);
     } catch (_) {
       // Ignore
     }
@@ -1251,6 +1300,9 @@
     authenticate,
     // Cliente & CRUD Clientes
     getActiveClientUser,
+    isClientAuthenticated,
+    loginClient,
+    logoutClient,
     getUserById,
     setActiveClientUser,
     resetClientToDefault,
@@ -1260,6 +1312,7 @@
     deleteClientUser,
     toggleFavorite,
     // Admin
+    consumeAdminHandoff,
     getAdminSessionUser,
     isAdminAuthenticated,
     loginAdmin,

@@ -875,18 +875,16 @@
         err.classList.add('d-none');
         const idVal = $('cliLoginId').value;
         const pinVal = $('cliLoginPin').value;
-        const matched = Store.authenticate(idVal, pinVal);
-        if (!matched) {
-          err.textContent = 'Correo/usuario o PIN incorrecto.';
+        const res = Store.loginClient(idVal, pinVal);
+        if (!res.ok) {
+          err.textContent = res.error;
           err.classList.remove('d-none');
           return;
         }
-        if (matched.rol === 'admin') {
-          Store.loginAdmin(idVal, pinVal);
+        if (res.isAdmin) {
           window.location.href = 'admin.html';
           return;
         }
-        Store.setActiveClientUser(matched.id);
         loginForm.reset();
         renderAccountModal();
         renderCatalog();
@@ -894,7 +892,22 @@
         if (ordersTabBtn && window.bootstrap) {
           window.bootstrap.Tab.getOrCreateInstance(ordersTabBtn).show();
         }
-        Store.showToast(`Sesión iniciada como ${matched.nombre}`, 'success');
+        Store.showToast(`Sesión iniciada como ${res.user.nombre}`, 'success');
+      });
+    }
+
+    // Cerrar sesión cliente y volver a la pantalla de validación
+    const btnLogout = $('btnClientLogout');
+    if (btnLogout) {
+      btnLogout.addEventListener('click', () => {
+        const accModal = $('ydAccountModal');
+        if (accModal && window.bootstrap) {
+          const inst = window.bootstrap.Modal.getInstance(accModal);
+          if (inst) inst.hide();
+        }
+        Store.logoutClient();
+        syncClientAccessGate();
+        Store.showToast('Sesión cerrada. Valida tu usuario para volver a ingresar.');
       });
     }
 
@@ -934,6 +947,86 @@
     }
   }
 
+  // ---- Puerta de Validación Obligatoria en Cada Acceso ----
+  function syncClientAccessGate() {
+    const gate = $('ydUserAccessGate');
+    const app = $('ydClientApp');
+    if (!gate || !app) return;
+
+    if (Store.isClientAuthenticated()) {
+      gate.classList.add('d-none');
+      app.classList.remove('d-none');
+      syncCurrencyButtons();
+      renderSeasons();
+      renderCatalog();
+      renderBag();
+      renderAccountModal();
+    } else {
+      app.classList.add('d-none');
+      gate.classList.remove('d-none');
+      const idInput = $('gateLoginId');
+      if (idInput) idInput.focus();
+    }
+  }
+
+  function bindAccessGateForms() {
+    const gateLoginForm = $('gateLoginForm');
+    if (gateLoginForm) {
+      gateLoginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const err = $('gateLoginError');
+        err.classList.add('d-none');
+        const idVal = $('gateLoginId').value;
+        const pinVal = $('gateLoginPin').value;
+
+        const res = Store.loginClient(idVal, pinVal);
+        if (!res.ok) {
+          err.textContent = res.error;
+          err.classList.remove('d-none');
+          return;
+        }
+
+        gateLoginForm.reset();
+        if (res.isAdmin) {
+          window.location.href = 'admin.html';
+          return;
+        }
+
+        syncClientAccessGate();
+        Store.showToast(`Bienvenido(a), ${res.user.nombre}`, 'success');
+      });
+    }
+
+    const gateRegForm = $('gateRegisterForm');
+    if (gateRegForm) {
+      gateRegForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const err = $('gateRegError');
+        err.classList.add('d-none');
+
+        const res = Store.registerClientUser({
+          nombre: $('gateRegName').value,
+          correo: $('gateRegEmail').value,
+          telefono: $('gateRegPhone').value,
+          ciudad: $('gateRegCity').value,
+          direccion: $('gateRegAddress').value,
+          pin: $('gateRegPin').value,
+        });
+
+        if (!res.ok) {
+          err.textContent = res.error;
+          err.classList.remove('d-none');
+          return;
+        }
+
+        gateRegForm.reset();
+        if ($('gateRegCity')) $('gateRegCity').value = 'Chinandega';
+        syncClientAccessGate();
+        Store.showToast(`¡Cuenta creada! Bienvenido(a), ${res.user.nombre}`, 'success');
+      });
+    }
+  }
+
   async function boot() {
     await Store.initStore();
 
@@ -945,7 +1038,7 @@
     }
 
     initGlobalInteractions();
-    syncCurrencyButtons();
+    bindAccessGateForms();
     bindCurrencySwitchers();
     bindCatalogControls();
     bindQuickViewActions();
@@ -953,17 +1046,17 @@
     bindBagActions();
     bindAccountForms();
 
-    renderSeasons();
-    renderCatalog();
-    renderBag();
-    renderAccountModal();
+    // Exigir validación de usuario en cada carga de página
+    syncClientAccessGate();
 
     Store.subscribeExternalSync(() => {
-      syncCurrencyButtons();
-      renderSeasons();
-      renderCatalog();
-      renderBag();
-      renderAccountModal();
+      if (Store.isClientAuthenticated()) {
+        syncCurrencyButtons();
+        renderSeasons();
+        renderCatalog();
+        renderBag();
+        renderAccountModal();
+      }
     });
   }
 

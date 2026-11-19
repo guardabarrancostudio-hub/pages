@@ -1161,6 +1161,8 @@
   // ---- Inicialización Vista Admin ----
   async function boot() {
     await Store.initStore();
+    // Consumir token de un solo uso si viene recién validado desde index.html; en cualquier recarga exige validación
+    Store.consumeAdminHandoff();
 
     // Inicializar valores por defecto en el estudio de tarjetas
     const folioInput = $('gcFolio');
